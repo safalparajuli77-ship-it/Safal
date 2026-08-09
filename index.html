@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safal Parajuli — Personal Website Preview</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;700;800;900&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100%;background:#f1efe9;color:#111}
+body{font-family:Inter,sans-serif;overflow:hidden;cursor:none}
+
+.cursor{
+  position:fixed;left:0;top:0;width:18px;height:18px;border:1px solid #111;
+  border-radius:50%;pointer-events:none;z-index:1000;
+  transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;
+}
+.cursor.active{width:52px;height:52px;background:#d6ff00;border-color:#111}
+
+nav{
+  position:fixed;top:0;left:0;width:100%;padding:24px 28px;
+  display:flex;justify-content:space-between;z-index:20;
+  font:12px "DM Mono",monospace;text-transform:uppercase;letter-spacing:.08em;
+}
+nav a{color:#111;text-decoration:none}
+
+.hero{
+  height:100vh;position:relative;display:flex;align-items:center;
+  justify-content:center;overflow:hidden;
+}
+.hero-name{max-width:46vw;text-align:left;
+  position:relative;z-index:12;text-align:center;
+  font-size:clamp(52px,8.6vw,142px);line-height:.82;
+  letter-spacing:-.09em;font-weight:900;text-transform:uppercase;
+  user-select:none;
+}
+.hero-name span{
+  display:inline-block;transition:transform .18s ease,color .18s ease;
+}
+.hero-name:hover span{color:#555}
+.hero-name .active-letter{
+  color:#111;
+  transform:translateY(-12px) rotate(-2deg);
+}
+
+.counter{
+  position:fixed;z-index:50;display:none;
+  width:290px;padding:17px 18px;background:#111;color:#f1efe9;
+  box-shadow:10px 10px 0 #d6ff00;
+  pointer-events:none;
+}
+.counter.show{display:block}
+.counter-label{
+  font:10px "DM Mono",monospace;text-transform:uppercase;
+  letter-spacing:.13em;color:#aaa;margin-bottom:10px;
+}
+.counter-date{
+  font:11px "DM Mono",monospace;color:#d6ff00;margin-bottom:13px;
+}
+.counter-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+}
+.unit strong{
+  display:block;font-size:25px;line-height:1;font-weight:800;
+}
+.unit small{
+  display:block;margin-top:5px;color:#888;
+  font:9px "DM Mono",monospace;text-transform:uppercase;
+}
+
+.hint{
+  position:absolute;bottom:42px;left:50%;transform:translateX(-50%);
+  font:11px "DM Mono",monospace;text-align:center;
+  opacity:.55;z-index:5;
+}
+
+.orbit{
+  position:absolute;border:1px solid #111;border-radius:50%;
+  pointer-events:none;
+}
+.o1{width:48vw;height:48vw;animation:spin 28s linear infinite}
+.o2{width:72vw;height:72vw;border-style:dashed;animation:spin 42s linear infinite reverse}
+.dot{
+  position:absolute;width:120px;height:120px;border-radius:50%;
+  background:#ff4b16;right:13%;top:19%;
+  animation:float 5s ease-in-out infinite;
+}
+.square{
+  position:absolute;width:170px;height:170px;background:#d6ff00;
+  left:10%;bottom:12%;transform:rotate(18deg);
+  animation:float2 6s ease-in-out infinite;
+}
+.plus{
+  position:absolute;left:18%;top:23%;font-size:120px;font-weight:900;
+  animation:float 7s ease-in-out infinite reverse;
+}
+.corner{
+  position:absolute;right:28px;bottom:28px;
+  font:11px "DM Mono",monospace;line-height:1.6;text-align:right;
+}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{50%{transform:translateY(-28px)}}
+@keyframes float2{50%{transform:translate(22px,-18px) rotate(35deg)}}
+
+@media(max-width:700px){
+  body{cursor:auto}
+  .cursor{display:none}
+  nav{padding:18px}
+  .hero-name{max-width:58vw;text-align:left;font-size:15vw;padding:20px}
+  .orbit.o1{width:75vw;height:75vw}
+  .orbit.o2{width:115vw;height:115vw}
+  .dot{width:80px;height:80px}
+  .square{width:100px;height:100px}
+  .plus{font-size:80px}
+  .hint{bottom:65px;width:90%}
+}
+
+/* ===== PHOTO / RELATIVISTIC FIELD ===== */
+.photo-field{
+  position:absolute;
+  width:min(31vw,430px);
+  aspect-ratio:4/5;
+  right:7vw;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:4;
+  perspective:1000px;
+}
+.photo-frame{
+  position:relative;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#171717;
+  border:1px solid rgba(255,255,255,.25);
+  transform-style:preserve-3d;
+  transition:transform .12s ease-out;
+  box-shadow:0 30px 80px rgba(0,0,0,.16);
+}
+.photo-frame::before{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  background:radial-gradient(circle at 50% 45%,transparent 20%,rgba(0,0,0,.8) 72%);
+  z-index:3;
+  pointer-events:none;
+}
+.photo-frame::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(110deg,rgba(255,255,255,.16),transparent 25%,transparent 70%,rgba(255,255,255,.08));
+  mix-blend-mode:screen;
+  z-index:4;
+  pointer-events:none;
+}
+.photo-placeholder{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+  color:#f1efe9;
+  font:11px "DM Mono",monospace;
+  line-height:1.8;
+  letter-spacing:.08em;
+  background:
+    radial-gradient(circle at 50% 45%,#555 0,#242424 30%,#111 72%);
+}
+.photo-placeholder strong{
+  display:block;
+  font-family:Inter,sans-serif;
+  font-size:clamp(30px,4vw,60px);
+  line-height:.8;
+  letter-spacing:-.08em;
+  margin-bottom:22px;
+}
+.photo-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:none;
+  transform:scale(1.08);
+  filter:saturate(.9) contrast(1.08);
+}
+.photo-field .velocity{
+  position:absolute;
+  left:-35px;
+  top:20%;
+  font:9px "DM Mono",monospace;
+  writing-mode:vertical-rl;
+  letter-spacing:.16em;
+  z-index:6;
+}
+.photo-field .speed{
+  position:absolute;
+  right:-28px;
+  bottom:13%;
+  font:9px "DM Mono",monospace;
+  z-index:6;
+  transform:rotate(-90deg);
+  transform-origin:center;
+}
+.photo-field .orbit-line{
+  position:absolute;
+  inset:-12%;
+  border:1px dashed rgba(17,17,17,.45);
+  border-radius:50%;
+  animation:spin 18s linear infinite;
+  pointer-events:none;
+}
+@media(max-width:700px){
+  .photo-field{
+    width:40vw;
+    right:5vw;
+    top:26%;
+  }
+  .photo-field .velocity,.photo-field .speed{display:none}
+}
+
+
+/* Final composition: name remains the primary visual, portrait sits beside it. */
+@media(min-width:701px){
+  .hero-name{position:absolute;left:5vw;top:50%;width:43vw;transform:translateY(-55%);}
+  .photo-field{right:5vw;width:min(31vw,430px);}
+}
+.real-photo{
+  display:block !important;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
+}
+
+
+.photo-frame{
+  border-radius:2px;
+}
+.real-photo{
+  filter:saturate(.82) contrast(1.08);
+}
+
+
+/* Basketball: floating vertically beside the portrait */
+.basketball{
+  position:absolute;
+  left:-78px;
+  top:50%;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:#f47b20;
+  z-index:7;
+  box-shadow:0 12px 24px rgba(0,0,0,.16);
+  animation:basketballBounce 2.15s cubic-bezier(.45,.05,.55,.95) infinite;
+}
+.basketball::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:
+    linear-gradient(90deg,transparent 45%,#111 46%,#111 50%,transparent 51%),
+    linear-gradient(0deg,transparent 45%,#111 46%,#111 50%,transparent 51%);
+  opacity:.85;
+}
+.basketball::after{
+  content:"";
+  position:absolute;
+  width:74%;
+  height:74%;
+  left:13%;
+  top:13%;
+  border:2px solid #111;
+  border-radius:50%;
+  transform:rotate(45deg);
+  opacity:.85;
+}
+.basketball-shadow{
+  position:absolute;
+  left:-72px;
+  top:calc(50% + 78px);
+  width:48px;
+  height:10px;
+  border-radius:50%;
+  background:rgba(0,0,0,.18);
+  filter:blur(3px);
+  z-index:6;
+  animation:ballShadow 2.15s cubic-bezier(.45,.05,.55,.95) infinite;
+}
+@keyframes basketballBounce{
+  0%,100%{transform:translateY(82px) rotate(0deg)}
+  50%{transform:translateY(-82px) rotate(180deg)}
+}
+@keyframes ballShadow{
+  0%,100%{transform:scaleX(1);opacity:.22}
+  50%{transform:scaleX(.35);opacity:.08}
+}
+@media(max-width:700px){
+  .basketball{left:-48px;width:42px;height:42px}
+  .basketball-shadow{left:-44px;top:calc(50% + 61px);width:35px}
+}
+
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<nav>
+  <div>SAFAL PARAJULI®</div>
+  <a href="#">PERSONAL / 2026</a>
+</nav>
+
+<main class="hero" id="hero">
+  <div class="orbit o1"></div>
+  <div class="orbit o2"></div>
+  <div class="dot"></div>
+  <div class="square"></div>
+  <div class="plus">+</div>
+
+
+
+  <div class="photo-field" id="photoField">
+    <div class="orbit-line"></div>
+    <div class="basketball" aria-hidden="true"></div>
+    <div class="basketball-shadow" aria-hidden="true"></div>
+    <div class="photo-frame" id="photoFrame">
+      <img class="photo-image real-photo" id="photoImage"
+           src="safal_portrait.png" alt="Safal Parajuli">
+    </div>
+    <div class="velocity">RELATIVISTIC FIELD / v → c</div>
+    <div class="speed" id="speedLabel">VELOCITY 00.00%</div>
+  </div>
+
+  <div class="hero-name" id="name" aria-label="Safal Parajuli">
+    <span>S</span><span>A</span><span>F</span><span>A</span><span>L</span>
+    <br>
+    <span>P</span><span>A</span><span>R</span><span>A</span><span>J</span><span>U</span><span>L</span><span>I</span>
+  </div>
+
+  <div class="hint">
+    MOVE AROUND MY NAME<br>
+    SOMETHING HAS BEEN HAPPENING SINCE 30.07.2007
+  </div>
+
+  <div class="corner">
+    CREATIVE DEVELOPER<br>
+    GRAPHIC / WEB / EXPERIMENT
+  </div>
+</main>
+
+<div class="counter" id="counter">
+  <div class="counter-label">Time since 30 July 2007</div>
+  <div class="counter-date">SINCE 30 JUL 2007 · NEPAL</div>
+  <div class="counter-grid">
+    <div class="unit"><strong id="days">0</strong><small>Days</small></div>
+    <div class="unit"><strong id="hours">0</strong><small>Hours</small></div>
+    <div class="unit"><strong id="minutes">0</strong><small>Minutes</small></div>
+    <div class="unit"><strong id="seconds">0</strong><small>Seconds</small></div>
+  </div>
+</div>
+
+<script>
+const cursor = document.getElementById("cursor");
+const counter = document.getElementById("counter");
+const name = document.getElementById("name");
+const letters = [...name.querySelectorAll("span")];
+
+let mouseX = 0, mouseY = 0;
+let targetX = 0, targetY = 0;
+let insideName = false;
+
+document.addEventListener("mousemove", e => {
+  targetX = e.clientX;
+  targetY = e.clientY;
+
+  if (window.innerWidth > 700) {
+    cursor.style.left = targetX + "px";
+    cursor.style.top = targetY + "px";
+  }
+
+  const rect = name.getBoundingClientRect();
+  insideName =
+    targetX >= rect.left && targetX <= rect.right &&
+    targetY >= rect.top && targetY <= rect.bottom;
+
+  if (insideName) {
+    counter.classList.add("show");
+    cursor.classList.add("active");
+
+    counter.style.left =
+      Math.min(targetX + 24, window.innerWidth - 310) + "px";
+
+    counter.style.top =
+      Math.min(targetY + 24, window.innerHeight - 180) + "px";
+
+    letters.forEach(letter => {
+      const r = letter.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const distance = Math.hypot(targetX-cx,targetY-cy);
+
+      if(distance < 85) {
+        letter.classList.add("active-letter");
+      } else {
+        letter.classList.remove("active-letter");
+      }
+    });
+  } else {
+    counter.classList.remove("show");
+    cursor.classList.remove("active");
+    letters.forEach(l => l.classList.remove("active-letter"));
+  }
+});
+
+/*
+  30 July 2007, 3:14 AM.
+  Nepal time is UTC+05:45.
+*/
+const birth = new Date("2007-07-30T00:00:00+05:45");
+
+function updateCounter(){
+  let diff = Date.now() - birth.getTime();
+
+  if(diff < 0) diff = 0;
+
+  const totalSeconds = Math.floor(diff / 1000);
+
+  const seconds = totalSeconds % 60;
+  const minutes = Math.floor(totalSeconds / 60) % 60;
+  const hours = Math.floor(totalSeconds / 3600) % 24;
+  const days = Math.floor(totalSeconds / 86400);
+
+  document.getElementById("days").textContent =
+    days.toLocaleString();
+
+  document.getElementById("hours").textContent =
+    String(hours).padStart(2,"0");
+
+  document.getElementById("minutes").textContent =
+    String(minutes).padStart(2,"0");
+
+  document.getElementById("seconds").textContent =
+    String(seconds).padStart(2,"0");
+}
+
+updateCounter();
+setInterval(updateCounter,1000);
+
+/* ===== RELATIVISTIC PHOTO INTERACTION ===== */
+const photoField = document.getElementById("photoField");
+const photoFrame = document.getElementById("photoFrame");
+const speedLabel = document.getElementById("speedLabel");
+
+document.addEventListener("mousemove", e => {
+  if (!photoField || window.innerWidth <= 700) return;
+
+  const r = photoField.getBoundingClientRect();
+  const px = (e.clientX - (r.left + r.width/2)) / (r.width/2);
+  const py = (e.clientY - (r.top + r.height/2)) / (r.height/2);
+
+  const x = Math.max(-1, Math.min(1, px));
+  const y = Math.max(-1, Math.min(1, py));
+
+  const velocity = Math.min(99.99, Math.sqrt(x*x+y*y) * 70);
+
+  photoFrame.style.transform =
+    `rotateY(${x * 12}deg) rotateX(${y * -12}deg)
+     translateZ(${velocity * .7}px)`;
+
+  speedLabel.textContent =
+    `VELOCITY ${velocity.toFixed(2)}%`;
+
+  /* Simulated relativistic lensing:
+     the closer the cursor gets, the stronger the image distortion/zoom. */
+  const image = document.getElementById("photoImage");
+  if(image){
+    image.style.transform =
+      `scale(${1.08 + velocity/220})
+       translate(${x * -12}px,${y * -12}px)`;
+  }
+});
+
+if (photoField) {
+  photoField.addEventListener("mouseenter", () => {
+    cursor.classList.add("active");
+  });
+  photoField.addEventListener("mouseleave", () => {
+    cursor.classList.remove("active");
+    photoFrame.style.transform = "";
+  });
+}
+
+/*
+To use your actual photo:
+1. Put your image in the same folder as this HTML.
+2. Change:
+   src=""
+   to:
+   src="your-photo.jpg"
+3. Change display:none on .photo-image to display:block.
+*/
+
+</script>
+
+</body>
+</html>
