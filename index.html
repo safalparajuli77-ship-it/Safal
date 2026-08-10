@@ -1,441 +1,2075 @@
-<!-- =========================================================
-     READYMAG STYLE — FOUR PHOTO CLIPBOARD WALL
-========================================================= -->
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="photo-wall">
+<head>
 
-  <!-- PHOTO 01 -->
-  <div class="clipboard-card photo-card-1">
+  <meta charset="UTF-8">
 
-    <div class="paper-clip"></div>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-    <div class="photo-frame">
-      <img
-        src="./parajuli.png.jpg"
-        alt="Safal Parajuli"
-      >
-    </div>
+  <meta
+    name="description"
+    content="Safal Parajuli — designer, developer and visual experimenter."
+  >
 
-    <div class="photo-label">
-      SAFAL / 01
-    </div>
+  <!-- FAVICON -->
+  <link
+    rel="icon"
+    type="image/x-icon"
+    href="./road%20%282%29.ico"
+  >
+
+  <title>Safal Parajuli</title>
+
+
+  <style>
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #111;
+      color: #f5f5f5;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+
+    /* =====================================================
+       LOADER
+    ===================================================== */
+
+    .loader {
+      position: fixed;
+      inset: 0;
+
+      z-index: 9999;
+
+      background: #111;
+
+      display: flex;
+      align-items: flex-end;
+
+      pointer-events: none;
+    }
+
+    .loader-progress {
+      width: 0%;
+      height: 5px;
+
+      background: #fff;
+
+      transition: width .2s ease;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    header {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+
+      padding: 28px 30px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      z-index: 1000;
+
+      mix-blend-mode: difference;
+    }
+
+    .logo {
+      font-size: 11px;
+      font-weight: 700;
+
+      letter-spacing: .16em;
+    }
+
+    .menu-button {
+      border: 0;
+      background: none;
+
+      color: white;
+
+      font-size: 11px;
+
+      letter-spacing: .15em;
+
+      cursor: pointer;
+    }
+
+
+    /* =====================================================
+       MENU
+    ===================================================== */
+
+    .menu-overlay {
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 900;
+
+      background: #111;
+
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+
+      opacity: 0;
+
+      visibility: hidden;
+
+      transform: translateY(-100%);
+
+      transition:
+        opacity .4s ease,
+        transform .5s cubic-bezier(.77,0,.18,1),
+        visibility .5s;
+    }
+
+    .menu-overlay.active {
+
+      opacity: 1;
+
+      visibility: visible;
+
+      transform: translateY(0);
+    }
+
+    .menu-overlay ul {
+      list-style: none;
+
+      text-align: center;
+    }
+
+    .menu-overlay li {
+      margin: 12px 0;
+    }
+
+    .menu-overlay a {
+
+      font-size: clamp(35px, 7vw, 100px);
+
+      font-weight: 800;
+
+      letter-spacing: -.05em;
+
+      transition: opacity .3s ease;
+    }
+
+    .menu-overlay a:hover {
+      opacity: .4;
+    }
+
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    .hero {
+
+      min-height: 100vh;
+
+      padding:
+        100px 5vw
+        80px;
+
+      position: relative;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      overflow: hidden;
+    }
+
+    .counter {
+
+      display: flex;
+
+      gap: 35px;
+
+      margin-bottom: 50px;
+    }
+
+    .counter > div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .counter-number {
+
+      font-size: clamp(30px, 5vw, 70px);
+
+      font-weight: 700;
+
+      line-height: .9;
+
+      letter-spacing: -.06em;
+    }
+
+    .counter-unit {
+
+      margin-top: 8px;
+
+      font-size: 9px;
+
+      letter-spacing: .2em;
+
+      opacity: .5;
+    }
+
+
+    /* =====================================================
+       NAME
+    ===================================================== */
+
+    .name {
+
+      font-size: clamp(
+        75px,
+        15vw,
+        240px
+      );
+
+      line-height: .72;
+
+      letter-spacing: -.09em;
+
+      font-weight: 900;
+
+      text-transform: uppercase;
+
+      margin-bottom: 80px;
+
+      position: relative;
+
+      z-index: 3;
+    }
+
+    .name-row {
+      display: block;
+    }
+
+    .name-row.two {
+      margin-left: 10vw;
+    }
+
+    .letter {
+
+      display: inline-block;
+
+      transition:
+        transform .5s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .letter:hover {
+      transform:
+        translateY(-15px)
+        rotate(-5deg);
+    }
+
+
+    /* =====================================================
+       MAIN PHOTO
+    ===================================================== */
+
+    .photo-wrap {
+
+      width: min(500px, 80vw);
+
+      margin-left: auto;
+
+      margin-right: 7vw;
+
+      margin-top: -30px;
+
+      position: relative;
+
+      z-index: 2;
+    }
+
+    .photo {
+
+      width: 100%;
+
+      aspect-ratio: 4 / 5;
+
+      overflow: hidden;
+
+      background: #ddd;
+    }
+
+    .photo img {
+
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+
+      transition:
+        transform 1s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .photo:hover img {
+      transform: scale(1.05);
+    }
+
+    .photo-meta {
+
+      font-size: 9px;
+
+      letter-spacing: .16em;
+
+      margin-top: 12px;
+
+      opacity: .5;
+    }
+
+
+    /* =====================================================
+       MARQUEE
+    ===================================================== */
+
+    .marquee {
+
+      width: 100%;
+
+      overflow: hidden;
+
+      white-space: nowrap;
+
+      border-top: 1px solid #333;
+
+      border-bottom: 1px solid #333;
+
+      padding: 18px 0;
+
+      font-size: 13px;
+
+      letter-spacing: .1em;
+    }
+
+    .marquee-inner {
+
+      display: inline-block;
+
+      animation:
+        marquee 25s linear infinite;
+    }
+
+    @keyframes marquee {
+
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+
+    }
+
+
+    /* =====================================================
+       GENERAL SECTION
+    ===================================================== */
+
+    section {
+
+      padding:
+        150px 5vw;
+
+      position: relative;
+    }
+
+    .section-number {
+
+      font-size: 10px;
+
+      letter-spacing: .18em;
+
+      opacity: .5;
+
+      margin-bottom: 50px;
+    }
+
+    .overview-title {
+
+      font-size: clamp(
+        70px,
+        13vw,
+        200px
+      );
+
+      line-height: .78;
+
+      letter-spacing: -.08em;
+
+      font-weight: 900;
+    }
+
+    .overview-text {
+
+      max-width: 700px;
+
+      margin:
+        70px 0 0
+        auto;
+
+      font-size: clamp(
+        20px,
+        3vw,
+        42px
+      );
+
+      line-height: 1.05;
+
+      letter-spacing: -.04em;
+    }
+
+
+    /* =====================================================
+       INTERESTS PHOTO WALL
+    ===================================================== */
+
+    .interests-section {
+      overflow: hidden;
+    }
+
+    .photo-wall {
+
+      width: 100%;
+
+      display: flex;
+
+      flex-direction: row;
+
+      flex-wrap: nowrap;
+
+      justify-content: center;
+
+      align-items: flex-start;
+
+      gap: 22px;
+
+      padding:
+        100px 0
+        80px;
+
+      overflow: visible;
+    }
+
+
+    /* =====================================================
+       CLIPBOARD CARD
+    ===================================================== */
+
+    .clipboard-card {
+
+      position: relative;
+
+      flex: 1 1 0;
+
+      width: 0;
+
+      max-width: 320px;
+
+      height: 390px;
+
+      padding:
+        12px 12px 42px;
+
+      background: #f3f0e7;
+
+      box-shadow:
+        0 18px 35px rgba(0,0,0,.25),
+        0 5px 10px rgba(0,0,0,.15);
+
+      transform-origin:
+        50% 8%;
+
+      transition:
+        transform .45s cubic-bezier(.2,.8,.2,1),
+        box-shadow .45s ease;
+
+      flex-shrink: 1;
+    }
+
+
+    /* ROTATIONS */
+
+    .photo-card-1 {
+      transform: rotate(-3deg);
+    }
+
+    .photo-card-2 {
+      transform: rotate(2deg);
+    }
+
+    .photo-card-3 {
+      transform: rotate(-2deg);
+    }
+
+    .photo-card-4 {
+      transform: rotate(3deg);
+    }
+
+
+    /* HOVER */
+
+    .clipboard-card:hover {
+
+      z-index: 20;
+
+      transform:
+        translateY(-18px)
+        rotate(0deg)
+        scale(1.05);
+
+      box-shadow:
+        0 35px 60px rgba(0,0,0,.4);
+    }
+
+
+    /* =====================================================
+       PHOTO FRAME
+    ===================================================== */
+
+    .photo-frame {
+
+      width: 100%;
+      height: 100%;
+
+      overflow: hidden;
+
+      background: #ddd;
+
+      border:
+        1px solid
+        rgba(0,0,0,.12);
+    }
+
+    .photo-frame img {
+
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+
+      object-position: center;
+
+      transition:
+        transform .7s
+        cubic-bezier(.2,.8,.2,1);
+    }
+
+    .clipboard-card:hover
+    .photo-frame img {
+
+      transform: scale(1.08);
+    }
+
+
+    /* =====================================================
+       PHOTO LABEL
+    ===================================================== */
+
+    .photo-label {
+
+      position: absolute;
+
+      left: 14px;
+      bottom: 14px;
+
+      color: #111;
+
+      font-size: 9px;
+
+      letter-spacing: .16em;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+    }
+
+
+    /* =====================================================
+       METAL CLIP
+    ===================================================== */
+
+    .paper-clip {
+
+      position: absolute;
+
+      z-index: 50;
+
+      width: 44px;
+      height: 31px;
+
+      top: -18px;
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+
+      border-radius:
+        6px 6px 9px 9px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #666 0%,
+          #ddd 15%,
+          #999 30%,
+          #fff 48%,
+          #888 66%,
+          #ddd 84%,
+          #666 100%
+        );
+
+      box-shadow:
+        0 5px 8px rgba(0,0,0,.4),
+        inset 0 1px 2px
+        rgba(255,255,255,.8),
+        inset 0 -2px 3px
+        rgba(0,0,0,.25);
+    }
+
+    .paper-clip::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 3px;
+      height: 20px;
+
+      left: 50%;
+      top: -19px;
+
+      transform:
+        translateX(-50%);
+
+      background: #777;
+    }
+
+    .paper-clip::after {
+
+      content: "";
+
+      position: absolute;
+
+      left: 7px;
+      right: 7px;
+
+      top: 4px;
+
+      height: 4px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.55);
+    }
+
+
+    /* =====================================================
+       EDUCATION
+    ===================================================== */
+
+    .timeline {
+
+      max-width: 1100px;
+
+      margin:
+        80px auto 0;
+    }
+
+    .timeline-item {
+
+      display: grid;
+
+      grid-template-columns:
+        180px 1fr 100px;
+
+      gap: 30px;
+
+      padding:
+        35px 0;
+
+      border-top:
+        1px solid #333;
+
+      align-items: center;
+    }
+
+    .timeline-item:last-child {
+      border-bottom:
+        1px solid #333;
+    }
+
+    .timeline-year {
+
+      font-size: 12px;
+
+      opacity: .5;
+    }
+
+    .timeline-title {
+
+      font-size:
+        clamp(20px, 3vw, 42px);
+
+      font-weight: 700;
+
+      letter-spacing: -.04em;
+    }
+
+    .timeline-info {
+
+      font-size: 10px;
+
+      letter-spacing: .15em;
+
+      opacity: .5;
+
+      text-align: right;
+    }
+
+
+    /* =====================================================
+       SKILLS
+    ===================================================== */
+
+    .skills-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 1px;
+
+      background: #333;
+
+      margin-top: 70px;
+    }
+
+    .skill {
+
+      background: #111;
+
+      padding: 50px 30px;
+
+      min-height: 200px;
+
+      transition:
+        background .3s ease;
+    }
+
+    .skill:hover {
+      background: #1c1c1c;
+    }
+
+    .skill-number {
+
+      font-size: 10px;
+
+      opacity: .5;
+
+      margin-bottom: 35px;
+    }
+
+    .skill h3 {
+
+      font-size:
+        clamp(30px, 5vw, 70px);
+
+      letter-spacing: -.06em;
+    }
+
+
+    /* =====================================================
+       EXPERIMENTS
+    ===================================================== */
+
+    .experience-list {
+
+      max-width: 1100px;
+
+      margin:
+        70px auto 0;
+    }
+
+    .experience-card {
+
+      display: grid;
+
+      grid-template-columns:
+        80px 1fr;
+
+      gap: 30px;
+
+      padding: 40px 0;
+
+      border-top:
+        1px solid #333;
+    }
+
+    .experience-card:last-child {
+
+      border-bottom:
+        1px solid #333;
+    }
+
+    .experience-number {
+
+      font-size: 12px;
+
+      opacity: .5;
+    }
+
+    .experience-card h3 {
+
+      font-size:
+        clamp(25px, 4vw, 55px);
+
+      letter-spacing: -.05em;
+
+      margin-bottom: 15px;
+    }
+
+    .experience-card p {
+
+      max-width: 700px;
+
+      font-size: 16px;
+
+      line-height: 1.5;
+
+      opacity: .65;
+    }
+
+
+    /* =====================================================
+       CONTACT
+    ===================================================== */
+
+    .contact-title {
+
+      font-size:
+        clamp(
+          70px,
+          14vw,
+          220px
+        );
+
+      line-height: .76;
+
+      letter-spacing: -.09em;
+
+      font-weight: 900;
+
+      margin-bottom: 100px;
+    }
+
+    .contact-links {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      border-top:
+        1px solid #333;
+    }
+
+    .contact-link {
+
+      flex: 1;
+
+      padding:
+        30px 20px;
+
+      text-align: center;
+
+      border-right:
+        1px solid #333;
+
+      font-size: 11px;
+
+      letter-spacing: .2em;
+
+      transition:
+        background .3s ease,
+        color .3s ease;
+    }
+
+    .contact-link:last-child {
+      border-right: 0;
+    }
+
+    .contact-link:hover {
+
+      background: #f5f5f5;
+
+      color: #111;
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    footer {
+
+      padding:
+        30px 5vw;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      font-size: 9px;
+
+      letter-spacing: .15em;
+
+      opacity: .4;
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 800px) {
+
+      .hero {
+
+        padding:
+          120px 25px
+          60px;
+      }
+
+      .name {
+
+        font-size:
+          clamp(60px, 17vw, 130px);
+
+        margin-bottom: 60px;
+      }
+
+      .name-row.two {
+        margin-left: 5vw;
+      }
+
+      .photo-wrap {
+
+        width: 75vw;
+
+        margin:
+          0 auto;
+      }
+
+      section {
+
+        padding:
+          100px 25px;
+      }
+
+      .overview-title {
+
+        font-size:
+          clamp(60px, 18vw, 130px);
+      }
+
+      .overview-text {
+
+        margin-top: 50px;
+      }
+
+      /* Horizontal scrolling photo wall */
+
+      .photo-wall {
+
+        justify-content:
+          flex-start;
+
+        overflow-x: auto;
+
+        padding:
+          90px 30px
+          100px;
+
+        margin:
+          0 -25px;
+
+        scrollbar-width: none;
+      }
+
+      .photo-wall::-webkit-scrollbar {
+        display: none;
+      }
+
+      .clipboard-card {
+
+        flex:
+          0 0 230px;
+
+        width: 230px;
+
+        height: 320px;
+      }
+
+      .timeline-item {
+
+        grid-template-columns:
+          1fr;
+
+        gap: 10px;
+      }
+
+      .timeline-info {
+
+        text-align: left;
+      }
+
+      .skills-grid {
+
+        grid-template-columns:
+          1fr;
+      }
+
+      .experience-card {
+
+        grid-template-columns:
+          45px 1fr;
+      }
+
+      .contact-links {
+
+        flex-direction: column;
+      }
+
+      .contact-link {
+
+        border-right: 0;
+
+        border-bottom:
+          1px solid #333;
+      }
+
+      footer {
+
+        flex-direction: column;
+
+        gap: 10px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- ===================================================
+       LOADER
+  ==================================================== -->
+
+  <div class="loader" id="loader">
+
+    <div
+      class="loader-progress"
+      id="loaderProgress"
+    ></div>
 
   </div>
 
 
-  <!-- PHOTO 02 -->
-  <div class="clipboard-card photo-card-2">
+  <!-- ===================================================
+       HEADER
+  ==================================================== -->
 
-    <div class="paper-clip"></div>
+  <header>
 
-    <div class="photo-frame">
-      <img
-        src="./prasad.png.jpg"
-        alt="Gallery photo"
-      >
+    <div class="logo">
+      SAFAL PARAJULI°
     </div>
 
-    <div class="photo-label">
-      MOMENT / 02
-    </div>
+    <button
+      class="menu-button"
+      id="menuButton"
+    >
+      MENU +
+    </button>
+
+  </header>
+
+
+  <!-- ===================================================
+       MENU
+  ==================================================== -->
+
+  <div
+    class="menu-overlay"
+    id="menuOverlay"
+  >
+
+    <ul>
+
+      <li>
+        <a href="#overview">
+          OVERVIEW
+        </a>
+      </li>
+
+      <li>
+        <a href="#interests">
+          INTERESTS
+        </a>
+      </li>
+
+      <li>
+        <a href="#education">
+          EDUCATION
+        </a>
+      </li>
+
+      <li>
+        <a href="#skills">
+          SKILLS
+        </a>
+      </li>
+
+      <li>
+        <a href="#experiments">
+          EXPERIMENTS
+        </a>
+      </li>
+
+      <li>
+        <a href="#contact">
+          CONTACT
+        </a>
+      </li>
+
+    </ul>
 
   </div>
 
 
-  <!-- PHOTO 03 -->
-  <div class="clipboard-card photo-card-3">
+  <!-- ===================================================
+       HERO
+  ==================================================== -->
 
-    <div class="paper-clip"></div>
+  <main>
 
-    <div class="photo-frame">
-      <img
-        src="./uppadhya.png.jpg"
-        alt="Gallery photo"
-      >
+    <section class="hero">
+
+
+      <!-- COUNTER -->
+
+      <div class="counter">
+
+        <div>
+
+          <div
+            class="counter-number"
+            id="days"
+          >
+            0
+          </div>
+
+          <span class="counter-unit">
+            DAYS
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <div
+            class="counter-number"
+            id="hours"
+          >
+            00
+          </div>
+
+          <span class="counter-unit">
+            HOURS
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <div
+            class="counter-number"
+            id="minutes"
+          >
+            00
+          </div>
+
+          <span class="counter-unit">
+            MIN
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <div
+            class="counter-number"
+            id="seconds"
+          >
+            00
+          </div>
+
+          <span class="counter-unit">
+            SEC
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- NAME -->
+
+      <h1 class="name">
+
+        <span class="name-row">
+
+          <span class="letter">S</span>
+          <span class="letter">A</span>
+          <span class="letter">F</span>
+          <span class="letter">A</span>
+          <span class="letter">L</span>
+
+        </span>
+
+
+        <span class="name-row two">
+
+          <span class="letter">P</span>
+          <span class="letter">A</span>
+          <span class="letter">R</span>
+          <span class="letter">A</span>
+          <span class="letter">J</span>
+          <span class="letter">U</span>
+          <span class="letter">L</span>
+          <span class="letter">I</span>
+
+        </span>
+
+      </h1>
+
+
+      <!-- MAIN PHOTO -->
+
+      <div class="photo-wrap">
+
+        <div
+          class="photo"
+          id="photo"
+        >
+
+          <img
+            src="./safal.jpg.png"
+            alt="Safal Parajuli"
+          >
+
+        </div>
+
+        <div class="photo-meta">
+          SAFAL PARAJULI / 2026
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+    <!-- ===================================================
+         MARQUEE
+    ==================================================== -->
+
+    <div class="marquee">
+
+      <div class="marquee-inner">
+
+        SAFAL PARAJULI ×
+        SAFAL PARAJULI ×
+        SAFAL PARAJULI ×
+        SAFAL PARAJULI ×
+        SAFAL PARAJULI ×
+        SAFAL PARAJULI ×
+        SAFAL PARAJULI ×
+        SAFAL PARAJULI ×
+        SAFAL PARAJULI ×
+        SAFAL PARAJULI ×
+        SAFAL PARAJULI ×
+        SAFAL PARAJULI ×
+
+      </div>
+
     </div>
 
-    <div class="photo-label">
-      MEMORY / 03
-    </div>
 
-  </div>
+    <!-- ===================================================
+         01 / OVERVIEW
+    ==================================================== -->
 
+    <section id="overview">
 
-  <!-- PHOTO 04 -->
-  <div class="clipboard-card photo-card-4">
+      <div class="section-number">
+        01 / OVERVIEW
+      </div>
 
-    <div class="paper-clip"></div>
+      <h2 class="overview-title">
 
-    <div class="photo-frame">
-      <img
-        src="./ram.png.jpg"
-        alt="Gallery photo"
-      >
-    </div>
+        HELLO.<br>
+        I'M<br>
+        SAFAL.
 
-    <div class="photo-label">
-      ARCHIVE / 04
-    </div>
+      </h2>
 
-  </div>
+      <div class="overview-text">
 
-</div>
+        LOOKING BEYOND THE HORIZON,
+        CHASING QUESTIONS THAT REACH
+        FAR BEYOND THE STARS.
 
+      </div>
 
-<style>
+    </section>
 
-/* =========================================================
-   PHOTO WALL
-========================================================= */
 
-.photo-wall {
+    <!-- ===================================================
+         02 / INTERESTS
+    ==================================================== -->
 
-  width: 100%;
+    <section
+      id="interests"
+      class="interests-section"
+    >
 
-  display: flex;
-  flex-direction: row;
+      <div class="section-number">
+        02 / INTERESTS
+      </div>
 
-  /* VERY IMPORTANT */
-  flex-wrap: nowrap;
+      <h2 class="overview-title">
 
-  justify-content: center;
-  align-items: flex-start;
+        BEYOND<br>
+        THE<br>
+        HORIZON.
 
-  gap: 24px;
+      </h2>
 
-  padding: 80px 30px 120px;
 
-  box-sizing: border-box;
+      <!-- PHOTO WALL -->
 
-  overflow-x: auto;
-  overflow-y: visible;
+      <div class="photo-wall">
 
-  scrollbar-width: none;
-}
 
-.photo-wall::-webkit-scrollbar {
-  display: none;
-}
+        <!-- PHOTO 01 -->
 
+        <div
+          class="clipboard-card photo-card-1"
+        >
 
-/* =========================================================
-   CLIPBOARD / PAPER CARD
-========================================================= */
+          <div class="paper-clip"></div>
 
-.clipboard-card {
+          <div class="photo-frame">
 
-  position: relative;
+            <img
+              src="./parajuli.png.jpg"
+              alt="Safal Parajuli"
+            >
 
-  /* FOUR CARDS FIT IN ONE ROW */
-  flex: 0 0 calc((100vw - 170px) / 4);
+          </div>
 
-  width: calc((100vw - 170px) / 4);
+          <div class="photo-label">
+            SAFAL / 01
+          </div>
 
-  height: 31vw;
+        </div>
 
-  max-width: 300px;
-  max-height: 420px;
 
-  min-width: 180px;
-  min-height: 270px;
+        <!-- PHOTO 02 -->
 
-  box-sizing: border-box;
+        <div
+          class="clipboard-card photo-card-2"
+        >
 
-  padding: 12px 12px 40px;
+          <div class="paper-clip"></div>
 
-  background: #f3f0e7;
+          <div class="photo-frame">
 
-  box-shadow:
-    0 18px 35px rgba(0, 0, 0, 0.22),
-    0 4px 8px rgba(0, 0, 0, 0.12);
+            <img
+              src="./prasad.png.jpg"
+              alt="Gallery photo"
+            >
 
-  flex-shrink: 0;
+          </div>
 
-  transition:
-    transform 0.45s cubic-bezier(.2,.8,.2,1),
-    box-shadow 0.45s ease;
+          <div class="photo-label">
+            MOMENT / 02
+          </div>
 
-  transform-origin: 50% 10%;
-}
+        </div>
 
 
-/* =========================================================
-   INDIVIDUAL ROTATIONS
-========================================================= */
+        <!-- PHOTO 03 -->
 
-.photo-card-1 {
-  transform: rotate(-3deg);
-}
+        <div
+          class="clipboard-card photo-card-3"
+        >
 
-.photo-card-2 {
-  transform: rotate(2deg);
-}
+          <div class="paper-clip"></div>
 
-.photo-card-3 {
-  transform: rotate(-2deg);
-}
+          <div class="photo-frame">
 
-.photo-card-4 {
-  transform: rotate(3deg);
-}
+            <img
+              src="./uppadhya.png.jpg"
+              alt="Gallery photo"
+            >
 
+          </div>
 
-/* =========================================================
-   HOVER EFFECT
-========================================================= */
+          <div class="photo-label">
+            MEMORY / 03
+          </div>
 
-.clipboard-card:hover {
+        </div>
 
-  z-index: 20;
 
-  transform:
-    translateY(-18px)
-    rotate(0deg)
-    scale(1.05);
+        <!-- PHOTO 04 -->
 
-  box-shadow:
-    0 35px 60px rgba(0, 0, 0, 0.35),
-    0 8px 15px rgba(0, 0, 0, 0.15);
-}
+        <div
+          class="clipboard-card photo-card-4"
+        >
 
+          <div class="paper-clip"></div>
 
-/* =========================================================
-   PHOTO AREA
-========================================================= */
+          <div class="photo-frame">
 
-.photo-frame {
+            <img
+              src="./ram.png.jpg"
+              alt="Gallery photo"
+            >
 
-  width: 100%;
-  height: 100%;
+          </div>
 
-  overflow: hidden;
+          <div class="photo-label">
+            ARCHIVE / 04
+          </div>
 
-  background: #ddd;
+        </div>
 
-  border: 1px solid rgba(0, 0, 0, 0.12);
 
-  box-sizing: border-box;
-}
+      </div>
 
+    </section>
 
-.photo-frame img {
 
-  width: 100%;
-  height: 100%;
+    <!-- ===================================================
+         03 / EDUCATION
+    ==================================================== -->
 
-  display: block;
+    <section id="education">
 
-  object-fit: cover;
+      <div class="section-number">
+        03 / EDUCATION
+      </div>
 
-  object-position: center;
 
-  transition:
-    transform 0.7s cubic-bezier(.2,.8,.2,1);
-}
+      <div class="timeline">
 
 
-/* PHOTO ZOOM */
+        <div class="timeline-item">
 
-.clipboard-card:hover .photo-frame img {
+          <div class="timeline-year">
+            2067 – 2080 B.S.
+          </div>
 
-  transform: scale(1.08);
+          <div class="timeline-title">
+            NARAYANI ENGLISH PUBLIC SCHOOL
+          </div>
 
-}
+          <div class="timeline-info">
+            SEE
+          </div>
 
+        </div>
 
-/* =========================================================
-   PHOTO LABEL
-========================================================= */
 
-.photo-label {
+        <div class="timeline-item">
 
-  position: absolute;
+          <div class="timeline-year">
+            2080 – 2082 B.S.
+          </div>
 
-  left: 14px;
-  bottom: 13px;
+          <div class="timeline-title">
+            NARAYANI PUBLIC COLLEGE
+          </div>
 
-  font-family: Arial, Helvetica, sans-serif;
+          <div class="timeline-info">
+            +2
+          </div>
 
-  font-size: 9px;
+        </div>
 
-  letter-spacing: 0.16em;
 
-  color: #111;
+      </div>
 
-  text-transform: uppercase;
-}
+    </section>
 
 
-/* =========================================================
-   METAL CLIP
-========================================================= */
+    <!-- ===================================================
+         04 / SKILLS
+    ==================================================== -->
 
-.paper-clip {
+    <section id="skills">
 
-  position: absolute;
+      <div class="section-number">
+        04 / SKILLS
+      </div>
 
-  z-index: 50;
 
-  width: 44px;
-  height: 30px;
+      <div class="skills-grid">
 
-  top: -17px;
-  left: 50%;
 
-  transform: translateX(-50%);
+        <div class="skill">
 
-  border-radius: 6px 6px 9px 9px;
+          <div class="skill-number">
+            01
+          </div>
 
-  background:
-    linear-gradient(
-      90deg,
-      #666 0%,
-      #ddd 15%,
-      #999 30%,
-      #fff 48%,
-      #888 66%,
-      #ddd 84%,
-      #666 100%
+          <h3>
+            DESIGN
+          </h3>
+
+        </div>
+
+
+        <div class="skill">
+
+          <div class="skill-number">
+            02
+          </div>
+
+          <h3>
+            DEVELOPMENT
+          </h3>
+
+        </div>
+
+
+        <div class="skill">
+
+          <div class="skill-number">
+            03
+          </div>
+
+          <h3>
+            ROBOTICS
+          </h3>
+
+        </div>
+
+
+        <div class="skill">
+
+          <div class="skill-number">
+            04
+          </div>
+
+          <h3>
+            TECHNOLOGY
+          </h3>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         05 / EXPERIMENTS
+    ==================================================== -->
+
+    <section id="experiments">
+
+      <div class="section-number">
+        05 / EXPERIMENTS
+      </div>
+
+
+      <div class="experience-list">
+
+
+        <article class="experience-card">
+
+          <span class="experience-number">
+            01
+          </span>
+
+          <div>
+
+            <h3>
+              NCC
+            </h3>
+
+            <p>
+              Participated in the National Cadet Corps
+              (NCC), developing discipline, teamwork,
+              responsibility, and leadership through
+              training and activities.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="experience-card">
+
+          <span class="experience-number">
+            02
+          </span>
+
+          <div>
+
+            <h3>
+              SCIENCE EXHIBITION
+            </h3>
+
+            <p>
+              Helped bring a practical robotics activity
+              to life as part of a student-led technology
+              initiative.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="experience-card">
+
+          <span class="experience-number">
+            03
+          </span>
+
+          <div>
+
+            <h3>
+              STUDENT LEADERSHIP
+            </h3>
+
+            <p>
+              Served in student leadership roles and took
+              responsibility for representing and supporting
+              fellow students.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="experience-card">
+
+          <span class="experience-number">
+            04
+          </span>
+
+          <div>
+
+            <h3>
+              SCIENCE &amp; TECHNOLOGY
+            </h3>
+
+            <p>
+              Actively involved in activities that connect
+              learning with practical science, technology
+              and teamwork.
+            </p>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         06 / CONTACT
+    ==================================================== -->
+
+    <section id="contact">
+
+      <div class="section-number">
+        06 / CONTACT
+      </div>
+
+
+      <h2 class="contact-title">
+
+        LET'S<br>
+        MAKE<br>
+        SOMETHING.
+
+      </h2>
+
+
+      <div class="contact-links">
+
+
+        <a
+          class="contact-link"
+          href="mailto:officeofsafalparajuli@gmail.com"
+        >
+          EMAIL
+        </a>
+
+
+        <a
+          class="contact-link"
+          href="https://www.instagram.com/xxpshuffle/"
+          target="_blank"
+          rel="noopener"
+        >
+          INSTAGRAM
+        </a>
+
+
+        <a
+          class="contact-link"
+          href="https://x.com/dcruzzyy"
+          target="_blank"
+          rel="noopener"
+        >
+          X
+        </a>
+
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ===================================================
+       FOOTER
+  ==================================================== -->
+
+  <footer>
+
+    <span>
+      SAFAL PARAJULI © 2026
+    </span>
+
+    <span>
+      LEARN. BUILD. REPEAT.
+    </span>
+
+  </footer>
+
+
+  <!-- ===================================================
+       JAVASCRIPT
+  ==================================================== -->
+
+  <script>
+
+
+    /* ===================================================
+       LOADER
+    =================================================== */
+
+    const loader =
+      document.getElementById("loader");
+
+    const loaderProgress =
+      document.getElementById("loaderProgress");
+
+    let progress = 0;
+
+    const loading =
+      setInterval(() => {
+
+        progress += Math.random() * 12;
+
+        if (progress >= 100) {
+
+          progress = 100;
+
+          clearInterval(loading);
+
+          setTimeout(() => {
+
+            loader.style.opacity = "0";
+
+            loader.style.transition =
+              "opacity .5s ease";
+
+            setTimeout(() => {
+
+              loader.style.display = "none";
+
+            }, 500);
+
+          }, 300);
+
+        }
+
+        loaderProgress.style.width =
+          progress + "%";
+
+      }, 100);
+
+
+    /* ===================================================
+       MENU
+    ==================================================== */
+
+    const menuButton =
+      document.getElementById("menuButton");
+
+    const menuOverlay =
+      document.getElementById("menuOverlay");
+
+    let menuOpen = false;
+
+    menuButton.addEventListener(
+      "click",
+      () => {
+
+        menuOpen = !menuOpen;
+
+        menuOverlay.classList.toggle(
+          "active",
+          menuOpen
+        );
+
+        menuButton.textContent =
+          menuOpen
+            ? "CLOSE ×"
+            : "MENU +";
+
+      }
     );
 
-  box-shadow:
-    0 5px 8px rgba(0, 0, 0, 0.4),
-    inset 0 1px 2px rgba(255,255,255,.8),
-    inset 0 -2px 3px rgba(0,0,0,.25);
-}
+
+    /* CLOSE MENU AFTER CLICK */
+
+    document
+      .querySelectorAll(".menu-overlay a")
+      .forEach(link => {
+
+        link.addEventListener(
+          "click",
+          () => {
+
+            menuOpen = false;
+
+            menuOverlay.classList.remove(
+              "active"
+            );
+
+            menuButton.textContent =
+              "MENU +";
+
+          }
+        );
+
+      });
 
 
-/* =========================================================
-   CLIP VERTICAL NECK
-========================================================= */
+    /* ===================================================
+       COUNTDOWN
+       From 30 July 2007
+    ==================================================== */
 
-.paper-clip::before {
-
-  content: "";
-
-  position: absolute;
-
-  width: 3px;
-  height: 20px;
-
-  left: 50%;
-  top: -19px;
-
-  transform: translateX(-50%);
-
-  background: #777;
-
-  box-shadow:
-    1px 0 2px rgba(255,255,255,.5);
-}
+    const birthDate =
+      new Date("2007-07-30T00:00:00");
 
 
-/* =========================================================
-   CLIP HIGHLIGHT
-========================================================= */
+    function updateCounter() {
 
-.paper-clip::after {
+      const now = new Date();
 
-  content: "";
-
-  position: absolute;
-
-  left: 7px;
-  right: 7px;
-
-  top: 4px;
-
-  height: 4px;
-
-  border-radius: 50%;
-
-  background: rgba(255,255,255,.55);
-}
+      const difference =
+        now - birthDate;
 
 
-/* =========================================================
-   DESKTOP — FORCE FOUR IN ONE LINE
-========================================================= */
-
-@media (min-width: 1101px) {
-
-  .photo-wall {
-
-    overflow-x: visible;
-
-    justify-content: center;
-
-  }
-
-  .clipboard-card {
-
-    flex: 0 0 calc((100vw - 170px) / 4);
-
-    width: calc((100vw - 170px) / 4);
-
-  }
-
-}
+      const totalSeconds =
+        Math.floor(
+          difference / 1000
+        );
 
 
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 1100px) {
-
-  .photo-wall {
-
-    justify-content: flex-start;
-
-    overflow-x: auto;
-
-    padding-left: 50px;
-    padding-right: 50px;
-
-  }
-
-  .clipboard-card {
-
-    flex: 0 0 240px;
-
-    width: 240px;
-
-    height: 340px;
-
-  }
-
-}
+      const days =
+        Math.floor(
+          totalSeconds / 86400
+        );
 
 
-/* =========================================================
-   MOBILE
-========================================================= */
+      const hours =
+        Math.floor(
+          (totalSeconds % 86400) / 3600
+        );
 
-@media (max-width: 600px) {
 
-  .photo-wall {
+      const minutes =
+        Math.floor(
+          (totalSeconds % 3600) / 60
+        );
 
-    gap: 20px;
 
-    padding:
-      60px 35px
-      100px;
+      const seconds =
+        totalSeconds % 60;
 
-    justify-content: flex-start;
 
-  }
+      document.getElementById("days")
+        .textContent =
+        days.toLocaleString();
 
-  .clipboard-card {
 
-    flex: 0 0 230px;
+      document.getElementById("hours")
+        .textContent =
+        String(hours).padStart(2, "0");
 
-    width: 230px;
 
-    height: 320px;
+      document.getElementById("minutes")
+        .textContent =
+        String(minutes).padStart(2, "0");
 
-  }
 
-}
+      document.getElementById("seconds")
+        .textContent =
+        String(seconds).padStart(2, "0");
 
-</style>
+    }
+
+
+    updateCounter();
+
+    setInterval(
+      updateCounter,
+      1000
+    );
+
+
+    /* ===================================================
+       MAGNETIC EFFECT
+    ==================================================== */
+
+    document
+      .querySelectorAll(".letter")
+      .forEach(letter => {
+
+        letter.addEventListener(
+          "mousemove",
+          event => {
+
+            const rect =
+              letter.getBoundingClientRect();
+
+            const x =
+              event.clientX -
+              rect.left -
+              rect.width / 2;
+
+            const y =
+              event.clientY -
+              rect.top -
+              rect.height / 2;
+
+            letter.style.transform =
+              `translate(${x * .18}px, ${y * .18}px)`;
+
+          }
+        );
+
+
+        letter.addEventListener(
+          "mouseleave",
+          () => {
+
+            letter.style.transform =
+              "";
+
+          }
+        );
+
+      });
+
+
+  </script>
+
+</body>
+
+</html>
