@@ -1,1076 +1,1000 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Safal Parajuli</title>
-
-  <meta
-    name="description"
-    content="Safal Parajuli — designer, developer and visual experimenter."
-  >
-
-  <style>
-    /* =========================================================
-       01. RESET + GLOBAL
-    ========================================================= */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: #eeeae2;
-      color: #111;
-      font-family: Arial, Helvetica, sans-serif;
-      overflow-x: hidden;
-      cursor: none;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      border: 0;
-      background: none;
-      color: inherit;
-      cursor: none;
-      font: inherit;
-    }
-
-    img {
-      max-width: 100%;
-    }
-
-    /* =========================================================
-       02. CUSTOM CURSOR
-    ========================================================= */
-    .cursor {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 14px;
-      height: 14px;
-      border: 1px solid #111;
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: 99999;
-      transition:
-        width .25s ease,
-        height .25s ease,
-        background .25s ease;
-    }
-
-    .cursor.big {
-      width: 55px;
-      height: 55px;
-      background: #d7ff00;
-    }
-
-    /* =========================================================
-       03. LOADER
-    ========================================================= */
-    .loader {
-      position: fixed;
-      inset: 0;
-      background: #111;
-      color: #eeeae2;
-      z-index: 999999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      transition: transform 1s cubic-bezier(.77, 0, .18, 1);
-    }
-
-    .loader.hide {
-      transform: translateY(-100%);
-      pointer-events: none;
-    }
-
-    /* Safety fallback: if JavaScript does not run, reveal the site. */
-    .loader {
-      animation: loaderSafety 4s forwards;
-    }
-
-    .loader.hide {
-      animation: none;
-    }
-
-    @keyframes loaderSafety {
-      0%, 82% {
-        transform: translateY(0);
-      }
-      100% {
-        transform: translateY(-100%);
-        pointer-events: none;
-      }
-    }
-
-    .loader-number {
-      font-family: monospace;
-      font-size: 13px;
-      margin-bottom: 20px;
-    }
-
-    .loader-bar {
-      width: 225px;
-      height: 1px;
-      background: #555;
-      overflow: hidden;
-    }
-
-    .loader-progress {
-      width: 0;
-      height: 100%;
-      background: #d7ff00;
-      transition: width .08s linear;
-    }
-
-    /* =========================================================
-       04. NAVIGATION
-    ========================================================= */
-    .nav {
-      position: fixed;
-      inset: 0 0 auto;
-      width: 100%;
-      padding: 20px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-      mix-blend-mode: difference;
-      color: #fff;
-    }
-
-    .logo,
-    .menu-button {
-      font-family: monospace;
-      font-size: 11px;
-      letter-spacing: .12em;
-    }
-
-    /* =========================================================
-       05. FULLSCREEN MENU
-    ========================================================= */
-    .menu {
-      position: fixed;
-      inset: 0;
-      background: #ff4d16;
-      z-index: 400;
-      transform: translateY(-100%);
-      transition: transform .9s cubic-bezier(.77, 0, .18, 1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .menu.open {
-      transform: translateY(0);
-    }
-
-    .menu-links {
-      list-style: none;
-      text-align: center;
-    }
-
-    .menu-links li {
-      overflow: hidden;
-    }
-
-    .menu-links a {
-      display: block;
-      font-size: clamp(55px, 10vw, 150px);
-      font-weight: 900;
-      line-height: .8;
-      letter-spacing: -.08em;
-      transition:
-        transform .4s ease,
-        letter-spacing .4s ease;
-    }
-
-    .menu-links a:hover {
-      transform: translateX(20px) skewX(-6deg);
-      letter-spacing: .02em;
-    }
-
-    /* =========================================================
-       06. COUNTER
-    ========================================================= */
-    .counter {
-      position: fixed;
-      width: 310px;
-      padding: 18px;
-      background: #111;
-      color: #eeeae2;
-      z-index: 900;
-      display: none;
-      pointer-events: none;
-      box-shadow: 10px 10px 0 #d7ff00;
-    }
-
-    .counter.show {
-      display: block;
-    }
-
-    .counter-small,
-    .counter-date,
-    .counter-unit {
-      font-family: monospace;
-      text-transform: uppercase;
-    }
-
-    .counter-small {
-      color: #888;
-      font-size: 9px;
-      letter-spacing: .1em;
-      margin-bottom: 8px;
-    }
-
-    .counter-date {
-      color: #d7ff00;
-      font-size: 10px;
-      margin-bottom: 18px;
-    }
-
-    .counter-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
-
-    .counter-number {
-      font-size: 25px;
-      font-weight: 900;
-    }
-
-    .counter-unit {
-      display: block;
-      font-size: 7px;
-      color: #777;
-      margin-top: 4px;
-    }
-
-    /* =========================================================
-       07. HERO
-    ========================================================= */
-    .hero {
-      min-height: 100vh;
-      position: relative;
-      padding: 110px 5vw 80px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      isolation: isolate;
-    }
-
-    .hero-grid {
-      position: absolute;
-      inset: -20%;
-      background-image:
-        linear-gradient(rgba(0,0,0,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,0,0,.035) 1px, transparent 1px);
-      background-size: 60px 60px;
-      transform: rotate(-8deg) scale(1.3);
-      animation: gridMove 20s linear infinite;
-      z-index: -2;
-    }
-
-    @keyframes gridMove {
-      to {
-        transform: rotate(-8deg) scale(1.3) translate(60px, 60px);
-      }
-    }
-
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .blob.one {
-      width: 320px;
-      height: 320px;
-      right: 4%;
-      top: 12%;
-      background: #ff4d16;
-      animation: blobOne 7s ease-in-out infinite;
-    }
-
-    .blob.two {
-      width: 220px;
-      height: 220px;
-      left: 42%;
-      bottom: 15%;
-      background: #d7ff00;
-      animation: blobTwo 8s ease-in-out infinite;
-    }
-
-    .blob.three {
-      width: 170px;
-      height: 170px;
-      left: 4%;
-      bottom: 5%;
-      background: #8e70ff;
-      animation: blobThree 9s ease-in-out infinite;
-    }
-
-    @keyframes blobOne {
-      0%, 100% { transform: translate(0, 0) rotate(0); }
-      50% { transform: translate(-50px, 40px) rotate(90deg); }
-    }
-
-    @keyframes blobTwo {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-80px) scale(1.2); }
-    }
-
-    @keyframes blobThree {
-      0%, 100% { transform: rotate(0); }
-      50% { transform: rotate(180deg) translateX(60px); }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8vw;
-    }
-
-    .name {
-      flex: 1 1 0;
-      min-width: 0;
-      color: #111;
-      font-size: clamp(55px, 8.2vw, 130px);
-      font-weight: 900;
-      line-height: .82;
-      letter-spacing: -.075em;
-      text-transform: uppercase;
-      text-align: left;
-    }
-
-    .name-row {
-      display: block;
-      white-space: nowrap;
-    }
-
-    .letter {
-      display: inline-block;
-      transition:
-        transform .18s ease,
-        color .18s ease;
-    }
-
-    .letter:hover {
-      transform: translateY(-15px) rotate(-4deg) scale(1.04);
-      color: #ff4d16;
-    }
-
-    .photo-wrap {
-      flex: 0 0 min(310px, 25vw);
-      margin-right: 3vw;
-      perspective: 1200px;
-      position: relative;
-    }
-
-    .photo {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      overflow: hidden;
-      background: #111;
-      border: 1px solid #111;
-      transform-style: preserve-3d;
-      box-shadow: 18px 18px 0 #d7ff00;
-      transition: transform .15s ease;
-    }
-
-    .photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transform: scale(1.05);
-      transition: transform .6s cubic-bezier(.16, 1, .3, 1);
-      filter: contrast(1.08) saturate(.9);
-    }
-
-    .photo:hover img {
-      transform: scale(1.12);
-    }
-
-    .photo-meta {
-      position: absolute;
-      right: -100px;
-      bottom: 0;
-      writing-mode: vertical-rl;
-      font-family: monospace;
-      font-size: 9px;
-      letter-spacing: .1em;
-    }
-
-    .hero-info {
-      position: absolute;
-      right: 5vw;
-      bottom: 8vh;
-      font-family: monospace;
-      font-size: 10px;
-      line-height: 1.8;
-      z-index: 10;
-    }
-
-    /* =========================================================
-       08. MARQUEE
-    ========================================================= */
-    .marquee {
-      overflow: hidden;
-      white-space: nowrap;
-      background: #111;
-      color: #eeeae2;
-      padding: 17px 0;
-    }
-
-    .marquee-track {
-      display: inline-block;
-      font-family: monospace;
-      font-size: 11px;
-      letter-spacing: .1em;
-      animation: marquee 25s linear infinite;
-    }
-
-    @keyframes marquee {
-      to { transform: translateX(-50%); }
-    }
-
-    /* =========================================================
-       09. COMMON SECTIONS
-    ========================================================= */
-    .section {
-      position: relative;
-      padding: 15vh 6vw;
-      overflow: visible;
-      isolation: isolate;
-      scroll-margin-top: 20px;
-    }
-
-    .section-number {
-      display: block;
-      font-family: monospace;
-      font-size: 10px;
-      letter-spacing: .08em;
-      line-height: 1;
-      margin-bottom: clamp(24px, 3vw, 48px);
-    }
-
-    /* Content is visible by default.
-       JavaScript adds .js to <html> so reveal animation is optional. */
-    .reveal {
-      opacity: 1;
-      transform: none;
-      transition:
-        opacity 1s cubic-bezier(.16,1,.3,1),
-        transform 1s cubic-bezier(.16,1,.3,1);
-    }
-
-    .js .reveal {
-      opacity: 0;
-      transform: translateY(60px);
-    }
-
-    .js .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* =========================================================
-       10. OVERVIEW
-    ========================================================= */
-    .overview {
-      min-height: 90vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10vw;
-      align-items: center;
-      background: #eeeae2;
-    }
-
-    .overview-title {
-      font-size: clamp(70px, 11vw, 160px);
-      font-weight: 900;
-      line-height: .72;
-      letter-spacing: -.09em;
-    }
-
-    .overview-copy {
-      font-size: 24px;
-      line-height: 1.35;
-      max-width: 560px;
-    }
-
-    /* =========================================================
-       11. INTERESTS / PHOTO WALL
-    ========================================================= */
-    .gallery-section {
-      min-height: 100vh;
-      background: #fff;
-      color: #111;
-      padding: 0;
-    }
-
-    .photo-wall {
-      width: 100%;
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 24px;
-      padding: 110px 30px 150px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .photo-wall::-webkit-scrollbar {
-      display: none;
-    }
-
-    .clipboard-card {
-      position: relative;
-      flex: 0 0 calc((100vw - 170px) / 4);
-      width: calc((100vw - 170px) / 4);
-      height: 31vw;
-      max-width: 340px;
-      max-height: 470px;
-      min-width: 180px;
-      min-height: 270px;
-      padding: 12px 12px 40px;
-      background: #f3f0e7;
-      box-shadow:
-        0 18px 35px rgba(0,0,0,.22),
-        0 4px 8px rgba(0,0,0,.12);
-      transform-origin: 50% 10%;
-      transition:
-        transform .45s cubic-bezier(.2,.8,.2,1),
-        box-shadow .45s ease;
-    }
-
-    .photo-card-1 { transform: rotate(-3deg); }
-    .photo-card-2 { transform: rotate(2deg); }
-    .photo-card-3 { transform: rotate(-2deg); }
-    .photo-card-4 { transform: rotate(3deg); }
-
-    .clipboard-card:hover {
-      z-index: 20;
-      transform: translateY(-18px) rotate(0) scale(1.05);
-      box-shadow:
-        0 35px 60px rgba(0,0,0,.35),
-        0 8px 15px rgba(0,0,0,.15);
-    }
-
-    .photo-frame {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #ddd;
-      border: 1px solid rgba(0,0,0,.12);
-    }
-
-    .photo-frame img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      object-position: center;
-      transition: transform .7s cubic-bezier(.2,.8,.2,1);
-    }
-
-    .clipboard-card:hover .photo-frame img {
-      transform: scale(1.08);
-    }
-
-    .photo-label {
-      position: absolute;
-      left: 14px;
-      bottom: 13px;
-      font-size: 9px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
-
-    .paper-clip {
-      position: absolute;
-      z-index: 50;
-      width: 44px;
-      height: 30px;
-      top: -17px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 6px 6px 9px 9px;
-      background:
-        linear-gradient(
-          90deg,
-          #666 0%, #ddd 15%, #999 30%,
-          #fff 48%, #888 66%, #ddd 84%, #666 100%
-        );
-      box-shadow:
-        0 5px 8px rgba(0,0,0,.4),
-        inset 0 1px 2px rgba(255,255,255,.8),
-        inset 0 -2px 3px rgba(0,0,0,.25);
-    }
-
-    .paper-clip::before {
-      content: "";
-      position: absolute;
-      width: 3px;
-      height: 20px;
-      left: 50%;
-      top: -19px;
-      transform: translateX(-50%);
-      background: #777;
-    }
-
-    .paper-clip::after {
-      content: "";
-      position: absolute;
-      left: 7px;
-      right: 7px;
-      top: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.55);
-    }
-
-    /* =========================================================
-       12. EDUCATION
-    ========================================================= */
-    .education {
-      min-height: 100vh;
-      background: #d7ff00;
-    }
-
-    .education-title {
-      font-size: clamp(80px, 14vw, 200px);
-      line-height: .7;
-      letter-spacing: -.1em;
-      font-weight: 900;
-    }
-
-    .timeline {
-      margin-top: 120px;
-      border-top: 1px solid #111;
-    }
-
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 120px 1fr 180px;
-      gap: 30px;
-      padding: 35px 0;
-      border-bottom: 1px solid #111;
-      transition: padding .3s ease;
-    }
-
-    .timeline-item:hover {
-      padding-left: 25px;
-      padding-right: 25px;
-    }
-
-    .timeline-year,
-    .timeline-info {
-      font-family: monospace;
-      font-size: 11px;
-    }
-
-    .timeline-title {
-      font-size: 30px;
-      font-weight: 700;
-    }
-
-    .timeline-info {
-      text-align: right;
-    }
-
-    /* =========================================================
-       13. SKILLS
-    ========================================================= */
-    .skills-section {
-      min-height: 100vh;
-      background: #eeeae2;
-    }
-
-    .skill-word {
-      display: block;
-      font-size: clamp(60px, 10vw, 150px);
-      line-height: .8;
-      letter-spacing: -.09em;
-      transition:
-        transform .5s ease,
-        color .5s ease;
-    }
-
-    .skill-word:hover {
-      transform: translateX(60px) skewX(-8deg);
-      color: #ff4d16;
-    }
-
-    /* =========================================================
-       14. EXPERIENCES
-    ========================================================= */
-    .playground {
-      min-height: 100vh;
-      background: #111;
-      color: #fff;
-    }
-
-    .playground-title {
-      font-size: clamp(80px, 14vw, 210px);
-      line-height: .7;
-      letter-spacing: -.1em;
-      position: relative;
-      z-index: 2;
-    }
-
-    .experience-grid {
-      position: relative;
-      z-index: 5;
-      width: min(1100px, 88vw);
-      margin: 8vh auto 0;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .experience-card {
-      position: relative;
-      min-height: 220px;
-      padding: 28px;
-      background: #d7ff00;
-      color: #111;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform .5s cubic-bezier(.22,1,.36,1);
-    }
-
-    .experience-card:nth-child(2) { background: #ff4d16; }
-    .experience-card:nth-child(3) { background: #eeeae2; }
-    .experience-card:nth-child(4) { background: #8e70ff; }
-
-    .experience-card:hover {
-      transform: translateY(-8px) rotate(-.35deg);
-    }
-
-    .experience-number {
-      font-family: monospace;
-      font-size: 11px;
-    }
-
-    .experience-card h3 {
-      margin: 28px 0 10px;
-      font-size: clamp(30px, 4vw, 58px);
-      line-height: .82;
-      letter-spacing: -.06em;
-    }
-
-    .experience-card p {
-      max-width: 520px;
-      font-family: monospace;
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    /* =========================================================
-       15. CONTACT
-    ========================================================= */
-    .contact {
-      min-height: 100vh;
-      min-height: 100svh;
-      background: #8e70ff;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 8vh 6vw 7vh;
-    }
-
-    .contact-title {
-      font-size: clamp(72px, 11.5vw, 175px);
-      line-height: .72;
-      letter-spacing: -.085em;
-      font-weight: 900;
-    }
-
-    .contact-links {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-      font-family: monospace;
-      font-size: 11px;
-      padding-top: 28px;
-    }
-
-    .contact-link {
-      display: inline-block;
-      color: #111;
-      border-bottom: 1px solid #111;
-      padding-bottom: 5px;
-      transition:
-        padding .3s ease,
-        letter-spacing .3s ease;
-    }
-
-    .contact-link:hover {
-      padding-left: 20px;
-      padding-right: 20px;
-      letter-spacing: .04em;
-    }
-
-    /* =========================================================
-       16. FOOTER
-    ========================================================= */
-    .footer {
-      background: #111;
-      color: #fff;
-      padding: 25px;
-      display: flex;
-      justify-content: space-between;
-      font-family: monospace;
-      font-size: 9px;
-    }
-
-    /* =========================================================
-       17. RESPONSIVE
-    ========================================================= */
-    @media (max-width: 1100px) {
-      .photo-wall {
-        justify-content: flex-start;
-        padding-left: 50px;
-        padding-right: 50px;
-      }
-
-      .clipboard-card {
-        flex: 0 0 240px;
-        width: 240px;
-        height: 340px;
-      }
-    }
-
-    @media (max-width: 700px) {
-      body {
-        cursor: auto;
-      }
-
-      .cursor {
-        display: none;
-      }
-
-      .nav {
-        padding: 18px;
-      }
-
-      .hero {
-        padding: 100px 5vw 60px;
-      }
-
-      .hero-content {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 45px;
-      }
-
-      .name {
-        width: 100%;
-        font-size: clamp(55px, 15vw, 90px);
-      }
-
-      .name-row {
-        white-space: nowrap;
-      }
-
-      .photo-wrap {
-        align-self: center;
-        flex-basis: auto;
-        width: 58vw;
-        margin: 0;
-      }
-
-      .photo-meta {
-        display: none;
-      }
-
-      .hero-info {
-        position: relative;
-        right: auto;
-        bottom: auto;
-        margin-top: 70px;
-      }
-
-      .overview {
-        min-height: auto;
-        grid-template-columns: 1fr;
-        gap: 70px;
-      }
-
-      .overview-copy {
-        font-size: 19px;
-      }
-
-      .photo-wall {
-        gap: 20px;
-        padding: 80px 35px 110px;
-      }
-
-      .clipboard-card {
-        flex: 0 0 230px;
-        width: 230px;
-        height: 320px;
-      }
-
-      .timeline-item {
-        grid-template-columns: 70px 1fr;
-      }
-
-      .timeline-info {
-        grid-column: 2;
-        text-align: left;
-      }
-
-      .experience-grid {
-        grid-template-columns: 1fr;
-        width: 88vw;
-      }
-
-      .contact {
-        padding: 9vh 6vw 8vh;
-      }
-
-      .contact-title {
-        font-size: clamp(58px, 16vw, 105px);
-      }
-
-      .contact-links {
-        gap: 18px;
-      }
-
-      .footer {
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .counter {
-        width: 270px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
-    }
-  </style>
-  <script>
-    document.documentElement.classList.add("js");
-  </script>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+  name="description"
+  content="Safal Parajuli — designer, developer and visual experimenter."
+>
+
+<title>Safal Parajuli — Portfolio</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #e8e5dc;
+  color: #111;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.loader-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #d1cec4;
+  z-index: 9999;
+}
+
+.loader-progress {
+  width: 0%;
+  height: 100%;
+  background: #111;
+  transition: width 0.2s ease;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.menu-button {
+  position: fixed;
+  top: 25px;
+  right: 30px;
+  z-index: 5000;
+
+  border: 1px solid #111;
+  background: #e8e5dc;
+  color: #111;
+
+  padding: 12px 18px;
+  cursor: pointer;
+
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.menu-button:hover {
+  background: #111;
+  color: #e8e5dc;
+}
+
+.navigation {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+
+  background: #111;
+  color: #e8e5dc;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
+}
+
+.navigation.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.navigation ul {
+  list-style: none;
+  text-align: center;
+}
+
+.navigation li {
+  margin: 12px 0;
+}
+
+.navigation a {
+  font-size: clamp(30px, 6vw, 80px);
+  letter-spacing: -0.04em;
+  transition: opacity 0.2s ease;
+}
+
+.navigation a:hover {
+  opacity: 0.45;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding: 100px 5vw 60px;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(17,17,17,0.07) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(17,17,17,0.07) 1px,
+      transparent 1px
+    );
+
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.name {
+  position: relative;
+  z-index: 3;
+
+  font-size: clamp(70px, 15vw, 220px);
+  line-height: 0.78;
+  letter-spacing: -0.09em;
+
+  color: #111;
+}
+
+.name-row {
+  display: block;
+}
+
+.letter {
+  display: inline-block;
+
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    transform 0.6s cubic-bezier(.2,.8,.2,1),
+    opacity 0.6s ease;
+}
+
+.letter:hover {
+  transform: translateY(-12px) rotate(-3deg);
+}
+
+
+/* =========================================================
+   HERO PHOTO
+========================================================= */
+
+.photo-wrap {
+  position: absolute;
+
+  right: 8vw;
+  top: 50%;
+
+  transform: translateY(-50%) rotate(5deg);
+
+  z-index: 4;
+}
+
+.photo {
+  width: min(28vw, 360px);
+  aspect-ratio: 0.78;
+
+  background: #111;
+  padding: 10px;
+
+  box-shadow:
+    18px 18px 0 rgba(17,17,17,0.12);
+}
+
+.photo img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  filter: grayscale(100%);
+}
+
+.photo-meta {
+  margin-top: 10px;
+
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+
+/* =========================================================
+   BLOBS
+========================================================= */
+
+.blob {
+  position: absolute;
+
+  border-radius: 50%;
+  filter: blur(1px);
+
+  pointer-events: none;
+}
+
+.blob.one {
+  width: 300px;
+  height: 300px;
+
+  right: -100px;
+  top: 15%;
+
+  background: #b9c7a4;
+}
+
+.blob.two {
+  width: 180px;
+  height: 180px;
+
+  left: 8%;
+  bottom: 10%;
+
+  background: #d6b8a5;
+}
+
+.blob.three {
+  width: 120px;
+  height: 120px;
+
+  right: 35%;
+  bottom: 8%;
+
+  background: #b5c5c8;
+}
+
+
+/* =========================================================
+   HERO INFO
+========================================================= */
+
+.hero-info {
+  position: absolute;
+
+  left: 5vw;
+  bottom: 30px;
+
+  z-index: 5;
+
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+
+  color: #111;
+}
+
+
+/* =========================================================
+   LIFE COUNTER
+========================================================= */
+
+.life-counter {
+  position: absolute;
+
+  right: 5vw;
+  bottom: 30px;
+
+  z-index: 5;
+
+  text-align: right;
+}
+
+.counter-small {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+}
+
+.counter-date {
+  margin-top: 4px;
+
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.counter-grid {
+  display: flex;
+  gap: 15px;
+
+  margin-top: 10px;
+}
+
+.counter-number {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.counter-unit {
+  font-size: 7px;
+  letter-spacing: 0.1em;
+}
+
+
+/* =========================================================
+   GENERAL SECTIONS
+========================================================= */
+
+section {
+  position: relative;
+
+  min-height: 100vh;
+  padding: 120px 5vw;
+
+  border-top: 1px solid rgba(17,17,17,0.2);
+
+  color: #111;
+}
+
+.section-number {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  margin-bottom: 60px;
+  color: #111;
+}
+
+.reveal {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   OVERVIEW
+========================================================= */
+
+.overview {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 10vw;
+  align-items: start;
+}
+
+.overview-title {
+  font-size: clamp(70px, 12vw, 180px);
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+}
+
+.overview-copy {
+  max-width: 450px;
+
+  font-size: clamp(22px, 3vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery {
+  background: #dedbd2;
+}
+
+.photo-wall {
+  position: relative;
+
+  min-height: 600px;
+  margin-top: 80px;
+}
+
+.clipboard-card {
+  position: absolute;
+
+  width: 230px;
+
+  padding: 14px;
+
+  background: #f5f2e9;
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.12);
+
+  color: #111;
+}
+
+.photo-card-1 {
+  left: 5%;
+  top: 30px;
+  transform: rotate(-6deg);
+}
+
+.photo-card-2 {
+  left: 30%;
+  top: 180px;
+  transform: rotate(5deg);
+}
+
+.photo-card-3 {
+  left: 55%;
+  top: 20px;
+  transform: rotate(-3deg);
+}
+
+.photo-card-4 {
+  right: 4%;
+  top: 230px;
+  transform: rotate(7deg);
+}
+
+.photo-frame {
+  width: 100%;
+  aspect-ratio: 0.8;
+
+  overflow: hidden;
+  background: #ccc;
+}
+
+.photo-frame img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.photo-label {
+  padding-top: 12px;
+
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.paper-clip {
+  position: absolute;
+
+  top: -15px;
+  left: 50%;
+
+  width: 30px;
+  height: 60px;
+
+  border: 3px solid #777;
+  border-bottom: 0;
+
+  border-radius: 20px 20px 0 0;
+
+  transform: translateX(-50%);
+}
+
+
+/* =========================================================
+   EDUCATION
+========================================================= */
+
+.education-title {
+  font-size: clamp(70px, 13vw, 190px);
+  line-height: 0.78;
+  letter-spacing: -0.08em;
+
+  margin-bottom: 100px;
+}
+
+.timeline {
+  max-width: 1000px;
+  margin-left: auto;
+}
+
+.timeline-item {
+  display: grid;
+
+  grid-template-columns: 180px 1fr 100px;
+
+  gap: 30px;
+
+  padding: 30px 0;
+
+  border-top: 1px solid #111;
+}
+
+.timeline-year {
+  font-size: 11px;
+}
+
+.timeline-title {
+  font-size: clamp(22px, 3vw, 40px);
+  letter-spacing: -0.04em;
+}
+
+.timeline-info {
+  text-align: right;
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+.skills {
+  background: #111;
+  color: #e8e5dc;
+}
+
+.skills .section-number {
+  color: #e8e5dc;
+}
+
+.skill-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.skill-word {
+  display: inline-block;
+
+  padding: 14px 22px;
+
+  border: 1px solid rgba(232,229,220,0.5);
+
+  font-size: clamp(25px, 4vw, 60px);
+  letter-spacing: -0.05em;
+
+  color: #e8e5dc;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.skill-word:hover {
+  background: #e8e5dc;
+  color: #111;
+
+  transform: rotate(-2deg) translateY(-5px);
+}
+
+
+/* =========================================================
+   EXPERIENCES
+========================================================= */
+
+.playground-title {
+  font-size: clamp(70px, 13vw, 190px);
+  line-height: 0.78;
+  letter-spacing: -0.08em;
+
+  margin-bottom: 100px;
+}
+
+.experience-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 1px;
+
+  background: #111;
+}
+
+.experience-card {
+  min-height: 300px;
+
+  padding: 35px;
+
+  background: #e8e5dc;
+
+  display: flex;
+
+  gap: 30px;
+
+  color: #111;
+}
+
+.experience-number {
+  font-size: 12px;
+}
+
+.experience-card h3 {
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+
+.experience-card p {
+  max-width: 500px;
+
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact {
+  min-height: 80vh;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 50px;
+}
+
+.contact-title {
+  font-size: clamp(70px, 12vw, 170px);
+  line-height: 0.78;
+  letter-spacing: -0.08em;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 15px;
+}
+
+.contact-link {
+  font-size: clamp(35px, 6vw, 80px);
+
+  letter-spacing: -0.06em;
+
+  border-bottom: 2px solid #111;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.contact-link:hover {
+  transform: translateX(20px);
+  opacity: 0.5;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 25px 5vw;
+
+  border-top: 1px solid #111;
+
+  font-size: 9px;
+  letter-spacing: 0.1em;
+
+  color: #111;
+}
+
+
+/* =========================================================
+   IMPORTANT VISIBILITY SAFETY
+========================================================= */
+
+/*
+   These rules prevent your entire website from disappearing
+   if the animation JavaScript fails.
+*/
+
+h1,
+h2,
+h3,
+p,
+span,
+a,
+div,
+section,
+article,
+footer {
+  visibility: visible;
+}
+
+.name,
+.overview-title,
+.education-title,
+.playground-title,
+.contact-title,
+.skill-word,
+.experience-card,
+.reveal {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+  .hero {
+    min-height: 100svh;
+    padding-top: 130px;
+  }
+
+  .name {
+    font-size: 18vw;
+  }
+
+  .photo-wrap {
+    position: relative;
+
+    top: auto;
+    right: auto;
+
+    margin: 50px auto 0;
+
+    transform: rotate(3deg);
+
+    width: 65%;
+  }
+
+  .photo {
+    width: 100%;
+  }
+
+  .hero-info {
+    bottom: 20px;
+  }
+
+  .life-counter {
+    display: none;
+  }
+
+  section {
+    padding: 90px 6vw;
+  }
+
+  .overview {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .photo-wall {
+    min-height: 1100px;
+  }
+
+  .clipboard-card {
+    width: 190px;
+  }
+
+  .photo-card-1 {
+    left: 2%;
+  }
+
+  .photo-card-2 {
+    left: 35%;
+    top: 260px;
+  }
+
+  .photo-card-3 {
+    left: 5%;
+    top: 520px;
+  }
+
+  .photo-card-4 {
+    right: 2%;
+    top: 780px;
+  }
+
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .timeline-info {
+    text-align: left;
+  }
+
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+}
+
+</style>
 </head>
+
 
 <body>
 
-  <!-- =======================================================
-       LOADER
-  ======================================================== -->
-  <div class="loader" id="loader">
-    <div class="loader-number" id="loaderNumber">000%</div>
+<!-- =======================================================
+     LOADER
+======================================================= -->
 
-    <div class="loader-bar">
-      <div class="loader-progress" id="loaderProgress"></div>
+<div class="loader-bar">
+  <div class="loader-progress" id="loaderProgress"></div>
+</div>
+
+
+<!-- =======================================================
+     MENU
+======================================================= -->
+
+<button
+  class="menu-button magnetic"
+  id="menuButton"
+  type="button"
+  aria-label="Open navigation menu"
+>
+  MENU +
+</button>
+
+
+<nav class="navigation" id="navigation">
+
+  <ul>
+
+    <li>
+      <a href="#overview">OVERVIEW</a>
+    </li>
+
+    <li>
+      <a href="#gallery">INTERESTS</a>
+    </li>
+
+    <li>
+      <a href="#education">EDUCATION</a>
+    </li>
+
+    <li>
+      <a href="#skills">SKILLS</a>
+    </li>
+
+    <li>
+      <a href="#experiments">EXPERIENCES</a>
+    </li>
+
+    <li>
+      <a href="#contact">CONTACT</a>
+    </li>
+
+  </ul>
+
+</nav>
+
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
+<header class="hero">
+
+  <div class="hero-grid"></div>
+
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+  <div class="blob three"></div>
+
+
+  <div class="hero-content">
+
+    <h1 class="name">
+
+      <span class="name-row">
+
+        <span class="letter">S</span>
+        <span class="letter">A</span>
+        <span class="letter">F</span>
+        <span class="letter">A</span>
+        <span class="letter">L</span>
+
+      </span>
+
+      <span class="name-row">
+
+        <span class="letter">P</span>
+        <span class="letter">A</span>
+        <span class="letter">R</span>
+        <span class="letter">A</span>
+        <span class="letter">J</span>
+        <span class="letter">U</span>
+        <span class="letter">L</span>
+        <span class="letter">I</span>
+
+      </span>
+
+    </h1>
+
+
+    <div class="photo-wrap">
+
+      <div class="photo" id="photo">
+
+        <img
+          src="safal.jpg.png"
+          alt="Safal Parajuli"
+        >
+
+      </div>
+
+      <div class="photo-meta">
+        SAFAL PARAJULI / 2026
+      </div>
+
     </div>
+
   </div>
 
-  <!-- =======================================================
-       CUSTOM CURSOR
-  ======================================================== -->
-  <div class="cursor" id="cursor"></div>
 
-  <!-- =======================================================
-       NAVIGATION
-  ======================================================== -->
-  <nav class="nav">
-    <div class="logo">SAFAL PARAJULI®</div>
-
-    <button
-      class="menu-button magnetic"
-      id="menuButton"
-      type="button"
-      aria-label="Open navigation menu"
-    >
-      MENU +
-    </button>
-  </nav>
-
-  <!-- =======================================================
-       FULLSCREEN MENU
-  ======================================================== -->
-  <div class="menu" id="menu">
-    <ul class="menu-links">
-
-      <li>
-        <a href="#overview">OVERVIEW</a>
-      </li>
-
-      <li>
-        <a href="#interests">INTERESTS</a>
-      </li>
-
-      <li>
-        <a href="#education">EDUCATION</a>
-      </li>
-
-      <li>
-        <a href="#skills">SKILLS</a>
-      </li>
-
-      <li>
-        <a href="#experiments">EXPERIMENTS</a>
-      </li>
-
-      <li>
-        <a href="#contact">CONTACT</a>
-      </li>
-
-    </ul>
+  <div class="hero-info">
+    CREATIVE DEVELOPMENT<br>
+    NEPAL / CHITWAN
   </div>
 
-  <!-- =======================================================
-       NAME COUNTER
-  ======================================================== -->
-  <div class="counter" id="counter">
+
+  <div class="life-counter">
 
     <div class="counter-small">
       TIME SINCE
@@ -1103,249 +1027,222 @@
       </div>
 
     </div>
+
   </div>
 
-  <!-- =======================================================
-       HERO
-  ======================================================== -->
-  <section class="hero">
+</header>
 
-    <div class="hero-grid"></div>
 
-    <div class="blob one"></div>
-    <div class="blob two"></div>
-    <div class="blob three"></div>
+<!-- =======================================================
+     01 OVERVIEW
+======================================================= -->
 
-    <div class="hero-content">
+<section
+  class="overview"
+  id="overview"
+>
 
-      <h1 class="name">
-
-        <span class="name-row">
-          <span class="letter">S</span>
-          <span class="letter">A</span>
-          <span class="letter">F</span>
-          <span class="letter">A</span>
-          <span class="letter">L</span>
-        </span>
-
-        <span class="name-row">
-          <span class="letter">P</span>
-          <span class="letter">A</span>
-          <span class="letter">R</span>
-          <span class="letter">A</span>
-          <span class="letter">J</span>
-          <span class="letter">U</span>
-          <span class="letter">L</span>
-          <span class="letter">I</span>
-        </span>
-
-      </h1>
-
-      <!-- Keep safal.jpg.png beside index.html -->
-      <div class="photo-wrap">
-
-        <div class="photo" id="photo">
-          <img
-            src="safal.jpg.png"
-            alt="Safal Parajuli"
-          >
-        </div>
-
-        <div class="photo-meta">
-          SAFAL PARAJULI / 2026
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="hero-info">
-      CREATIVE DEVELOPMENT<br>
-      NEPAL / Chitwan
-    </div>
-
-  </section>
-
-  <!-- =======================================================
-       MARQUEE
-  ======================================================== -->
-  <div class="marquee">
-    <div class="marquee-track">
-      DESIGN × CODE × TYPOGRAPHY × GRAPHICS × MOTION ×
-      DIGITAL ART × WEB × EXPERIMENTS × DESIGN × CODE ×
-      TYPOGRAPHY × GRAPHICS × MOTION × DIGITAL ART ×
-    </div>
-  </div>
-
-  <!-- =======================================================
-       01 / OVERVIEW
-  ======================================================== -->
-  <section
-    class="section overview"
-    id="overview"
-  >
-
-    <div>
-      <div class="section-number">
-        01 / OVERVIEW
-      </div>
-
-      <h2 class="overview-title reveal">
-        HELLO.<br>
-        I'M<br>
-        SAFAL.
-      </h2>
-    </div>
-
-    <div class="overview-copy reveal">
-      LOOKING BEYOND THE HORIZON,
-      CHASING QUESTIONS THAT REACH
-      FAR BEYOND THE STARS.
-    </div>
-
-  </section>
-
-  <!-- =======================================================
-       02 / INTERESTS
-  ======================================================== -->
-  <section
-    class="gallery-section"
-    id="interests"
-  >
-
-    <div class="photo-wall">
-
-      <div class="clipboard-card photo-card-1">
-        <div class="paper-clip"></div>
-
-        <div class="photo-frame">
-          <img
-            src="parajuli.png"
-            alt="Safal Parajuli gallery photo"
-          >
-        </div>
-
-        <div class="photo-label">
-          SAFAL / 01
-        </div>
-      </div>
-
-      <div class="clipboard-card photo-card-2">
-        <div class="paper-clip"></div>
-
-        <div class="photo-frame">
-          <img
-            src="prasad.png"
-            alt="Gallery photo"
-          >
-        </div>
-
-        <div class="photo-label">
-          MOMENT / 02
-        </div>
-      </div>
-
-      <div class="clipboard-card photo-card-3">
-        <div class="paper-clip"></div>
-
-        <div class="photo-frame">
-          <img
-            src="uppadhya.png"
-            alt="Gallery photo"
-          >
-        </div>
-
-        <div class="photo-label">
-          MEMORY / 03
-        </div>
-      </div>
-
-      <div class="clipboard-card photo-card-4">
-        <div class="paper-clip"></div>
-
-        <div class="photo-frame">
-          <img
-            src="ram.png"
-            alt="Gallery photo"
-          >
-        </div>
-
-        <div class="photo-label">
-          ARCHIVE / 04
-        </div>
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- =======================================================
-       03 / EDUCATION
-  ======================================================== -->
-  <section
-    class="section education"
-    id="education"
-  >
+  <div>
 
     <div class="section-number">
-      03 / EDUCATION
+      01 / OVERVIEW
     </div>
 
-    <h2 class="education-title reveal">
-      LEARN.<br>
-      BUILD.<br>
-      REPEAT.
+    <h2 class="overview-title reveal">
+      HELLO.<br>
+      I'M<br>
+      SAFAL.
     </h2>
 
-    <div class="timeline">
+  </div>
 
-      <div class="timeline-item reveal">
 
-        <div class="timeline-year">
-          2067 – 2080 B.S.
-        </div>
+  <div class="overview-copy reveal">
 
-        <div class="timeline-title">
-          NARAYANI ENGLISH PUBLIC SCHOOL
-        </div>
+    LOOKING BEYOND THE HORIZON,
+    CHASING QUESTIONS THAT REACH
+    FAR BEYOND THE STARS.
 
-        <div class="timeline-info">
-          SEE
-        </div>
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     02 INTERESTS / GALLERY
+======================================================= -->
+
+<section
+  class="gallery"
+  id="gallery"
+>
+
+  <div class="section-number">
+    02 / INTERESTS
+  </div>
+
+
+  <div class="photo-wall">
+
+    <div class="clipboard-card photo-card-1">
+
+      <div class="paper-clip"></div>
+
+      <div class="photo-frame">
+
+        <img
+          src="parajuli.png"
+          alt="Safal Parajuli gallery photo"
+        >
 
       </div>
 
-      <div class="timeline-item reveal">
-
-        <div class="timeline-year">
-          2080 – 2082 B.S.
-        </div>
-
-        <div class="timeline-title">
-          NARAYANI PUBLIC COLLEGE
-        </div>
-
-        <div class="timeline-info">
-          +2
-        </div>
-
+      <div class="photo-label">
+        SAFAL / 01
       </div>
 
     </div>
 
-  </section>
 
-  <!-- =======================================================
-       04 / SKILLS
-  ======================================================== -->
-  <section
-    class="section skills-section"
-    id="skills"
-  >
+    <div class="clipboard-card photo-card-2">
 
-    <div class="section-number">
-      04 / SKILLS
+      <div class="paper-clip"></div>
+
+      <div class="photo-frame">
+
+        <img
+          src="prasad.png"
+          alt="Gallery photo"
+        >
+
+      </div>
+
+      <div class="photo-label">
+        MOMENT / 02
+      </div>
+
     </div>
+
+
+    <div class="clipboard-card photo-card-3">
+
+      <div class="paper-clip"></div>
+
+      <div class="photo-frame">
+
+        <img
+          src="uppadhya.png"
+          alt="Gallery photo"
+        >
+
+      </div>
+
+      <div class="photo-label">
+        MEMORY / 03
+      </div>
+
+    </div>
+
+
+    <div class="clipboard-card photo-card-4">
+
+      <div class="paper-clip"></div>
+
+      <div class="photo-frame">
+
+        <img
+          src="ram.png"
+          alt="Gallery photo"
+        >
+
+      </div>
+
+      <div class="photo-label">
+        ARCHIVE / 04
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     03 EDUCATION
+======================================================= -->
+
+<section id="education">
+
+  <div class="section-number">
+    03 / EDUCATION
+  </div>
+
+
+  <h2 class="education-title reveal">
+
+    LEARN.<br>
+    BUILD.<br>
+    REPEAT.
+
+  </h2>
+
+
+  <div class="timeline">
+
+    <div class="timeline-item reveal">
+
+      <div class="timeline-year">
+        2067 – 2080 B.S.
+      </div>
+
+      <div class="timeline-title">
+        NARAYANI ENGLISH PUBLIC SCHOOL
+      </div>
+
+      <div class="timeline-info">
+        SEE
+      </div>
+
+    </div>
+
+
+    <div class="timeline-item reveal">
+
+      <div class="timeline-year">
+        2080 – 2082 B.S.
+      </div>
+
+      <div class="timeline-title">
+        NARAYANI PUBLIC COLLEGE
+      </div>
+
+      <div class="timeline-info">
+        +2
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     04 SKILLS
+======================================================= -->
+
+<section
+  class="skills"
+  id="skills"
+>
+
+  <div class="section-number">
+    04 / SKILLS
+  </div>
+
+
+  <div class="skill-cloud">
 
     <span class="skill-word reveal">
       LEADERSHIP
@@ -1371,483 +1268,488 @@
       PUBLIC SPEAKING
     </span>
 
-  </section>
+  </div>
 
-  <!-- =======================================================
-       05 / EXPERIENCES
-  ======================================================== -->
-  <section
-    class="section playground"
-    id="experiments"
-  >
+</section>
 
-    <div class="section-number">
-      05 / EXPERIENCES
-    </div>
 
-    <h2 class="playground-title reveal">
-      WHAT<br>
-      I HAVE<br>
-      DONE.
-    </h2>
+<!-- =======================================================
+     05 EXPERIENCES
+======================================================= -->
 
-    <div class="experience-grid">
+<section id="experiments">
 
-      <article class="experience-card reveal">
+  <div class="section-number">
+    05 / EXPERIENCES
+  </div>
 
-        <span class="experience-number">
-          01
-        </span>
 
-        <div>
-          <h3>NCC</h3>
+  <h2 class="playground-title reveal">
 
-          <p>
-            Participated in the National Cadet Corps (NCC),
-            developing discipline, teamwork, responsibility,
-            and leadership through training and activities.
-          </p>
-        </div>
+    WHAT<br>
+    I HAVE<br>
+    DONE.
 
-      </article>
+  </h2>
 
-      <article class="experience-card reveal">
 
-        <span class="experience-number">
-          02
-        </span>
+  <div class="experience-grid">
 
-        <div>
-          <h3>SCIENCE EXHIBITION</h3>
 
-          <p>
-            Helped bring a practical robotics activity to life
-            as part of a student-led technology initiative.
-          </p>
-        </div>
+    <article class="experience-card reveal">
 
-      </article>
+      <span class="experience-number">
+        01
+      </span>
 
-      <article class="experience-card reveal">
+      <div>
 
-        <span class="experience-number">
-          03
-        </span>
+        <h3>
+          NCC
+        </h3>
 
-        <div>
-          <h3>STUDENT LEADERSHIP</h3>
+        <p>
+          Participated in the National Cadet Corps (NCC),
+          developing discipline, teamwork, responsibility,
+          and leadership through training and activities.
+        </p>
 
-          <p>
-            Served in student leadership roles and took
-            responsibility for representing and supporting
-            fellow students.
-          </p>
-        </div>
-
-      </article>
-
-      <article class="experience-card reveal">
-
-        <span class="experience-number">
-          04
-        </span>
-
-        <div>
-          <h3>SCIENCE &amp; TECHNOLOGY</h3>
-
-          <p>
-            Actively involved in activities that connect
-            learning with practical science, technology
-            and teamwork.
-          </p>
-        </div>
-
-      </article>
-
-    </div>
-
-  </section>
-
-  <!-- =======================================================
-       06 / CONTACT
-  ======================================================== -->
-  <section
-    class="section contact"
-    id="contact"
-  >
-
-    <div>
-
-      <div class="section-number">
-        06 / CONTACT
       </div>
 
-      <h2 class="contact-title reveal">
-        LET'S<br>
-        MAKE<br>
-        SOMETHING.
-      </h2>
+    </article>
 
+
+    <article class="experience-card reveal">
+
+      <span class="experience-number">
+        02
+      </span>
+
+      <div>
+
+        <h3>
+          SCIENCE EXHIBITION
+        </h3>
+
+        <p>
+          Helped bring a practical robotics activity to life
+          as part of a student-led technology initiative.
+        </p>
+
+      </div>
+
+    </article>
+
+
+    <article class="experience-card reveal">
+
+      <span class="experience-number">
+        03
+      </span>
+
+      <div>
+
+        <h3>
+          STUDENT LEADERSHIP
+        </h3>
+
+        <p>
+          Served in student leadership roles and took
+          responsibility for representing and supporting
+          fellow students.
+        </p>
+
+      </div>
+
+    </article>
+
+
+    <article class="experience-card reveal">
+
+      <span class="experience-number">
+        04
+      </span>
+
+      <div>
+
+        <h3>
+          SCIENCE &amp; TECHNOLOGY
+        </h3>
+
+        <p>
+          Actively involved in activities that connect
+          learning with practical science, technology
+          and teamwork.
+        </p>
+
+      </div>
+
+    </article>
+
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     06 CONTACT
+======================================================= -->
+
+<section
+  class="contact"
+  id="contact"
+>
+
+  <div>
+
+    <div class="section-number">
+      06 / CONTACT
     </div>
 
-    <div class="contact-links">
+    <h2 class="contact-title reveal">
 
-      <a
-        class="contact-link magnetic"
-        href="mailto:officeofsafalparajuli@gmail.com"
-      >
-        EMAIL
-      </a>
+      LET'S<br>
+      MAKE<br>
+      SOMETHING.
 
-      <a
-        class="contact-link magnetic"
-        href="#"
-      >
-        INSTAGRAM
-      </a>
+    </h2>
 
-      <a
-        class="contact-link magnetic"
-        href="#"
-      >
-        LINKEDIN
-      </a>
+  </div>
 
-    </div>
 
-  </section>
+  <div class="contact-links">
 
-  <!-- =======================================================
-       FOOTER
-  ======================================================== -->
-  <footer class="footer">
+    <a
+      class="contact-link magnetic"
+      href="mailto:officeofsafalparajuli@gmail.com"
+    >
+      EMAIL
+    </a>
 
-    <span>
-      SAFAL PARAJULI®
-    </span>
+    <a
+      class="contact-link magnetic"
+      href="#"
+    >
+      INSTAGRAM
+    </a>
 
-    <span>
-      DESIGNED / DEVELOPED BY SAFAL
-    </span>
+    <a
+      class="contact-link magnetic"
+      href="#"
+    >
+      LINKEDIN
+    </a>
 
-    <span>
-      © 2026
-    </span>
+  </div>
 
-  </footer>
+</section>
 
-  <!-- =======================================================
-       JAVASCRIPT
-  ======================================================== -->
-  <script>
-    (() => {
-      "use strict";
 
-      /* =====================================================
-         01. LOADER
-      ===================================================== */
-      const loader = document.getElementById("loader");
-      const loaderNumber = document.getElementById("loaderNumber");
-      const loaderProgress = document.getElementById("loaderProgress");
+<!-- =======================================================
+     FOOTER
+======================================================= -->
 
-      let progress = 0;
+<footer>
 
-      const finishLoader = () => {
-        progress = 100;
-        loaderNumber.textContent = "100%";
-        loaderProgress.style.width = "100%";
+  <span>
+    SAFAL PARAJULI®
+  </span>
 
-        setTimeout(() => {
-          loader.classList.add("hide");
-        }, 350);
-      };
+  <span>
+    DESIGNED / DEVELOPED BY SAFAL
+  </span>
 
-      const loading = setInterval(() => {
-        progress += Math.floor(Math.random() * 8) + 2;
+  <span>
+    © 2026
+  </span>
 
-        if (progress >= 100) {
-          clearInterval(loading);
-          finishLoader();
-          return;
-        }
+</footer>
 
-        loaderNumber.textContent =
-          String(progress).padStart(3, "0") + "%";
 
-        loaderProgress.style.width = progress + "%";
-      }, 70);
+<!-- =======================================================
+     JAVASCRIPT
+======================================================= -->
 
-      /* Safety fallback: loader can never remain stuck. */
-      setTimeout(() => {
-        clearInterval(loading);
-        finishLoader();
-      }, 5000);
+<script>
 
-      /* =====================================================
-         02. CUSTOM CURSOR
-      ===================================================== */
-      const cursor = document.getElementById("cursor");
+/* =========================================================
+   PAGE LOAD
+========================================================= */
 
-      document.addEventListener("mousemove", (event) => {
-        cursor.style.left = event.clientX + "px";
-        cursor.style.top = event.clientY + "px";
+window.addEventListener("load", function () {
+
+  const progress =
+    document.getElementById("loaderProgress");
+
+  if (progress) {
+    progress.style.width = "100%";
+  }
+
+  setTimeout(function () {
+
+    const loader =
+      document.querySelector(".loader-bar");
+
+    if (loader) {
+      loader.style.opacity = "0";
+      loader.style.pointerEvents = "none";
+    }
+
+  }, 500);
+
+});
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+const menuButton =
+  document.getElementById("menuButton");
+
+const navigation =
+  document.getElementById("navigation");
+
+
+if (menuButton && navigation) {
+
+  menuButton.addEventListener("click", function () {
+
+    navigation.classList.toggle("open");
+
+    if (navigation.classList.contains("open")) {
+
+      menuButton.textContent = "CLOSE ×";
+
+    } else {
+
+      menuButton.textContent = "MENU +";
+
+    }
+
+  });
+
+
+  navigation
+    .querySelectorAll("a")
+    .forEach(function (link) {
+
+      link.addEventListener("click", function () {
+
+        navigation.classList.remove("open");
+
+        menuButton.textContent = "MENU +";
+
       });
 
-      const hoverTargets = document.querySelectorAll(
-        "a, button, .letter, .clipboard-card, .experience-card"
-      );
+    });
 
-      hoverTargets.forEach((element) => {
-        element.addEventListener("mouseenter", () => {
-          cursor.classList.add("big");
-        });
+}
 
-        element.addEventListener("mouseleave", () => {
-          cursor.classList.remove("big");
-        });
-      });
 
-      /* =====================================================
-         03. NAME COUNTER
-      ===================================================== */
-      const letters = document.querySelectorAll(".letter");
-      const counter = document.getElementById("counter");
+/* =========================================================
+   LIFE COUNTER
+========================================================= */
 
-      document.addEventListener("mousemove", (event) => {
-        let near = false;
+function updateCounter() {
 
-        letters.forEach((letter) => {
-          const rect = letter.getBoundingClientRect();
+  const birthDate =
+    new Date("2007-07-30T00:00:00");
 
-          const x = rect.left + rect.width / 2;
-          const y = rect.top + rect.height / 2;
+  const now =
+    new Date();
 
-          const distance = Math.hypot(
-            event.clientX - x,
-            event.clientY - y
-          );
+  const difference =
+    now.getTime() - birthDate.getTime();
 
-          if (distance < 85) {
-            letter.style.transform =
-              "translateY(-15px) rotate(-4deg) scale(1.04)";
-            letter.style.color = "#ff4d16";
-            near = true;
-          } else {
-            letter.style.transform = "";
-            letter.style.color = "#111";
-          }
-        });
+  if (difference < 0) return;
 
-        if (!near) {
-          counter.classList.remove("show");
-          return;
-        }
 
-        counter.classList.add("show");
+  const totalSeconds =
+    Math.floor(difference / 1000);
 
-        let x = event.clientX + 25;
-        let y = event.clientY + 25;
+  const days =
+    Math.floor(totalSeconds / 86400);
 
-        if (x + 310 > window.innerWidth) {
-          x = event.clientX - 335;
-        }
+  const hours =
+    Math.floor(
+      (totalSeconds % 86400) / 3600
+    );
 
-        if (y + 170 > window.innerHeight) {
-          y = event.clientY - 190;
-        }
+  const minutes =
+    Math.floor(
+      (totalSeconds % 3600) / 60
+    );
 
-        counter.style.left = x + "px";
-        counter.style.top = y + "px";
-      });
+  const seconds =
+    totalSeconds % 60;
 
-      /* =====================================================
-         04. AGE / TIME COUNTER
-      ===================================================== */
-      const start = new Date("2007-07-30T00:00:00+05:45");
 
-      function updateCounter() {
-        let diff = Date.now() - start.getTime();
+  const daysElement =
+    document.getElementById("days");
 
-        if (diff < 0) diff = 0;
+  const hoursElement =
+    document.getElementById("hours");
 
-        const totalSeconds = Math.floor(diff / 1000);
+  const minutesElement =
+    document.getElementById("minutes");
 
-        const days = Math.floor(totalSeconds / 86400);
-        const hours = Math.floor(totalSeconds / 3600) % 24;
-        const minutes = Math.floor(totalSeconds / 60) % 60;
-        const seconds = totalSeconds % 60;
+  const secondsElement =
+    document.getElementById("seconds");
 
-        document.getElementById("days").textContent =
-          days.toLocaleString();
 
-        document.getElementById("hours").textContent =
-          String(hours).padStart(2, "0");
+  if (daysElement)
+    daysElement.textContent = days;
 
-        document.getElementById("minutes").textContent =
-          String(minutes).padStart(2, "0");
+  if (hoursElement)
+    hoursElement.textContent =
+      String(hours).padStart(2, "0");
 
-        document.getElementById("seconds").textContent =
-          String(seconds).padStart(2, "0");
-      }
+  if (minutesElement)
+    minutesElement.textContent =
+      String(minutes).padStart(2, "0");
 
-      updateCounter();
-      setInterval(updateCounter, 1000);
+  if (secondsElement)
+    secondsElement.textContent =
+      String(seconds).padStart(2, "0");
 
-      /* =====================================================
-         05. PHOTO 3D
-      ===================================================== */
-      const photo = document.getElementById("photo");
+}
 
-      document.addEventListener("mousemove", (event) => {
-        if (window.innerWidth <= 700) return;
 
-        const rect = photo.getBoundingClientRect();
+updateCounter();
+
+setInterval(updateCounter, 1000);
+
+
+/* =========================================================
+   MAGNETIC BUTTONS
+========================================================= */
+
+document
+  .querySelectorAll(".magnetic")
+  .forEach(function (element) {
+
+    element.addEventListener(
+      "mousemove",
+      function (event) {
+
+        const rect =
+          element.getBoundingClientRect();
 
         const x =
-          (event.clientX - rect.left) / rect.width - 0.5;
+          event.clientX -
+          rect.left -
+          rect.width / 2;
 
         const y =
-          (event.clientY - rect.top) / rect.height - 0.5;
+          event.clientY -
+          rect.top -
+          rect.height / 2;
 
-        photo.style.transform =
-          `rotateY(${x * 9}deg)
-           rotateX(${y * -9}deg)
-           translateZ(15px)`;
-      });
+        element.style.transform =
+          "translate(" +
+          x * 0.15 +
+          "px, " +
+          y * 0.15 +
+          "px)";
 
-      /* =====================================================
-         06. MENU
-      ===================================================== */
-      const menu = document.getElementById("menu");
-      const menuButton = document.getElementById("menuButton");
+      }
+    );
 
-      const closeMenu = () => {
-        menu.classList.remove("open");
-        menuButton.textContent = "MENU +";
-      };
 
-      menuButton.addEventListener("click", () => {
-        const isOpen = menu.classList.toggle("open");
-        menuButton.textContent = isOpen ? "CLOSE ×" : "MENU +";
-      });
+    element.addEventListener(
+      "mouseleave",
+      function () {
 
-      document.querySelectorAll(".menu a").forEach((link) => {
-        link.addEventListener("click", closeMenu);
-      });
+        element.style.transform =
+          "translate(0, 0)";
 
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-          closeMenu();
-        }
-      });
+      }
+    );
 
-      /* =====================================================
-         07. SCROLL REVEALS
-      ===================================================== */
-      const revealElements =
-        document.querySelectorAll(".reveal");
+  });
 
-      if ("IntersectionObserver" in window) {
-        const revealObserver = new IntersectionObserver(
-          (entries, observer) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          {
-            threshold: 0.12
+
+/* =========================================================
+   SIMPLE SCROLL REVEAL
+========================================================= */
+
+/*
+   IMPORTANT:
+   The CSS already makes everything visible.
+
+   JavaScript only adds movement.
+   Therefore, if JavaScript fails,
+   your text will STILL remain visible.
+*/
+
+const revealElements =
+  document.querySelectorAll(".reveal");
+
+
+if ("IntersectionObserver" in window) {
+
+  const observer =
+    new IntersectionObserver(
+      function (entries) {
+
+        entries.forEach(function (entry) {
+
+          if (entry.isIntersecting) {
+
+            entry.target.style.opacity = "1";
+
+            entry.target.style.transform =
+              "translateY(0)";
+
           }
+
+        });
+
+      },
+      {
+        threshold: 0.1
+      }
+    );
+
+
+  revealElements.forEach(function (element) {
+
+    element.style.opacity = "1";
+    element.style.visibility = "visible";
+
+    observer.observe(element);
+
+  });
+
+}
+
+
+/* =========================================================
+   IMAGE ERROR HANDLING
+========================================================= */
+
+document
+  .querySelectorAll("img")
+  .forEach(function (image) {
+
+    image.addEventListener(
+      "error",
+      function () {
+
+        console.warn(
+          "Image could not be loaded:",
+          image.src
         );
 
-        revealElements.forEach((element) => {
-          revealObserver.observe(element);
-        });
-      } else {
-        revealElements.forEach((element) => {
-          element.classList.add("visible");
-        });
       }
+    );
 
-      /* =====================================================
-         08. MAGNETIC ELEMENTS
-      ===================================================== */
-      document.querySelectorAll(".magnetic").forEach((element) => {
-        element.addEventListener("mousemove", (event) => {
-          const rect = element.getBoundingClientRect();
+  });
 
-          const x =
-            event.clientX - (rect.left + rect.width / 2);
-
-          const y =
-            event.clientY - (rect.top + rect.height / 2);
-
-          element.style.transform =
-            `translate(${x * 0.25}px, ${y * 0.25}px)`;
-        });
-
-        element.addEventListener("mouseleave", () => {
-          element.style.transform = "";
-        });
-      });
-
-      /* =====================================================
-         09. RANDOM SKILL GLITCH
-      ===================================================== */
-      const skillWords =
-        document.querySelectorAll(".skill-word");
-
-      if (skillWords.length) {
-        setInterval(() => {
-          const random =
-            skillWords[
-              Math.floor(Math.random() * skillWords.length)
-            ];
-
-          random.style.transform =
-            `translateX(${Math.random() * 30 - 15}px)
-             skewX(${Math.random() * 8 - 4}deg)`;
-
-          setTimeout(() => {
-            random.style.transform = "";
-          }, 180);
-        }, 1300);
-      }
-
-      /* =====================================================
-         10. HERO ENTRANCE
-      ===================================================== */
-      window.addEventListener("load", () => {
-        document
-          .querySelectorAll(
-            ".hero .letter, .hero .photo, .hero .hero-info"
-          )
-          .forEach((element, index) => {
-            element.style.opacity = "0";
-            element.style.transform += " translateY(20px)";
-
-            setTimeout(() => {
-              element.style.transition =
-                "opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1)";
-              element.style.opacity = "1";
-              element.style.transform = "";
-            }, 150 + index * 45);
-          });
-      });
-
-      /* =====================================================
-         11. CONSOLE
-      ===================================================== */
-      console.log(
-        "%c SAFAL PARAJULI ",
-        "background:#111;color:#d7ff00;font-size:20px;padding:10px;"
-      );
-
-      console.log("Welcome to the portfolio.");
-    })();
-  </script>
+</script>
 
 </body>
 </html>
+
