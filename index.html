@@ -1897,40 +1897,6 @@ footer{
   position:relative !important;
   min-height:100vh !important;
   overflow:hidden !important;
-  isolation:isolate;
-
-  /* soft, warm paper-like background */
-  background:
-    radial-gradient(circle at 12% 18%, rgba(214,224,210,.62), transparent 28%),
-    radial-gradient(circle at 88% 22%, rgba(232,218,198,.72), transparent 30%),
-    radial-gradient(circle at 52% 92%, rgba(220,218,231,.48), transparent 34%),
-    #f4f1e9 !important;
-
-  color:#171717 !important;
-}
-
-.gallery-section::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:-1;
-  pointer-events:none;
-  opacity:.42;
-  background-image:
-    linear-gradient(rgba(30,30,30,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(30,30,30,.035) 1px,transparent 1px);
-  background-size:52px 52px;
-}
-
-.gallery-section::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:-1;
-  pointer-events:none;
-  opacity:.14;
-  background-image:radial-gradient(rgba(0,0,0,.18) .55px,transparent .7px);
-  background-size:7px 7px;
 }
 .gallery-section-number{
   position:relative;
@@ -2354,7 +2320,7 @@ footer{
 
       <div class="photo-frame">
         <img
-          src="./parajuli.png.jpg"
+          src="./parajuli.png"
           onerror="this.onerror=null;this.src='./parajuli.png.jpg';"
           alt="Safal Parajuli"
         >
@@ -2374,7 +2340,7 @@ footer{
 
       <div class="photo-frame">
         <img
-          src="./prasad.png.jpg"
+          src="./prasad.png"
           onerror="this.onerror=null;this.src='./prasad.png.jpg';"
           alt="Gallery photo"
         >
@@ -2394,7 +2360,7 @@ footer{
 
       <div class="photo-frame">
         <img
-          src="./uppadhya.png.jpg"
+          src="./uppadhya.png"
           onerror="this.onerror=null;this.src='./uppadhya.png.jpg';"
           alt="Gallery photo"
         >
@@ -2414,7 +2380,7 @@ footer{
 
       <div class="photo-frame">
         <img
-          src="./ram.png.jpg"
+          src="./ram.png"
           onerror="this.onerror=null;this.src='./ram.png.jpg';"
           alt="Gallery photo"
         >
@@ -3688,23 +3654,6 @@ console.log(
   });
 })();
 </script>
-
-
-
-<style>
-.gallery-section .photo-wall{
-  position:relative;
-  z-index:2;
-  padding-top:120px !important;
-  padding-bottom:150px !important;
-}
-@media (max-width:600px){
-  .gallery-section .photo-wall{
-    padding-top:90px !important;
-    padding-bottom:120px !important;
-  }
-}
-</style>
 
 </body>
 
