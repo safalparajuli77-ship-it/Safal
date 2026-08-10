@@ -1374,6 +1374,64 @@ button{
 }
 
 /* =========================================================
+   EXPERIENCES GRID
+========================================================= */
+
+.experience-grid{
+  position:relative;
+  z-index:10;
+  width:min(1100px, 88vw);
+  margin:6vh auto 0;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:18px;
+}
+
+.experience-card{
+  position:relative;
+  min-height:220px;
+  padding:28px;
+  background:#d7ff00;
+  color:#111;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-sizing:border-box;
+}
+
+.experience-card:nth-child(2){ background:#ff4d16; }
+.experience-card:nth-child(3){ background:#eeeae2; }
+.experience-card:nth-child(4){ background:#8e70ff; }
+
+.experience-number{
+  font-family:monospace;
+  font-size:11px;
+}
+
+.experience-card h3{
+  margin:28px 0 10px;
+  font-size:clamp(30px,4vw,58px);
+  line-height:.82;
+  letter-spacing:-.06em;
+}
+
+.experience-card p{
+  max-width:520px;
+  margin:0;
+  font-family:monospace;
+  font-size:11px;
+  line-height:1.5;
+}
+
+@media(max-width:700px){
+  .experience-grid{
+    grid-template-columns:1fr;
+    width:88vw;
+  }
+}
+
+
+/* =========================================================
    CONTACT
 ========================================================= */
 
@@ -1831,17 +1889,14 @@ footer{
     </li>
 
     <li>
-</li>
-
-    <li>
-      <a href="#education">
-        EDUCATION
+      <a href="#interests">
+        INTERESTS
       </a>
     </li>
 
     <li>
-      <a href="#about">
-        ABOUT
+      <a href="#education">
+        EDUCATION
       </a>
     </li>
 
@@ -2081,21 +2136,8 @@ footer{
 
   <div class="overview-copy">
 
-    I build visual experiences
-    somewhere between
-    <span>design</span>,
-    <span>code</span>,
-    typography and
-    experimentation.
-
-    <br>
-    <br>
-
-   “Make every moment count."
-
-    <br>
-    <br>
-
+    LOOKING BEYOND THE HORIZON,
+    CHASING QUESTIONS THAT REACH FAR BEYOND THE STARS.
 
   </div>
 
@@ -2110,12 +2152,12 @@ footer{
 
 
 <!-- =======================================================
-     HORIZONTAL WORK
+     GALLERY
 ======================================================= -->
 
 <section
-  class="horizontal"
-  id="graphic"
+  class="horizontal gallery-section"
+  id="interests"
 >
 
   <div class="section-number">
@@ -2123,93 +2165,32 @@ footer{
   </div>
 
   <h2 class="horizontal-title">
-    VISUAL<br>
-    THINGS.
+    MY<br>
+    GALLERY.
   </h2>
 
-
   <div
-    class="horizontal-track"
+    class="horizontal-track gallery-track"
     id="horizontalTrack"
   >
 
-    <div class="card">
-
-      <div class="card-number">
-        GRAPHIC / 001
-      </div>
-
-      <h3>
-        TYPE<br>
-        SYSTEM
-      </h3>
-
-      <p>
-        Experimental typography,
-        layouts and visual compositions.
-      </p>
-
+    <div class="card gallery-card">
+      <img src="parajuli.png" alt="Safal Parajuli gallery photo">
     </div>
 
-
-    <div class="card">
-
-      <div class="card-number">
-        GRAPHIC / 002
-      </div>
-
-      <h3>
-        POSTER<br>
-        SERIES
-      </h3>
-
-      <p>
-        Posters built around scale,
-        color and unexpected forms.
-      </p>
-
+    <div class="card gallery-card">
+      <img src="prasad.png" alt="Gallery photo">
     </div>
 
-
-    <div class="card">
-
-      <div class="card-number">
-        GRAPHIC / 003
-      </div>
-
-      <h3>
-        DIGITAL<br>
-        ART
-      </h3>
-
-      <p>
-        Visual experiments mixing
-        code and graphic design.
-      </p>
-
+    <div class="card gallery-card">
+      <img src="uppadhya.png" alt="Gallery photo">
     </div>
 
-
-    <div class="card">
-
-      <div class="card-number">
-        GRAPHIC / 004
-      </div>
-
-      <h3>
-        WEB<br>
-        OBJECT
-      </h3>
-
-      <p>
-        Websites treated as
-        interactive graphic objects.
-      </p>
-
+    <div class="card gallery-card">
+      <img src="ram.png" alt="Gallery photo">
     </div>
 
   </div>
-
 </section>
 
 
@@ -2314,7 +2295,7 @@ footer{
 
 
 <!-- =======================================================
-     PLAYGROUND
+     EXPERIENCES
 ======================================================= -->
 
 <section
@@ -2323,31 +2304,50 @@ footer{
 >
 
   <div class="section-number">
-    05 / EXPERIMENTS
+    05 / EXPERIENCES
   </div>
-
 
   <h2 class="playground-title reveal">
-
-    PLAY<br>
-    WITH<br>
-    IT.
-
+    WHAT<br>
+    I HAVE<br>
+    DONE.
   </h2>
 
+  <div class="experience-grid">
 
-  <div class="poster a experiment-image-box">
-    <!-- Replace "experiment.jpg" with your own image filename/path -->
-    <span class="experiment-placeholder">
-      ADD<br>
-      IMAGE
-    </span>
+    <article class="experience-card reveal">
+      <span class="experience-number">01</span>
+      <div>
+        <h3>NCC</h3>
+        <p>Participated in the National Cadet Corps (NCC), developing discipline, teamwork, responsibility, and leadership through training and activities.</p>
+      </div>
+    </article>
+
+    <article class="experience-card reveal">
+      <span class="experience-number">02</span>
+      <div>
+        <h3>SCIENCE EXHIBITION</h3>
+        <p>Helped bring a practical robotics activity to life as part of a student-led technology initiative.</p>
+      </div>
+    </article>
+
+    <article class="experience-card reveal">
+      <span class="experience-number">03</span>
+      <div>
+        <h3>STUDENT LEADERSHIP</h3>
+        <p>Served in student leadership roles and took responsibility for representing and supporting fellow students.</p>
+      </div>
+    </article>
+
+    <article class="experience-card reveal">
+      <span class="experience-number">04</span>
+      <div>
+        <h3>SCIENCE &amp; TECHNOLOGY</h3>
+        <p>Actively involved in activities that connect learning with practical science, technology and teamwork.</p>
+      </div>
+    </article>
+
   </div>
-
-
-  <div class="poster b">
-<div class="poster c">
-<div class="poster d">
 </section>
 
 
@@ -3200,6 +3200,48 @@ console.log(
 
 </script>
 
+
+<style>
+/* =========================================================
+   GALLERY — FOUR PHOTOS
+========================================================= */
+.gallery-track{
+  display:grid !important;
+  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+  gap:24px !important;
+  width:100% !important;
+  transform:none !important;
+}
+
+.gallery-card{
+  position:relative !important;
+  width:100% !important;
+  height:clamp(320px, 42vw, 620px) !important;
+  overflow:hidden !important;
+  padding:0 !important;
+  margin:0 !important;
+  background:#111 !important;
+}
+
+.gallery-card img{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+}
+
+@media (max-width: 900px){
+  .gallery-track{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 560px){
+  .gallery-track{
+    grid-template-columns:1fr !important;
+  }
+}
+</style>
 </body>
 </html>
 
