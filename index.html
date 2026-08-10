@@ -16,7 +16,24 @@
   content="Safal Parajuli — designer, developer and visual experimenter."
 >
 
-<style>
+  <style>
+/* =========================================================
+   SAFAL PARAJULI — PORTFOLIO STYLES
+   v2 — consolidated for maintainability
+   ========================================================= */
+
+:root {
+  --bg: #eeeae2;
+  --ink: #111;
+  --paper: var(--bg);
+  --orange: #ff4d16;
+  --lime: #d7ff00;
+  --purple: #8e70ff;
+  --purple-alt: #8d6fff;
+  --white: #fff;
+}
+
+
 
 *{
   margin:0;
@@ -29,7 +46,7 @@ html{
 }
 
 body{
-  background:#eeeae2;
+  background:var(--bg);
   color:#111;
   font-family:Arial,Helvetica,sans-serif;
   overflow-x:hidden;
@@ -80,7 +97,7 @@ button{
   width:55px;
   height:55px;
 
-  background:#d7ff00;
+  background:var(--lime);
 
   border-color:#111;
 }
@@ -97,7 +114,7 @@ button{
 
   background:#111;
 
-  color:#eeeae2;
+  color:var(--bg);
 
   z-index:999999;
 
@@ -137,7 +154,7 @@ button{
   width:0%;
   height:100%;
 
-  background:#d7ff00;
+  background:var(--lime);
 }
 
 
@@ -196,7 +213,7 @@ button{
 
   inset:0;
 
-  background:#ff4d16;
+  background:var(--orange);
 
   z-index:400;
 
@@ -332,7 +349,7 @@ button{
   right:4%;
   top:12%;
 
-  background:#ff4d16;
+  background:var(--orange);
 
   animation:
     blobOne 7s ease-in-out infinite;
@@ -345,7 +362,7 @@ button{
   left:42%;
   bottom:15%;
 
-  background:#d7ff00;
+  background:var(--lime);
 
   animation:
     blobTwo 8s ease-in-out infinite;
@@ -358,7 +375,7 @@ button{
   left:4%;
   bottom:5%;
 
-  background:#8e70ff;
+  background:var(--purple);
 
   animation:
     blobThree 9s ease-in-out infinite;
@@ -435,7 +452,7 @@ button{
 
   text-transform:uppercase;
 
-  color:#ff4d16;
+  color:var(--orange);
 
   max-width:100%;
 
@@ -467,7 +484,7 @@ button{
     rotate(-5deg)
     scale(1.05);
 
-  color:#ff4d16;
+  color:var(--orange);
 }
 
 
@@ -505,7 +522,7 @@ button{
   transform-style:preserve-3d;
 
   box-shadow:
-    18px 18px 0 #d7ff00;
+    18px 18px 0 var(--lime);
 
   transition:
     transform .15s ease;
@@ -594,7 +611,7 @@ button{
 
   background:#111;
 
-  color:#eeeae2;
+  color:var(--bg);
 
   z-index:900;
 
@@ -603,7 +620,7 @@ button{
   pointer-events:none;
 
   box-shadow:
-    10px 10px 0 #d7ff00;
+    10px 10px 0 var(--lime);
 }
 
 .counter.show{
@@ -629,7 +646,7 @@ button{
 
   font-family:monospace;
 
-  color:#d7ff00;
+  color:var(--lime);
 
   font-size:10px;
 
@@ -681,7 +698,7 @@ button{
 
   background:#111;
 
-  color:#eeeae2;
+  color:var(--bg);
 
   padding:17px 0;
 }
@@ -779,7 +796,7 @@ button{
 
 .overview-copy span{
 
-  color:#ff4d16;
+  color:var(--orange);
 }
 
 
@@ -789,7 +806,7 @@ button{
 
 .work{
 
-  background:#eeeae2;
+  background:var(--bg);
 }
 
 .work-heading{
@@ -851,17 +868,17 @@ button{
     scale(.98)
     rotate(-1deg);
 } .project:nth-of-type(1) .project-box{
-  background:#ff4d16;
+  background:var(--orange);
   color:#111;
 }
 
 .project:nth-of-type(2) .project-box{
-  background:#d7ff00;
+  background:var(--lime);
   color:#111;
 }
 
 .project:nth-of-type(3) .project-box{
-  background:#8d6fff;
+  background:var(--purple-alt);
   color:#111;
 }
 
@@ -914,7 +931,7 @@ button{
 .project:nth-of-type(5)
 .geometry{
 
-  border:30px solid #d7ff00;
+  border:30px solid var(--lime);
 
   background:transparent;
 }
@@ -1016,22 +1033,22 @@ button{
 }
 
 .card:nth-child(1){
-  background:#ff4d16;
+  background:var(--orange);
   color:#111;
 }
 
 .card:nth-child(2){
-  background:#d7ff00;
+  background:var(--lime);
   color:#111;
 }
 
 .card:nth-child(3){
-  background:#eeeae2;
+  background:var(--bg);
   color:#111;
 }
 
 .card:nth-child(4){
-  background:#8e70ff;
+  background:var(--purple);
   color:#111;
 }
 
@@ -1069,7 +1086,7 @@ button{
 
   min-height:100vh;
 
-  background:#d7ff00;
+  background:var(--lime);
 }
 
 .education-title{
@@ -1147,7 +1164,7 @@ button{
 
   min-height:100vh;
 
-  background:#ff4d16;
+  background:var(--orange);
 }
 
 .about-title{
@@ -1199,7 +1216,7 @@ button{
 
   min-height:100vh;
 
-  background:#eeeae2;
+  background:var(--bg);
 }
 
 .skill-word{
@@ -1224,7 +1241,7 @@ button{
     translateX(60px)
     skewX(-8deg);
 
-  color:#ff4d16;
+  color:var(--orange);
 }
 
 
@@ -1298,7 +1315,7 @@ button{
 
 .poster.a{
 
-  background:#d7ff00;
+  background:var(--lime);
 
   left:10%;
   top:30%;
@@ -1308,7 +1325,7 @@ button{
 
 .poster.b{
 
-  background:#ff4d16;
+  background:var(--orange);
 
   right:13%;
   top:35%;
@@ -1318,7 +1335,7 @@ button{
 
 .poster.c{
 
-  background:#eeeae2;
+  background:var(--bg);
 
   left:37%;
   bottom:8%;
@@ -1328,7 +1345,7 @@ button{
 
 .poster.d{
 
-  background:#8e70ff;
+  background:var(--purple);
 
   right:3%;
   bottom:10%;
@@ -1347,7 +1364,7 @@ button{
   align-items:center;
   justify-content:center;
   padding:0;
-  background:#d7ff00;
+  background:var(--lime);
 }
 
 .experiment-image{
@@ -1391,7 +1408,7 @@ button{
   position:relative;
   min-height:220px;
   padding:28px;
-  background:#d7ff00;
+  background:var(--lime);
   color:#111;
   display:flex;
   flex-direction:column;
@@ -1399,9 +1416,9 @@ button{
   box-sizing:border-box;
 }
 
-.experience-card:nth-child(2){ background:#ff4d16; }
-.experience-card:nth-child(3){ background:#eeeae2; }
-.experience-card:nth-child(4){ background:#8e70ff; }
+.experience-card:nth-child(2){ background:var(--orange); }
+.experience-card:nth-child(3){ background:var(--bg); }
+.experience-card:nth-child(4){ background:var(--purple); }
 
 .experience-number{
   font-family:monospace;
@@ -1438,7 +1455,7 @@ button{
 .contact{
   min-height:100vh;
   min-height:100svh;
-  background:#8e70ff;
+  background:var(--purple);
   position:relative;
   z-index:1;
   overflow:hidden;
@@ -1598,7 +1615,7 @@ footer{
 }
 
 .hero .name{
-  color:#ff4d16;
+  color:var(--orange);
 }
 
 @media(min-width:701px){
@@ -1811,10 +1828,7 @@ footer{
 
 }
 
-</style>
 
-
-<style id="readymag-style-animations">
 /* =========================================================
    READYMAG-INSPIRED MOTION LAYER
    Keeps the existing design/layout; adds motion only.
@@ -1886,9 +1900,590 @@ footer{
     transition:none !important;
   }
 }
-</style>
 
-</head>
+/* =========================================================
+   COMPONENT: INTERESTS PHOTO WALL
+   ========================================================= */
+
+/* =========================================================
+   READYMAG STYLE — FOUR PHOTO CLIPBOARD WALL
+========================================================= */
+
+.gallery-section {
+  min-height: 100vh;
+  background: #fff !important;
+  color: #111 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.photo-wall {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 110px 30px 150px;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+}
+
+.photo-wall::-webkit-scrollbar {
+  display: none;
+}
+
+.clipboard-card {
+  position: relative;
+  flex: 0 0 calc((100vw - 170px) / 4);
+  width: calc((100vw - 170px) / 4);
+  height: 31vw;
+  max-width: 340px;
+  max-height: 470px;
+  min-width: 180px;
+  min-height: 270px;
+  box-sizing: border-box;
+  padding: 12px 12px 40px;
+  background: #f3f0e7 !important;
+  color: #111 !important;
+  box-shadow:
+    0 18px 35px rgba(0,0,0,.22),
+    0 4px 8px rgba(0,0,0,.12);
+  flex-shrink: 0;
+  transform-origin: 50% 10%;
+  transition:
+    transform .45s cubic-bezier(.2,.8,.2,1),
+    box-shadow .45s ease;
+  will-change: transform;
+}
+
+.photo-card-1 { transform: rotate(-3deg); }
+.photo-card-2 { transform: rotate(2deg); }
+.photo-card-3 { transform: rotate(-2deg); }
+.photo-card-4 { transform: rotate(3deg); }
+
+/* The motion script uses !important on its reveal transform, so the hover
+   state also uses !important to keep the physical card interaction working. */
+.clipboard-card.rm-image.rm-visible:hover,
+.clipboard-card:hover {
+  z-index: 20;
+  transform: translateY(-18px) rotate(0deg) scale(1.05) !important;
+  box-shadow:
+    0 35px 60px rgba(0,0,0,.35),
+    0 8px 15px rgba(0,0,0,.15);
+}
+
+.photo-frame {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #ddd;
+  border: 1px solid rgba(0,0,0,.12);
+  box-sizing: border-box;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  transition: transform .7s cubic-bezier(.2,.8,.2,1) !important;
+}
+
+.clipboard-card:hover .photo-frame img {
+  transform: scale(1.08) !important;
+}
+
+.photo-label {
+  position: absolute;
+  left: 14px;
+  bottom: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  letter-spacing: .16em;
+  color: #111;
+  text-transform: uppercase;
+}
+
+.paper-clip {
+  position: absolute;
+  z-index: 50;
+  width: 44px;
+  height: 30px;
+  top: -17px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 6px 6px 9px 9px;
+  background: linear-gradient(90deg,#666 0%,#ddd 15%,#999 30%,#fff 48%,#888 66%,#ddd 84%,#666 100%);
+  box-shadow:
+    0 5px 8px rgba(0,0,0,.4),
+    inset 0 1px 2px rgba(255,255,255,.8),
+    inset 0 -2px 3px rgba(0,0,0,.25);
+}
+
+.paper-clip::before {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 20px;
+  left: 50%;
+  top: -19px;
+  transform: translateX(-50%);
+  background: #777;
+  box-shadow: 1px 0 2px rgba(255,255,255,.5);
+}
+
+.paper-clip::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  top: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.55);
+}
+
+@media (min-width: 1101px) {
+  .photo-wall {
+    overflow-x: visible;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1100px) {
+  .photo-wall {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .clipboard-card {
+    flex: 0 0 240px;
+    width: 240px;
+    height: 340px;
+  }
+}
+
+@media (max-width: 600px) {
+  .photo-wall {
+    gap: 20px;
+    padding: 80px 35px 110px;
+    justify-content: flex-start;
+  }
+  .clipboard-card {
+    flex: 0 0 230px;
+    width: 230px;
+    height: 320px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clipboard-card,
+  .photo-frame img {
+    transition: none !important;
+  }
+}
+
+/* Readymag-inspired hover layer — keeps the existing layout intact */
+a, button, .card, .poster, .project-box, .photo, img, .timeline-item, .skill-word, .contact-link {
+  transition: transform .55s cubic-bezier(.22,1,.36,1), opacity .35s ease, filter .45s ease, letter-spacing .45s ease, background-color .35s ease;
+}
+.card:hover, .poster:hover, .project-box:hover, .timeline-item:hover {
+  transform: translateY(-8px) rotate(-.35deg);
+}
+.photo:hover, .card:hover img, .poster:hover img, .project-box:hover img {
+  transform: scale(1.035);
+  filter: contrast(1.05);
+}
+.menu-links a:hover {
+  letter-spacing: .08em;
+  transform: translateX(10px);
+}
+.contact-link:hover {
+  letter-spacing: .04em;
+}
+.skill-word:hover {
+  transform: translateX(8px) skewX(-4deg);
+}
+button:hover {
+  transform: scale(1.06);
+}
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after { transition-duration:.01ms !important; animation-duration:.01ms !important; }
+}
+
+/* FINAL HERO NAME */
+.hero .name,
+.hero .name-row,
+.hero .name-row.two{
+  color:#111 !important;
+  text-align:left;
+}
+
+.hero .name-row{
+  display:block !important;
+  margin-left:0 !important;
+  white-space:nowrap !important;
+}
+
+.hero .name-row.two{
+  margin-left:0 !important;
+}
+
+.hero .name .name-row + .name-row{
+  margin-top:0 !important;
+}
+
+/* Keep the two-line name on desktop exactly as requested */
+@media(min-width:701px){
+  .hero .name{
+    white-space:normal !important;
+  }
+}
+
+/* FINAL HERO NAME FIX */
+.hero .name{
+  position:relative !important;
+  z-index:20 !important;
+  color:#111 !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  overflow:visible !important;
+  text-align:left !important;
+}
+
+.hero .name-row,
+.hero .name-row.two{
+  display:block !important;
+  position:relative !important;
+  z-index:21 !important;
+  color:#111 !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  margin-left:0 !important;
+  transform:none;
+}
+
+.hero .name-row{
+  white-space:nowrap !important;
+}
+
+.hero .name-row.two{
+  margin-left:0 !important;
+}
+
+/* Do not let the hero name get clipped by its section */
+.hero{
+  overflow:hidden;
+}
+
+.hero .hero-content{
+  position:relative;
+  z-index:10;
+}
+
+@media(max-width:700px){
+  .hero .name{
+    white-space:normal !important;
+  }
+  .hero .name-row{
+    white-space:nowrap !important;
+  }
+}
+
+/* FINAL HERO ALIGNMENT */
+.hero .hero-content{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:8vw !important;
+}
+
+.hero .name{
+  flex:1 1 0 !important;
+  min-width:0 !important;
+  color:#111 !important;
+  text-align:left !important;
+}
+
+.hero .name-row,
+.hero .name-row.two{
+  color:#111 !important;
+  margin-left:0 !important;
+  text-align:left !important;
+}
+
+/* Slightly smaller name so it doesn't collide with the photo */
+@media(min-width:701px){
+  .hero .name{
+    font-size:clamp(55px, 8.2vw, 130px) !important;
+    line-height:.82 !important;
+    letter-spacing:-.075em !important;
+  }
+
+  .hero .photo-wrap{
+    flex:0 0 min(310px,25vw) !important;
+    margin-left:2vw !important;
+    margin-right:3vw !important;
+  }
+}
+
+/* Mobile: stack text and photo cleanly */
+@media(max-width:700px){
+  .hero .hero-content{
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    gap:45px !important;
+  }
+
+  .hero .name{
+    font-size:clamp(55px,15vw,90px) !important;
+    width:100% !important;
+  }
+
+  .hero .photo-wrap{
+    align-self:center !important;
+    margin:0 !important;
+  }
+}
+
+/* CLEAN HERO: BLACK NAME */
+.hero .name,
+.hero .name-row,
+.hero .name-row.two{
+  color:#111 !important;
+  -webkit-text-fill-color:#111 !important;
+}
+
+/* Keep the two-line name clean and aligned */
+.hero .name-row{
+  display:block !important;
+  margin-left:0 !important;
+  white-space:nowrap !important;
+}
+
+.hero .name-row.two{
+  margin-left:0 !important;
+}
+
+/* Prevent any accidental orange hover state on the hero name */
+.hero .name *{
+  color:#111 !important;
+  -webkit-text-fill-color:#111 !important;
+}
+
+@media(max-width:700px){
+  .hero .name{
+    color:#111 !important;
+    -webkit-text-fill-color:#111 !important;
+  }
+}
+
+/* FINAL CONTACT VISIBILITY FIX */
+.contact{
+  overflow:hidden !important;
+  isolation:isolate !important;
+}
+
+.contact-title{
+  z-index:2 !important;
+  position:relative !important;
+}
+
+.contact-links{
+  z-index:50 !important;
+  position:relative !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+
+.contact-link{
+  z-index:51 !important;
+  position:relative !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  color:#111 !important;
+}
+
+/* FINAL WORK 01 VISIBILITY FIX */
+.project:nth-of-type(1) .project-box{
+  background:var(--orange) !important;
+}
+
+.project:nth-of-type(1) .project-info{
+  color:#111 !important;
+  mix-blend-mode:normal !important;
+  z-index:20 !important;
+}
+
+.project:nth-of-type(1) .project-info h3,
+.project:nth-of-type(1) .project-info p{
+  color:#111 !important;
+}
+
+/* Experiment image */
+.experiment-image-box{
+  position:relative !important;
+}
+
+/* WORK PROJECT COLORS — prevents Project 01 from blending into the page */
+#work .project:nth-of-type(1) .project-box{
+  background:var(--orange) !important;
+  color:#111 !important;
+}
+#work .project:nth-of-type(2) .project-box{
+  background:var(--lime) !important;
+  color:#111 !important;
+}
+#work .project:nth-of-type(3) .project-box{
+  background:var(--purple) !important;
+  color:#111 !important;
+}
+#work .project:nth-of-type(4) .project-box{
+  background:#111 !important;
+  color:#fff !important;
+}
+#work .project:nth-of-type(1) .project-info{
+  color:#111 !important;
+  mix-blend-mode:normal !important;
+}
+
+/* RESTORE 05 / EXPERIMENTS — ORIGINAL ALIGNMENT */
+#experiments .poster{
+  position:relative !important;
+  overflow:hidden !important;
+}
+
+#experiments .poster > img,
+#experiments .experiment-image{
+  display:none !important;
+}
+
+/* Keep the original poster content centered and aligned */
+#experiments .poster{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+
+/* =========================================================
+   WORK — CLEAN FOUR-PANEL LAYOUT
+========================================================= */
+
+/* Hide secondary/floating preview cards; keep the actual work panels */
+.work-preview,
+.project-preview,
+.preview-box,
+.floating-preview,
+.work-hover-preview,
+.project-hover-preview,
+.project-preview-card{
+  display:none !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+
+/* Remove accidental pseudo-element preview cards */
+.project::before,
+.project::after{
+  pointer-events:none;
+}
+
+/* Keep a clean, consistent gap between the work panels */
+.work,
+.work-grid,
+.projects,
+.projects-grid{
+  gap:clamp(24px, 4vw, 64px) !important;
+}
+
+/* Prevent panels from visually overlapping each other */
+.project{
+  position:relative !important;
+  margin-bottom:clamp(24px, 4vw, 64px) !important;
+  z-index:1 !important;
+}
+
+/* =========================================================
+   WORK NUMBERING
+   01
+   02
+   03
+========================================================= */
+
+/* If the original panels contain 01 / 02 / 03 / 04,
+   show only 01 / 02 / 03 after removing the fourth panel. */
+.project:nth-of-type(4){
+  display:none !important;
+}
+
+/* Normalize numbering based on the remaining three panels */
+.project:nth-of-type(1) .project-number{
+  font-size:inherit;
+}
+.project:nth-of-type(2) .project-number{
+  font-size:0;
+}
+.project:nth-of-type(2) .project-number::after{
+  content:"02";
+  font-size:inherit;
+}
+.project:nth-of-type(3) .project-number{
+  font-size:0;
+}
+.project:nth-of-type(3) .project-number::after{
+  content:"03";
+  font-size:inherit;
+}
+
+/* =========================================================
+   FINAL OVERVIEW / SECTION RHYTHM
+========================================================= */
+
+.section-number{
+  display:block;
+  margin-bottom:clamp(24px, 3vw, 48px);
+  letter-spacing:.08em;
+  line-height:1;
+}
+
+/* Give major sections a little more breathing room */
+section.section{
+  scroll-margin-top:20px;
+}
+
+/* Keep section headings visually balanced after the Work section removal */
+.gallery,
+.education,
+.skills-section,
+#experiments,
+.contact{
+  position:relative;
+}
+
+/* Contact email remains clearly clickable */
+.contact-link[href^="mailto:"]{
+  cursor:pointer;
+  text-decoration:none;
+}
+
+/* Prevent accidental text clipping at section boundaries */
+.section,
+.gallery,
+.education,
+.skills-section,
+#experiments,
+.contact{
+  overflow:visible;
+}
+
+</style>
+  </head>
 
 
 <body>
@@ -2551,8 +3146,15 @@ footer{
 
 </footer>
 
+  <script>
+/* =========================================================
+   SAFAL PARAJULI — PORTFOLIO INTERACTIONS
+   v2 — consolidated script
+   ========================================================= */
 
-<script>
+"use strict";
+
+
 
 /* =========================================================
    LOADER
@@ -2627,7 +3229,7 @@ document.addEventListener(
 ========================================================= */
 
 document.querySelectorAll(
-  "a,button,.poster,.project-box,.letter,.card"
+  "a,button,.poster,.letter,.card"
 ).forEach(el => {
 
   el.addEventListener(
@@ -3321,196 +3923,7 @@ console.log(
   "Welcome to the portfolio."
 );
 
-</script>
 
-
-<style>
-/* =========================================================
-   READYMAG STYLE — FOUR PHOTO CLIPBOARD WALL
-========================================================= */
-
-.gallery-section {
-  min-height: 100vh;
-  background: #fff !important;
-  color: #111 !important;
-  padding: 0 !important;
-  overflow: visible !important;
-}
-
-.photo-wall {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 24px;
-  padding: 110px 30px 150px;
-  box-sizing: border-box;
-  overflow-x: auto;
-  overflow-y: visible;
-  scrollbar-width: none;
-}
-
-.photo-wall::-webkit-scrollbar {
-  display: none;
-}
-
-.clipboard-card {
-  position: relative;
-  flex: 0 0 calc((100vw - 170px) / 4);
-  width: calc((100vw - 170px) / 4);
-  height: 31vw;
-  max-width: 340px;
-  max-height: 470px;
-  min-width: 180px;
-  min-height: 270px;
-  box-sizing: border-box;
-  padding: 12px 12px 40px;
-  background: #f3f0e7 !important;
-  color: #111 !important;
-  box-shadow:
-    0 18px 35px rgba(0,0,0,.22),
-    0 4px 8px rgba(0,0,0,.12);
-  flex-shrink: 0;
-  transform-origin: 50% 10%;
-  transition:
-    transform .45s cubic-bezier(.2,.8,.2,1),
-    box-shadow .45s ease;
-  will-change: transform;
-}
-
-.photo-card-1 { transform: rotate(-3deg); }
-.photo-card-2 { transform: rotate(2deg); }
-.photo-card-3 { transform: rotate(-2deg); }
-.photo-card-4 { transform: rotate(3deg); }
-
-/* The motion script uses !important on its reveal transform, so the hover
-   state also uses !important to keep the physical card interaction working. */
-.clipboard-card.rm-image.rm-visible:hover,
-.clipboard-card:hover {
-  z-index: 20;
-  transform: translateY(-18px) rotate(0deg) scale(1.05) !important;
-  box-shadow:
-    0 35px 60px rgba(0,0,0,.35),
-    0 8px 15px rgba(0,0,0,.15);
-}
-
-.photo-frame {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #ddd;
-  border: 1px solid rgba(0,0,0,.12);
-  box-sizing: border-box;
-}
-
-.photo-frame img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-  transition: transform .7s cubic-bezier(.2,.8,.2,1) !important;
-}
-
-.clipboard-card:hover .photo-frame img {
-  transform: scale(1.08) !important;
-}
-
-.photo-label {
-  position: absolute;
-  left: 14px;
-  bottom: 13px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 9px;
-  letter-spacing: .16em;
-  color: #111;
-  text-transform: uppercase;
-}
-
-.paper-clip {
-  position: absolute;
-  z-index: 50;
-  width: 44px;
-  height: 30px;
-  top: -17px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 6px 6px 9px 9px;
-  background: linear-gradient(90deg,#666 0%,#ddd 15%,#999 30%,#fff 48%,#888 66%,#ddd 84%,#666 100%);
-  box-shadow:
-    0 5px 8px rgba(0,0,0,.4),
-    inset 0 1px 2px rgba(255,255,255,.8),
-    inset 0 -2px 3px rgba(0,0,0,.25);
-}
-
-.paper-clip::before {
-  content: "";
-  position: absolute;
-  width: 3px;
-  height: 20px;
-  left: 50%;
-  top: -19px;
-  transform: translateX(-50%);
-  background: #777;
-  box-shadow: 1px 0 2px rgba(255,255,255,.5);
-}
-
-.paper-clip::after {
-  content: "";
-  position: absolute;
-  left: 7px;
-  right: 7px;
-  top: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.55);
-}
-
-@media (min-width: 1101px) {
-  .photo-wall {
-    overflow-x: visible;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 1100px) {
-  .photo-wall {
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding-left: 50px;
-    padding-right: 50px;
-  }
-  .clipboard-card {
-    flex: 0 0 240px;
-    width: 240px;
-    height: 340px;
-  }
-}
-
-@media (max-width: 600px) {
-  .photo-wall {
-    gap: 20px;
-    padding: 80px 35px 110px;
-    justify-content: flex-start;
-  }
-  .clipboard-card {
-    flex: 0 0 230px;
-    width: 230px;
-    height: 320px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .clipboard-card,
-  .photo-frame img {
-    transition: none !important;
-  }
-}
-</style>
-
-<script id="readymag-motion">
 /* =========================================================
    READYMAG-INSPIRED UNIVERSAL TEXT + IMAGE REVEALS
 ========================================================= */
@@ -3573,440 +3986,7 @@ console.log(
       });
   });
 })();
+
 </script>
-
 </body>
-
-<style id="readymag-hover-effects">
-/* Readymag-inspired hover layer — keeps the existing layout intact */
-a, button, .card, .poster, .project-box, .photo, img, .timeline-item, .skill-word, .contact-link {
-  transition: transform .55s cubic-bezier(.22,1,.36,1), opacity .35s ease, filter .45s ease, letter-spacing .45s ease, background-color .35s ease;
-}
-.card:hover, .poster:hover, .project-box:hover, .timeline-item:hover {
-  transform: translateY(-8px) rotate(-.35deg);
-}
-.photo:hover, .card:hover img, .poster:hover img, .project-box:hover img {
-  transform: scale(1.035);
-  filter: contrast(1.05);
-}
-.menu-links a:hover {
-  letter-spacing: .08em;
-  transform: translateX(10px);
-}
-.contact-link:hover {
-  letter-spacing: .04em;
-}
-.skill-word:hover {
-  transform: translateX(8px) skewX(-4deg);
-}
-button:hover {
-  transform: scale(1.06);
-}
-@media (prefers-reduced-motion: reduce){
-  *, *::before, *::after { transition-duration:.01ms !important; animation-duration:.01ms !important; }
-}
-</style>
-
 </html>
-
-<style>
-/* FINAL HERO NAME */
-.hero .name,
-.hero .name-row,
-.hero .name-row.two{
-  color:#111 !important;
-  text-align:left;
-}
-
-.hero .name-row{
-  display:block !important;
-  margin-left:0 !important;
-  white-space:nowrap !important;
-}
-
-.hero .name-row.two{
-  margin-left:0 !important;
-}
-
-.hero .name .name-row + .name-row{
-  margin-top:0 !important;
-}
-
-/* Keep the two-line name on desktop exactly as requested */
-@media(min-width:701px){
-  .hero .name{
-    white-space:normal !important;
-  }
-}
-</style>
-
-<style>
-/* FINAL HERO NAME FIX */
-.hero .name{
-  position:relative !important;
-  z-index:20 !important;
-  color:#111 !important;
-  opacity:1 !important;
-  visibility:visible !important;
-  overflow:visible !important;
-  text-align:left !important;
-}
-
-.hero .name-row,
-.hero .name-row.two{
-  display:block !important;
-  position:relative !important;
-  z-index:21 !important;
-  color:#111 !important;
-  opacity:1 !important;
-  visibility:visible !important;
-  margin-left:0 !important;
-  transform:none;
-}
-
-.hero .name-row{
-  white-space:nowrap !important;
-}
-
-.hero .name-row.two{
-  margin-left:0 !important;
-}
-
-/* Do not let the hero name get clipped by its section */
-.hero{
-  overflow:hidden;
-}
-
-.hero .hero-content{
-  position:relative;
-  z-index:10;
-}
-
-@media(max-width:700px){
-  .hero .name{
-    white-space:normal !important;
-  }
-  .hero .name-row{
-    white-space:nowrap !important;
-  }
-}
-</style>
-
-<style>
-/* FINAL HERO ALIGNMENT */
-.hero .hero-content{
-  display:flex !important;
-  align-items:center !important;
-  justify-content:space-between !important;
-  gap:8vw !important;
-}
-
-.hero .name{
-  flex:1 1 0 !important;
-  min-width:0 !important;
-  color:#111 !important;
-  text-align:left !important;
-}
-
-.hero .name-row,
-.hero .name-row.two{
-  color:#111 !important;
-  margin-left:0 !important;
-  text-align:left !important;
-}
-
-/* Slightly smaller name so it doesn't collide with the photo */
-@media(min-width:701px){
-  .hero .name{
-    font-size:clamp(55px, 8.2vw, 130px) !important;
-    line-height:.82 !important;
-    letter-spacing:-.075em !important;
-  }
-
-  .hero .photo-wrap{
-    flex:0 0 min(310px,25vw) !important;
-    margin-left:2vw !important;
-    margin-right:3vw !important;
-  }
-}
-
-/* Mobile: stack text and photo cleanly */
-@media(max-width:700px){
-  .hero .hero-content{
-    flex-direction:column !important;
-    align-items:flex-start !important;
-    gap:45px !important;
-  }
-
-  .hero .name{
-    font-size:clamp(55px,15vw,90px) !important;
-    width:100% !important;
-  }
-
-  .hero .photo-wrap{
-    align-self:center !important;
-    margin:0 !important;
-  }
-}
-</style>
-
-<style>
-/* CLEAN HERO: BLACK NAME */
-.hero .name,
-.hero .name-row,
-.hero .name-row.two{
-  color:#111 !important;
-  -webkit-text-fill-color:#111 !important;
-}
-
-/* Keep the two-line name clean and aligned */
-.hero .name-row{
-  display:block !important;
-  margin-left:0 !important;
-  white-space:nowrap !important;
-}
-
-.hero .name-row.two{
-  margin-left:0 !important;
-}
-
-/* Prevent any accidental orange hover state on the hero name */
-.hero .name *{
-  color:#111 !important;
-  -webkit-text-fill-color:#111 !important;
-}
-
-@media(max-width:700px){
-  .hero .name{
-    color:#111 !important;
-    -webkit-text-fill-color:#111 !important;
-  }
-}
-</style>
-
-<style>
-/* FINAL CONTACT VISIBILITY FIX */
-.contact{
-  overflow:hidden !important;
-  isolation:isolate !important;
-}
-
-.contact-title{
-  z-index:2 !important;
-  position:relative !important;
-}
-
-.contact-links{
-  z-index:50 !important;
-  position:relative !important;
-  visibility:visible !important;
-  opacity:1 !important;
-}
-
-.contact-link{
-  z-index:51 !important;
-  position:relative !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  color:#111 !important;
-}
-</style>
-
-<style>
-/* FINAL WORK 01 VISIBILITY FIX */
-.project:nth-of-type(1) .project-box{
-  background:#ff4d16 !important;
-}
-
-.project:nth-of-type(1) .project-info{
-  color:#111 !important;
-  mix-blend-mode:normal !important;
-  z-index:20 !important;
-}
-
-.project:nth-of-type(1) .project-info h3,
-.project:nth-of-type(1) .project-info p{
-  color:#111 !important;
-}
-
-/* Experiment image */
-.experiment-image-box{
-  position:relative !important;
-}
-</style>
-
-<style>
-/* WORK PROJECT COLORS — prevents Project 01 from blending into the page */
-#work .project:nth-of-type(1) .project-box{
-  background:#ff4d16 !important;
-  color:#111 !important;
-}
-#work .project:nth-of-type(2) .project-box{
-  background:#d7ff00 !important;
-  color:#111 !important;
-}
-#work .project:nth-of-type(3) .project-box{
-  background:#8e70ff !important;
-  color:#111 !important;
-}
-#work .project:nth-of-type(4) .project-box{
-  background:#111 !important;
-  color:#fff !important;
-}
-#work .project:nth-of-type(1) .project-info{
-  color:#111 !important;
-  mix-blend-mode:normal !important;
-}
-</style>
-
-
-
-<style>
-/* RESTORE 05 / EXPERIMENTS — ORIGINAL ALIGNMENT */
-#experiments .poster{
-  position:relative !important;
-  overflow:hidden !important;
-}
-
-#experiments .poster > img,
-#experiments .experiment-image{
-  display:none !important;
-}
-
-/* Keep the original poster content centered and aligned */
-#experiments .poster{
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-}
-</style>
-
-<style>
-/* =========================================================
-   WORK — CLEAN FOUR-PANEL LAYOUT
-========================================================= */
-
-/* Hide secondary/floating preview cards; keep the actual work panels */
-.work-preview,
-.project-preview,
-.preview-box,
-.floating-preview,
-.work-hover-preview,
-.project-hover-preview,
-.project-preview-card{
-  display:none !important;
-  visibility:hidden !important;
-  pointer-events:none !important;
-}
-
-/* Remove accidental pseudo-element preview cards */
-.project::before,
-.project::after{
-  pointer-events:none;
-}
-
-/* Keep a clean, consistent gap between the work panels */
-.work,
-.work-grid,
-.projects,
-.projects-grid{
-  gap:clamp(24px, 4vw, 64px) !important;
-}
-
-/* Prevent panels from visually overlapping each other */
-.project{
-  position:relative !important;
-  margin-bottom:clamp(24px, 4vw, 64px) !important;
-  z-index:1 !important;
-}
-
-/* =========================================================
-   WORK NUMBERING
-   01
-   02
-   03
-========================================================= */
-
-/* If the original panels contain 01 / 02 / 03 / 04,
-   show only 01 / 02 / 03 after removing the fourth panel. */
-.project:nth-of-type(4){
-  display:none !important;
-}
-
-/* Normalize numbering based on the remaining three panels */
-.project:nth-of-type(1) .project-number{
-  font-size:inherit;
-}
-.project:nth-of-type(2) .project-number{
-  font-size:0;
-}
-.project:nth-of-type(2) .project-number::after{
-  content:"02";
-  font-size:inherit;
-}
-.project:nth-of-type(3) .project-number{
-  font-size:0;
-}
-.project:nth-of-type(3) .project-number::after{
-  content:"03";
-  font-size:inherit;
-}
-</style>
-
-<style>
-/* WORK SECTION REMOVED */
-.project,
-.projects,
-.project-box,
-.project-number,
-.project-info,
-.work-preview,
-.project-preview,
-.preview-box,
-.floating-preview{
-  display:none !important;
-}
-</style>
-
-<style>
-/* =========================================================
-   FINAL OVERVIEW / SECTION RHYTHM
-========================================================= */
-
-.section-number{
-  display:block;
-  margin-bottom:clamp(24px, 3vw, 48px);
-  letter-spacing:.08em;
-  line-height:1;
-}
-
-/* Give major sections a little more breathing room */
-section.section{
-  scroll-margin-top:20px;
-}
-
-/* Keep section headings visually balanced after the Work section removal */
-.gallery,
-.education,
-.skills-section,
-#experiments,
-.contact{
-  position:relative;
-}
-
-/* Contact email remains clearly clickable */
-.contact-link[href^="mailto:"]{
-  cursor:pointer;
-  text-decoration:none;
-}
-
-/* Prevent accidental text clipping at section boundaries */
-.section,
-.gallery,
-.education,
-.skills-section,
-#experiments,
-.contact{
-  overflow:visible;
-}
-</style>
