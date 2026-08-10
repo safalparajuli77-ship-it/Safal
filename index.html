@@ -1,3829 +1,441 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
+<!-- =========================================================
+     READYMAG STYLE — FOUR PHOTO CLIPBOARD WALL
+========================================================= -->
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<div class="photo-wall">
 
-  <meta
-    name="description"
-    content="Safal Parajuli — designer, developer and visual experimenter."
-  >
+  <!-- PHOTO 01 -->
+  <div class="clipboard-card photo-card-1">
 
-  <link rel="icon" type="image/x-icon" href="road%20%282%29.ico">
+    <div class="paper-clip"></div>
 
-  <title>Safal Parajuli</title>
+    <div class="photo-frame">
+      <img
+        src="./parajuli.png.jpg"
+        alt="Safal Parajuli"
+      >
+    </div>
 
-<meta
-  name="description"
-  content="Safal Parajuli — designer, developer and visual experimenter."
->
+    <div class="photo-label">
+      SAFAL / 01
+    </div>
+
+  </div>
+
+
+  <!-- PHOTO 02 -->
+  <div class="clipboard-card photo-card-2">
+
+    <div class="paper-clip"></div>
+
+    <div class="photo-frame">
+      <img
+        src="./prasad.png.jpg"
+        alt="Gallery photo"
+      >
+    </div>
+
+    <div class="photo-label">
+      MOMENT / 02
+    </div>
+
+  </div>
+
+
+  <!-- PHOTO 03 -->
+  <div class="clipboard-card photo-card-3">
+
+    <div class="paper-clip"></div>
+
+    <div class="photo-frame">
+      <img
+        src="./uppadhya.png.jpg"
+        alt="Gallery photo"
+      >
+    </div>
+
+    <div class="photo-label">
+      MEMORY / 03
+    </div>
+
+  </div>
+
+
+  <!-- PHOTO 04 -->
+  <div class="clipboard-card photo-card-4">
+
+    <div class="paper-clip"></div>
+
+    <div class="photo-frame">
+      <img
+        src="./ram.png.jpg"
+        alt="Gallery photo"
+      >
+    </div>
+
+    <div class="photo-label">
+      ARCHIVE / 04
+    </div>
+
+  </div>
+
+</div>
+
 
 <style>
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+/* =========================================================
+   PHOTO WALL
+========================================================= */
+
+.photo-wall {
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+
+  /* VERY IMPORTANT */
+  flex-wrap: nowrap;
+
+  justify-content: center;
+  align-items: flex-start;
+
+  gap: 24px;
+
+  padding: 80px 30px 120px;
+
+  box-sizing: border-box;
+
+  overflow-x: auto;
+  overflow-y: visible;
+
+  scrollbar-width: none;
 }
 
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  background:#eeeae2;
-  color:#111;
-  font-family:Arial,Helvetica,sans-serif;
-  overflow-x:hidden;
-  cursor:none;
-}
-
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
-button{
-  border:0;
-  background:none;
-  cursor:none;
+.photo-wall::-webkit-scrollbar {
+  display: none;
 }
 
 
 /* =========================================================
-   CUSTOM CURSOR
+   CLIPBOARD / PAPER CARD
 ========================================================= */
 
-.cursor{
-  position:fixed;
+.clipboard-card {
 
-  width:14px;
-  height:14px;
+  position: relative;
 
-  border:1px solid #111;
+  /* FOUR CARDS FIT IN ONE ROW */
+  flex: 0 0 calc((100vw - 170px) / 4);
 
-  border-radius:50%;
+  width: calc((100vw - 170px) / 4);
 
-  pointer-events:none;
+  height: 31vw;
 
-  transform:
-    translate(-50%,-50%);
+  max-width: 300px;
+  max-height: 420px;
 
-  z-index:99999;
+  min-width: 180px;
+  min-height: 270px;
+
+  box-sizing: border-box;
+
+  padding: 12px 12px 40px;
+
+  background: #f3f0e7;
+
+  box-shadow:
+    0 18px 35px rgba(0, 0, 0, 0.22),
+    0 4px 8px rgba(0, 0, 0, 0.12);
+
+  flex-shrink: 0;
 
   transition:
-    width .25s ease,
-    height .25s ease,
-    background .25s ease,
-    border .25s ease;
-}
+    transform 0.45s cubic-bezier(.2,.8,.2,1),
+    box-shadow 0.45s ease;
 
-.cursor.big{
-  width:55px;
-  height:55px;
-
-  background:#d7ff00;
-
-  border-color:#111;
+  transform-origin: 50% 10%;
 }
 
 
 /* =========================================================
-   PRELOADER
+   INDIVIDUAL ROTATIONS
 ========================================================= */
 
-.loader{
-  position:fixed;
-
-  inset:0;
-
-  background:#111;
-
-  color:#eeeae2;
-
-  z-index:999999;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  flex-direction:column;
-
-  transition:
-    transform 1s cubic-bezier(.77,0,.18,1);
+.photo-card-1 {
+  transform: rotate(-3deg);
 }
 
-.loader.hide{
-  transform:translateY(-100%);
+.photo-card-2 {
+  transform: rotate(2deg);
 }
 
-.loader-number{
-  font-family:monospace;
-
-  font-size:13px;
-
-  margin-bottom:20px;
+.photo-card-3 {
+  transform: rotate(-2deg);
 }
 
-.loader-bar{
-  width:180px;
-  height:1px;
-
-  background:#555;
-
-  overflow:hidden;
-}
-
-.loader-progress{
-  width:0%;
-  height:100%;
-
-  background:#d7ff00;
+.photo-card-4 {
+  transform: rotate(3deg);
 }
 
 
 /* =========================================================
-   NAVIGATION
+   HOVER EFFECT
 ========================================================= */
 
-.nav{
-  position:fixed;
+.clipboard-card:hover {
 
-  top:0;
-  left:0;
-
-  width:100%;
-
-  padding:20px 28px;
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  z-index:1000;
-
-  mix-blend-mode:difference;
-
-  color:white;
-}
-
-.logo{
-  font-family:monospace;
-
-  font-size:11px;
-
-  letter-spacing:.12em;
-}
-
-.menu-button{
-  font-family:monospace;
-
-  font-size:11px;
-
-  color:white;
-
-  letter-spacing:.12em;
-}
-
-
-/* =========================================================
-   FULL SCREEN MENU
-========================================================= */
-
-.menu{
-  position:fixed;
-
-  inset:0;
-
-  background:#ff4d16;
-
-  z-index:400;
-
-  transform:
-    translateY(-100%);
-
-  transition:
-    transform .9s cubic-bezier(.77,0,.18,1);
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-}
-
-.menu.open{
-  transform:translateY(0);
-}
-
-.menu-links{
-  list-style:none;
-
-  text-align:center;
-}
-
-.menu-links li{
-  overflow:hidden;
-}
-
-.menu-links a{
-  display:block;
-
-  font-size:
-    clamp(55px,10vw,150px);
-
-  font-weight:900;
-
-  line-height:.8;
-
-  letter-spacing:-.08em;
-
-  transition:
-    transform .4s ease;
-}
-
-.menu-links a:hover{
-  transform:
-    translateX(25px)
-    skewX(-8deg);
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-  min-height:100vh;
-
-  position:relative;
-
-  padding:
-    110px 5vw 80px;
-
-  overflow:hidden;
-
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:center;
-}
-
-
-/* moving background */
-
-.hero-grid{
-  position:absolute;
-
-  inset:-20%;
-
-  background-image:
-    linear-gradient(
-      rgba(0,0,0,.035) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0,0,0,.035) 1px,
-      transparent 1px
-    );
-
-  background-size:
-    60px 60px;
-
-  transform:
-    rotate(-8deg)
-    scale(1.3);
-
-  animation:
-    gridMove 20s linear infinite;
-
-  z-index:0;
-}
-
-@keyframes gridMove{
-
-  to{
-    transform:
-      rotate(-8deg)
-      scale(1.3)
-      translate(60px,60px);
-  }
-
-}
-
-
-/* floating blobs */
-
-.blob{
-  position:absolute;
-
-  border-radius:50%;
-
-  pointer-events:none;
-}
-
-.blob.one{
-  width:320px;
-  height:320px;
-
-  right:4%;
-  top:12%;
-
-  background:#ff4d16;
-
-  animation:
-    blobOne 7s ease-in-out infinite;
-}
-
-.blob.two{
-  width:220px;
-  height:220px;
-
-  left:42%;
-  bottom:15%;
-
-  background:#d7ff00;
-
-  animation:
-    blobTwo 8s ease-in-out infinite;
-}
-
-.blob.three{
-  width:170px;
-  height:170px;
-
-  left:4%;
-  bottom:5%;
-
-  background:#8e70ff;
-
-  animation:
-    blobThree 9s ease-in-out infinite;
-}
-
-@keyframes blobOne{
-
-  0%,100%{
-    transform:
-      translate(0,0)
-      rotate(0deg);
-  }
-
-  50%{
-    transform:
-      translate(-50px,40px)
-      rotate(90deg);
-  }
-
-}
-
-@keyframes blobTwo{
-
-  0%,100%{
-    transform:
-      translateY(0)
-      scale(1);
-  }
-
-  50%{
-    transform:
-      translateY(-80px)
-      scale(1.2);
-  }
-
-}
-
-@keyframes blobThree{
-
-  0%,100%{
-    transform:
-      rotate(0deg);
-  }
-
-  50%{
-    transform:
-      rotate(180deg)
-      translateX(60px);
-  }
-
-}
-
-
-/* =========================================================
-   HERO NAME
-========================================================= */
-
-.hero-content{
-  position:relative;
-
-  z-index:10;
-  width:100%;
-}
-
-.name{
-  font-size:
-    clamp(70px,13vw,190px);
-
-  font-weight:900;
-
-  letter-spacing:-.08em;
-
-  line-height:.78;
-
-  text-transform:uppercase;
-
-  color:#ff4d16;
-
-  max-width:100%;
-
-  position:relative;
-}
-
-.name-row{
-  display:block;
-  white-space:nowrap;
-  margin-left:0 !important;
-}
-
-.name-row.two{
-  margin-left:0 !important;
-}
-
-.letter{
-  display:inline-block;
-
-  transition:
-    transform .18s ease,
-    color .18s ease;
-}
-
-.letter:hover{
+  z-index: 20;
 
   transform:
     translateY(-18px)
-    rotate(-5deg)
+    rotate(0deg)
     scale(1.05);
 
-  color:#ff4d16;
+  box-shadow:
+    0 35px 60px rgba(0, 0, 0, 0.35),
+    0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
 
 /* =========================================================
-   PHOTO
+   PHOTO AREA
 ========================================================= */
 
-.photo-wrap{
+.photo-frame {
 
-  width:
-    min(340px,55vw);
-
-  margin:
-    80px 0 0 12vw;
-
-  perspective:1200px;
-
-  position:relative;
-}
-
-.photo{
-
-  position:relative;
-
-  width:100%;
-
-  aspect-ratio:4/5;
-
-  overflow:hidden;
-
-  background:#111;
-
-  border:1px solid #111;
-
-  transform-style:preserve-3d;
-
-  box-shadow:
-    18px 18px 0 #d7ff00;
-
-  transition:
-    transform .15s ease;
-}
-
-.photo img{
-
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
-  display:block;
-
-  transform:
-    scale(1.05);
-
-  transition:
-    transform .6s cubic-bezier(.16,1,.3,1);
-
-  filter:
-    contrast(1.08)
-    saturate(.9);
-}
-
-.photo:hover img{
-  transform:
-    scale(1.12);
-}
-
-
-/* photo metadata */
-
-.photo-meta{
-
-  position:absolute;
-
-  right:-100px;
-
-  bottom:0;
-
-  writing-mode:
-    vertical-rl;
-
-  font-family:monospace;
-
-  font-size:9px;
-
-  letter-spacing:.1em;
-}
-/* ================================
-   GALLERY IMAGES
-================================ */
-
-.gallery-card {
-  padding: 0;
-  overflow: hidden;
-}
-
-.gallery-card img {
   width: 100%;
   height: 100%;
-  display: block;
-  object-fit: cover;
-}
 
-/* ================================
-   MAIN PHOTO
-================================ */
-
-.photo {
   overflow: hidden;
+
+  background: #ddd;
+
+  border: 1px solid rgba(0, 0, 0, 0.12);
+
+  box-sizing: border-box;
 }
 
-.photo img {
+
+.photo-frame img {
+
   width: 100%;
   height: 100%;
+
   display: block;
+
   object-fit: cover;
+
+  object-position: center;
+
+  transition:
+    transform 0.7s cubic-bezier(.2,.8,.2,1);
 }
 
-/* =========================================================
-   HERO INFO
-========================================================= */
 
-.hero-info{
+/* PHOTO ZOOM */
 
-  position:absolute;
+.clipboard-card:hover .photo-frame img {
 
-  right:5vw;
+  transform: scale(1.08);
 
-  bottom:8vh;
-
-  font-family:monospace;
-
-  font-size:10px;
-
-  line-height:1.8;
-
-  z-index:10;
 }
 
 
 /* =========================================================
-   NAME COUNTER
+   PHOTO LABEL
 ========================================================= */
 
-.counter{
+.photo-label {
 
-  position:fixed;
+  position: absolute;
 
-  width:310px;
+  left: 14px;
+  bottom: 13px;
 
-  padding:18px;
+  font-family: Arial, Helvetica, sans-serif;
 
-  background:#111;
+  font-size: 9px;
 
-  color:#eeeae2;
+  letter-spacing: 0.16em;
 
-  z-index:900;
+  color: #111;
 
-  display:none;
+  text-transform: uppercase;
+}
 
-  pointer-events:none;
+
+/* =========================================================
+   METAL CLIP
+========================================================= */
+
+.paper-clip {
+
+  position: absolute;
+
+  z-index: 50;
+
+  width: 44px;
+  height: 30px;
+
+  top: -17px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-radius: 6px 6px 9px 9px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #666 0%,
+      #ddd 15%,
+      #999 30%,
+      #fff 48%,
+      #888 66%,
+      #ddd 84%,
+      #666 100%
+    );
 
   box-shadow:
-    10px 10px 0 #d7ff00;
-}
-
-.counter.show{
-  display:block;
-}
-
-.counter-small{
-
-  font-family:monospace;
-
-  color:#888;
-
-  font-size:9px;
-
-  text-transform:uppercase;
-
-  letter-spacing:.1em;
-
-  margin-bottom:8px;
-}
-
-.counter-date{
-
-  font-family:monospace;
-
-  color:#d7ff00;
-
-  font-size:10px;
-
-  margin-bottom:18px;
-}
-
-.counter-grid{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
-  gap:8px;
-}
-
-.counter-number{
-
-  font-size:25px;
-
-  font-weight:900;
-}
-
-.counter-unit{
-
-  display:block;
-
-  font-family:monospace;
-
-  font-size:7px;
-
-  text-transform:uppercase;
-
-  color:#777;
-
-  margin-top:4px;
+    0 5px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 2px rgba(255,255,255,.8),
+    inset 0 -2px 3px rgba(0,0,0,.25);
 }
 
 
 /* =========================================================
-   MARQUEE
+   CLIP VERTICAL NECK
 ========================================================= */
 
-.marquee{
+.paper-clip::before {
 
-  overflow:hidden;
+  content: "";
 
-  white-space:nowrap;
+  position: absolute;
 
-  background:#111;
+  width: 3px;
+  height: 20px;
 
-  color:#eeeae2;
+  left: 50%;
+  top: -19px;
 
-  padding:17px 0;
+  transform: translateX(-50%);
+
+  background: #777;
+
+  box-shadow:
+    1px 0 2px rgba(255,255,255,.5);
 }
 
-.marquee-track{
 
-  display:inline-block;
+/* =========================================================
+   CLIP HIGHLIGHT
+========================================================= */
 
-  font-family:monospace;
+.paper-clip::after {
 
-  font-size:11px;
+  content: "";
 
-  letter-spacing:.1em;
+  position: absolute;
 
-  animation:
-    marquee 25s linear infinite;
+  left: 7px;
+  right: 7px;
+
+  top: 4px;
+
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,.55);
 }
 
-@keyframes marquee{
 
-  to{
-    transform:
-      translateX(-50%);
+/* =========================================================
+   DESKTOP — FORCE FOUR IN ONE LINE
+========================================================= */
+
+@media (min-width: 1101px) {
+
+  .photo-wall {
+
+    overflow-x: visible;
+
+    justify-content: center;
+
+  }
+
+  .clipboard-card {
+
+    flex: 0 0 calc((100vw - 170px) / 4);
+
+    width: calc((100vw - 170px) / 4);
+
   }
 
 }
 
 
 /* =========================================================
-   SECTION
+   TABLET
 ========================================================= */
 
-.section{
+@media (max-width: 1100px) {
 
-  position:relative;
+  .photo-wall {
 
-  padding:
-    15vh 6vw;
+    justify-content: flex-start;
 
-  overflow:hidden;
-  isolation:isolate;
-  contain:paint;
-}
+    overflow-x: auto;
 
-.section-number{
+    padding-left: 50px;
+    padding-right: 50px;
 
-  font-family:monospace;
-
-  font-size:10px;
-
-  letter-spacing:.12em;
-
-  margin-bottom:50px;
-}
-
-
-/* =========================================================
-   OVERVIEW
-========================================================= */
-
-.overview{
-
-  min-height:90vh;
-
-  display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:10vw;
-
-  align-items:center;
-}
-
-.overview-title{
-
-  font-size:
-    clamp(70px,11vw,160px);
-
-  font-weight:900;
-
-  line-height:.72;
-
-  letter-spacing:-.09em;
-}
-
-.overview-copy{
-
-  font-size:24px;
-
-  line-height:1.35;
-
-  max-width:560px;
-}
-
-.overview-copy span{
-
-  color:#ff4d16;
-}
-
-
-/* =========================================================
-   WORK
-========================================================= */
-
-.work{
-
-  background:#eeeae2;
-}
-
-.work-heading{
-
-  font-size:
-    clamp(80px,14vw,210px);
-
-  line-height:.7;
-
-  letter-spacing:-.1em;
-
-  font-weight:900;
-}
-
-
-/* project */
-
-.project{
-
-  min-height:75vh;
-
-  margin-top:14vh;
-
-  position:relative;
-
-  display:flex;
-
-  align-items:center;
-}
-
-.project:nth-child(even){
-
-  justify-content:flex-end;
-}
-
-.project-box{
-
-  width:70vw;
-
-  height:65vh;
-
-  position:relative;
-
-  overflow:hidden;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  transition:
-    transform .5s ease;
-}
-
-.project-box:hover{
-
-  transform:
-    scale(.98)
-    rotate(-1deg);
-} .project:nth-of-type(1) .project-box{
-  background:#ff4d16;
-  color:#111;
-}
-
-.project:nth-of-type(2) .project-box{
-  background:#d7ff00;
-  color:#111;
-}
-
-.project:nth-of-type(3) .project-box{
-  background:#8d6fff;
-  color:#111;
-}
-
-.project:nth-of-type(4) .project-box{
-  background:#111;
-  color:white;
-}
-
-
-/* project geometry */
-
-.geometry{
-
-  width:250px;
-  height:250px;
-
-  background:#111;
-
-  border-radius:50%;
-
-  transition:
-    transform .8s
-    cubic-bezier(.16,1,.3,1);
-}
-
-.project-box:hover .geometry{
-
-  transform:
-    scale(2.2)
-    rotate(160deg);
-}
-
-.project:nth-of-type(3)
-.geometry{
-  border-radius:0;
-
-  transform:
-    rotate(45deg);
-}
-
-.project:nth-of-type(4)
-.geometry{
-
-  border-radius:0;
-
-  width:300px;
-  height:120px;
-}
-
-.project:nth-of-type(5)
-.geometry{
-
-  border:30px solid #d7ff00;
-
-  background:transparent;
-}
-
-
-/* project title */
-
-.project-info{
-
-  position:absolute;
-
-  left:7%;
-
-  bottom:7%;
-
-  z-index:5;
-
-  mix-blend-mode:difference;
-
-  color:white;
-}
-
-.project-info h3{
-
-  font-size:
-    clamp(65px,10vw,150px);
-
-  line-height:.75;
-
-  letter-spacing:-.08em;
-}
-
-.project-info p{
-
-  font-family:monospace;
-
-  font-size:9px;
-
-  margin-top:20px;
-}
-
-
-/* =========================================================
-   HORIZONTAL SCROLL STYLE
-========================================================= */
-
-.horizontal{
-
-  min-height:100vh;
-
-  background:#111;
-
-  color:white;
-
-  padding:10vh 5vw;
-
-  overflow:hidden;
-}
-
-.horizontal-title{
-
-  font-size:
-    clamp(80px,15vw,220px);
-
-  line-height:.7;
-
-  letter-spacing:-.1em;
-}
-
-.horizontal-track{
-
-  margin-top:100px;
-
-  display:flex;
-
-  gap:30px;
-
-  width:max-content;
-
-  transition:
-    transform .1s linear;
-}
-
-.card{
-
-  width:420px;
-
-  height:520px;
-
-  padding:25px;
-
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:space-between;
-
-  flex-shrink:0;
-}
-
-.card:nth-child(1){
-  background:#ff4d16;
-  color:#111;
-}
-
-.card:nth-child(2){
-  background:#d7ff00;
-  color:#111;
-}
-
-.card:nth-child(3){
-  background:#eeeae2;
-  color:#111;
-}
-
-.card:nth-child(4){
-  background:#8e70ff;
-  color:#111;
-}
-
-.card-number{
-
-  font-family:monospace;
-
-  font-size:10px;
-}
-
-.card h3{
-
-  font-size:60px;
-
-  line-height:.8;
-
-  letter-spacing:-.08em;
-}
-
-.card p{
-
-  font-family:monospace;
-
-  font-size:10px;
-
-  line-height:1.6;
-}
-
-
-/* =========================================================
-   EDUCATION
-========================================================= */
-
-.education{
-
-  min-height:100vh;
-
-  background:#d7ff00;
-}
-
-.education-title{
-
-  font-size:
-    clamp(80px,14vw,200px);
-
-  line-height:.7;
-
-  letter-spacing:-.1em;
-
-  font-weight:900;
-}
-
-.timeline{
-
-  margin-top:120px;
-
-  border-top:1px solid #111;
-}
-
-.timeline-item{
-
-  display:grid;
-
-  grid-template-columns:
-    120px 1fr 180px;
-
-  gap:30px;
-
-  padding:35px 0;
-
-  border-bottom:1px solid #111;
-
-  transition:
-    padding .3s ease;
-}
-
-.timeline-item:hover{
-
-  padding-left:25px;
-
-  padding-right:25px;
-}
-
-.timeline-year{
-
-  font-family:monospace;
-
-  font-size:11px;
-}
-
-.timeline-title{
-
-  font-size:30px;
-
-  font-weight:700;
-}
-
-.timeline-info{
-
-  font-family:monospace;
-
-  font-size:10px;
-
-  text-align:right;
-}
-
-
-/* =========================================================
-   ABOUT
-========================================================= */
-
-.about{
-
-  min-height:100vh;
-
-  background:#ff4d16;
-}
-
-.about-title{
-
-  font-size:
-    clamp(80px,15vw,220px);
-
-  line-height:.68;
-
-  letter-spacing:-.1em;
-}
-
-.about-grid{
-
-  display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:12vw;
-
-  margin-top:15vh;
-}
-
-.about-copy{
-
-  font-size:25px;
-
-  line-height:1.35;
-
-  max-width:600px;
-}
-
-.skills{
-
-  font-family:monospace;
-
-  font-size:12px;
-
-  line-height:2.2;
-}
-
-
-/* =========================================================
-   SKILLS
-========================================================= */
-
-.skills-section{
-
-  min-height:100vh;
-
-  background:#eeeae2;
-}
-
-.skill-word{
-
-  font-size:
-    clamp(60px,10vw,150px);
-
-  line-height:.8;
-
-  letter-spacing:-.09em;
-
-  display:block;
-
-  transition:
-    transform .5s ease,
-    color .5s ease;
-}
-
-.skill-word:hover{
-
-  transform:
-    translateX(60px)
-    skewX(-8deg);
-
-  color:#ff4d16;
-}
-
-
-/* =========================================================
-   PLAYGROUND
-========================================================= */
-
-.playground{
-
-  min-height:120vh;
-
-  background:#111;
-
-  color:white;
-
-  position:relative;
-
-  overflow:hidden;
-}
-
-.playground-title{
-
-  font-size:
-    clamp(80px,14vw,210px);
-
-  line-height:.7;
-
-  letter-spacing:-.1em;
-
-  position:relative;
-
-  z-index:10;
-}
-
-.poster{
-
-  position:absolute;
-
-  width:260px;
-
-  height:350px;
-
-  padding:20px;
-
-  display:flex;
-
-  align-items:flex-end;
-
-  font-size:40px;
-
-  font-weight:900;
-
-  line-height:.8;
-
-  color:#111;
-
-  transition:
-    transform .5s ease;
-
-  z-index:5;
-}
-
-.poster:hover{
-
-  transform:
-    scale(1.08)
-    rotate(0deg)!important;
-
-  z-index:20;
-}
-
-.poster.a{
-
-  background:#d7ff00;
-
-  left:10%;
-  top:30%;
-
-  transform:rotate(-9deg);
-}
-
-.poster.b{
-
-  background:#ff4d16;
-
-  right:13%;
-  top:35%;
-
-  transform:rotate(8deg);
-}
-
-.poster.c{
-
-  background:#eeeae2;
-
-  left:37%;
-  bottom:8%;
-
-  transform:rotate(-5deg);
-}
-
-.poster.d{
-
-  background:#8e70ff;
-
-  right:3%;
-  bottom:10%;
-
-  transform:rotate(13deg);
-}
-
-
-
-/* =========================================================
-   EXPERIMENT IMAGE
-========================================================= */
-
-.experiment-image-box{
-  overflow:hidden;
-  align-items:center;
-  justify-content:center;
-  padding:0;
-  background:#d7ff00;
-}
-
-.experiment-image{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:1;
-  display:block;
-}
-
-.experiment-placeholder{
-  position:relative;
-  z-index:0;
-  font-family:monospace;
-  font-size:24px;
-  line-height:.9;
-  color:#111;
-}
-
-.experiment-image:not([src=""]){
-  z-index:2;
-}
-
-/* =========================================================
-   EXPERIENCES GRID
-========================================================= */
-
-.experience-grid{
-  position:relative;
-  z-index:10;
-  width:min(1100px, 88vw);
-  margin:6vh auto 0;
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:18px;
-}
-
-.experience-card{
-  position:relative;
-  min-height:220px;
-  padding:28px;
-  background:#d7ff00;
-  color:#111;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  box-sizing:border-box;
-}
-
-.experience-card:nth-child(2){ background:#ff4d16; }
-.experience-card:nth-child(3){ background:#eeeae2; }
-.experience-card:nth-child(4){ background:#8e70ff; }
-
-.experience-number{
-  font-family:monospace;
-  font-size:11px;
-}
-
-.experience-card h3{
-  margin:28px 0 10px;
-  font-size:clamp(30px,4vw,58px);
-  line-height:.82;
-  letter-spacing:-.06em;
-}
-
-.experience-card p{
-  max-width:520px;
-  margin:0;
-  font-family:monospace;
-  font-size:11px;
-  line-height:1.5;
-}
-
-@media(max-width:700px){
-  .experience-grid{
-    grid-template-columns:1fr;
-    width:88vw;
-  }
-}
-
-
-/* =========================================================
-   CONTACT
-========================================================= */
-
-.contact{
-  min-height:100vh;
-  min-height:100svh;
-  background:#8e70ff;
-  position:relative;
-  z-index:1;
-  overflow:hidden;
-  isolation:isolate;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-
-  /* Keep the bottom social links inside the page */
-  padding:8vh 6vw 7vh;
-  box-sizing:border-box;
-}
-
-.contact-title{
-  position:relative;
-  z-index:2;
-  max-width:100%;
-  overflow:visible;
-
-  /* Slightly smaller so the links have their own space */
-  font-size:clamp(72px,11.5vw,175px);
-  line-height:.72;
-  letter-spacing:-.085em;
-  font-weight:900;
-  margin:0;
-}
-
-.contact-links{
-  position:relative;
-  z-index:20;
-  display:flex;
-  gap:30px;
-  flex-wrap:wrap;
-
-  font-family:monospace;
-  font-size:11px;
-
-  /* Never allow links to be clipped by the title */
-  flex-shrink:0;
-  min-height:24px;
-  align-items:flex-end;
-  padding-top:28px;
-}
-
-.contact-link{
-  position:relative;
-  z-index:21;
-  display:inline-block;
-  color:#111;
-  border-bottom:1px solid #111;
-  padding-bottom:5px;
-  transition:padding .3s ease;
-}
-
-.contact-link:hover{
-  padding-left:20px;
-  padding-right:20px;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer{
-
-  background:#111;
-
-  color:white;
-
-  padding:25px;
-
-  display:flex;
-
-  justify-content:space-between;
-
-  font-family:monospace;
-
-  font-size:9px;
-}
-
-
-/* =========================================================
-   REVEAL
-========================================================= */
-
-.reveal{
-
-  opacity:0;
-
-  transform:
-    translateY(70px);
-
-  transition:
-    opacity 1s
-    cubic-bezier(.16,1,.3,1),
-    transform 1s
-    cubic-bezier(.16,1,.3,1);
-}
-
-.reveal.visible{
-
-  opacity:1;
-
-  transform:
-    translateY(0);
-}
-
-
-/* =========================================================
-   MAGNETIC
-========================================================= */
-
-.magnetic{
-
-  transition:
-    transform .2s ease;
-}
-
-
-
-/* =========================================================
-   PAGE ISOLATION / CONTACT FIX
-========================================================= */
-
-main,
-section,
-footer{
-  position:relative;
-}
-
-.hero,
-.marquee,
-.overview,
-.work,
-.horizontal,
-.education,
-.about,
-.skills-section,
-.playground,
-.contact,
-.footer{
-  overflow:hidden;
-  isolation:isolate;
-}
-
-.contact{
-  z-index:1;
-}
-
-.contact .section-number,
-.contact .contact-title,
-.contact .contact-links{
-  position:relative;
-  z-index:2;
-}
-
-.hero .name{
-  color:#ff4d16;
-}
-
-@media(min-width:701px){
-  .hero-content{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:5vw;
   }
 
-  .hero-content .name{
-    flex:1 1 auto;
-    min-width:0;
-    white-space:nowrap;
+  .clipboard-card {
+
+    flex: 0 0 240px;
+
+    width: 240px;
+
+    height: 340px;
+
   }
 
-  .hero-content .photo-wrap{
-    flex:0 0 min(340px,28vw);
-    margin:0 5vw 0 0;
-  }
-
-  .name{
-    font-size:clamp(58px,10.5vw,165px);
-    letter-spacing:-.095em;
-  }
 }
+
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-@media(max-width:700px){
-  .name{
-    font-size:clamp(52px,16vw,100px);
-    white-space:normal;
-  }
+@media (max-width: 600px) {
 
-  .name-row{
-    white-space:nowrap;
-  }
+  .photo-wall {
 
-  .hero-content .name{
-    white-space:normal;
-  }
+    gap: 20px;
 
-  .profile-head{
-    align-items:flex-start;
-    flex-direction:column;
-    margin-bottom:50px;
-  }
-
-  .profile-grid{
-    grid-template-columns:1fr;
-  }
-
-  .profile-block:nth-child(odd),
-  .profile-block:nth-child(even){
-    border-right:0;
-    padding-left:0;
-    padding-right:0;
-  }
-
-  .profile-intro p,
-  .profile-block p{
-    font-size:17px;
-  }
-
-  .profile-list{
-    font-size:20px;
-  }
-
-  .profile-bullets li{
-    font-size:16px;
-  }
-
-
-  body{
-    cursor:auto;
-  }
-
-  .cursor{
-    display:none;
-  }
-
-  .nav{
-    padding:18px;
-  }
-
-  .hero{
     padding:
-      100px 5vw
-      60px;
-  }
+      60px 35px
+      100px;
 
-  .name{
-    font-size:15vw;
-  }
-
-  .name-row{
-    white-space:normal;
-  }
-
-  .name-row.two{
-    margin-left:0;
-  }
-
-  .photo-wrap{
-    width:58vw;
-
-    margin-left:7vw;
-
-    margin-top:60px;
-  }
-
-  .photo-meta{
-    display:none;
-  }
-
-  .hero-info{
-    position:relative;
-
-    right:auto;
-    bottom:auto;
-
-    margin-top:70px;
-  }
-
-  .overview{
-
-    grid-template-columns:1fr;
-
-    gap:70px;
-  }
-
-  .overview-copy{
-    font-size:19px;
-  }
-
-  .project{
-    min-height:55vh;
-  }
-
-  .project-box{
-    width:90vw;
-    height:50vh;
-  }
-
-  .horizontal{
-    min-height:100vh;
-  }
-
-  .card{
-    width:75vw;
-    height:450px;
-  }
-
-  .timeline-item{
-
-    grid-template-columns:
-      70px 1fr;
+    justify-content: flex-start;
 
   }
 
-  .timeline-info{
-    grid-column:2;
+  .clipboard-card {
 
-    text-align:left;
-  }
+    flex: 0 0 230px;
 
-  .about-grid{
+    width: 230px;
 
-    grid-template-columns:1fr;
+    height: 320px;
 
-    gap:60px;
-  }
-
-  .about-copy{
-    font-size:20px;
-  }
-
-  .poster{
-
-    width:170px;
-    height:240px;
-
-    font-size:26px;
-  }
-
-  .contact{
-    min-height:100svh;
-    padding:9vh 6vw 8vh;
-  }
-
-  .contact-title{
-    font-size:clamp(58px,16vw,105px);
-    line-height:.76;
-  }
-
-  .contact-links{
-    gap:18px;
-    padding-top:24px;
-    padding-bottom:4px;
-  }
-
-  .footer{
-    flex-direction:column;
-
-    gap:12px;
   }
 
 }
 
-</style>
-
-</head>
-
-
-<body>
-
-
-<!-- =======================================================
-     LOADER
-======================================================= -->
-
-<div class="loader" id="loader">
-
-  <div class="loader-number" id="loaderNumber">
-    000%
-  </div>
-
-  <div class="loader-bar">
-
-    <div
-      class="loader-progress"
-      id="loaderProgress"
-    ></div>
-
-  </div>
-
-</div>
-
-
-<!-- =======================================================
-     CURSOR
-======================================================= -->
-
-<div
-  class="cursor"
-  id="cursor"
-></div>
-
-
-<!-- =======================================================
-     NAV
-======================================================= -->
-
-<nav class="nav">
-
-  <div class="logo">
-    SAFAL PARAJULI®
-  </div>
-
-  <button
-    class="menu-button magnetic"
-    id="menuButton"
-  >
-    MENU +
-  </button>
-
-</nav>
-
-
-<!-- =======================================================
-     MENU
-======================================================= -->
-
-<div
-  class="menu"
-  id="menu"
->
-
-  <ul class="menu-links">
-
-    <li>
-      <a href="#overview">
-        OVERVIEW
-      </a>
-    </li>
-
-    <li>
-      <a href="#interests">
-        INTERESTS
-      </a>
-    </li>
-
-    <li>
-      <a href="#education">
-        EDUCATION
-      </a>
-    </li>
-
-    <li>
-      <a href="#skills">
-        SKILLS
-      </a>
-    </li>
-
-    <li>
-      <a href="#experiments">
-        EXPERIMENTS
-      </a>
-    </li>
-
-    <li>
-      <a href="#contact">
-        CONTACT
-      </a>
-    </li>
-
-  </ul>
-
-</div>
-
-
-<!-- =======================================================
-     COUNTER
-======================================================= -->
-
-<div
-  class="counter"
-  id="counter"
->
-
-  <div class="counter-small">
-    TIME SINCE
-  </div>
-
-  <div class="counter-date">
-    30 JULY 2007
-  </div>
-
-  <div class="counter-grid">
-
-    <div>
-
-      <div
-        class="counter-number"
-        id="days"
-      >
-        0
-      </div>
-
-      <span class="counter-unit">
-        DAYS
-      </span>
-
-    </div>
-
-    <div>
-
-      <div
-        class="counter-number"
-        id="hours"
-      >
-        00
-      </div>
-
-      <span class="counter-unit">
-        HOURS
-      </span>
-
-    </div>
-
-    <div>
-
-      <div
-        class="counter-number"
-        id="minutes"
-      >
-        00
-      </div>
-
-      <span class="counter-unit">
-        MIN
-      </span>
-
-    </div>
-
-    <div>
-
-      <div
-        class="counter-number"
-        id="seconds"
-      >
-        00
-      </div>
-
-      <span class="counter-unit">
-        SEC
-      </span>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =======================================================
-     HERO
-======================================================= -->
-
-<section class="hero">
-
-  <div class="hero-grid"></div>
-
-  <div class="blob one"></div>
-
-  <div class="blob two"></div>
-
-  <div class="blob three"></div>
-
-
-  <div class="hero-content">
-
-    <h1 class="name">
-
-      <span class="name-row">
-
-        <span class="letter">S</span>
-        <span class="letter">A</span>
-        <span class="letter">F</span>
-        <span class="letter">A</span>
-        <span class="letter">L</span>
-
-      </span>
-
-
-      <span class="name-row two">
-
-        <span class="letter">P</span>
-        <span class="letter">A</span>
-        <span class="letter">R</span>
-        <span class="letter">A</span>
-        <span class="letter">J</span>
-        <span class="letter">U</span>
-        <span class="letter">L</span>
-        <span class="letter">I</span>
-
-      </span>
-
-    </h1>
-
-
-    <!-- ===================================================
-         YOUR IMAGE
-         
-         Keep safal.jpg.png beside index.html
-    ==================================================== -->
-
-    <div class="photo-wrap">
-
-      <div
-        class="photo"
-        id="photo"
-      >
-
-        <img
-          src="safal.jpg.png"
-          alt="Safal Parajuli"
-        >
-
-      </div>
-
-      <div class="photo-meta">
-        SAFAL PARAJULI / 2026
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="hero-info">
-
-  
- <br>
-    NEPAL / CHITWAN
-
-  </div>
-
-</section>
-
-
-<!-- =======================================================
-     MARQUEE
-======================================================= -->
-
-<div class="marquee">
-
-  <div class="marquee-track">
-
-   SAFAL PARAJULI × SAFAL PARAJULI × SAFAL PARAJULI ×
-  SAFAL PARAJULI × SAFAL PARAJULI × SAFAL PARAJULI × SAFAL PARAJULI × SAFAL PARAJULI × SAFAL PARAJULI ×
-  SAFAL PARAJULI × SAFAL PARAJULI × SAFAL PARAJULI ×
-
-
-  </div>
-
-</div>
-
-
-<!-- =======================================================
-     OVERVIEW
-======================================================= -->
-
-<section
-  class="section overview reveal"
-  id="overview"
->
-
-  <div>
-
-    <div class="section-number">
-      01 / OVERVIEW
-    </div>
-
-    <h2 class="overview-title">
-      HELLO.<br>
-      I'M<br>
-      SAFAL.
-    </h2>
-
-  </div>
-
-
-  <div class="overview-copy">
-
-    LOOKING BEYOND THE HORIZON,
-    CHASING QUESTIONS THAT REACH FAR BEYOND THE STARS.
-
-  </div>
-
-</section>
-
-
-<!-- =======================================================
-     WORK
-======================================================= -->
-
-
-
-
-<!-- =======================================================
-     GALLERY
-======================================================= -->
-
-
-
-<div class="card gallery-card">
-  <img
-    src="./parajuli.png.jpg"
-    alt="Safal Parajuli gallery photo"
-  >
-</div>
-
-<div class="card gallery-card">
-  <img
-    src="./prasad.png.jpg"
-    alt="Gallery photo"
-  >
-</div>
-
-<div class="card gallery-card">
-  <img
-    src="./uppadhya.png.jpg"
-    alt="Gallery photo"
-  >
-</div>
-
-<div class="card gallery-card">
-  <img
-    src="./ram.png.jpg"
-    alt="Gallery photo"
-  >
-</div>
-
-
-
-
-<!-- =======================================================
-     EDUCATION
-======================================================= -->
-
-<section
-  class="section education"
-  id="education"
->
-
-  <div class="section-number">
-    03 / EDUCATION
-  </div>
-
-  <h2 class="education-title reveal">
-    LEARN.<br>
-    BUILD.<br>
-    REPEAT.
-  </h2>
-
-
-  <div class="timeline">
-
-    <div class="timeline-item reveal">
-
-      <div class="timeline-year">
-        2067 – 2080 B.S.
-      </div>
-
-      <div class="timeline-title">
-        NARAYANI ENGLISH PUBLIC SCHOOL
-      </div>
-
-      <div class="timeline-info">
-        SEE
-      </div>
-
-    </div>
-
-
-    <div class="timeline-item reveal">
-
-      <div class="timeline-year">
-        2080 – 2082 B.S.
-      </div>
-
-      <div class="timeline-title">
-        NARAYANI PUBLIC COLLEGE
-      </div>
-
-      <div class="timeline-info">
-        SLC
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =======================================================
-     SKILLS
-======================================================= -->
-
-<section
-  class="section skills-section"
-  id="skills"
->
-
-  <div class="section-number">
-    04 / SKILLS
-  </div>
-  <span class="skill-word reveal">
-    LEADERSHIP
-  </span>
-
-  <span class="skill-word reveal">
-    COMMUNICATION
-  </span>
-
-  <span class="skill-word reveal">
-    TEAMWORK
-  </span>
-
-  <span class="skill-word reveal">
-    EVENT COORDINATION
-  </span>
-
-  <span class="skill-word reveal">
-    PROBLEM SOLVING
-  </span>
-
-  <span class="skill-word reveal">
-    PUBLIC SPEAKING
-  </span>
-
-
-</section>
-
-
-<!-- =======================================================
-     EXPERIENCES
-======================================================= -->
-
-<section
-  class="section playground"
-  id="experiments"
->
-
-  <div class="section-number">
-    05 / EXPERIENCES
-  </div>
-
-  <h2 class="playground-title reveal">
-    WHAT<br>
-    I HAVE<br>
-    DONE.
-  </h2>
-
-  <div class="experience-grid">
-
-    <article class="experience-card reveal">
-      <span class="experience-number">01</span>
-      <div>
-        <h3>NCC</h3>
-        <p>Participated in the National Cadet Corps (NCC), developing discipline, teamwork, responsibility, and leadership through training and activities.</p>
-      </div>
-    </article>
-
-    <article class="experience-card reveal">
-      <span class="experience-number">02</span>
-      <div>
-        <h3>SCIENCE EXHIBITION</h3>
-        <p>Helped bring a practical robotics activity to life as part of a student-led technology initiative.</p>
-      </div>
-    </article>
-
-    <article class="experience-card reveal">
-      <span class="experience-number">03</span>
-      <div>
-        <h3>STUDENT LEADERSHIP</h3>
-        <p>Served in student leadership roles and took responsibility for representing and supporting fellow students.</p>
-      </div>
-    </article>
-
-    <article class="experience-card reveal">
-      <span class="experience-number">04</span>
-      <div>
-        <h3>SCIENCE &amp; TECHNOLOGY</h3>
-        <p>Actively involved in activities that connect learning with practical science, technology and teamwork.</p>
-      </div>
-    </article>
-
-  </div>
-</section>
-
-
-<!-- =======================================================
-     CONTACT
-======================================================= -->
-
-<section
-  class="section contact"
-  id="contact"
->
-
-  <div>
-
-    <div class="section-number">
-      06 / CONTACT
-    </div>
-
-
-    <h2 class="contact-title reveal">
-
-      LET'S<br>
-      MAKE<br>
-      SOMETHING.
-
-    </h2>
-
-  </div>
-
-
-  <div class="contact-links">
-
-    <a
-      class="contact-link magnetic"
-      href="mailto:officeofsafalparajuli@gmail.com"
-    >
-      EMAIL
-    </a>
-
-
-    <a
-      class="contact-link magnetic"
-      href="https://www.instagram.com/xxpshuffle/"
-    >
-      INSTAGRAM
-    </a>
-
-
-    <a
-      class="contact-link magnetic"
-      href="https://x.com/dcruzzyy"
-    >
-      X
-    </a>
-
-  </div>
-
-</section>
-
-
-<!-- =======================================================
-     FOOTER
-======================================================= -->
-
-<footer class="footer">
-
-  <span>
-    SAFAL PARAJULI®
-  </span>
-
-  <span>
-    DESIGNED / DEVELOPED BY SAFAL
-  </span>
-
-  <span>
-    © 2026
-  </span>
-
-</footer>
-
-
-<script>
-
-/* =========================================================
-   LOADER
-========================================================= */
-
-const loader =
-  document.getElementById("loader");
-
-const loaderNumber =
-  document.getElementById("loaderNumber");
-
-const loaderProgress =
-  document.getElementById("loaderProgress");
-
-let progress = 0;
-
-const loading =
-  setInterval(() => {
-
-    progress +=
-      Math.floor(
-        Math.random() * 8
-      ) + 2;
-
-    if(progress >= 100){
-
-      progress = 100;
-
-      clearInterval(loading);
-
-      setTimeout(() => {
-
-        loader.classList.add("hide");
-
-      },500);
-
-    }
-
-    loaderNumber.textContent =
-      String(progress).padStart(3,"0")
-      + "%";
-
-    loaderProgress.style.width =
-      progress + "%";
-
-  },80);
-
-
-/* =========================================================
-   CURSOR
-========================================================= */
-
-const cursor =
-  document.getElementById("cursor");
-
-document.addEventListener(
-  "mousemove",
-  event => {
-
-    cursor.style.left =
-      event.clientX + "px";
-
-    cursor.style.top =
-      event.clientY + "px";
-
-  }
-);
-
-
-/* =========================================================
-   CURSOR HOVER
-========================================================= */
-
-document.querySelectorAll(
-  "a,button,.poster,.project-box,.letter,.card"
-).forEach(el => {
-
-  el.addEventListener(
-    "mouseenter",
-    () => {
-
-      cursor.classList.add("big");
-
-    }
-  );
-
-  el.addEventListener(
-    "mouseleave",
-    () => {
-
-      cursor.classList.remove("big");
-
-    }
-  );
-
-});
-
-
-/* =========================================================
-   NAME COUNTER
-========================================================= */
-
-const letters =
-  document.querySelectorAll(".letter");
-
-const counter =
-  document.getElementById("counter");
-
-
-document.addEventListener(
-  "mousemove",
-  event => {
-
-    let near = false;
-
-    letters.forEach(letter => {
-
-      const r =
-        letter.getBoundingClientRect();
-
-      const x =
-        r.left +
-        r.width / 2;
-
-      const y =
-        r.top +
-        r.height / 2;
-
-      const distance =
-        Math.hypot(
-          event.clientX - x,
-          event.clientY - y
-        );
-
-      if(distance < 85){
-
-        letter.style.transform =
-          `
-          translateY(-15px)
-          rotate(-4deg)
-          scale(1.04)
-          `;
-
-        letter.style.color =
-          "#ff4d16";
-
-        near = true;
-
-      }else{
-
-        letter.style.transform =
-          "";
-
-        letter.style.color =
-          "#ff4d16";
-
-      }
-
-    });
-
-
-    if(near){
-
-      counter.classList.add("show");
-
-      let x =
-        event.clientX + 25;
-
-      let y =
-        event.clientY + 25;
-
-
-      if(
-        x + 310 >
-        window.innerWidth
-      ){
-
-        x =
-          event.clientX - 335;
-
-      }
-
-      if(
-        y + 170 >
-        window.innerHeight
-      ){
-
-        y =
-          event.clientY - 190;
-
-      }
-
-
-      counter.style.left =
-        x + "px";
-
-      counter.style.top =
-        y + "px";
-
-    }else{
-
-      counter.classList.remove("show");
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   AGE / TIME COUNTER
-========================================================= */
-
-const start =
-  new Date(
-    "2007-07-30T00:00:00+05:45"
-  );
-
-
-function updateCounter(){
-
-  let diff =
-    Date.now() -
-    start.getTime();
-
-  if(diff < 0)
-    diff = 0;
-
-
-  const secondsTotal =
-    Math.floor(
-      diff / 1000
-    );
-
-
-  const days =
-    Math.floor(
-      secondsTotal / 86400
-    );
-
-
-  const hours =
-    Math.floor(
-      secondsTotal / 3600
-    ) % 24;
-
-
-  const minutes =
-    Math.floor(
-      secondsTotal / 60
-    ) % 60;
-
-
-  const seconds =
-    secondsTotal % 60;
-
-
-  document.getElementById(
-    "days"
-  ).textContent =
-    days.toLocaleString();
-
-
-  document.getElementById(
-    "hours"
-  ).textContent =
-    String(hours).padStart(2,"0");
-
-
-  document.getElementById(
-    "minutes"
-  ).textContent =
-    String(minutes).padStart(2,"0");
-
-
-  document.getElementById(
-    "seconds"
-  ).textContent =
-    String(seconds).padStart(2,"0");
-
-}
-
-
-updateCounter();
-
-setInterval(
-  updateCounter,
-  1000
-);
-
-
-/* =========================================================
-   PHOTO 3D
-========================================================= */
-
-const photo =
-  document.getElementById("photo");
-
-document.addEventListener(
-  "mousemove",
-  event => {
-
-    if(window.innerWidth <= 700)
-      return;
-
-
-    const rect =
-      photo.getBoundingClientRect();
-
-
-    const x =
-      (
-        event.clientX -
-        rect.left
-      ) / rect.width - .5;
-
-
-    const y =
-      (
-        event.clientY -
-        rect.top
-      ) / rect.height - .5;
-
-
-    photo.style.transform =
-      `
-      rotateY(${x * 9}deg)
-      rotateX(${y * -9}deg)
-      translateZ(15px)
-      `;
-
-  }
-);
-
-
-/* =========================================================
-   MENU
-========================================================= */
-
-const menu =
-  document.getElementById("menu");
-
-const menuButton =
-  document.getElementById("menuButton");
-
-
-menuButton.addEventListener(
-  "click",
-  () => {
-
-    menu.classList.toggle("open");
-
-    menuButton.textContent =
-      menu.classList.contains("open")
-      ? "CLOSE ×"
-      : "MENU +";
-
-  }
-);
-
-
-document.querySelectorAll(
-  ".menu a"
-).forEach(link => {
-
-  link.addEventListener(
-    "click",
-    () => {
-
-      menu.classList.remove("open");
-
-      menuButton.textContent =
-        "MENU +";
-
-    }
-  );
-
-});
-
-
-/* =========================================================
-   SCROLL REVEALS
-========================================================= */
-
-const revealObserver =
-  new IntersectionObserver(
-    entries => {
-
-      entries.forEach(
-        entry => {
-
-          if(
-            entry.isIntersecting
-          ){
-
-            entry.target.classList.add(
-              "visible"
-            );
-
-          }
-
-        }
-      );
-
-    },
-    {
-      threshold:.12
-    }
-  );
-
-
-document.querySelectorAll(
-  ".reveal"
-).forEach(
-  element => {
-
-    revealObserver.observe(
-      element
-    );
-
-  }
-);
-
-
-/* =========================================================
-   MAGNETIC ELEMENTS
-========================================================= */
-
-document.querySelectorAll(
-  ".magnetic"
-).forEach(
-  element => {
-
-    element.addEventListener(
-      "mousemove",
-      event => {
-
-        const r =
-          element.getBoundingClientRect();
-
-
-        const x =
-          event.clientX -
-          (
-            r.left +
-            r.width / 2
-          );
-
-
-        const y =
-          event.clientY -
-          (
-            r.top +
-            r.height / 2
-          );
-
-
-        element.style.transform =
-          `
-          translate(
-            ${x * .25}px,
-            ${y * .25}px
-          )
-          `;
-
-      }
-    );
-
-
-    element.addEventListener(
-      "mouseleave",
-      () => {
-
-        element.style.transform =
-          "";
-
-      }
-    );
-
-  }
-);
-
-
-/* =========================================================
-   HORIZONTAL PARALLAX
-========================================================= */
-
-const horizontal =
-  document.getElementById(
-    "horizontalTrack"
-  );
-
-
-window.addEventListener(
-  "scroll",
-  () => {
-
-    const section =
-      document.querySelector(
-        ".horizontal"
-      );
-
-
-    const rect =
-      section.getBoundingClientRect();
-
-
-    if(
-      rect.top <
-      window.innerHeight &&
-      rect.bottom > 0
-    ){
-
-      const progress =
-        (
-          window.innerHeight -
-          rect.top
-        ) /
-        (
-          window.innerHeight +
-          rect.height
-        );
-
-
-      horizontal.style.transform =
-        `
-        translateX(
-          ${-progress * 600}px
-        )
-        `;
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   POSTER MOUSE PARALLAX
-========================================================= */
-
-document.querySelectorAll(
-  ".poster"
-).forEach(
-  (poster,index) => {
-
-    const rotations =
-      [-9,8,-5,13];
-
-
-    poster.addEventListener(
-      "mousemove",
-      event => {
-
-        const r =
-          poster.getBoundingClientRect();
-
-
-        const x =
-          (
-            event.clientX -
-            r.left
-          ) / r.width - .5;
-
-
-        const y =
-          (
-            event.clientY -
-            r.top
-          ) / r.height - .5;
-
-
-        poster.style.transform =
-          `
-          translate(
-            ${x * 20}px,
-            ${y * 20}px
-          )
-          rotate(
-            ${rotations[index] + x * 8}deg
-          )
-          scale(1.04)
-          `;
-
-      }
-    );
-
-
-    poster.addEventListener(
-      "mouseleave",
-      () => {
-
-        poster.style.transform =
-          `
-          rotate(
-            ${rotations[index]}deg
-          )
-          `;
-
-      }
-    );
-
-  }
-);
-
-
-/* =========================================================
-   PROJECT INTERACTION
-========================================================= */
-
-document.querySelectorAll(
-  ".project-box"
-).forEach(
-  box => {
-
-    const shape =
-      box.querySelector(
-        ".geometry"
-      );
-
-
-    box.addEventListener(
-      "mousemove",
-      event => {
-
-        const r =
-          box.getBoundingClientRect();
-
-
-        const x =
-          (
-            event.clientX -
-            r.left
-          ) / r.width - .5;
-
-
-        const y =
-          (
-            event.clientY -
-            r.top
-          ) / r.height - .5;
-
-
-        shape.style.transform =
-          `
-          translate(
-            ${x * 70}px,
-            ${y * 70}px
-          )
-          rotate(
-            ${x * 60}deg
-          )
-          scale(1.15)
-          `;
-
-      }
-    );
-
-
-    box.addEventListener(
-      "mouseleave",
-      () => {
-
-        shape.style.transform =
-          "";
-
-      }
-    );
-
-  }
-);
-
-
-/* =========================================================
-   RANDOM LETTER GLITCH
-========================================================= */
-
-const glitchLetters =
-  document.querySelectorAll(
-    ".skill-word"
-  );
-
-
-setInterval(
-  () => {
-
-    const random =
-      glitchLetters[
-        Math.floor(
-          Math.random() *
-          glitchLetters.length
-        )
-      ];
-
-
-    if(!random)
-      return;
-
-
-    random.style.transform =
-      `
-      translateX(
-        ${Math.random()*30-15}px
-      )
-      skewX(
-        ${Math.random()*8-4}deg
-      )
-      `;
-
-
-    setTimeout(
-      () => {
-
-        random.style.transform =
-          "";
-
-      },
-      180
-    );
-
-  },
-  1300
-);
-
-
-/* =========================================================
-   KEYBOARD NAVIGATION
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if(
-      event.key === "Escape"
-    ){
-
-      menu.classList.remove(
-        "open"
-      );
-
-      menuButton.textContent =
-        "MENU +";
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   CONSOLE
-========================================================= */
-
-console.log(
-  "%c SAFAL PARAJULI ",
-  `
-  background:#111;
-  color:#d7ff00;
-  font-size:20px;
-  padding:10px;
-  `
-);
-
-console.log(
-  "Welcome to the portfolio."
-);
-
-</script>
-
-
-<style>
-/* =========================================================
-   GALLERY — FOUR PHOTOS
-========================================================= */
-.gallery-track{
-  display:grid !important;
-  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
-  gap:24px !important;
-  width:100% !important;
-  transform:none !important;
-}
-
-.gallery-card{
-  position:relative !important;
-  width:100% !important;
-  height:clamp(320px, 42vw, 620px) !important;
-  overflow:hidden !important;
-  padding:0 !important;
-  margin:0 !important;
-  background:#111 !important;
-}
-
-.gallery-card img{
-  display:block !important;
-  width:100% !important;
-  height:100% !important;
-  object-fit:cover !important;
-}
-
-@media (max-width: 900px){
-  .gallery-track{
-    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
-  }
-}
-
-@media (max-width: 560px){
-  .gallery-track{
-    grid-template-columns:1fr !important;
-  }
-}
-</style>
-</body>
-
-
-<!-- =========================================================
-     GALLERY ONLY — REALISTIC CLIPPED PHOTO EFFECT
-     Main profile photo is intentionally left UNCHANGED.
-========================================================= -->
-<style>
-.gallery-track{
-  display:grid !important;
-  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
-  gap:34px !important;
-  width:100% !important;
-  transform:none !important;
-  align-items:start !important;
-  padding:55px 18px 80px !important;
-}
-
-.gallery-card{
-  position:relative !important;
-  width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  aspect-ratio:4/5 !important;
-  overflow:visible !important;
-  padding:12px 12px 46px !important;
-  margin:0 !important;
-  background:#f3efe4 !important;
-  border:0 !important;
-  border-radius:2px !important;
-  box-shadow:0 3px 6px rgba(0,0,0,.12),0 16px 26px rgba(0,0,0,.16),0 30px 45px rgba(0,0,0,.09) !important;
-  transform-origin:50% -10px;
-  will-change:transform;
-  transition:box-shadow .5s ease,filter .5s ease !important;
-}
-
-.gallery-card:nth-child(1){transform:rotate(-3deg);}
-.gallery-card:nth-child(2){transform:rotate(2.4deg);}
-.gallery-card:nth-child(3){transform:rotate(-1.6deg);}
-.gallery-card:nth-child(4){transform:rotate(3deg);}
-
-.gallery-card img{
-  display:block !important;
-  width:100% !important;
-  height:100% !important;
-  object-fit:cover !important;
-  border:1px solid rgba(0,0,0,.14) !important;
-  transform:translateZ(8px) !important;
-  filter:contrast(1.04) saturate(.95) !important;
-  transition:transform .6s cubic-bezier(.16,1,.3,1),filter .5s ease !important;
-}
-
-/* metal clip */
-.gallery-card::before{
-  content:"" !important;
-  position:absolute !important;
-  left:50% !important;
-  top:-23px !important;
-  width:50px !important;
-  height:36px !important;
-  transform:translateX(-50%) !important;
-  z-index:30 !important;
-  border-radius:5px 5px 10px 10px !important;
-  background:linear-gradient(90deg,#4c4c4c 0%,#999 15%,#f2f2f2 30%,#777 48%,#f4f4f4 63%,#666 82%,#444 100%) !important;
-  box-shadow:0 3px 5px rgba(0,0,0,.3),inset 0 2px 2px rgba(255,255,255,.8),inset 0 -2px 3px rgba(0,0,0,.25) !important;
-}
-
-/* hanging wire */
-.gallery-card::after{
-  content:"" !important;
-  position:absolute !important;
-  left:50% !important;
-  top:-51px !important;
-  width:2px !important;
-  height:30px !important;
-  transform:translateX(-50%) !important;
-  z-index:20 !important;
-  background:linear-gradient(90deg,#555,#ddd,#555) !important;
-  box-shadow:0 0 1px rgba(0,0,0,.35) !important;
-}
-
-@keyframes gallerySwing1{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(-1.2deg)}}
-@keyframes gallerySwing2{0%,100%{transform:rotate(2.4deg)}50%{transform:rotate(1deg)}}
-@keyframes gallerySwing3{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(.7deg)}}
-@keyframes gallerySwing4{0%,100%{transform:rotate(3deg)}50%{transform:rotate(1.2deg)}}
-
-.gallery-card:nth-child(1){animation:gallerySwing1 7s ease-in-out infinite;}
-.gallery-card:nth-child(2){animation:gallerySwing2 8s ease-in-out infinite;}
-.gallery-card:nth-child(3){animation:gallerySwing3 6.8s ease-in-out infinite;}
-.gallery-card:nth-child(4){animation:gallerySwing4 7.6s ease-in-out infinite;}
-
-.gallery-card:hover{
-  animation-play-state:paused !important;
-  z-index:50 !important;
-  box-shadow:0 8px 12px rgba(0,0,0,.12),0 24px 42px rgba(0,0,0,.25),0 45px 70px rgba(0,0,0,.16) !important;
-}
-
-.gallery-card:hover img{
-  transform:translateZ(20px) scale(1.035) !important;
-  filter:contrast(1.07) saturate(1.03) !important;
-}
-
-@media(max-width:900px){
-  .gallery-track{
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    gap:30px !important;
-    padding:50px 12px 70px !important;
-  }
-}
-
-@media(max-width:560px){
-  .gallery-track{
-    grid-template-columns:1fr !important;
-    gap:70px !important;
-    padding:50px 28px 70px !important;
-  }
-  .gallery-card{
-    width:92% !important;
-    margin:0 auto !important;
-  }
-}
-
-@media(prefers-reduced-motion:reduce){
-  .gallery-card{
-    animation:none !important;
-    transition:none !important;
-  }
-}
-</style>
-
-<script>
-/* Gallery-only mouse interaction. The hero/profile photo is untouched. */
-document.querySelectorAll('.gallery-card').forEach(function(card){
-  card.addEventListener('mousemove',function(e){
-    if(window.innerWidth<=700)return;
-    var r=card.getBoundingClientRect();
-    var x=(e.clientX-r.left)/r.width-.5;
-    var y=(e.clientY-r.top)/r.height-.5;
-    card.style.animationPlayState='paused';
-    card.style.transform='translate3d('+(x*10)+'px,'+(y*7-7)+'px,0) rotate('+(x*5)+'deg) scale(1.035)';
-    var img=card.querySelector('img');
-    if(img) img.style.transform='translate3d('+(x*4)+'px,'+(y*4)+'px,20px) scale(1.035)';
-  });
-  card.addEventListener('mouseleave',function(){
-    card.style.transform='';
-    card.style.animationPlayState='running';
-    var img=card.querySelector('img');
-    if(img) img.style.transform='';
-  });
-});
-</script>
-
-</html>
-
-<style>
-/* FINAL HERO NAME */
-.hero .name,
-.hero .name-row,
-.hero .name-row.two{
-  color:#111 !important;
-  text-align:left;
-}
-
-.hero .name-row{
-  display:block !important;
-  margin-left:0 !important;
-  white-space:nowrap !important;
-}
-
-.hero .name-row.two{
-  margin-left:0 !important;
-}
-
-.hero .name .name-row + .name-row{
-  margin-top:0 !important;
-}
-
-/* Keep the two-line name on desktop exactly as requested */
-@media(min-width:701px){
-  .hero .name{
-    white-space:normal !important;
-  }
-}
-</style>
-
-<style>
-/* FINAL HERO NAME FIX */
-.hero .name{
-  position:relative !important;
-  z-index:20 !important;
-  color:#111 !important;
-  opacity:1 !important;
-  visibility:visible !important;
-  overflow:visible !important;
-  text-align:left !important;
-}
-
-.hero .name-row,
-.hero .name-row.two{
-  display:block !important;
-  position:relative !important;
-  z-index:21 !important;
-  color:#111 !important;
-  opacity:1 !important;
-  visibility:visible !important;
-  margin-left:0 !important;
-  transform:none;
-}
-
-.hero .name-row{
-  white-space:nowrap !important;
-}
-
-.hero .name-row.two{
-  margin-left:0 !important;
-}
-
-/* Do not let the hero name get clipped by its section */
-.hero{
-  overflow:hidden;
-}
-
-.hero .hero-content{
-  position:relative;
-  z-index:10;
-}
-
-@media(max-width:700px){
-  .hero .name{
-    white-space:normal !important;
-  }
-  .hero .name-row{
-    white-space:nowrap !important;
-  }
-}
-</style>
-
-<style>
-/* FINAL HERO ALIGNMENT */
-.hero .hero-content{
-  display:flex !important;
-  align-items:center !important;
-  justify-content:space-between !important;
-  gap:8vw !important;
-}
-
-.hero .name{
-  flex:1 1 0 !important;
-  min-width:0 !important;
-  color:#111 !important;
-  text-align:left !important;
-}
-
-.hero .name-row,
-.hero .name-row.two{
-  color:#111 !important;
-  margin-left:0 !important;
-  text-align:left !important;
-}
-
-/* Slightly smaller name so it doesn't collide with the photo */
-@media(min-width:701px){
-  .hero .name{
-    font-size:clamp(55px, 8.2vw, 130px) !important;
-    line-height:.82 !important;
-    letter-spacing:-.075em !important;
-  }
-
-  .hero .photo-wrap{
-    flex:0 0 min(310px,25vw) !important;
-    margin-left:2vw !important;
-    margin-right:3vw !important;
-  }
-}
-
-/* Mobile: stack text and photo cleanly */
-@media(max-width:700px){
-  .hero .hero-content{
-    flex-direction:column !important;
-    align-items:flex-start !important;
-    gap:45px !important;
-  }
-
-  .hero .name{
-    font-size:clamp(55px,15vw,90px) !important;
-    width:100% !important;
-  }
-
-  .hero .photo-wrap{
-    align-self:center !important;
-    margin:0 !important;
-  }
-}
-</style>
-
-<style>
-/* CLEAN HERO: BLACK NAME */
-.hero .name,
-.hero .name-row,
-.hero .name-row.two{
-  color:#111 !important;
-  -webkit-text-fill-color:#111 !important;
-}
-
-/* Keep the two-line name clean and aligned */
-.hero .name-row{
-  display:block !important;
-  margin-left:0 !important;
-  white-space:nowrap !important;
-}
-
-.hero .name-row.two{
-  margin-left:0 !important;
-}
-
-/* Prevent any accidental orange hover state on the hero name */
-.hero .name *{
-  color:#111 !important;
-  -webkit-text-fill-color:#111 !important;
-}
-
-@media(max-width:700px){
-  .hero .name{
-    color:#111 !important;
-    -webkit-text-fill-color:#111 !important;
-  }
-}
-</style>
-
-<style>
-/* FINAL CONTACT VISIBILITY FIX */
-.contact{
-  overflow:hidden !important;
-  isolation:isolate !important;
-}
-
-.contact-title{
-  z-index:2 !important;
-  position:relative !important;
-}
-
-.contact-links{
-  z-index:50 !important;
-  position:relative !important;
-  visibility:visible !important;
-  opacity:1 !important;
-}
-
-.contact-link{
-  z-index:51 !important;
-  position:relative !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  color:#111 !important;
-}
-</style>
-
-<style>
-/* FINAL WORK 01 VISIBILITY FIX */
-.project:nth-of-type(1) .project-box{
-  background:#ff4d16 !important;
-}
-
-.project:nth-of-type(1) .project-info{
-  color:#111 !important;
-  mix-blend-mode:normal !important;
-  z-index:20 !important;
-}
-
-.project:nth-of-type(1) .project-info h3,
-.project:nth-of-type(1) .project-info p{
-  color:#111 !important;
-}
-
-/* Experiment image */
-.experiment-image-box{
-  position:relative !important;
-}
-</style>
-
-<style>
-/* WORK PROJECT COLORS — prevents Project 01 from blending into the page */
-#work .project:nth-of-type(1) .project-box{
-  background:#ff4d16 !important;
-  color:#111 !important;
-}
-#work .project:nth-of-type(2) .project-box{
-  background:#d7ff00 !important;
-  color:#111 !important;
-}
-#work .project:nth-of-type(3) .project-box{
-  background:#8e70ff !important;
-  color:#111 !important;
-}
-#work .project:nth-of-type(4) .project-box{
-  background:#111 !important;
-  color:#fff !important;
-}
-#work .project:nth-of-type(1) .project-info{
-  color:#111 !important;
-  mix-blend-mode:normal !important;
-}
-</style>
-
-
-
-<style>
-/* RESTORE 05 / EXPERIMENTS — ORIGINAL ALIGNMENT */
-#experiments .poster{
-  position:relative !important;
-  overflow:hidden !important;
-}
-
-#experiments .poster > img,
-#experiments .experiment-image{
-  display:none !important;
-}
-
-/* Keep the original poster content centered and aligned */
-#experiments .poster{
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-}
-</style>
-
-<style>
-/* =========================================================
-   WORK — CLEAN FOUR-PANEL LAYOUT
-========================================================= */
-
-/* Hide secondary/floating preview cards; keep the actual work panels */
-.work-preview,
-.project-preview,
-.preview-box,
-.floating-preview,
-.work-hover-preview,
-.project-hover-preview,
-.project-preview-card{
-  display:none !important;
-  visibility:hidden !important;
-  pointer-events:none !important;
-}
-
-/* Remove accidental pseudo-element preview cards */
-.project::before,
-.project::after{
-  pointer-events:none;
-}
-
-/* Keep a clean, consistent gap between the work panels */
-.work,
-.work-grid,
-.projects,
-.projects-grid{
-  gap:clamp(24px, 4vw, 64px) !important;
-}
-
-/* Prevent panels from visually overlapping each other */
-.project{
-  position:relative !important;
-  margin-bottom:clamp(24px, 4vw, 64px) !important;
-  z-index:1 !important;
-}
-
-/* =========================================================
-   WORK NUMBERING
-   01
-   02
-   03
-========================================================= */
-
-/* If the original panels contain 01 / 02 / 03 / 04,
-   show only 01 / 02 / 03 after removing the fourth panel. */
-.project:nth-of-type(4){
-  display:none !important;
-}
-
-/* Normalize numbering based on the remaining three panels */
-.project:nth-of-type(1) .project-number{
-  font-size:inherit;
-}
-.project:nth-of-type(2) .project-number{
-  font-size:0;
-}
-.project:nth-of-type(2) .project-number::after{
-  content:"02";
-  font-size:inherit;
-}
-.project:nth-of-type(3) .project-number{
-  font-size:0;
-}
-.project:nth-of-type(3) .project-number::after{
-  content:"03";
-  font-size:inherit;
-}
-</style>
-
-<style>
-/* WORK SECTION REMOVED */
-.project,
-.projects,
-.project-box,
-.project-number,
-.project-info,
-.work-preview,
-.project-preview,
-.preview-box,
-.floating-preview{
-  display:none !important;
-}
-</style>
-
-<style>
-/* =========================================================
-   FINAL OVERVIEW / SECTION RHYTHM
-========================================================= */
-
-.section-number{
-  display:block;
-  margin-bottom:clamp(24px, 3vw, 48px);
-  letter-spacing:.08em;
-  line-height:1;
-}
-
-/* Give major sections a little more breathing room */
-section.section{
-  scroll-margin-top:20px;
-}
-
-/* Keep section headings visually balanced after the Work section removal */
-.gallery,
-.education,
-.skills-section,
-#experiments,
-.contact{
-  position:relative;
-}
-
-/* Contact email remains clearly clickable */
-.contact-link[href^="mailto:"]{
-  cursor:pointer;
-  text-decoration:none;
-}
-
-/* Prevent accidental text clipping at section boundaries */
-.section,
-.gallery,
-.education,
-.skills-section,
-#experiments,
-.contact{
-  overflow:visible;
-}
 </style>
