@@ -562,7 +562,36 @@ button{
 
   letter-spacing:.1em;
 }
+/* ================================
+   GALLERY IMAGES
+================================ */
 
+.gallery-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* ================================
+   MAIN PHOTO
+================================ */
+
+.photo {
+  overflow: hidden;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
 
 /* =========================================================
    HERO INFO
@@ -2162,43 +2191,37 @@ footer{
      GALLERY
 ======================================================= -->
 
-<section
-  class="horizontal gallery-section"
-  id="interests"
->
 
-  <div class="section-number">
-    02 / GALLERY
-  </div>
 
-  <h2 class="horizontal-title">
-    MY<br>
-    GALLERY.
-  </h2>
-
-  <div
-    class="horizontal-track gallery-track"
-    id="horizontalTrack"
+<div class="card gallery-card">
+  <img
+    src="./parajuli.png.jpg"
+    alt="Safal Parajuli gallery photo"
   >
+</div>
 
-    <div class="card gallery-card">
-      <img src="parajuli.png.jpg" alt="Safal Parajuli gallery photo">
-    </div>
+<div class="card gallery-card">
+  <img
+    src="./prasad.png.jpg"
+    alt="Gallery photo"
+  >
+</div>
 
-    <div class="card gallery-card">
-      <img src="prasad.png.jpg" alt="Gallery photo">
-    </div>
+<div class="card gallery-card">
+  <img
+    src="./uppadhya.png.jpg"
+    alt="Gallery photo"
+  >
+</div>
 
-    <div class="card gallery-card">
-      <img src="uppadhya.png.jpg" alt="Gallery photo">
-    </div>
+<div class="card gallery-card">
+  <img
+    src="./ram.png.jpg"
+    alt="Gallery photo"
+  >
+</div>
 
-    <div class="card gallery-card">
-      <img src="ram.png.jpg" alt="Gallery photo">
-    </div>
 
-  </div>
-</section>
 
 
 <!-- =======================================================
