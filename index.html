@@ -161,7 +161,7 @@ button{
 
   align-items:center;
 
-  z-index:500;
+  z-index:1000;
 
   mix-blend-mode:difference;
 
@@ -420,6 +420,7 @@ button{
   position:relative;
 
   z-index:10;
+  width:100%;
 }
 
 .name{
@@ -428,21 +429,27 @@ button{
 
   font-weight:900;
 
-  letter-spacing:-.1em;
+  letter-spacing:-.08em;
 
-  line-height:.72;
+  line-height:.78;
 
   text-transform:uppercase;
+
+  color:#ff4d16;
+
+  max-width:100%;
 
   position:relative;
 }
 
 .name-row{
   display:block;
+  white-space:nowrap;
+  margin-left:0 !important;
 }
 
 .name-row.two{
-  margin-left:10vw;
+  margin-left:0 !important;
 }
 
 .letter{
@@ -713,6 +720,10 @@ button{
 
   padding:
     15vh 6vw;
+
+  overflow:hidden;
+  isolation:isolate;
+  contain:paint;
 }
 
 .section-number{
@@ -839,26 +850,22 @@ button{
   transform:
     scale(.98)
     rotate(-1deg);
-}
-
-.project:nth-child(2)
-.project-box{
+} .project:nth-of-type(1) .project-box{
   background:#ff4d16;
+  color:#111;
 }
 
 .project:nth-of-type(2) .project-box{
-  background:#ff4d16;
+  background:#d7ff00;
+  color:#111;
 }
 
 .project:nth-of-type(3) .project-box{
-  background:#d7ff00;
+  background:#8d6fff;
+  color:#111;
 }
 
 .project:nth-of-type(4) .project-box{
-  background:#8d6fff;
-}
-
-.project:nth-of-type(5) .project-box{
   background:#111;
   color:white;
 }
@@ -1330,62 +1337,107 @@ button{
 }
 
 
+
+/* =========================================================
+   EXPERIMENT IMAGE
+========================================================= */
+
+.experiment-image-box{
+  overflow:hidden;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  background:#d7ff00;
+}
+
+.experiment-image{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:1;
+  display:block;
+}
+
+.experiment-placeholder{
+  position:relative;
+  z-index:0;
+  font-family:monospace;
+  font-size:24px;
+  line-height:.9;
+  color:#111;
+}
+
+.experiment-image:not([src=""]){
+  z-index:2;
+}
+
 /* =========================================================
    CONTACT
 ========================================================= */
 
 .contact{
-
   min-height:100vh;
-
+  min-height:100svh;
   background:#8e70ff;
+  position:relative;
+  z-index:1;
+  overflow:hidden;
+  isolation:isolate;
 
   display:flex;
-
   flex-direction:column;
-
   justify-content:space-between;
+
+  /* Keep the bottom social links inside the page */
+  padding:8vh 6vw 7vh;
+  box-sizing:border-box;
 }
 
 .contact-title{
+  position:relative;
+  z-index:2;
+  max-width:100%;
+  overflow:visible;
 
-  font-size:
-    clamp(90px,16vw,250px);
-
-  line-height:.65;
-
-  letter-spacing:-.1em;
-
+  /* Slightly smaller so the links have their own space */
+  font-size:clamp(72px,11.5vw,175px);
+  line-height:.72;
+  letter-spacing:-.085em;
   font-weight:900;
+  margin:0;
 }
 
 .contact-links{
-
+  position:relative;
+  z-index:20;
   display:flex;
-
   gap:30px;
-
   flex-wrap:wrap;
 
   font-family:monospace;
-
   font-size:11px;
+
+  /* Never allow links to be clipped by the title */
+  flex-shrink:0;
+  min-height:24px;
+  align-items:flex-end;
+  padding-top:28px;
 }
 
 .contact-link{
-
+  position:relative;
+  z-index:21;
+  display:inline-block;
+  color:#111;
   border-bottom:1px solid #111;
-
   padding-bottom:5px;
-
-  transition:
-    padding .3s ease;
+  transition:padding .3s ease;
 }
 
 .contact-link:hover{
-
   padding-left:20px;
-
   padding-right:20px;
 }
 
@@ -1450,11 +1502,120 @@ button{
 }
 
 
+
+/* =========================================================
+   PAGE ISOLATION / CONTACT FIX
+========================================================= */
+
+main,
+section,
+footer{
+  position:relative;
+}
+
+.hero,
+.marquee,
+.overview,
+.work,
+.horizontal,
+.education,
+.about,
+.skills-section,
+.playground,
+.contact,
+.footer{
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.contact{
+  z-index:1;
+}
+
+.contact .section-number,
+.contact .contact-title,
+.contact .contact-links{
+  position:relative;
+  z-index:2;
+}
+
+.hero .name{
+  color:#ff4d16;
+}
+
+@media(min-width:701px){
+  .hero-content{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:5vw;
+  }
+
+  .hero-content .name{
+    flex:1 1 auto;
+    min-width:0;
+    white-space:nowrap;
+  }
+
+  .hero-content .photo-wrap{
+    flex:0 0 min(340px,28vw);
+    margin:0 5vw 0 0;
+  }
+
+  .name{
+    font-size:clamp(58px,10.5vw,165px);
+    letter-spacing:-.095em;
+  }
+}
+
 /* =========================================================
    MOBILE
 ========================================================= */
 
 @media(max-width:700px){
+  .name{
+    font-size:clamp(52px,16vw,100px);
+    white-space:normal;
+  }
+
+  .name-row{
+    white-space:nowrap;
+  }
+
+  .hero-content .name{
+    white-space:normal;
+  }
+
+  .profile-head{
+    align-items:flex-start;
+    flex-direction:column;
+    margin-bottom:50px;
+  }
+
+  .profile-grid{
+    grid-template-columns:1fr;
+  }
+
+  .profile-block:nth-child(odd),
+  .profile-block:nth-child(even){
+    border-right:0;
+    padding-left:0;
+    padding-right:0;
+  }
+
+  .profile-intro p,
+  .profile-block p{
+    font-size:17px;
+  }
+
+  .profile-list{
+    font-size:20px;
+  }
+
+  .profile-bullets li{
+    font-size:16px;
+  }
+
 
   body{
     cursor:auto;
@@ -1483,7 +1644,7 @@ button{
   }
 
   .name-row.two{
-    margin-left:6vw;
+    margin-left:0;
   }
 
   .photo-wrap{
@@ -1568,8 +1729,20 @@ button{
     font-size:26px;
   }
 
+  .contact{
+    min-height:100svh;
+    padding:9vh 6vw 8vh;
+  }
+
   .contact-title{
-    font-size:22vw;
+    font-size:clamp(58px,16vw,105px);
+    line-height:.76;
+  }
+
+  .contact-links{
+    gap:18px;
+    padding-top:24px;
+    padding-bottom:4px;
   }
 
   .footer{
@@ -2168,15 +2341,15 @@ button{
     <div class="timeline-item reveal">
 
       <div class="timeline-year">
-        20XX
+        2067 – 2080 B.S.
       </div>
 
       <div class="timeline-title">
-        YOUR SCHOOL
+        NARAYANI ENGLISH PUBLIC SCHOOL
       </div>
 
       <div class="timeline-info">
-        SCHOOL / NEPAL
+        SEE
       </div>
 
     </div>
@@ -2185,104 +2358,16 @@ button{
     <div class="timeline-item reveal">
 
       <div class="timeline-year">
-        20XX
+        2080 – 2082 B.S.
       </div>
 
       <div class="timeline-title">
-        YOUR +2 / COLLEGE
+        NARAYANI PUBLIC COLLEGE
       </div>
 
       <div class="timeline-info">
-        EDUCATION
+        +2
       </div>
-
-    </div>
-
-
-    <div class="timeline-item reveal">
-
-      <div class="timeline-year">
-        NOW
-      </div>
-
-      <div class="timeline-title">
-        SELF DIRECTED
-      </div>
-
-      <div class="timeline-info">
-        DESIGN / CODE
-      </div>
-
-    </div>
-
-
-  </div>
-
-</section>
-
-
-<!-- =======================================================
-     ABOUT
-======================================================= -->
-
-<section
-  class="section about"
-  id="about"
->
-
-  <div class="section-number">
-    05 / ABOUT
-  </div>
-
-
-  <h2 class="about-title reveal">
-
-    WHO<br>
-    AM<br>
-    I?
-
-  </h2>
-
-
-  <div class="about-grid">
-
-    <div class="about-copy">
-
-      I'm Safal Parajuli.
-
-      <br>
-      <br>
-
-      I'm interested in the space where
-      visual communication meets
-      technology.
-
-      <br>
-      <br>
-
-      I enjoy making things from
-      scratch — websites, identities,
-      graphics, experiments and
-      sometimes things that don't
-      have a category yet.
-
-    </div>
-
-
-    <div class="skills">
-
-      CREATIVE DEVELOPMENT<br>
-      GRAPHIC DESIGN<br>
-      WEB DESIGN<br>
-      JAVASCRIPT<br>
-      HTML / CSS<br>
-      TYPOGRAPHY<br>
-      BRANDING<br>
-      MOTION<br>
-      VISUAL SYSTEMS<br>
-      DIGITAL ART<br>
-      UI / UX<br>
-      EXPERIMENTAL WEB
 
     </div>
 
@@ -2303,31 +2388,30 @@ button{
   <div class="section-number">
     06 / SKILLS
   </div>
-
-
   <span class="skill-word reveal">
-    DESIGN
+    LEADERSHIP
   </span>
 
   <span class="skill-word reveal">
-    CODE
+    COMMUNICATION
   </span>
 
   <span class="skill-word reveal">
-    TYPE
+    TEAMWORK
   </span>
 
   <span class="skill-word reveal">
-    MOTION
+    EVENT COORDINATION
   </span>
 
   <span class="skill-word reveal">
-    GRAPHICS
+    PROBLEM SOLVING
   </span>
 
   <span class="skill-word reveal">
-    IDEAS
+    PUBLIC SPEAKING
   </span>
+
 
 </section>
 
@@ -2355,10 +2439,18 @@ button{
   </h2>
 
 
-  <div class="poster a">
-    TYPE<br>
-    IS<br>
-    IMAGE.
+  <div class="poster a experiment-image-box">
+    <!-- Replace "experiment.jpg" with your own image filename/path -->
+    <img
+      class="experiment-image"
+      src="experiment.jpg"
+      alt="Experiment image"
+      onerror="this.style.display='none'"
+    >
+    <span class="experiment-placeholder">
+      ADD<br>
+      IMAGE
+    </span>
   </div>
 
 
@@ -2427,14 +2519,6 @@ button{
       href="#"
     >
       INSTAGRAM
-    </a>
-
-
-    <a
-      class="contact-link magnetic"
-      href="#"
-    >
-      GITHUB
     </a>
 
 
@@ -2626,7 +2710,7 @@ document.addEventListener(
           "";
 
         letter.style.color =
-          "";
+          "#ff4d16";
 
       }
 
@@ -3244,3 +3328,253 @@ console.log(
 
 </body>
 </html>
+
+<style>
+/* FINAL HERO NAME */
+.hero .name,
+.hero .name-row,
+.hero .name-row.two{
+  color:#111 !important;
+  text-align:left;
+}
+
+.hero .name-row{
+  display:block !important;
+  margin-left:0 !important;
+  white-space:nowrap !important;
+}
+
+.hero .name-row.two{
+  margin-left:0 !important;
+}
+
+.hero .name .name-row + .name-row{
+  margin-top:0 !important;
+}
+
+/* Keep the two-line name on desktop exactly as requested */
+@media(min-width:701px){
+  .hero .name{
+    white-space:normal !important;
+  }
+}
+</style>
+
+<style>
+/* FINAL HERO NAME FIX */
+.hero .name{
+  position:relative !important;
+  z-index:20 !important;
+  color:#111 !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  overflow:visible !important;
+  text-align:left !important;
+}
+
+.hero .name-row,
+.hero .name-row.two{
+  display:block !important;
+  position:relative !important;
+  z-index:21 !important;
+  color:#111 !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  margin-left:0 !important;
+  transform:none;
+}
+
+.hero .name-row{
+  white-space:nowrap !important;
+}
+
+.hero .name-row.two{
+  margin-left:0 !important;
+}
+
+/* Do not let the hero name get clipped by its section */
+.hero{
+  overflow:hidden;
+}
+
+.hero .hero-content{
+  position:relative;
+  z-index:10;
+}
+
+@media(max-width:700px){
+  .hero .name{
+    white-space:normal !important;
+  }
+  .hero .name-row{
+    white-space:nowrap !important;
+  }
+}
+</style>
+
+<style>
+/* FINAL HERO ALIGNMENT */
+.hero .hero-content{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:8vw !important;
+}
+
+.hero .name{
+  flex:1 1 0 !important;
+  min-width:0 !important;
+  color:#111 !important;
+  text-align:left !important;
+}
+
+.hero .name-row,
+.hero .name-row.two{
+  color:#111 !important;
+  margin-left:0 !important;
+  text-align:left !important;
+}
+
+/* Slightly smaller name so it doesn't collide with the photo */
+@media(min-width:701px){
+  .hero .name{
+    font-size:clamp(55px, 8.2vw, 130px) !important;
+    line-height:.82 !important;
+    letter-spacing:-.075em !important;
+  }
+
+  .hero .photo-wrap{
+    flex:0 0 min(310px,25vw) !important;
+    margin-left:2vw !important;
+    margin-right:3vw !important;
+  }
+}
+
+/* Mobile: stack text and photo cleanly */
+@media(max-width:700px){
+  .hero .hero-content{
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    gap:45px !important;
+  }
+
+  .hero .name{
+    font-size:clamp(55px,15vw,90px) !important;
+    width:100% !important;
+  }
+
+  .hero .photo-wrap{
+    align-self:center !important;
+    margin:0 !important;
+  }
+}
+</style>
+
+<style>
+/* CLEAN HERO: BLACK NAME */
+.hero .name,
+.hero .name-row,
+.hero .name-row.two{
+  color:#111 !important;
+  -webkit-text-fill-color:#111 !important;
+}
+
+/* Keep the two-line name clean and aligned */
+.hero .name-row{
+  display:block !important;
+  margin-left:0 !important;
+  white-space:nowrap !important;
+}
+
+.hero .name-row.two{
+  margin-left:0 !important;
+}
+
+/* Prevent any accidental orange hover state on the hero name */
+.hero .name *{
+  color:#111 !important;
+  -webkit-text-fill-color:#111 !important;
+}
+
+@media(max-width:700px){
+  .hero .name{
+    color:#111 !important;
+    -webkit-text-fill-color:#111 !important;
+  }
+}
+</style>
+
+<style>
+/* FINAL CONTACT VISIBILITY FIX */
+.contact{
+  overflow:hidden !important;
+  isolation:isolate !important;
+}
+
+.contact-title{
+  z-index:2 !important;
+  position:relative !important;
+}
+
+.contact-links{
+  z-index:50 !important;
+  position:relative !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+
+.contact-link{
+  z-index:51 !important;
+  position:relative !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  color:#111 !important;
+}
+</style>
+
+<style>
+/* FINAL WORK 01 VISIBILITY FIX */
+.project:nth-of-type(1) .project-box{
+  background:#ff4d16 !important;
+}
+
+.project:nth-of-type(1) .project-info{
+  color:#111 !important;
+  mix-blend-mode:normal !important;
+  z-index:20 !important;
+}
+
+.project:nth-of-type(1) .project-info h3,
+.project:nth-of-type(1) .project-info p{
+  color:#111 !important;
+}
+
+/* Experiment image */
+.experiment-image-box{
+  position:relative !important;
+}
+</style>
+
+<style>
+/* WORK PROJECT COLORS — prevents Project 01 from blending into the page */
+#work .project:nth-of-type(1) .project-box{
+  background:#ff4d16 !important;
+  color:#111 !important;
+}
+#work .project:nth-of-type(2) .project-box{
+  background:#d7ff00 !important;
+  color:#111 !important;
+}
+#work .project:nth-of-type(3) .project-box{
+  background:#8e70ff !important;
+  color:#111 !important;
+}
+#work .project:nth-of-type(4) .project-box{
+  background:#111 !important;
+  color:#fff !important;
+}
+#work .project:nth-of-type(1) .project-info{
+  color:#111 !important;
+  mix-blend-mode:normal !important;
+}
+</style>
