@@ -1831,10 +1831,7 @@ footer{
     </li>
 
     <li>
-      <a href="#work">
-        WORK
-      </a>
-    </li>
+</li>
 
     <li>
       <a href="#education">
@@ -2109,107 +2106,7 @@ footer{
      WORK
 ======================================================= -->
 
-<section
-  class="section work"
-  id="work"
->
 
-  <div class="section-number">
-    02 / SELECTED WORK
-  </div>
-
-
-  <h2 class="work-heading reveal">
-    WORK.
-  </h2>
-
-
-  <!-- PROJECT -->
-
-  <article class="project reveal">
-
-    <div class="project-box">
-
-      <div class="geometry"></div>
-
-      <div class="project-info">
-
-        <h3>01</h3>
-
-        <p>
-          GRAPHIC IDENTITY / VISUAL SYSTEM
-        </p>
-
-      </div>
-
-    </div>
-
-  </article>
-
-
-  <article class="project reveal">
-
-    <div class="project-box">
-
-      <div class="geometry"></div>
-
-      <div class="project-info">
-
-        <h3>02</h3>
-
-        <p>
-          POSTER / TYPOGRAPHY / ART DIRECTION
-        </p>
-
-      </div>
-
-    </div>
-
-  </article>
-
-
-  <article class="project reveal">
-
-    <div class="project-box">
-
-      <div class="geometry"></div>
-
-      <div class="project-info">
-
-        <h3>03</h3>
-
-        <p>
-          WEB DESIGN / CREATIVE DEVELOPMENT
-        </p>
-
-      </div>
-
-    </div>
-
-  </article>
-
-
-  <article class="project reveal">
-
-    <div class="project-box">
-
-      <div class="geometry"></div>
-
-      <div class="project-info">
-
-        <h3>04</h3>
-
-        <p>
-          DIGITAL EXPERIMENT / INTERACTION
-        </p>
-
-      </div>
-
-    </div>
-
-  </article>
-
-</section>
 
 
 <!-- =======================================================
@@ -2222,7 +2119,7 @@ footer{
 >
 
   <div class="section-number">
-    03 / GRAPHIC WORK
+    02 / GALLERY
   </div>
 
   <h2 class="horizontal-title">
@@ -2326,7 +2223,7 @@ footer{
 >
 
   <div class="section-number">
-    04 / EDUCATION
+    03 / EDUCATION
   </div>
 
   <h2 class="education-title reveal">
@@ -2386,7 +2283,7 @@ footer{
 >
 
   <div class="section-number">
-    06 / SKILLS
+    04 / SKILLS
   </div>
   <span class="skill-word reveal">
     LEADERSHIP
@@ -2426,7 +2323,7 @@ footer{
 >
 
   <div class="section-number">
-    07 / EXPERIMENTS
+    05 / EXPERIMENTS
   </div>
 
 
@@ -2441,12 +2338,6 @@ footer{
 
   <div class="poster a experiment-image-box">
     <!-- Replace "experiment.jpg" with your own image filename/path -->
-    <img
-      class="experiment-image"
-      src="experiment.jpg"
-      alt="Experiment image"
-      onerror="this.style.display='none'"
-    >
     <span class="experiment-placeholder">
       ADD<br>
       IMAGE
@@ -2455,25 +2346,8 @@ footer{
 
 
   <div class="poster b">
-    MAKE<br>
-    IT<br>
-    LOUD.
-  </div>
-
-
-  <div class="poster c">
-    BREAK<br>
-    THE<br>
-    GRID.
-  </div>
-
-
-  <div class="poster d">
-    MOVE<br>
-    THE<br>
-    FORM.
-  </div>
-
+<div class="poster c">
+<div class="poster d">
 </section>
 
 
@@ -2489,7 +2363,7 @@ footer{
   <div>
 
     <div class="section-number">
-      08 / CONTACT
+      06 / CONTACT
     </div>
 
 
@@ -2508,7 +2382,7 @@ footer{
 
     <a
       class="contact-link magnetic"
-      href="mailto:hello@example.com"
+      href="mailto:officeofsafalparajuli@gmail.com"
     >
       EMAIL
     </a>
@@ -3576,5 +3450,157 @@ console.log(
 #work .project:nth-of-type(1) .project-info{
   color:#111 !important;
   mix-blend-mode:normal !important;
+}
+</style>
+
+
+
+<style>
+/* RESTORE 05 / EXPERIMENTS — ORIGINAL ALIGNMENT */
+#experiments .poster{
+  position:relative !important;
+  overflow:hidden !important;
+}
+
+#experiments .poster > img,
+#experiments .experiment-image{
+  display:none !important;
+}
+
+/* Keep the original poster content centered and aligned */
+#experiments .poster{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+</style>
+
+<style>
+/* =========================================================
+   WORK — CLEAN FOUR-PANEL LAYOUT
+========================================================= */
+
+/* Hide secondary/floating preview cards; keep the actual work panels */
+.work-preview,
+.project-preview,
+.preview-box,
+.floating-preview,
+.work-hover-preview,
+.project-hover-preview,
+.project-preview-card{
+  display:none !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+
+/* Remove accidental pseudo-element preview cards */
+.project::before,
+.project::after{
+  pointer-events:none;
+}
+
+/* Keep a clean, consistent gap between the work panels */
+.work,
+.work-grid,
+.projects,
+.projects-grid{
+  gap:clamp(24px, 4vw, 64px) !important;
+}
+
+/* Prevent panels from visually overlapping each other */
+.project{
+  position:relative !important;
+  margin-bottom:clamp(24px, 4vw, 64px) !important;
+  z-index:1 !important;
+}
+
+/* =========================================================
+   WORK NUMBERING
+   01
+   02
+   03
+========================================================= */
+
+/* If the original panels contain 01 / 02 / 03 / 04,
+   show only 01 / 02 / 03 after removing the fourth panel. */
+.project:nth-of-type(4){
+  display:none !important;
+}
+
+/* Normalize numbering based on the remaining three panels */
+.project:nth-of-type(1) .project-number{
+  font-size:inherit;
+}
+.project:nth-of-type(2) .project-number{
+  font-size:0;
+}
+.project:nth-of-type(2) .project-number::after{
+  content:"02";
+  font-size:inherit;
+}
+.project:nth-of-type(3) .project-number{
+  font-size:0;
+}
+.project:nth-of-type(3) .project-number::after{
+  content:"03";
+  font-size:inherit;
+}
+</style>
+
+<style>
+/* WORK SECTION REMOVED */
+.project,
+.projects,
+.project-box,
+.project-number,
+.project-info,
+.work-preview,
+.project-preview,
+.preview-box,
+.floating-preview{
+  display:none !important;
+}
+</style>
+
+<style>
+/* =========================================================
+   FINAL OVERVIEW / SECTION RHYTHM
+========================================================= */
+
+.section-number{
+  display:block;
+  margin-bottom:clamp(24px, 3vw, 48px);
+  letter-spacing:.08em;
+  line-height:1;
+}
+
+/* Give major sections a little more breathing room */
+section.section{
+  scroll-margin-top:20px;
+}
+
+/* Keep section headings visually balanced after the Work section removal */
+.gallery,
+.education,
+.skills-section,
+#experiments,
+.contact{
+  position:relative;
+}
+
+/* Contact email remains clearly clickable */
+.contact-link[href^="mailto:"]{
+  cursor:pointer;
+  text-decoration:none;
+}
+
+/* Prevent accidental text clipping at section boundaries */
+.section,
+.gallery,
+.education,
+.skills-section,
+#experiments,
+.contact{
+  overflow:visible;
 }
 </style>
