@@ -1888,80 +1888,6 @@ footer{
 }
 </style>
 
-
-<style>
-/* =========================================================
-   FINAL GALLERY ALIGNMENT + CORRECT MENU SECTIONS
-========================================================= */
-.gallery-section{
-  position:relative !important;
-  min-height:100vh !important;
-  overflow:hidden !important;
-}
-.gallery-section-number{
-  position:relative;
-  z-index:5;
-  padding:clamp(55px,7vw,100px) 6vw 0;
-  font-family:monospace;
-  font-size:10px;
-  letter-spacing:.12em;
-  line-height:1;
-}
-.photo-wall{
-  width:100%;
-  display:grid !important;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:clamp(14px,2vw,28px) !important;
-  align-items:start !important;
-  justify-content:stretch !important;
-  padding:clamp(70px,8vw,120px) 5vw 120px !important;
-  box-sizing:border-box !important;
-  overflow:visible !important;
-}
-.clipboard-card{
-  width:100% !important;
-  min-width:0 !important;
-  max-width:none !important;
-  height:clamp(300px,31vw,440px) !important;
-  margin:0 !important;
-  box-sizing:border-box !important;
-}
-.photo-card-1{transform:rotate(-3deg) !important}
-.photo-card-2{transform:rotate(2deg) !important}
-.photo-card-3{transform:rotate(-2deg) !important}
-.photo-card-4{transform:rotate(3deg) !important}
-.clipboard-card:hover{
-  transform:translateY(-18px) rotate(0deg) scale(1.045) !important;
-}
-.photo-frame{
-  width:100% !important;
-  height:100% !important;
-  min-height:0 !important;
-}
-.photo-frame img{
-  width:100% !important;
-  height:100% !important;
-  object-fit:cover !important;
-}
-@media(max-width:700px){
-  .photo-wall{
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    padding-left:7vw !important;
-    padding-right:7vw !important;
-  }
-  .clipboard-card{height:clamp(280px,55vw,390px) !important}
-}
-@media(max-width:600px){
-  .photo-wall{
-    grid-template-columns:1fr !important;
-    width:min(360px,86vw) !important;
-    margin:0 auto !important;
-    padding-left:0 !important;
-    padding-right:0 !important;
-  }
-  .clipboard-card{height:360px !important}
-}
-</style>
 </head>
 
 
@@ -2038,8 +1964,8 @@ footer{
     </li>
 
     <li>
-      <a href="#gallery">
-        GALLERY
+      <a href="#interests">
+        INTERESTS
       </a>
     </li>
 
@@ -2056,8 +1982,8 @@ footer{
     </li>
 
     <li>
-      <a href="#experience">
-        EXPERIENCE
+      <a href="#experiments">
+        EXPERIMENTS
       </a>
     </li>
 
@@ -2306,10 +2232,8 @@ footer{
 
 <section
   class="gallery-section"
-  id="gallery"
+  id="interests"
 >
-
-  <div class="gallery-section-number">02 / GALLERY</div>
 
   <div class="photo-wall">
 
@@ -2320,8 +2244,7 @@ footer{
 
       <div class="photo-frame">
         <img
-          src="./parajuli.png"
-          onerror="this.onerror=null;this.src='./parajuli.png.jpg';"
+          src="./parajuli.png.jpg"
           alt="Safal Parajuli"
         >
       </div>
@@ -2340,8 +2263,7 @@ footer{
 
       <div class="photo-frame">
         <img
-          src="./prasad.png"
-          onerror="this.onerror=null;this.src='./prasad.png.jpg';"
+          src="./prasad.png.jpg"
           alt="Gallery photo"
         >
       </div>
@@ -2360,8 +2282,7 @@ footer{
 
       <div class="photo-frame">
         <img
-          src="./uppadhya.png"
-          onerror="this.onerror=null;this.src='./uppadhya.png.jpg';"
+          src="./uppadhya.png.jpg"
           alt="Gallery photo"
         >
       </div>
@@ -2380,8 +2301,7 @@ footer{
 
       <div class="photo-frame">
         <img
-          src="./ram.png"
-          onerror="this.onerror=null;this.src='./ram.png.jpg';"
+          src="./ram.png.jpg"
           alt="Gallery photo"
         >
       </div>
@@ -2503,7 +2423,7 @@ footer{
 
 <section
   class="section playground"
-  id="experience"
+  id="experiments"
 >
 
   <div class="section-number">
@@ -3943,18 +3863,18 @@ button:hover {
 
 <style>
 /* RESTORE 05 / EXPERIMENTS — ORIGINAL ALIGNMENT */
-#experience .poster{
+#experiments .poster{
   position:relative !important;
   overflow:hidden !important;
 }
 
-#experience .poster > img,
-#experience .experiment-image{
+#experiments .poster > img,
+#experiments .experiment-image{
   display:none !important;
 }
 
 /* Keep the original poster content centered and aligned */
-#experience .poster{
+#experiments .poster{
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
@@ -4069,7 +3989,7 @@ section.section{
 .gallery,
 .education,
 .skills-section,
-#experience,
+#experiments,
 .contact{
   position:relative;
 }
@@ -4085,7 +4005,7 @@ section.section{
 .gallery,
 .education,
 .skills-section,
-#experience,
+#experiments,
 .contact{
   overflow:visible;
 }
