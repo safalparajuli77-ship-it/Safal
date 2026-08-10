@@ -2176,18 +2176,22 @@ footer{
 
     <div class="card gallery-card">
       <img src="parajuli.png.jpg" alt="Safal Parajuli gallery photo">
+      <span class="gallery-index">01 / GALLERY</span>
     </div>
 
     <div class="card gallery-card">
       <img src="prasad.png.jpg" alt="Gallery photo">
+      <span class="gallery-index">02 / GALLERY</span>
     </div>
 
     <div class="card gallery-card">
       <img src="uppadhya.png.jpg" alt="Gallery photo">
+      <span class="gallery-index">03 / GALLERY</span>
     </div>
 
     <div class="card gallery-card">
       <img src="ram.png.jpg" alt="Gallery photo">
+      <span class="gallery-index">04 / GALLERY</span>
     </div>
 
   </div>
@@ -3203,24 +3207,92 @@ console.log(
 
 <style>
 /* =========================================================
-   GALLERY — FOUR PHOTOS
+   GALLERY — HORIZONTAL READYMAG / HANGING CLIP STYLE
 ========================================================= */
+.gallery-section{
+  position:relative;
+  overflow:hidden !important;
+  background:#111;
+  color:#fff;
+}
+
+.gallery-section .section-number{
+  color:#fff;
+}
+
 .gallery-track{
-  display:grid !important;
-  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
-  gap:24px !important;
-  width:100% !important;
-  transform:none !important;
+  display:flex !important;
+  flex-direction:row !important;
+  flex-wrap:nowrap !important;
+  align-items:flex-start !important;
+  gap:clamp(22px, 3vw, 42px) !important;
+  width:max-content !important;
+  max-width:none !important;
+  transform:translateX(0);
+  padding:clamp(70px, 9vw, 120px) 6vw 9vh !important;
+  margin-top:10px !important;
+  will-change:transform;
 }
 
 .gallery-card{
   position:relative !important;
-  width:100% !important;
-  height:clamp(320px, 42vw, 620px) !important;
-  overflow:hidden !important;
+  flex:0 0 clamp(250px, 27vw, 390px) !important;
+  width:clamp(250px, 27vw, 390px) !important;
+  height:clamp(350px, 42vw, 560px) !important;
+  overflow:visible !important;
   padding:0 !important;
   margin:0 !important;
-  background:#111 !important;
+  background:#eeeae2 !important;
+  color:#111 !important;
+  border:1px solid rgba(255,255,255,.18);
+  transform:rotate(var(--hang-angle, 0deg)) translateY(var(--hang-y, 0px));
+  transform-origin:50% 0%;
+  box-shadow:10px 14px 0 rgba(0,0,0,.28);
+  transition:
+    transform .7s cubic-bezier(.16,1,.3,1),
+    box-shadow .7s ease;
+  isolation:isolate;
+}
+
+/* The thin hanging cord */
+.gallery-card::before{
+  content:"";
+  position:absolute;
+  top:-76px;
+  left:50%;
+  width:1px;
+  height:76px;
+  background:#eeeae2;
+  transform:translateX(-50%);
+  z-index:4;
+}
+
+/* The physical-looking metal clip */
+.gallery-card::after{
+  content:"";
+  position:absolute;
+  top:-13px;
+  left:50%;
+  width:42px;
+  height:26px;
+  border:2px solid #111;
+  border-radius:5px 5px 8px 8px;
+  background:#bcb8af;
+  transform:translateX(-50%);
+  z-index:6;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.28);
+}
+
+/* Individual hanging positions */
+.gallery-card:nth-child(1){ --hang-angle:-2.2deg; --hang-y:3px; }
+.gallery-card:nth-child(2){ --hang-angle:1.6deg; --hang-y:0px; }
+.gallery-card:nth-child(3){ --hang-angle:-1.1deg; --hang-y:8px; }
+.gallery-card:nth-child(4){ --hang-angle:2.4deg; --hang-y:2px; }
+
+.gallery-card:hover{
+  transform:rotate(0deg) translateY(-10px) scale(1.015) !important;
+  box-shadow:14px 22px 0 rgba(0,0,0,.32);
+  z-index:20;
 }
 
 .gallery-card img{
@@ -3228,18 +3300,77 @@ console.log(
   width:100% !important;
   height:100% !important;
   object-fit:cover !important;
+  object-position:center !important;
+  filter:saturate(.9) contrast(1.04);
+  transform:scale(1.015);
+  transition:
+    transform .9s cubic-bezier(.16,1,.3,1),
+    filter .6s ease;
 }
 
-@media (max-width: 900px){
+.gallery-card:hover img{
+  transform:scale(1.07);
+  filter:saturate(1) contrast(1.06);
+}
+
+/* Small Readymag-like image index */
+.gallery-card .gallery-index{
+  position:absolute;
+  left:14px;
+  bottom:14px;
+  z-index:8;
+  padding:7px 9px;
+  background:#111;
+  color:#fff;
+  font:9px monospace;
+  letter-spacing:.08em;
+}
+
+/* Keep the gallery horizontal even on smaller screens */
+@media(max-width:900px){
   .gallery-track{
-    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    gap:22px !important;
+    padding-left:6vw !important;
+    padding-right:6vw !important;
+  }
+
+  .gallery-card{
+    flex-basis:280px !important;
+    width:280px !important;
+    height:400px !important;
   }
 }
 
-@media (max-width: 560px){
+@media(max-width:560px){
   .gallery-track{
-    grid-template-columns:1fr !important;
+    gap:18px !important;
+    padding-top:80px !important;
   }
+
+  .gallery-card{
+    flex-basis:72vw !important;
+    width:72vw !important;
+    height:105vw !important;
+    max-height:480px;
+  }
+}
+
+/* Gentle idle motion — subtle, not overactive */
+@keyframes galleryHang{
+  0%,100%{ transform:rotate(var(--hang-angle)) translateY(var(--hang-y)); }
+  50%{ transform:rotate(calc(var(--hang-angle) * -0.55)) translateY(calc(var(--hang-y) + 3px)); }
+}
+
+.gallery-card{
+  animation:galleryHang 7s ease-in-out infinite;
+}
+
+.gallery-card:nth-child(2){ animation-delay:-1.6s; }
+.gallery-card:nth-child(3){ animation-delay:-3.1s; }
+.gallery-card:nth-child(4){ animation-delay:-4.7s; }
+
+.gallery-card:hover{
+  animation:none;
 }
 </style>
 </body>
@@ -3646,4 +3777,3 @@ section.section{
   overflow:visible;
 }
 </style>
-
