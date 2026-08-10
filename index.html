@@ -1813,6 +1813,155 @@ footer{
 
 </style>
 
+
+<style id="readymag-style-animations">
+/* =========================================================
+   READYMAG-INSPIRED MOTION LAYER
+   Keeps the existing design/layout; adds motion only.
+========================================================= */
+.rm-reveal{
+  opacity:0 !important;
+  transform:translate3d(0,42px,0) !important;
+  clip-path:inset(0 0 100% 0) !important;
+  transition:
+    opacity .9s cubic-bezier(.16,1,.3,1),
+    transform 1s cubic-bezier(.16,1,.3,1),
+    clip-path 1.05s cubic-bezier(.16,1,.3,1);
+  transition-delay:var(--rm-delay,0ms);
+  will-change:opacity,transform,clip-path;
+}
+.rm-reveal.rm-visible{
+  opacity:1 !important;
+  transform:translate3d(0,0,0) !important;
+  clip-path:inset(0 0 0 0) !important;
+}
+
+/* Images reveal like a magazine image entering through a mask. */
+.rm-image{
+  opacity:0 !important;
+  transform:scale(1.10) !important;
+  clip-path:inset(0 0 100% 0) !important;
+  transition:
+    opacity 1.1s cubic-bezier(.16,1,.3,1),
+    transform 1.35s cubic-bezier(.16,1,.3,1),
+    clip-path 1.15s cubic-bezier(.16,1,.3,1);
+  transition-delay:var(--rm-delay,0ms);
+  will-change:opacity,transform,clip-path;
+}
+.rm-image.rm-visible{
+  opacity:1 !important;
+  transform:scale(1) !important;
+  clip-path:inset(0 0 0 0) !important;
+}
+
+/* Subtle image movement while hovering — not a layout change. */
+.gallery-card,
+.photo{
+  overflow:hidden;
+}
+.gallery-card img,
+.photo img{
+  transition:transform 1s cubic-bezier(.16,1,.3,1), filter .6s ease !important;
+}
+.gallery-card:hover img,
+.photo:hover img{
+  transform:scale(1.045) !important;
+}
+
+/* Section headings get a little more editorial movement. */
+.rm-heading{
+  letter-spacing:-.015em;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .rm-reveal,
+  .rm-image{
+    opacity:1 !important;
+    transform:none !important;
+    clip-path:none !important;
+    transition:none !important;
+  }
+  .gallery-card img,
+  .photo img{
+    transition:none !important;
+  }
+}
+</style>
+
+
+<style>
+/* =========================================================
+   FINAL GALLERY ALIGNMENT + CORRECT MENU SECTIONS
+========================================================= */
+.gallery-section{
+  position:relative !important;
+  min-height:100vh !important;
+  overflow:hidden !important;
+}
+.gallery-section-number{
+  position:relative;
+  z-index:5;
+  padding:clamp(55px,7vw,100px) 6vw 0;
+  font-family:monospace;
+  font-size:10px;
+  letter-spacing:.12em;
+  line-height:1;
+}
+.photo-wall{
+  width:100%;
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(14px,2vw,28px) !important;
+  align-items:start !important;
+  justify-content:stretch !important;
+  padding:clamp(70px,8vw,120px) 5vw 120px !important;
+  box-sizing:border-box !important;
+  overflow:visible !important;
+}
+.clipboard-card{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:none !important;
+  height:clamp(300px,31vw,440px) !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
+}
+.photo-card-1{transform:rotate(-3deg) !important}
+.photo-card-2{transform:rotate(2deg) !important}
+.photo-card-3{transform:rotate(-2deg) !important}
+.photo-card-4{transform:rotate(3deg) !important}
+.clipboard-card:hover{
+  transform:translateY(-18px) rotate(0deg) scale(1.045) !important;
+}
+.photo-frame{
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+}
+.photo-frame img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+}
+@media(max-width:700px){
+  .photo-wall{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    padding-left:7vw !important;
+    padding-right:7vw !important;
+  }
+  .clipboard-card{height:clamp(280px,55vw,390px) !important}
+}
+@media(max-width:600px){
+  .photo-wall{
+    grid-template-columns:1fr !important;
+    width:min(360px,86vw) !important;
+    margin:0 auto !important;
+    padding-left:0 !important;
+    padding-right:0 !important;
+  }
+  .clipboard-card{height:360px !important}
+}
+</style>
 </head>
 
 
@@ -1889,8 +2038,8 @@ footer{
     </li>
 
     <li>
-      <a href="#interests">
-        INTERESTS
+      <a href="#gallery">
+        GALLERY
       </a>
     </li>
 
@@ -1907,8 +2056,8 @@ footer{
     </li>
 
     <li>
-      <a href="#experiments">
-        EXPERIMENTS
+      <a href="#experience">
+        EXPERIENCE
       </a>
     </li>
 
@@ -2152,45 +2301,99 @@ footer{
 
 
 <!-- =======================================================
-     GALLERY
+     GALLERY — FOUR PHOTO CLIPBOARD WALL
 ======================================================= -->
 
 <section
-  class="horizontal gallery-section"
-  id="interests"
+  class="gallery-section"
+  id="gallery"
 >
 
-  <div class="section-number">
-    02 / GALLERY
+  <div class="gallery-section-number">02 / GALLERY</div>
+
+  <div class="photo-wall">
+
+    <!-- PHOTO 01 -->
+    <div class="clipboard-card photo-card-1">
+
+      <div class="paper-clip"></div>
+
+      <div class="photo-frame">
+        <img
+          src="./parajuli.png"
+          onerror="this.onerror=null;this.src='./parajuli.png.jpg';"
+          alt="Safal Parajuli"
+        >
+      </div>
+
+      <div class="photo-label">
+        SAFAL / 01
+      </div>
+
+    </div>
+
+
+    <!-- PHOTO 02 -->
+    <div class="clipboard-card photo-card-2">
+
+      <div class="paper-clip"></div>
+
+      <div class="photo-frame">
+        <img
+          src="./prasad.png"
+          onerror="this.onerror=null;this.src='./prasad.png.jpg';"
+          alt="Gallery photo"
+        >
+      </div>
+
+      <div class="photo-label">
+        MOMENT / 02
+      </div>
+
+    </div>
+
+
+    <!-- PHOTO 03 -->
+    <div class="clipboard-card photo-card-3">
+
+      <div class="paper-clip"></div>
+
+      <div class="photo-frame">
+        <img
+          src="./uppadhya.png"
+          onerror="this.onerror=null;this.src='./uppadhya.png.jpg';"
+          alt="Gallery photo"
+        >
+      </div>
+
+      <div class="photo-label">
+        MEMORY / 03
+      </div>
+
+    </div>
+
+
+    <!-- PHOTO 04 -->
+    <div class="clipboard-card photo-card-4">
+
+      <div class="paper-clip"></div>
+
+      <div class="photo-frame">
+        <img
+          src="./ram.png"
+          onerror="this.onerror=null;this.src='./ram.png.jpg';"
+          alt="Gallery photo"
+        >
+      </div>
+
+      <div class="photo-label">
+        ARCHIVE / 04
+      </div>
+
+    </div>
+
   </div>
 
-  <h2 class="horizontal-title">
-    MY<br>
-    GALLERY.
-  </h2>
-
-  <div
-    class="horizontal-track gallery-track"
-    id="horizontalTrack"
-  >
-
-    <div class="card gallery-card">
-      <img src="parajuli.png" alt="Safal Parajuli gallery photo">
-    </div>
-
-    <div class="card gallery-card">
-      <img src="prasad.png" alt="Gallery photo">
-    </div>
-
-    <div class="card gallery-card">
-      <img src="uppadhya.png" alt="Gallery photo">
-    </div>
-
-    <div class="card gallery-card">
-      <img src="ram.png" alt="Gallery photo">
-    </div>
-
-  </div>
 </section>
 
 
@@ -2300,7 +2503,7 @@ footer{
 
 <section
   class="section playground"
-  id="experiments"
+  id="experience"
 >
 
   <div class="section-number">
@@ -3203,46 +3406,287 @@ console.log(
 
 <style>
 /* =========================================================
-   GALLERY — FOUR PHOTOS
+   READYMAG STYLE — FOUR PHOTO CLIPBOARD WALL
 ========================================================= */
-.gallery-track{
-  display:grid !important;
-  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
-  gap:24px !important;
-  width:100% !important;
-  transform:none !important;
+
+.gallery-section {
+  min-height: 100vh;
+  background: #fff !important;
+  color: #111 !important;
+  padding: 0 !important;
+  overflow: visible !important;
 }
 
-.gallery-card{
-  position:relative !important;
-  width:100% !important;
-  height:clamp(320px, 42vw, 620px) !important;
-  overflow:hidden !important;
-  padding:0 !important;
-  margin:0 !important;
-  background:#111 !important;
+.photo-wall {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 110px 30px 150px;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
 }
 
-.gallery-card img{
-  display:block !important;
-  width:100% !important;
-  height:100% !important;
-  object-fit:cover !important;
+.photo-wall::-webkit-scrollbar {
+  display: none;
 }
 
-@media (max-width: 900px){
-  .gallery-track{
-    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+.clipboard-card {
+  position: relative;
+  flex: 0 0 calc((100vw - 170px) / 4);
+  width: calc((100vw - 170px) / 4);
+  height: 31vw;
+  max-width: 340px;
+  max-height: 470px;
+  min-width: 180px;
+  min-height: 270px;
+  box-sizing: border-box;
+  padding: 12px 12px 40px;
+  background: #f3f0e7 !important;
+  color: #111 !important;
+  box-shadow:
+    0 18px 35px rgba(0,0,0,.22),
+    0 4px 8px rgba(0,0,0,.12);
+  flex-shrink: 0;
+  transform-origin: 50% 10%;
+  transition:
+    transform .45s cubic-bezier(.2,.8,.2,1),
+    box-shadow .45s ease;
+  will-change: transform;
+}
+
+.photo-card-1 { transform: rotate(-3deg); }
+.photo-card-2 { transform: rotate(2deg); }
+.photo-card-3 { transform: rotate(-2deg); }
+.photo-card-4 { transform: rotate(3deg); }
+
+/* The motion script uses !important on its reveal transform, so the hover
+   state also uses !important to keep the physical card interaction working. */
+.clipboard-card.rm-image.rm-visible:hover,
+.clipboard-card:hover {
+  z-index: 20;
+  transform: translateY(-18px) rotate(0deg) scale(1.05) !important;
+  box-shadow:
+    0 35px 60px rgba(0,0,0,.35),
+    0 8px 15px rgba(0,0,0,.15);
+}
+
+.photo-frame {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #ddd;
+  border: 1px solid rgba(0,0,0,.12);
+  box-sizing: border-box;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  transition: transform .7s cubic-bezier(.2,.8,.2,1) !important;
+}
+
+.clipboard-card:hover .photo-frame img {
+  transform: scale(1.08) !important;
+}
+
+.photo-label {
+  position: absolute;
+  left: 14px;
+  bottom: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  letter-spacing: .16em;
+  color: #111;
+  text-transform: uppercase;
+}
+
+.paper-clip {
+  position: absolute;
+  z-index: 50;
+  width: 44px;
+  height: 30px;
+  top: -17px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 6px 6px 9px 9px;
+  background: linear-gradient(90deg,#666 0%,#ddd 15%,#999 30%,#fff 48%,#888 66%,#ddd 84%,#666 100%);
+  box-shadow:
+    0 5px 8px rgba(0,0,0,.4),
+    inset 0 1px 2px rgba(255,255,255,.8),
+    inset 0 -2px 3px rgba(0,0,0,.25);
+}
+
+.paper-clip::before {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 20px;
+  left: 50%;
+  top: -19px;
+  transform: translateX(-50%);
+  background: #777;
+  box-shadow: 1px 0 2px rgba(255,255,255,.5);
+}
+
+.paper-clip::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  top: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.55);
+}
+
+@media (min-width: 1101px) {
+  .photo-wall {
+    overflow-x: visible;
+    justify-content: center;
   }
 }
 
-@media (max-width: 560px){
-  .gallery-track{
-    grid-template-columns:1fr !important;
+@media (max-width: 1100px) {
+  .photo-wall {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .clipboard-card {
+    flex: 0 0 240px;
+    width: 240px;
+    height: 340px;
+  }
+}
+
+@media (max-width: 600px) {
+  .photo-wall {
+    gap: 20px;
+    padding: 80px 35px 110px;
+    justify-content: flex-start;
+  }
+  .clipboard-card {
+    flex: 0 0 230px;
+    width: 230px;
+    height: 320px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clipboard-card,
+  .photo-frame img {
+    transition: none !important;
   }
 }
 </style>
+
+<script id="readymag-motion">
+/* =========================================================
+   READYMAG-INSPIRED UNIVERSAL TEXT + IMAGE REVEALS
+========================================================= */
+(function(){
+  const textSelectors = [
+    '.nav .logo', '.nav .menu-button', '.menu-links a',
+    '.hero .name .letter', '.photo-meta', '.hero-info',
+    '.section-number', 'h1', 'h2', 'h3', 'h4', 'p',
+    '.overview-copy', '.horizontal-title',
+    '.timeline-year', '.timeline-title', '.timeline-info',
+    '.skill-word', '.experience-number', '.contact-link',
+    '.footer'
+  ];
+
+  const imageSelectors = [
+    'img', '.gallery-card', '.photo'
+  ];
+
+  const textEls = [];
+  textSelectors.forEach(selector => {
+    document.querySelectorAll(selector).forEach(el => {
+      if (!textEls.includes(el)) textEls.push(el);
+    });
+  });
+
+  const imageEls = [];
+  imageSelectors.forEach(selector => {
+    document.querySelectorAll(selector).forEach(el => {
+      if (!imageEls.includes(el)) imageEls.push(el);
+    });
+  });
+
+  textEls.forEach((el, i) => {
+    el.classList.add('rm-reveal');
+    el.style.setProperty('--rm-delay', `${Math.min(i % 7, 6) * 55}ms`);
+    if (el.matches('h1,h2,h3,h4')) el.classList.add('rm-heading');
+  });
+
+  imageEls.forEach((el, i) => {
+    el.classList.add('rm-image');
+    el.style.setProperty('--rm-delay', `${Math.min(i % 4, 3) * 90}ms`);
+  });
+
+  const reveal = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('rm-visible');
+        reveal.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+
+  document.querySelectorAll('.rm-reveal, .rm-image').forEach(el => reveal.observe(el));
+
+  /* Hero gets an immediate cinematic entrance instead of waiting for scroll. */
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.hero .name .letter, .hero .photo, .hero .photo img, .hero .hero-info')
+      .forEach((el, i) => {
+        setTimeout(() => el.classList.add('rm-visible'), 180 + i * 55);
+      });
+  });
+})();
+</script>
+
 </body>
+
+<style id="readymag-hover-effects">
+/* Readymag-inspired hover layer — keeps the existing layout intact */
+a, button, .card, .poster, .project-box, .photo, img, .timeline-item, .skill-word, .contact-link {
+  transition: transform .55s cubic-bezier(.22,1,.36,1), opacity .35s ease, filter .45s ease, letter-spacing .45s ease, background-color .35s ease;
+}
+.card:hover, .poster:hover, .project-box:hover, .timeline-item:hover {
+  transform: translateY(-8px) rotate(-.35deg);
+}
+.photo:hover, .card:hover img, .poster:hover img, .project-box:hover img {
+  transform: scale(1.035);
+  filter: contrast(1.05);
+}
+.menu-links a:hover {
+  letter-spacing: .08em;
+  transform: translateX(10px);
+}
+.contact-link:hover {
+  letter-spacing: .04em;
+}
+.skill-word:hover {
+  transform: translateX(8px) skewX(-4deg);
+}
+button:hover {
+  transform: scale(1.06);
+}
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after { transition-duration:.01ms !important; animation-duration:.01ms !important; }
+}
+</style>
+
 </html>
 
 <style>
@@ -3499,18 +3943,18 @@ console.log(
 
 <style>
 /* RESTORE 05 / EXPERIMENTS — ORIGINAL ALIGNMENT */
-#experiments .poster{
+#experience .poster{
   position:relative !important;
   overflow:hidden !important;
 }
 
-#experiments .poster > img,
-#experiments .experiment-image{
+#experience .poster > img,
+#experience .experiment-image{
   display:none !important;
 }
 
 /* Keep the original poster content centered and aligned */
-#experiments .poster{
+#experience .poster{
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
@@ -3625,7 +4069,7 @@ section.section{
 .gallery,
 .education,
 .skills-section,
-#experiments,
+#experience,
 .contact{
   position:relative;
 }
@@ -3641,7 +4085,7 @@ section.section{
 .gallery,
 .education,
 .skills-section,
-#experiments,
+#experience,
 .contact{
   overflow:visible;
 }
