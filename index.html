@@ -4,20 +4,19 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-<title>Safal Parajuli — Portfolio</title>
+<title>Safal Parajuli</title>
 
 <meta
   name="description"
-  content="Safal Parajuli — personal portfolio, graphic design, web, code and experiments."
+  content="Safal Parajuli — designer, developer and visual experimenter."
 >
 
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
 
 *{
   margin:0;
@@ -32,7 +31,7 @@ html{
 body{
   background:#eeeae2;
   color:#111;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
   overflow-x:hidden;
   cursor:none;
 }
@@ -45,7 +44,6 @@ a{
 button{
   border:0;
   background:none;
-  color:inherit;
   cursor:none;
 }
 
@@ -57,10 +55,11 @@ button{
 .cursor{
   position:fixed;
 
-  width:12px;
-  height:12px;
+  width:14px;
+  height:14px;
 
   border:1px solid #111;
+
   border-radius:50%;
 
   pointer-events:none;
@@ -71,39 +70,90 @@ button{
   z-index:99999;
 
   transition:
-    width .2s ease,
-    height .2s ease,
-    background .2s ease,
-    border-color .2s ease;
+    width .25s ease,
+    height .25s ease,
+    background .25s ease,
+    border .25s ease;
 }
 
-.cursor.active{
-  width:46px;
-  height:46px;
+.cursor.big{
+  width:55px;
+  height:55px;
 
-  background:#ff7a00;
+  background:#d7ff00;
 
   border-color:#111;
 }
 
 
 /* =========================================================
-   TOP BAR
+   PRELOADER
 ========================================================= */
 
-.topbar{
-
+.loader{
   position:fixed;
 
-  z-index:500;
+  inset:0;
+
+  background:#111;
+
+  color:#eeeae2;
+
+  z-index:999999;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  flex-direction:column;
+
+  transition:
+    transform 1s cubic-bezier(.77,0,.18,1);
+}
+
+.loader.hide{
+  transform:translateY(-100%);
+}
+
+.loader-number{
+  font-family:monospace;
+
+  font-size:13px;
+
+  margin-bottom:20px;
+}
+
+.loader-bar{
+  width:180px;
+  height:1px;
+
+  background:#555;
+
+  overflow:hidden;
+}
+
+.loader-progress{
+  width:0%;
+  height:100%;
+
+  background:#d7ff00;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav{
+  position:fixed;
 
   top:0;
   left:0;
 
   width:100%;
 
-  padding:
-    25px 2.2vw;
+  padding:20px 28px;
 
   display:flex;
 
@@ -111,31 +161,92 @@ button{
 
   align-items:center;
 
-  font-family:
-    "Courier New",
-    monospace;
+  z-index:1000;
 
-  font-size:12px;
+  mix-blend-mode:difference;
 
-  letter-spacing:.08em;
-
-  pointer-events:none;
+  color:white;
 }
 
-.topbar span,
-.topbar button{
-  pointer-events:auto;
+.logo{
+  font-family:monospace;
+
+  font-size:11px;
+
+  letter-spacing:.12em;
 }
 
 .menu-button{
+  font-family:monospace;
 
-  font-family:
-    "Courier New",
-    monospace;
+  font-size:11px;
 
-  font-size:12px;
+  color:white;
 
-  letter-spacing:.08em;
+  letter-spacing:.12em;
+}
+
+
+/* =========================================================
+   FULL SCREEN MENU
+========================================================= */
+
+.menu{
+  position:fixed;
+
+  inset:0;
+
+  background:#ff4d16;
+
+  z-index:400;
+
+  transform:
+    translateY(-100%);
+
+  transition:
+    transform .9s cubic-bezier(.77,0,.18,1);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+}
+
+.menu.open{
+  transform:translateY(0);
+}
+
+.menu-links{
+  list-style:none;
+
+  text-align:center;
+}
+
+.menu-links li{
+  overflow:hidden;
+}
+
+.menu-links a{
+  display:block;
+
+  font-size:
+    clamp(55px,10vw,150px);
+
+  font-weight:900;
+
+  line-height:.8;
+
+  letter-spacing:-.08em;
+
+  transition:
+    transform .4s ease;
+}
+
+.menu-links a:hover{
+  transform:
+    translateX(25px)
+    skewX(-8deg);
 }
 
 
@@ -144,72 +255,158 @@ button{
 ========================================================= */
 
 .hero{
-
   min-height:100vh;
 
   position:relative;
 
+  padding:
+    110px 5vw 80px;
+
   overflow:hidden;
 
-  margin:
-    13px 6px 0;
+  display:flex;
 
-  border:
-    1px solid #555;
+  flex-direction:column;
 
-  border-radius:9px;
-
-  background:#eeeae2;
+  justify-content:center;
 }
 
 
-/* =========================================================
-   ORBITAL BACKGROUND
-========================================================= */
+/* moving background */
 
-.orbit{
-
+.hero-grid{
   position:absolute;
 
-  inset:-25%;
+  inset:-20%;
 
-  opacity:.65;
-
-  background:
-
-    radial-gradient(
-      circle at 50% 50%,
-      transparent 0 31%,
-      #111 31.08% 31.16%,
-      transparent 31.2%
+  background-image:
+    linear-gradient(
+      rgba(0,0,0,.035) 1px,
+      transparent 1px
     ),
-
-    radial-gradient(
-      circle at 50% 50%,
-      transparent 0 49%,
-      #777 49.08% 49.16%,
-      transparent 49.2%
-    ),
-
-    radial-gradient(
-      circle at 50% 50%,
-      transparent 0 66%,
-      #999 66.08% 66.14%,
-      transparent 66.2%
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.035) 1px,
+      transparent 1px
     );
 
+  background-size:
+    60px 60px;
+
+  transform:
+    rotate(-8deg)
+    scale(1.3);
+
   animation:
-    orbit 30s linear infinite;
+    gridMove 20s linear infinite;
+
+  z-index:0;
 }
 
-@keyframes orbit{
-
-  from{
-    transform:rotate(0deg);
-  }
+@keyframes gridMove{
 
   to{
-    transform:rotate(360deg);
+    transform:
+      rotate(-8deg)
+      scale(1.3)
+      translate(60px,60px);
+  }
+
+}
+
+
+/* floating blobs */
+
+.blob{
+  position:absolute;
+
+  border-radius:50%;
+
+  pointer-events:none;
+}
+
+.blob.one{
+  width:320px;
+  height:320px;
+
+  right:4%;
+  top:12%;
+
+  background:#ff4d16;
+
+  animation:
+    blobOne 7s ease-in-out infinite;
+}
+
+.blob.two{
+  width:220px;
+  height:220px;
+
+  left:42%;
+  bottom:15%;
+
+  background:#d7ff00;
+
+  animation:
+    blobTwo 8s ease-in-out infinite;
+}
+
+.blob.three{
+  width:170px;
+  height:170px;
+
+  left:4%;
+  bottom:5%;
+
+  background:#8e70ff;
+
+  animation:
+    blobThree 9s ease-in-out infinite;
+}
+
+@keyframes blobOne{
+
+  0%,100%{
+    transform:
+      translate(0,0)
+      rotate(0deg);
+  }
+
+  50%{
+    transform:
+      translate(-50px,40px)
+      rotate(90deg);
+  }
+
+}
+
+@keyframes blobTwo{
+
+  0%,100%{
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  50%{
+    transform:
+      translateY(-80px)
+      scale(1.2);
+  }
+
+}
+
+@keyframes blobThree{
+
+  0%,100%{
+    transform:
+      rotate(0deg);
+  }
+
+  50%{
+    transform:
+      rotate(180deg)
+      translateX(60px);
   }
 
 }
@@ -219,53 +416,58 @@ button{
    HERO NAME
 ========================================================= */
 
-.hero-name{
-
-  position:absolute;
+.hero-content{
+  position:relative;
 
   z-index:10;
+  width:100%;
+}
 
-  left:8vw;
-
-  top:27vh;
-
+.name{
   font-size:
-    clamp(
-      80px,
-      9.4vw,
-      175px
-    );
-
-  line-height:.73;
-
-  letter-spacing:-.095em;
+    clamp(70px,13vw,190px);
 
   font-weight:900;
 
+  letter-spacing:-.08em;
+
+  line-height:.78;
+
   text-transform:uppercase;
+
+  color:#ff4d16;
+
+  max-width:100%;
+
+  position:relative;
 }
 
-.hero-name span{
-
+.name-row{
   display:block;
+  white-space:nowrap;
+  margin-left:0 !important;
+}
+
+.name-row.two{
+  margin-left:0 !important;
+}
+
+.letter{
+  display:inline-block;
 
   transition:
     transform .18s ease,
     color .18s ease;
 }
 
-.hero-name .second{
-
-  margin-left:-6vw;
-}
-
-.hero-name span:hover{
-
-  color:#ff4d16;
+.letter:hover{
 
   transform:
-    translateX(20px)
-    skewX(-5deg);
+    translateY(-18px)
+    rotate(-5deg)
+    scale(1.05);
+
+  color:#ff4d16;
 }
 
 
@@ -273,43 +475,43 @@ button{
    PHOTO
 ========================================================= */
 
-.photo-card{
-
-  position:absolute;
-
-  z-index:5;
-
-  right:7vw;
-
-  top:8vh;
+.photo-wrap{
 
   width:
-    min(
-      31vw,
-      560px
-    );
+    min(340px,55vw);
 
-  height:
-    min(
-      68vh,
-      760px
-    );
+  margin:
+    80px 0 0 12vw;
 
-  background:#111;
+  perspective:1200px;
+
+  position:relative;
+}
+
+.photo{
+
+  position:relative;
+
+  width:100%;
+
+  aspect-ratio:4/5;
 
   overflow:hidden;
 
-  transform:
-    rotate(2.5deg);
+  background:#111;
+
+  border:1px solid #111;
+
+  transform-style:preserve-3d;
 
   box-shadow:
-    0 35px 70px rgba(0,0,0,.15);
+    18px 18px 0 #d7ff00;
 
   transition:
     transform .15s ease;
 }
 
-.photo-card img{
+.photo img{
 
   width:100%;
   height:100%;
@@ -318,248 +520,63 @@ button{
 
   display:block;
 
-  filter:
-    saturate(.9)
-    contrast(1.06);
+  transform:
+    scale(1.05);
 
   transition:
-    transform .7s
-    cubic-bezier(
-      .16,
-      1,
-      .3,
-      1
-    );
+    transform .6s cubic-bezier(.16,1,.3,1);
+
+  filter:
+    contrast(1.08)
+    saturate(.9);
 }
 
-.photo-card:hover img{
-
+.photo:hover img{
   transform:
-    scale(1.06);
+    scale(1.12);
 }
 
 
-/* =========================================================
-   PHOTO FALLBACK
-========================================================= */
+/* photo metadata */
 
-.photo-placeholder{
-
-  width:100%;
-  height:100%;
-
-  display:grid;
-
-  place-items:center;
-
-  color:#777;
-
-  text-align:center;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size:11px;
-}
-
-
-/* =========================================================
-   VERTICAL RELATIVISTIC LABEL
-========================================================= */
-
-.photo-label{
+.photo-meta{
 
   position:absolute;
 
-  z-index:8;
+  right:-100px;
 
-  right:
-    calc(
-      7vw + min(31vw,560px) + 15px
-    );
-
-  top:30vh;
+  bottom:0;
 
   writing-mode:
     vertical-rl;
 
-  font-family:
-    "Courier New",
-    monospace;
+  font-family:monospace;
+
+  font-size:9px;
+
+  letter-spacing:.1em;
+}
+
+
+/* =========================================================
+   HERO INFO
+========================================================= */
+
+.hero-info{
+
+  position:absolute;
+
+  right:5vw;
+
+  bottom:8vh;
+
+  font-family:monospace;
 
   font-size:10px;
 
-  letter-spacing:.12em;
-}
+  line-height:1.8;
 
-
-/* =========================================================
-   ORANGE CROSS / FIELD OBJECT
-========================================================= */
-
-.orange-field{
-
-  position:absolute;
-
-  z-index:12;
-
-  right:34%;
-
-  top:40%;
-
-  width:68px;
-  height:68px;
-
-  border-radius:50%;
-
-  background:#ff7a00;
-
-  border:
-    3px solid #111;
-
-  display:grid;
-
-  place-items:center;
-
-  animation:
-    fieldPulse 2.7s ease-in-out infinite;
-}
-
-.orange-field::before,
-.orange-field::after{
-
-  content:"";
-
-  position:absolute;
-
-  background:#111;
-}
-
-.orange-field::before{
-
-  width:100%;
-  height:3px;
-}
-
-.orange-field::after{
-
-  height:100%;
-  width:3px;
-}
-
-@keyframes fieldPulse{
-
-  0%,100%{
-    transform:scale(1);
-  }
-
-  50%{
-    transform:scale(1.12);
-  }
-}
-
-
-/* =========================================================
-   LIME SHAPE
-========================================================= */
-
-.lime-shape{
-
-  position:absolute;
-
-  z-index:3;
-
-  left:9%;
-
-  bottom:10%;
-
-  width:190px;
-  height:140px;
-
-  background:#caff00;
-
-  transform:
-    rotate(24deg);
-
-  animation:
-    limeFloat 5s ease-in-out infinite;
-}
-
-@keyframes limeFloat{
-
-  0%,100%{
-    transform:
-      rotate(24deg)
-      translateY(0);
-  }
-
-  50%{
-    transform:
-      rotate(30deg)
-      translateY(-22px);
-  }
-}
-
-
-/* =========================================================
-   HERO INFORMATION
-========================================================= */
-
-.hero-meta{
-
-  position:absolute;
-
-  z-index:20;
-
-  right:2vw;
-
-  bottom:4.5vh;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size:11px;
-
-  line-height:1.5;
-
-  text-align:right;
-}
-
-
-/* =========================================================
-   HERO NOTE
-========================================================= */
-
-.hero-note{
-
-  position:absolute;
-
-  z-index:20;
-
-  left:40%;
-
-  bottom:4.5vh;
-
-  color:#777;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size:11px;
-
-  line-height:1.5;
-
-  text-align:center;
-}
-
-.hero-note strong{
-
-  color:#111;
-
-  font-weight:normal;
+  z-index:10;
 }
 
 
@@ -571,11 +588,7 @@ button{
 
   position:fixed;
 
-  z-index:1000;
-
-  display:none;
-
-  width:320px;
+  width:310px;
 
   padding:18px;
 
@@ -583,10 +596,14 @@ button{
 
   color:#eeeae2;
 
-  box-shadow:
-    9px 9px 0 #caff00;
+  z-index:900;
+
+  display:none;
 
   pointer-events:none;
+
+  box-shadow:
+    10px 10px 0 #d7ff00;
 }
 
 .counter.show{
@@ -595,28 +612,28 @@ button{
 
 .counter-small{
 
-  font-family:
-    "Courier New",
-    monospace;
+  font-family:monospace;
+
+  color:#888;
 
   font-size:9px;
 
-  color:#888;
+  text-transform:uppercase;
+
+  letter-spacing:.1em;
 
   margin-bottom:8px;
 }
 
 .counter-date{
 
-  font-family:
-    "Courier New",
-    monospace;
+  font-family:monospace;
+
+  color:#d7ff00;
 
   font-size:10px;
 
-  color:#caff00;
-
-  margin-bottom:15px;
+  margin-bottom:18px;
 }
 
 .counter-grid{
@@ -631,7 +648,7 @@ button{
 
 .counter-number{
 
-  font-size:24px;
+  font-size:25px;
 
   font-weight:900;
 }
@@ -640,11 +657,11 @@ button{
 
   display:block;
 
-  font-family:
-    "Courier New",
-    monospace;
+  font-family:monospace;
 
   font-size:7px;
+
+  text-transform:uppercase;
 
   color:#777;
 
@@ -658,28 +675,26 @@ button{
 
 .marquee{
 
-  background:#111;
-
-  color:#eeeae2;
-
-  padding:15px 0;
-
   overflow:hidden;
 
   white-space:nowrap;
 
-  font-family:
-    "Courier New",
-    monospace;
+  background:#111;
 
-  font-size:11px;
+  color:#eeeae2;
 
-  letter-spacing:.1em;
+  padding:17px 0;
 }
 
 .marquee-track{
 
   display:inline-block;
+
+  font-family:monospace;
+
+  font-size:11px;
+
+  letter-spacing:.1em;
 
   animation:
     marquee 25s linear infinite;
@@ -691,11 +706,12 @@ button{
     transform:
       translateX(-50%);
   }
+
 }
 
 
 /* =========================================================
-   GENERAL SECTIONS
+   SECTION
 ========================================================= */
 
 .section{
@@ -703,36 +719,22 @@ button{
   position:relative;
 
   padding:
-    13vh 6vw;
+    15vh 6vw;
+
+  overflow:hidden;
+  isolation:isolate;
+  contain:paint;
 }
 
-.kicker{
+.section-number{
 
-  font-family:
-    "Courier New",
-    monospace;
+  font-family:monospace;
 
   font-size:10px;
 
   letter-spacing:.12em;
 
-  margin-bottom:45px;
-}
-
-.big-title{
-
-  font-size:
-    clamp(
-      70px,
-      12vw,
-      180px
-    );
-
-  line-height:.7;
-
-  letter-spacing:-.1em;
-
-  font-weight:900;
+  margin-bottom:50px;
 }
 
 
@@ -754,20 +756,30 @@ button{
   align-items:center;
 }
 
+.overview-title{
+
+  font-size:
+    clamp(70px,11vw,160px);
+
+  font-weight:900;
+
+  line-height:.72;
+
+  letter-spacing:-.09em;
+}
+
 .overview-copy{
 
-  font-size:23px;
+  font-size:24px;
 
   line-height:1.35;
 
-  max-width:580px;
+  max-width:560px;
 }
 
-.overview-copy em{
+.overview-copy span{
 
   color:#ff4d16;
-
-  font-style:normal;
 }
 
 
@@ -777,144 +789,275 @@ button{
 
 .work{
 
-  background:#111;
-
-  color:#eeeae2;
+  background:#eeeae2;
 }
 
-.work-grid{
+.work-heading{
 
-  margin-top:100px;
+  font-size:
+    clamp(80px,14vw,210px);
 
-  display:grid;
+  line-height:.7;
 
-  grid-template-columns:
-    1fr 1fr;
+  letter-spacing:-.1em;
 
-  gap:25px;
+  font-weight:900;
 }
 
-.work-card{
 
-  height:55vh;
+/* project */
+
+.project{
+
+  min-height:75vh;
+
+  margin-top:14vh;
+
+  position:relative;
+
+  display:flex;
+
+  align-items:center;
+}
+
+.project:nth-child(even){
+
+  justify-content:flex-end;
+}
+
+.project-box{
+
+  width:70vw;
+
+  height:65vh;
 
   position:relative;
 
   overflow:hidden;
 
-  padding:25px;
-
   display:flex;
 
-  align-items:flex-end;
+  align-items:center;
+
+  justify-content:center;
 
   transition:
-    transform .4s ease;
+    transform .5s ease;
 }
 
-.work-card:hover{
+.project-box:hover{
 
   transform:
-    scale(.985);
-}
-
-.work-card:nth-child(1){
-
-  background:#ff7a00;
-
+    scale(.98)
+    rotate(-1deg);
+} .project:nth-of-type(1) .project-box{
+  background:#ff4d16;
   color:#111;
 }
 
-.work-card:nth-child(2){
-
-  background:#caff00;
-
+.project:nth-of-type(2) .project-box{
+  background:#d7ff00;
   color:#111;
 }
 
-.work-card:nth-child(3){
-
-  background:#8e70ff;
-
+.project:nth-of-type(3) .project-box{
+  background:#8d6fff;
   color:#111;
 }
 
-.work-card:nth-child(4){
-
-  background:#eeeae2;
-
-  color:#111;
+.project:nth-of-type(4) .project-box{
+  background:#111;
+  color:white;
 }
 
-.work-shape{
 
-  position:absolute;
+/* project geometry */
 
-  width:230px;
-  height:230px;
+.geometry{
 
-  border-radius:50%;
+  width:250px;
+  height:250px;
 
   background:#111;
 
-  left:50%;
-  top:50%;
-
-  transform:
-    translate(-50%,-50%);
+  border-radius:50%;
 
   transition:
-    transform .7s
-    cubic-bezier(
-      .16,
-      1,
-      .3,
-      1
-    );
+    transform .8s
+    cubic-bezier(.16,1,.3,1);
 }
 
-.work-card:hover
-.work-shape{
+.project-box:hover .geometry{
 
   transform:
-    translate(-50%,-50%)
     scale(2.2)
-    rotate(120deg);
+    rotate(160deg);
 }
 
-.work-card h3{
+.project:nth-of-type(3)
+.geometry{
+  border-radius:0;
 
-  position:relative;
+  transform:
+    rotate(45deg);
+}
 
-  z-index:2;
+.project:nth-of-type(4)
+.geometry{
+
+  border-radius:0;
+
+  width:300px;
+  height:120px;
+}
+
+.project:nth-of-type(5)
+.geometry{
+
+  border:30px solid #d7ff00;
+
+  background:transparent;
+}
+
+
+/* project title */
+
+.project-info{
+
+  position:absolute;
+
+  left:7%;
+
+  bottom:7%;
+
+  z-index:5;
+
+  mix-blend-mode:difference;
+
+  color:white;
+}
+
+.project-info h3{
 
   font-size:
-    clamp(
-      50px,
-      7vw,
-      100px
-    );
+    clamp(65px,10vw,150px);
 
   line-height:.75;
 
   letter-spacing:-.08em;
 }
 
-.work-card p{
+.project-info p{
 
-  position:absolute;
+  font-family:monospace;
 
-  z-index:2;
+  font-size:9px;
 
-  right:25px;
+  margin-top:20px;
+}
 
-  top:25px;
 
-  font-family:
-    "Courier New",
-    monospace;
+/* =========================================================
+   HORIZONTAL SCROLL STYLE
+========================================================= */
+
+.horizontal{
+
+  min-height:100vh;
+
+  background:#111;
+
+  color:white;
+
+  padding:10vh 5vw;
+
+  overflow:hidden;
+}
+
+.horizontal-title{
+
+  font-size:
+    clamp(80px,15vw,220px);
+
+  line-height:.7;
+
+  letter-spacing:-.1em;
+}
+
+.horizontal-track{
+
+  margin-top:100px;
+
+  display:flex;
+
+  gap:30px;
+
+  width:max-content;
+
+  transition:
+    transform .1s linear;
+}
+
+.card{
+
+  width:420px;
+
+  height:520px;
+
+  padding:25px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:space-between;
+
+  flex-shrink:0;
+}
+
+.card:nth-child(1){
+  background:#ff4d16;
+  color:#111;
+}
+
+.card:nth-child(2){
+  background:#d7ff00;
+  color:#111;
+}
+
+.card:nth-child(3){
+  background:#eeeae2;
+  color:#111;
+}
+
+.card:nth-child(4){
+  background:#8e70ff;
+  color:#111;
+}
+
+.card-number{
+
+  font-family:monospace;
 
   font-size:10px;
+}
+
+.card h3{
+
+  font-size:60px;
+
+  line-height:.8;
+
+  letter-spacing:-.08em;
+}
+
+.card p{
+
+  font-family:monospace;
+
+  font-size:10px;
+
+  line-height:1.6;
 }
 
 
@@ -924,73 +1067,73 @@ button{
 
 .education{
 
-  background:#caff00;
+  min-height:100vh;
+
+  background:#d7ff00;
+}
+
+.education-title{
+
+  font-size:
+    clamp(80px,14vw,200px);
+
+  line-height:.7;
+
+  letter-spacing:-.1em;
+
+  font-weight:900;
 }
 
 .timeline{
 
-  margin-top:90px;
+  margin-top:120px;
 
-  border-top:
-    1px solid #111;
+  border-top:1px solid #111;
 }
 
-.timeline-row{
+.timeline-item{
 
   display:grid;
 
   grid-template-columns:
-    130px 1fr 250px;
+    120px 1fr 180px;
 
-  gap:25px;
+  gap:30px;
 
-  padding:32px 0;
+  padding:35px 0;
 
-  border-bottom:
-    1px solid #111;
+  border-bottom:1px solid #111;
 
   transition:
-    .3s ease;
+    padding .3s ease;
 }
 
-.timeline-row:hover{
+.timeline-item:hover{
 
   padding-left:25px;
 
   padding-right:25px;
-
-  background:#111;
-
-  color:#caff00;
 }
 
 .timeline-year{
 
-  font-family:
-    "Courier New",
-    monospace;
+  font-family:monospace;
 
-  font-size:10px;
+  font-size:11px;
 }
 
-.timeline-school{
+.timeline-title{
 
-  font-size:32px;
+  font-size:30px;
 
-  line-height:1;
-
-  font-weight:800;
+  font-weight:700;
 }
 
-.timeline-detail{
+.timeline-info{
 
-  font-family:
-    "Courier New",
-    monospace;
+  font-family:monospace;
 
   font-size:10px;
-
-  line-height:1.6;
 
   text-align:right;
 }
@@ -1002,12 +1145,22 @@ button{
 
 .about{
 
+  min-height:100vh;
+
   background:#ff4d16;
 }
 
-.about-grid{
+.about-title{
 
-  margin-top:100px;
+  font-size:
+    clamp(80px,15vw,220px);
+
+  line-height:.68;
+
+  letter-spacing:-.1em;
+}
+
+.about-grid{
 
   display:grid;
 
@@ -1015,22 +1168,22 @@ button{
     1fr 1fr;
 
   gap:12vw;
+
+  margin-top:15vh;
 }
 
 .about-copy{
 
-  font-size:23px;
+  font-size:25px;
 
   line-height:1.35;
 
-  max-width:580px;
+  max-width:600px;
 }
 
 .skills{
 
-  font-family:
-    "Courier New",
-    monospace;
+  font-family:monospace;
 
   font-size:12px;
 
@@ -1039,45 +1192,242 @@ button{
 
 
 /* =========================================================
-   SKILLS / EXPERIMENTS
+   SKILLS
 ========================================================= */
 
-.experiments{
+.skills-section{
 
   min-height:100vh;
 
   background:#eeeae2;
 }
 
-.experiment-word{
-
-  display:block;
+.skill-word{
 
   font-size:
-    clamp(
-      60px,
-      10vw,
-      150px
-    );
+    clamp(60px,10vw,150px);
 
   line-height:.8;
 
   letter-spacing:-.09em;
 
-  font-weight:900;
+  display:block;
 
   transition:
-    transform .4s ease,
-    color .4s ease;
+    transform .5s ease,
+    color .5s ease;
 }
 
-.experiment-word:hover{
+.skill-word:hover{
 
   transform:
-    translateX(55px)
-    skewX(-5deg);
+    translateX(60px)
+    skewX(-8deg);
 
   color:#ff4d16;
+}
+
+
+/* =========================================================
+   PLAYGROUND
+========================================================= */
+
+.playground{
+
+  min-height:120vh;
+
+  background:#111;
+
+  color:white;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.playground-title{
+
+  font-size:
+    clamp(80px,14vw,210px);
+
+  line-height:.7;
+
+  letter-spacing:-.1em;
+
+  position:relative;
+
+  z-index:10;
+}
+
+.poster{
+
+  position:absolute;
+
+  width:260px;
+
+  height:350px;
+
+  padding:20px;
+
+  display:flex;
+
+  align-items:flex-end;
+
+  font-size:40px;
+
+  font-weight:900;
+
+  line-height:.8;
+
+  color:#111;
+
+  transition:
+    transform .5s ease;
+
+  z-index:5;
+}
+
+.poster:hover{
+
+  transform:
+    scale(1.08)
+    rotate(0deg)!important;
+
+  z-index:20;
+}
+
+.poster.a{
+
+  background:#d7ff00;
+
+  left:10%;
+  top:30%;
+
+  transform:rotate(-9deg);
+}
+
+.poster.b{
+
+  background:#ff4d16;
+
+  right:13%;
+  top:35%;
+
+  transform:rotate(8deg);
+}
+
+.poster.c{
+
+  background:#eeeae2;
+
+  left:37%;
+  bottom:8%;
+
+  transform:rotate(-5deg);
+}
+
+.poster.d{
+
+  background:#8e70ff;
+
+  right:3%;
+  bottom:10%;
+
+  transform:rotate(13deg);
+}
+
+
+
+/* =========================================================
+   EXPERIMENT IMAGE
+========================================================= */
+
+.experiment-image-box{
+  overflow:hidden;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  background:#d7ff00;
+}
+
+.experiment-image{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:1;
+  display:block;
+}
+
+.experiment-placeholder{
+  position:relative;
+  z-index:0;
+  font-family:monospace;
+  font-size:24px;
+  line-height:.9;
+  color:#111;
+}
+
+.experiment-image:not([src=""]){
+  z-index:2;
+}
+
+/* =========================================================
+   EXPERIENCES GRID
+========================================================= */
+
+.experience-grid{
+  position:relative;
+  z-index:10;
+  width:min(1100px, 88vw);
+  margin:6vh auto 0;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:18px;
+}
+
+.experience-card{
+  position:relative;
+  min-height:220px;
+  padding:28px;
+  background:#d7ff00;
+  color:#111;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-sizing:border-box;
+}
+
+.experience-card:nth-child(2){ background:#ff4d16; }
+.experience-card:nth-child(3){ background:#eeeae2; }
+.experience-card:nth-child(4){ background:#8e70ff; }
+
+.experience-number{
+  font-family:monospace;
+  font-size:11px;
+}
+
+.experience-card h3{
+  margin:28px 0 10px;
+  font-size:clamp(30px,4vw,58px);
+  line-height:.82;
+  letter-spacing:-.06em;
+}
+
+.experience-card p{
+  max-width:520px;
+  margin:0;
+  font-family:monospace;
+  font-size:11px;
+  line-height:1.5;
+}
+
+@media(max-width:700px){
+  .experience-grid{
+    grid-template-columns:1fr;
+    width:88vw;
+  }
 }
 
 
@@ -1086,48 +1436,66 @@ button{
 ========================================================= */
 
 .contact{
-
-  min-height:90vh;
-
+  min-height:100vh;
+  min-height:100svh;
   background:#8e70ff;
+  position:relative;
+  z-index:1;
+  overflow:hidden;
+  isolation:isolate;
 
   display:flex;
-
   flex-direction:column;
-
   justify-content:space-between;
+
+  /* Keep the bottom social links inside the page */
+  padding:8vh 6vw 7vh;
+  box-sizing:border-box;
+}
+
+.contact-title{
+  position:relative;
+  z-index:2;
+  max-width:100%;
+  overflow:visible;
+
+  /* Slightly smaller so the links have their own space */
+  font-size:clamp(72px,11.5vw,175px);
+  line-height:.72;
+  letter-spacing:-.085em;
+  font-weight:900;
+  margin:0;
 }
 
 .contact-links{
-
+  position:relative;
+  z-index:20;
   display:flex;
-
-  gap:28px;
-
+  gap:30px;
   flex-wrap:wrap;
 
-  font-family:
-    "Courier New",
-    monospace;
-
+  font-family:monospace;
   font-size:11px;
+
+  /* Never allow links to be clipped by the title */
+  flex-shrink:0;
+  min-height:24px;
+  align-items:flex-end;
+  padding-top:28px;
 }
 
-.contact-links a{
-
-  border-bottom:
-    1px solid #111;
-
+.contact-link{
+  position:relative;
+  z-index:21;
+  display:inline-block;
+  color:#111;
+  border-bottom:1px solid #111;
   padding-bottom:5px;
-
-  transition:
-    padding .3s ease;
+  transition:padding .3s ease;
 }
 
-.contact-links a:hover{
-
+.contact-link:hover{
   padding-left:20px;
-
   padding-right:20px;
 }
 
@@ -1140,24 +1508,22 @@ button{
 
   background:#111;
 
-  color:#eeeae2;
+  color:white;
 
-  padding:22px;
+  padding:25px;
 
   display:flex;
 
   justify-content:space-between;
 
-  font-family:
-    "Courier New",
-    monospace;
+  font-family:monospace;
 
   font-size:9px;
 }
 
 
 /* =========================================================
-   REVEAL ANIMATION
+   REVEAL
 ========================================================= */
 
 .reveal{
@@ -1165,24 +1531,13 @@ button{
   opacity:0;
 
   transform:
-    translateY(60px);
+    translateY(70px);
 
   transition:
     opacity 1s
-    cubic-bezier(
-      .16,
-      1,
-      .3,
-      1
-    ),
-
+    cubic-bezier(.16,1,.3,1),
     transform 1s
-    cubic-bezier(
-      .16,
-      1,
-      .3,
-      1
-    );
+    cubic-bezier(.16,1,.3,1);
 }
 
 .reveal.visible{
@@ -1195,10 +1550,130 @@ button{
 
 
 /* =========================================================
+   MAGNETIC
+========================================================= */
+
+.magnetic{
+
+  transition:
+    transform .2s ease;
+}
+
+
+
+/* =========================================================
+   PAGE ISOLATION / CONTACT FIX
+========================================================= */
+
+main,
+section,
+footer{
+  position:relative;
+}
+
+.hero,
+.marquee,
+.overview,
+.work,
+.horizontal,
+.education,
+.about,
+.skills-section,
+.playground,
+.contact,
+.footer{
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.contact{
+  z-index:1;
+}
+
+.contact .section-number,
+.contact .contact-title,
+.contact .contact-links{
+  position:relative;
+  z-index:2;
+}
+
+.hero .name{
+  color:#ff4d16;
+}
+
+@media(min-width:701px){
+  .hero-content{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:5vw;
+  }
+
+  .hero-content .name{
+    flex:1 1 auto;
+    min-width:0;
+    white-space:nowrap;
+  }
+
+  .hero-content .photo-wrap{
+    flex:0 0 min(340px,28vw);
+    margin:0 5vw 0 0;
+  }
+
+  .name{
+    font-size:clamp(58px,10.5vw,165px);
+    letter-spacing:-.095em;
+  }
+}
+
+/* =========================================================
    MOBILE
 ========================================================= */
 
-@media(max-width:800px){
+@media(max-width:700px){
+  .name{
+    font-size:clamp(52px,16vw,100px);
+    white-space:normal;
+  }
+
+  .name-row{
+    white-space:nowrap;
+  }
+
+  .hero-content .name{
+    white-space:normal;
+  }
+
+  .profile-head{
+    align-items:flex-start;
+    flex-direction:column;
+    margin-bottom:50px;
+  }
+
+  .profile-grid{
+    grid-template-columns:1fr;
+  }
+
+  .profile-block:nth-child(odd),
+  .profile-block:nth-child(even){
+    border-right:0;
+    padding-left:0;
+    padding-right:0;
+  }
+
+  .profile-intro p,
+  .profile-block p{
+    font-size:17px;
+  }
+
+  .profile-list{
+    font-size:20px;
+  }
+
+  .profile-bullets li{
+    font-size:16px;
+  }
+
 
   body{
     cursor:auto;
@@ -1208,111 +1683,86 @@ button{
     display:none;
   }
 
-  .topbar{
-
-    padding:
-      20px 18px;
+  .nav{
+    padding:18px;
   }
 
   .hero{
-
-    min-height:920px;
-
-    margin-top:8px;
+    padding:
+      100px 5vw
+      60px;
   }
 
-  .hero-name{
-
-    left:6vw;
-
-    top:21vh;
-
-    font-size:
-      18vw;
+  .name{
+    font-size:15vw;
   }
 
-  .hero-name .second{
+  .name-row{
+    white-space:normal;
+  }
 
+  .name-row.two{
     margin-left:0;
   }
 
-  .photo-card{
+  .photo-wrap{
+    width:58vw;
 
-    width:62vw;
+    margin-left:7vw;
 
-    height:55vh;
-
-    right:7vw;
-
-    top:42vh;
+    margin-top:60px;
   }
 
-  .photo-label{
-
+  .photo-meta{
     display:none;
   }
 
-  .orange-field{
+  .hero-info{
+    position:relative;
 
-    right:27%;
+    right:auto;
+    bottom:auto;
 
-    top:39%;
-  }
-
-  .lime-shape{
-
-    width:120px;
-
-    height:90px;
-
-    left:5%;
-  }
-
-  .hero-note{
-
-    left:6vw;
-
-    bottom:3vh;
-
-    text-align:left;
-
-    font-size:9px;
-  }
-
-  .hero-meta{
-
-    bottom:3vh;
-
-    right:3vw;
-
-    font-size:8px;
+    margin-top:70px;
   }
 
   .overview{
 
     grid-template-columns:1fr;
 
-    gap:60px;
+    gap:70px;
   }
 
-  .work-grid{
-
-    grid-template-columns:1fr;
+  .overview-copy{
+    font-size:19px;
   }
 
-  .work-card{
-
-    height:48vh;
+  .project{
+    min-height:55vh;
   }
 
-  .timeline-row{
+  .project-box{
+    width:90vw;
+    height:50vh;
+  }
+
+  .horizontal{
+    min-height:100vh;
+  }
+
+  .card{
+    width:75vw;
+    height:450px;
+  }
+
+  .timeline-item{
 
     grid-template-columns:
       70px 1fr;
+
   }
 
-  .timeline-detail{
-
+  .timeline-info{
     grid-column:2;
 
     text-align:left;
@@ -1325,17 +1775,38 @@ button{
     gap:60px;
   }
 
-  .big-title{
+  .about-copy{
+    font-size:20px;
+  }
 
-    font-size:
-      20vw;
+  .poster{
+
+    width:170px;
+    height:240px;
+
+    font-size:26px;
+  }
+
+  .contact{
+    min-height:100svh;
+    padding:9vh 6vw 8vh;
+  }
+
+  .contact-title{
+    font-size:clamp(58px,16vw,105px);
+    line-height:.76;
+  }
+
+  .contact-links{
+    gap:18px;
+    padding-top:24px;
+    padding-bottom:4px;
   }
 
   .footer{
-
     flex-direction:column;
 
-    gap:10px;
+    gap:12px;
   }
 
 }
@@ -1349,6 +1820,28 @@ button{
 
 
 <!-- =======================================================
+     LOADER
+======================================================= -->
+
+<div class="loader" id="loader">
+
+  <div class="loader-number" id="loaderNumber">
+    000%
+  </div>
+
+  <div class="loader-bar">
+
+    <div
+      class="loader-progress"
+      id="loaderProgress"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- =======================================================
      CURSOR
 ======================================================= -->
 
@@ -1359,25 +1852,73 @@ button{
 
 
 <!-- =======================================================
-     TOP BAR
+     NAV
 ======================================================= -->
 
-<div class="topbar">
+<nav class="nav">
 
-  <span>
+  <div class="logo">
     SAFAL PARAJULI®
-  </span>
+  </div>
 
   <button
-    class="menu-button"
-    onclick="
-      document
-      .getElementById('contact')
-      .scrollIntoView()
-    "
+    class="menu-button magnetic"
+    id="menuButton"
   >
-    CONTACT ↘
+    MENU +
   </button>
+
+</nav>
+
+
+<!-- =======================================================
+     MENU
+======================================================= -->
+
+<div
+  class="menu"
+  id="menu"
+>
+
+  <ul class="menu-links">
+
+    <li>
+      <a href="#overview">
+        OVERVIEW
+      </a>
+    </li>
+
+    <li>
+      <a href="#interests">
+        INTERESTS
+      </a>
+    </li>
+
+    <li>
+      <a href="#education">
+        EDUCATION
+      </a>
+    </li>
+
+    <li>
+      <a href="#skills">
+        SKILLS
+      </a>
+    </li>
+
+    <li>
+      <a href="#experiments">
+        EXPERIMENTS
+      </a>
+    </li>
+
+    <li>
+      <a href="#contact">
+        CONTACT
+      </a>
+    </li>
+
+  </ul>
 
 </div>
 
@@ -1416,7 +1957,6 @@ button{
 
     </div>
 
-
     <div>
 
       <div
@@ -1432,7 +1972,6 @@ button{
 
     </div>
 
-
     <div>
 
       <div
@@ -1447,7 +1986,6 @@ button{
       </span>
 
     </div>
-
 
     <div>
 
@@ -1470,109 +2008,87 @@ button{
 
 
 <!-- =======================================================
-     HERO / FRONT PROFILE
+     HERO
 ======================================================= -->
 
 <section class="hero">
 
+  <div class="hero-grid"></div>
 
-  <div class="orbit"></div>
+  <div class="blob one"></div>
 
+  <div class="blob two"></div>
 
-  <div class="lime-shape"></div>
-
-
-  <!-- NAME -->
-
-  <div
-    class="hero-name"
-    id="name"
-  >
-
-    <span>
-      SAFAL
-    </span>
-
-    <span class="second">
-      PARAJULI
-    </span>
-
-  </div>
+  <div class="blob three"></div>
 
 
-  <!-- PHOTO -->
+  <div class="hero-content">
 
-  <div
-    class="photo-card"
-    id="photo"
-  >
+    <h1 class="name">
 
-    <img
-      src="safal.jpg.png"
-      alt="Safal Parajuli"
-      onerror="
-        this.style.display='none';
-        this.nextElementSibling.style.display='grid'
-      "
-    >
+      <span class="name-row">
 
-    <div
-      class="photo-placeholder"
-      style="display:none"
-    >
+        <span class="letter">S</span>
+        <span class="letter">A</span>
+        <span class="letter">F</span>
+        <span class="letter">A</span>
+        <span class="letter">L</span>
 
-      IMAGE NOT FOUND<br><br>
+      </span>
 
-      Keep your photo named:<br>
 
-      <strong>
-        safal.jpg.png
-      </strong>
+      <span class="name-row two">
+
+        <span class="letter">P</span>
+        <span class="letter">A</span>
+        <span class="letter">R</span>
+        <span class="letter">A</span>
+        <span class="letter">J</span>
+        <span class="letter">U</span>
+        <span class="letter">L</span>
+        <span class="letter">I</span>
+
+      </span>
+
+    </h1>
+
+
+    <!-- ===================================================
+         YOUR IMAGE
+         
+         Keep safal.jpg.png beside index.html
+    ==================================================== -->
+
+    <div class="photo-wrap">
+
+      <div
+        class="photo"
+        id="photo"
+      >
+
+        <img
+          src="safal.jpg.png"
+          alt="Safal Parajuli"
+        >
+
+      </div>
+
+      <div class="photo-meta">
+        SAFAL PARAJULI / 2026
+      </div>
 
     </div>
 
   </div>
 
 
-  <!-- VERTICAL LABEL -->
+  <div class="hero-info">
 
-  <div class="photo-label">
-
-    RELATIVISTIC FIELD / v → ∞
-
-  </div>
-
-
-  <!-- ORANGE OBJECT -->
-
-  <div class="orange-field"></div>
-
-
-  <!-- HERO NOTE -->
-
-  <div class="hero-note">
-
-    MOVE AROUND MY NAME<br>
-
-    <strong>
-      SOMETHING HAS BEEN HAPPENING SINCE 30.07.2007
-    </strong>
+  
+    CREATIVE DEVELOPMENT<br>
+    NEPAL / Chitwan
 
   </div>
-
-
-  <!-- HERO META -->
-
-  <div class="hero-meta">
-
-    PERSONAL / 2026<br>
-
-    CREATIVE DEVELOPER<br>
-
-    GRAPHIC / WEB / EXPERIMENT
-
-  </div>
-
 
 </section>
 
@@ -1585,9 +2101,9 @@ button{
 
   <div class="marquee-track">
 
-    DESIGN × CODE × TYPOGRAPHY × GRAPHICS × WEB × MOTION ×
-    EXPERIMENTS × DESIGN × CODE × TYPOGRAPHY × GRAPHICS ×
-    WEB × MOTION × EXPERIMENTS ×
+    DESIGN × CODE × TYPOGRAPHY × GRAPHICS × MOTION ×
+    DIGITAL ART × WEB × EXPERIMENTS × DESIGN × CODE ×
+    TYPOGRAPHY × GRAPHICS × MOTION × DIGITAL ART ×
 
   </div>
 
@@ -1605,18 +2121,14 @@ button{
 
   <div>
 
-    <div class="kicker">
+    <div class="section-number">
       01 / OVERVIEW
     </div>
 
-    <h2 class="big-title">
-
+    <h2 class="overview-title">
       HELLO.<br>
-
       I'M<br>
-
       SAFAL.
-
     </h2>
 
   </div>
@@ -1624,22 +2136,8 @@ button{
 
   <div class="overview-copy">
 
-    I create visual experiences
-    somewhere between
-
-    <em>
-      graphic design
-    </em>,
-
-    code, typography and
-    interactive web experiments.
-
-    <br><br>
-
-    This is my personal space for
-    selected work, education,
-    experiments and things I want
-    to build.
+    LOOKING BEYOND THE HORIZON,
+    CHASING QUESTIONS THAT REACH FAR BEYOND THE STARS.
 
   </div>
 
@@ -1647,91 +2145,52 @@ button{
 
 
 <!-- =======================================================
-     SELECTED WORK
+     WORK
+======================================================= -->
+
+
+
+
+<!-- =======================================================
+     GALLERY
 ======================================================= -->
 
 <section
-  class="section work"
-  id="work"
+  class="horizontal gallery-section"
+  id="interests"
 >
 
-  <div class="kicker">
-    02 / SELECTED WORK
+  <div class="section-number">
+    02 / GALLERY
   </div>
 
-
-  <h2 class="big-title reveal">
-
-    WORK.
-
+  <h2 class="horizontal-title">
+    MY<br>
+    GALLERY.
   </h2>
 
+  <div
+    class="horizontal-track gallery-track"
+    id="horizontalTrack"
+  >
 
-  <div class="work-grid">
+    <div class="card gallery-card">
+      <img src="parajuli.png" alt="Safal Parajuli gallery photo">
+    </div>
 
+    <div class="card gallery-card">
+      <img src="prasad.png" alt="Gallery photo">
+    </div>
 
-    <article class="work-card reveal">
+    <div class="card gallery-card">
+      <img src="uppadhya.png" alt="Gallery photo">
+    </div>
 
-      <div class="work-shape"></div>
-
-      <p>
-        01 / GRAPHIC IDENTITY
-      </p>
-
-      <h3>
-        IDENTITY
-      </h3>
-
-    </article>
-
-
-    <article class="work-card reveal">
-
-      <div class="work-shape"></div>
-
-      <p>
-        02 / TYPOGRAPHY
-      </p>
-
-      <h3>
-        TYPE
-      </h3>
-
-    </article>
-
-
-    <article class="work-card reveal">
-
-      <div class="work-shape"></div>
-
-      <p>
-        03 / WEB DESIGN
-      </p>
-
-      <h3>
-        WEB
-      </h3>
-
-    </article>
-
-
-    <article class="work-card reveal">
-
-      <div class="work-shape"></div>
-
-      <p>
-        04 / EXPERIMENT
-      </p>
-
-      <h3>
-        PLAY
-      </h3>
-
-    </article>
-
+    <div class="card gallery-card">
+      <img src="ram.png" alt="Gallery photo">
+    </div>
 
   </div>
-
 </section>
 
 
@@ -1744,88 +2203,51 @@ button{
   id="education"
 >
 
-  <div class="kicker">
+  <div class="section-number">
     03 / EDUCATION
   </div>
 
-
-  <h2 class="big-title reveal">
-
+  <h2 class="education-title reveal">
     LEARN.<br>
-
     BUILD.<br>
-
     REPEAT.
-
   </h2>
 
 
   <div class="timeline">
 
-
-    <!-- SEE / 10 -->
-
-    <div class="timeline-row reveal">
+    <div class="timeline-item reveal">
 
       <div class="timeline-year">
-
-        10 / SEE
-
+        2067 – 2080 B.S.
       </div>
 
-
-      <div class="timeline-school">
-
-        NARAYANI ENGLISH<br>
-        PUBLIC SCHOOL
-
+      <div class="timeline-title">
+        NARAYANI ENGLISH PUBLIC SCHOOL
       </div>
 
-
-      <div class="timeline-detail">
-
-        BASANTAPUR, CHITWAN<br>
-
-        SECONDARY EDUCATION<br>
-
-        GRADE 10
-
+      <div class="timeline-info">
+        SEE
       </div>
 
     </div>
 
 
-    <!-- +2 -->
-
-    <div class="timeline-row reveal">
+    <div class="timeline-item reveal">
 
       <div class="timeline-year">
-
-        +2
-
+        2080 – 2082 B.S.
       </div>
 
-
-      <div class="timeline-school">
-
-        NARAYANI PUBLIC<br>
-        COLLEGE
-
+      <div class="timeline-title">
+        NARAYANI PUBLIC COLLEGE
       </div>
 
-
-      <div class="timeline-detail">
-
-        CHITWAN<br>
-
-        HIGHER SECONDARY<br>
-
+      <div class="timeline-info">
         +2
-
       </div>
 
     </div>
-
 
   </div>
 
@@ -1833,119 +2255,99 @@ button{
 
 
 <!-- =======================================================
-     ABOUT
+     SKILLS
 ======================================================= -->
 
 <section
-  class="section about"
-  id="about"
+  class="section skills-section"
+  id="skills"
 >
 
-  <div class="kicker">
-
-    04 / ABOUT
-
+  <div class="section-number">
+    04 / SKILLS
   </div>
+  <span class="skill-word reveal">
+    LEADERSHIP
+  </span>
 
+  <span class="skill-word reveal">
+    COMMUNICATION
+  </span>
 
-  <h2 class="big-title reveal">
+  <span class="skill-word reveal">
+    TEAMWORK
+  </span>
 
-    WHO<br>
+  <span class="skill-word reveal">
+    EVENT COORDINATION
+  </span>
 
-    AM<br>
+  <span class="skill-word reveal">
+    PROBLEM SOLVING
+  </span>
 
-    I?
+  <span class="skill-word reveal">
+    PUBLIC SPEAKING
+  </span>
 
-  </h2>
-
-
-  <div class="about-grid">
-
-
-    <div class="about-copy">
-
-      I'm Safal Parajuli.
-
-      <br><br>
-
-      I'm interested in the space
-      where visual communication
-      meets technology.
-
-      <br><br>
-
-      I enjoy making websites,
-      graphics, identities and
-      interactive experiments
-      from scratch.
-
-    </div>
-
-
-    <div class="skills">
-
-      GRAPHIC DESIGN<br>
-
-      WEB DESIGN<br>
-
-      CREATIVE DEVELOPMENT<br>
-
-      HTML / CSS / JAVASCRIPT<br>
-
-      TYPOGRAPHY<br>
-
-      BRANDING<br>
-
-      MOTION<br>
-
-      VISUAL SYSTEMS<br>
-
-      DIGITAL EXPERIMENTS
-
-    </div>
-
-
-  </div>
 
 </section>
 
 
 <!-- =======================================================
-     EXPERIMENTS
+     EXPERIENCES
 ======================================================= -->
 
 <section
-  class="section experiments"
+  class="section playground"
   id="experiments"
 >
 
-  <div class="kicker">
-
-    05 / EXPERIMENTS
-
+  <div class="section-number">
+    05 / EXPERIENCES
   </div>
 
+  <h2 class="playground-title reveal">
+    WHAT<br>
+    I HAVE<br>
+    DONE.
+  </h2>
 
-  <div class="experiment-word reveal">
-    DESIGN
+  <div class="experience-grid">
+
+    <article class="experience-card reveal">
+      <span class="experience-number">01</span>
+      <div>
+        <h3>NCC</h3>
+        <p>Participated in the National Cadet Corps (NCC), developing discipline, teamwork, responsibility, and leadership through training and activities.</p>
+      </div>
+    </article>
+
+    <article class="experience-card reveal">
+      <span class="experience-number">02</span>
+      <div>
+        <h3>SCIENCE EXHIBITION</h3>
+        <p>Helped bring a practical robotics activity to life as part of a student-led technology initiative.</p>
+      </div>
+    </article>
+
+    <article class="experience-card reveal">
+      <span class="experience-number">03</span>
+      <div>
+        <h3>STUDENT LEADERSHIP</h3>
+        <p>Served in student leadership roles and took responsibility for representing and supporting fellow students.</p>
+      </div>
+    </article>
+
+    <article class="experience-card reveal">
+      <span class="experience-number">04</span>
+      <div>
+        <h3>SCIENCE &amp; TECHNOLOGY</h3>
+        <p>Actively involved in activities that connect learning with practical science, technology and teamwork.</p>
+      </div>
+    </article>
+
   </div>
-
-  <div class="experiment-word reveal">
-    CODE
-  </div>
-
-  <div class="experiment-word reveal">
-    TYPE
-  </div>
-
-  <div class="experiment-word reveal">
-    MOTION
-  </div>
-
-  <div class="experiment-word reveal">
-    IDEAS
-  </div>
-
 </section>
 
 
@@ -1960,19 +2362,15 @@ button{
 
   <div>
 
-    <div class="kicker">
-
+    <div class="section-number">
       06 / CONTACT
-
     </div>
 
 
-    <h2 class="big-title reveal">
+    <h2 class="contact-title reveal">
 
       LET'S<br>
-
       MAKE<br>
-
       SOMETHING.
 
     </h2>
@@ -1983,30 +2381,26 @@ button{
   <div class="contact-links">
 
     <a
-      href="mailto:YOUR_EMAIL@example.com"
+      class="contact-link magnetic"
+      href="mailto:officeofsafalparajuli@gmail.com"
     >
-      EMAIL ↗
+      EMAIL
     </a>
 
 
     <a
+      class="contact-link magnetic"
       href="#"
     >
-      INSTAGRAM ↗
+      INSTAGRAM
     </a>
 
 
     <a
+      class="contact-link magnetic"
       href="#"
     >
-      GITHUB ↗
-    </a>
-
-
-    <a
-      href="#"
-    >
-      LINKEDIN ↗
+      LINKEDIN
     </a>
 
   </div>
@@ -2025,11 +2419,11 @@ button{
   </span>
 
   <span>
-    PERSONAL PORTFOLIO / 2026
+    DESIGNED / DEVELOPED BY SAFAL
   </span>
 
   <span>
-    DESIGNED + DEVELOPED BY SAFAL
+    © 2026
   </span>
 
 </footer>
@@ -2038,16 +2432,62 @@ button{
 <script>
 
 /* =========================================================
-   CUSTOM CURSOR
+   LOADER
+========================================================= */
+
+const loader =
+  document.getElementById("loader");
+
+const loaderNumber =
+  document.getElementById("loaderNumber");
+
+const loaderProgress =
+  document.getElementById("loaderProgress");
+
+let progress = 0;
+
+const loading =
+  setInterval(() => {
+
+    progress +=
+      Math.floor(
+        Math.random() * 8
+      ) + 2;
+
+    if(progress >= 100){
+
+      progress = 100;
+
+      clearInterval(loading);
+
+      setTimeout(() => {
+
+        loader.classList.add("hide");
+
+      },500);
+
+    }
+
+    loaderNumber.textContent =
+      String(progress).padStart(3,"0")
+      + "%";
+
+    loaderProgress.style.width =
+      progress + "%";
+
+  },80);
+
+
+/* =========================================================
+   CURSOR
 ========================================================= */
 
 const cursor =
   document.getElementById("cursor");
 
-
 document.addEventListener(
   "mousemove",
-  function(event){
+  event => {
 
     cursor.style.left =
       event.clientX + "px";
@@ -2063,46 +2503,37 @@ document.addEventListener(
    CURSOR HOVER
 ========================================================= */
 
-document
-  .querySelectorAll(
-    "a, button, .work-card, .hero-name span, .orange-field"
-  )
-  .forEach(
-    function(element){
+document.querySelectorAll(
+  "a,button,.poster,.project-box,.letter,.card"
+).forEach(el => {
 
-      element.addEventListener(
-        "mouseenter",
-        function(){
+  el.addEventListener(
+    "mouseenter",
+    () => {
 
-          cursor.classList.add(
-            "active"
-          );
-
-        }
-      );
-
-
-      element.addEventListener(
-        "mouseleave",
-        function(){
-
-          cursor.classList.remove(
-            "active"
-          );
-
-        }
-      );
+      cursor.classList.add("big");
 
     }
   );
 
+  el.addEventListener(
+    "mouseleave",
+    () => {
+
+      cursor.classList.remove("big");
+
+    }
+  );
+
+});
+
 
 /* =========================================================
-   NAME INTERACTION
+   NAME COUNTER
 ========================================================= */
 
-const name =
-  document.getElementById("name");
+const letters =
+  document.querySelectorAll(".letter");
 
 const counter =
   document.getElementById("counter");
@@ -2110,50 +2541,76 @@ const counter =
 
 document.addEventListener(
   "mousemove",
-  function(event){
+  event => {
 
-    const rect =
-      name.getBoundingClientRect();
+    let near = false;
 
+    letters.forEach(letter => {
 
-    const near =
-      event.clientX >
-        rect.left - 70 &&
+      const r =
+        letter.getBoundingClientRect();
 
-      event.clientX <
-        rect.right + 70 &&
+      const x =
+        r.left +
+        r.width / 2;
 
-      event.clientY >
-        rect.top - 70 &&
+      const y =
+        r.top +
+        r.height / 2;
 
-      event.clientY <
-        rect.bottom + 70;
+      const distance =
+        Math.hypot(
+          event.clientX - x,
+          event.clientY - y
+        );
+
+      if(distance < 85){
+
+        letter.style.transform =
+          `
+          translateY(-15px)
+          rotate(-4deg)
+          scale(1.04)
+          `;
+
+        letter.style.color =
+          "#ff4d16";
+
+        near = true;
+
+      }else{
+
+        letter.style.transform =
+          "";
+
+        letter.style.color =
+          "#ff4d16";
+
+      }
+
+    });
 
 
     if(near){
 
-      counter.classList.add(
-        "show"
-      );
-
+      counter.classList.add("show");
 
       let x =
-        event.clientX + 22;
+        event.clientX + 25;
 
       let y =
-        event.clientY + 22;
+        event.clientY + 25;
 
 
       if(
-        x + 320 >
+        x + 310 >
         window.innerWidth
       ){
 
         x =
-          event.clientX - 340;
+          event.clientX - 335;
 
       }
-
 
       if(
         y + 170 >
@@ -2172,13 +2629,9 @@ document.addEventListener(
       counter.style.top =
         y + "px";
 
-    }
+    }else{
 
-    else{
-
-      counter.classList.remove(
-        "show"
-      );
+      counter.classList.remove("show");
 
     }
 
@@ -2187,12 +2640,10 @@ document.addEventListener(
 
 
 /* =========================================================
-   DATE COUNTER
-   NO BIRTH TIME
-   STARTS AT 30 JULY 2007
+   AGE / TIME COUNTER
 ========================================================= */
 
-const startDate =
+const start =
   new Date(
     "2007-07-30T00:00:00+05:45"
   );
@@ -2200,46 +2651,40 @@ const startDate =
 
 function updateCounter(){
 
-  let difference =
+  let diff =
     Date.now() -
-    startDate.getTime();
+    start.getTime();
+
+  if(diff < 0)
+    diff = 0;
 
 
-  if(
-    difference < 0
-  ){
-
-    difference = 0;
-
-  }
-
-
-  const totalSeconds =
+  const secondsTotal =
     Math.floor(
-      difference / 1000
+      diff / 1000
     );
 
 
   const days =
     Math.floor(
-      totalSeconds / 86400
+      secondsTotal / 86400
     );
 
 
   const hours =
     Math.floor(
-      totalSeconds / 3600
+      secondsTotal / 3600
     ) % 24;
 
 
   const minutes =
     Math.floor(
-      totalSeconds / 60
+      secondsTotal / 60
     ) % 60;
 
 
   const seconds =
-    totalSeconds % 60;
+    secondsTotal % 60;
 
 
   document.getElementById(
@@ -2251,28 +2696,19 @@ function updateCounter(){
   document.getElementById(
     "hours"
   ).textContent =
-    String(hours).padStart(
-      2,
-      "0"
-    );
+    String(hours).padStart(2,"0");
 
 
   document.getElementById(
     "minutes"
   ).textContent =
-    String(minutes).padStart(
-      2,
-      "0"
-    );
+    String(minutes).padStart(2,"0");
 
 
   document.getElementById(
     "seconds"
   ).textContent =
-    String(seconds).padStart(
-      2,
-      "0"
-    );
+    String(seconds).padStart(2,"0");
 
 }
 
@@ -2286,24 +2722,18 @@ setInterval(
 
 
 /* =========================================================
-   PHOTO 3D / RELATIVISTIC EFFECT
+   PHOTO 3D
 ========================================================= */
 
 const photo =
   document.getElementById("photo");
 
-
 document.addEventListener(
   "mousemove",
-  function(event){
+  event => {
 
-    if(
-      window.innerWidth < 800
-    ){
-
+    if(window.innerWidth <= 700)
       return;
-
-    }
 
 
     const rect =
@@ -2314,70 +2744,82 @@ document.addEventListener(
       (
         event.clientX -
         rect.left
-      )
-      /
-      rect.width
-      - .5;
+      ) / rect.width - .5;
 
 
     const y =
       (
         event.clientY -
         rect.top
-      )
-      /
-      rect.height
-      - .5;
+      ) / rect.height - .5;
 
 
-    if(
-
-      event.clientX >
-        rect.left - 150 &&
-
-      event.clientX <
-        rect.right + 150 &&
-
-      event.clientY >
-        rect.top - 150 &&
-
-      event.clientY <
-        rect.bottom + 150
-
-    ){
-
-      photo.style.transform =
-        `
-        rotate(2.5deg)
-        rotateY(${x * 8}deg)
-        rotateX(${-y * 8}deg)
-        translateZ(8px)
-        `;
-
-    }
-
-    else{
-
-      photo.style.transform =
-        "rotate(2.5deg)";
-
-    }
+    photo.style.transform =
+      `
+      rotateY(${x * 9}deg)
+      rotateX(${y * -9}deg)
+      translateZ(15px)
+      `;
 
   }
 );
 
 
 /* =========================================================
-   SCROLL REVEAL
+   MENU
 ========================================================= */
 
-const observer =
-  new IntersectionObserver(
+const menu =
+  document.getElementById("menu");
 
-    function(entries){
+const menuButton =
+  document.getElementById("menuButton");
+
+
+menuButton.addEventListener(
+  "click",
+  () => {
+
+    menu.classList.toggle("open");
+
+    menuButton.textContent =
+      menu.classList.contains("open")
+      ? "CLOSE ×"
+      : "MENU +";
+
+  }
+);
+
+
+document.querySelectorAll(
+  ".menu a"
+).forEach(link => {
+
+  link.addEventListener(
+    "click",
+    () => {
+
+      menu.classList.remove("open");
+
+      menuButton.textContent =
+        "MENU +";
+
+    }
+  );
+
+});
+
+
+/* =========================================================
+   SCROLL REVEALS
+========================================================= */
+
+const revealObserver =
+  new IntersectionObserver(
+    entries => {
 
       entries.forEach(
-        function(entry){
+        entry => {
 
           if(
             entry.isIntersecting
@@ -2393,221 +2835,298 @@ const observer =
       );
 
     },
-
     {
       threshold:.12
     }
-
   );
 
 
-document
-  .querySelectorAll(
-    ".reveal"
-  )
-  .forEach(
-    function(element){
+document.querySelectorAll(
+  ".reveal"
+).forEach(
+  element => {
 
-      observer.observe(
-        element
-      );
+    revealObserver.observe(
+      element
+    );
 
-    }
-  );
+  }
+);
 
 
 /* =========================================================
-   PARALLAX FOR LIME SHAPE
+   MAGNETIC ELEMENTS
 ========================================================= */
 
-const lime =
-  document.querySelector(
-    ".lime-shape"
+document.querySelectorAll(
+  ".magnetic"
+).forEach(
+  element => {
+
+    element.addEventListener(
+      "mousemove",
+      event => {
+
+        const r =
+          element.getBoundingClientRect();
+
+
+        const x =
+          event.clientX -
+          (
+            r.left +
+            r.width / 2
+          );
+
+
+        const y =
+          event.clientY -
+          (
+            r.top +
+            r.height / 2
+          );
+
+
+        element.style.transform =
+          `
+          translate(
+            ${x * .25}px,
+            ${y * .25}px
+          )
+          `;
+
+      }
+    );
+
+
+    element.addEventListener(
+      "mouseleave",
+      () => {
+
+        element.style.transform =
+          "";
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   HORIZONTAL PARALLAX
+========================================================= */
+
+const horizontal =
+  document.getElementById(
+    "horizontalTrack"
   );
 
 
-document.addEventListener(
-  "mousemove",
-  function(event){
+window.addEventListener(
+  "scroll",
+  () => {
+
+    const section =
+      document.querySelector(
+        ".horizontal"
+      );
+
+
+    const rect =
+      section.getBoundingClientRect();
+
 
     if(
-      window.innerWidth < 800
+      rect.top <
+      window.innerHeight &&
+      rect.bottom > 0
     ){
 
-      return;
-
-    }
-
-
-    const x =
-      (
-        event.clientX /
-        window.innerWidth
-        - .5
-      );
-
-
-    const y =
-      (
-        event.clientY /
-        window.innerHeight
-        - .5
-      );
-
-
-    lime.style.marginLeft =
-      x * 30 + "px";
-
-    lime.style.marginTop =
-      y * 30 + "px";
-
-  }
-);
-
-
-/* =========================================================
-   ORANGE FIELD MOUSE EFFECT
-========================================================= */
-
-const orange =
-  document.querySelector(
-    ".orange-field"
-  );
-
-
-document.addEventListener(
-  "mousemove",
-  function(event){
-
-    const x =
-      (
-        event.clientX /
-        window.innerWidth
-        - .5
-      );
-
-
-    const y =
-      (
-        event.clientY /
-        window.innerHeight
-        - .5
-      );
-
-
-    orange.style.marginLeft =
-      x * 35 + "px";
-
-
-    orange.style.marginTop =
-      y * 35 + "px";
-
-  }
-);
-
-
-/* =========================================================
-   WORK CARD MOUSE EFFECT
-========================================================= */
-
-document
-  .querySelectorAll(
-    ".work-card"
-  )
-  .forEach(
-    function(card){
-
-      const shape =
-        card.querySelector(
-          ".work-shape"
+      const progress =
+        (
+          window.innerHeight -
+          rect.top
+        ) /
+        (
+          window.innerHeight +
+          rect.height
         );
 
 
-      card.addEventListener(
-        "mousemove",
-        function(event){
-
-          const rect =
-            card.getBoundingClientRect();
-
-
-          const x =
-            (
-              event.clientX -
-              rect.left
-            )
-            /
-            rect.width
-            - .5;
-
-
-          const y =
-            (
-              event.clientY -
-              rect.top
-            )
-            /
-            rect.height
-            - .5;
-
-
-          shape.style.transform =
-            `
-            translate(
-              calc(-50% + ${x * 70}px),
-              calc(-50% + ${y * 70}px)
-            )
-            rotate(${x * 70}deg)
-            scale(1.1)
-            `;
-
-        }
-      );
-
-
-      card.addEventListener(
-        "mouseleave",
-        function(){
-
-          shape.style.transform =
-            "translate(-50%,-50%)";
-
-        }
-      );
+      horizontal.style.transform =
+        `
+        translateX(
+          ${-progress * 600}px
+        )
+        `;
 
     }
-  );
+
+  }
+);
 
 
 /* =========================================================
-   RANDOM TEXT GLITCH
+   POSTER MOUSE PARALLAX
 ========================================================= */
 
-const words =
+document.querySelectorAll(
+  ".poster"
+).forEach(
+  (poster,index) => {
+
+    const rotations =
+      [-9,8,-5,13];
+
+
+    poster.addEventListener(
+      "mousemove",
+      event => {
+
+        const r =
+          poster.getBoundingClientRect();
+
+
+        const x =
+          (
+            event.clientX -
+            r.left
+          ) / r.width - .5;
+
+
+        const y =
+          (
+            event.clientY -
+            r.top
+          ) / r.height - .5;
+
+
+        poster.style.transform =
+          `
+          translate(
+            ${x * 20}px,
+            ${y * 20}px
+          )
+          rotate(
+            ${rotations[index] + x * 8}deg
+          )
+          scale(1.04)
+          `;
+
+      }
+    );
+
+
+    poster.addEventListener(
+      "mouseleave",
+      () => {
+
+        poster.style.transform =
+          `
+          rotate(
+            ${rotations[index]}deg
+          )
+          `;
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   PROJECT INTERACTION
+========================================================= */
+
+document.querySelectorAll(
+  ".project-box"
+).forEach(
+  box => {
+
+    const shape =
+      box.querySelector(
+        ".geometry"
+      );
+
+
+    box.addEventListener(
+      "mousemove",
+      event => {
+
+        const r =
+          box.getBoundingClientRect();
+
+
+        const x =
+          (
+            event.clientX -
+            r.left
+          ) / r.width - .5;
+
+
+        const y =
+          (
+            event.clientY -
+            r.top
+          ) / r.height - .5;
+
+
+        shape.style.transform =
+          `
+          translate(
+            ${x * 70}px,
+            ${y * 70}px
+          )
+          rotate(
+            ${x * 60}deg
+          )
+          scale(1.15)
+          `;
+
+      }
+    );
+
+
+    box.addEventListener(
+      "mouseleave",
+      () => {
+
+        shape.style.transform =
+          "";
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   RANDOM LETTER GLITCH
+========================================================= */
+
+const glitchLetters =
   document.querySelectorAll(
-    ".experiment-word"
+    ".skill-word"
   );
 
 
 setInterval(
-  function(){
-
-    if(
-      words.length === 0
-    ){
-
-      return;
-
-    }
-
+  () => {
 
     const random =
-      words[
+      glitchLetters[
         Math.floor(
           Math.random() *
-          words.length
+          glitchLetters.length
         )
       ];
+
+
+    if(!random)
+      return;
 
 
     random.style.transform =
@@ -2616,13 +3135,13 @@ setInterval(
         ${Math.random()*30-15}px
       )
       skewX(
-        ${Math.random()*6-3}deg
+        ${Math.random()*8-4}deg
       )
       `;
 
 
     setTimeout(
-      function(){
+      () => {
 
         random.style.transform =
           "";
@@ -2632,43 +3151,28 @@ setInterval(
     );
 
   },
-  1200
+  1300
 );
 
 
 /* =========================================================
-   KEYBOARD EASTER EGG
+   KEYBOARD NAVIGATION
 ========================================================= */
-
-let secret = "";
 
 document.addEventListener(
   "keydown",
-  function(event){
-
-    secret +=
-      event.key.toLowerCase();
-
-    secret =
-      secret.slice(-6);
-
+  event => {
 
     if(
-      secret === "safal!"
+      event.key === "Escape"
     ){
 
-      document.body.style.transform =
-        "rotate(1deg)";
-
-      setTimeout(
-        function(){
-
-          document.body.style.transform =
-            "";
-
-        },
-        500
+      menu.classList.remove(
+        "open"
       );
+
+      menuButton.textContent =
+        "MENU +";
 
     }
 
@@ -2684,17 +3188,461 @@ console.log(
   "%c SAFAL PARAJULI ",
   `
   background:#111;
-  color:#caff00;
+  color:#d7ff00;
   font-size:20px;
   padding:10px;
   `
 );
 
 console.log(
-  "Welcome to Safal's portfolio."
+  "Welcome to the portfolio."
 );
 
 </script>
 
+
+<style>
+/* =========================================================
+   GALLERY — FOUR PHOTOS
+========================================================= */
+.gallery-track{
+  display:grid !important;
+  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+  gap:24px !important;
+  width:100% !important;
+  transform:none !important;
+}
+
+.gallery-card{
+  position:relative !important;
+  width:100% !important;
+  height:clamp(320px, 42vw, 620px) !important;
+  overflow:hidden !important;
+  padding:0 !important;
+  margin:0 !important;
+  background:#111 !important;
+}
+
+.gallery-card img{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+}
+
+@media (max-width: 900px){
+  .gallery-track{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 560px){
+  .gallery-track{
+    grid-template-columns:1fr !important;
+  }
+}
+</style>
 </body>
 </html>
+
+<style>
+/* FINAL HERO NAME */
+.hero .name,
+.hero .name-row,
+.hero .name-row.two{
+  color:#111 !important;
+  text-align:left;
+}
+
+.hero .name-row{
+  display:block !important;
+  margin-left:0 !important;
+  white-space:nowrap !important;
+}
+
+.hero .name-row.two{
+  margin-left:0 !important;
+}
+
+.hero .name .name-row + .name-row{
+  margin-top:0 !important;
+}
+
+/* Keep the two-line name on desktop exactly as requested */
+@media(min-width:701px){
+  .hero .name{
+    white-space:normal !important;
+  }
+}
+</style>
+
+<style>
+/* FINAL HERO NAME FIX */
+.hero .name{
+  position:relative !important;
+  z-index:20 !important;
+  color:#111 !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  overflow:visible !important;
+  text-align:left !important;
+}
+
+.hero .name-row,
+.hero .name-row.two{
+  display:block !important;
+  position:relative !important;
+  z-index:21 !important;
+  color:#111 !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  margin-left:0 !important;
+  transform:none;
+}
+
+.hero .name-row{
+  white-space:nowrap !important;
+}
+
+.hero .name-row.two{
+  margin-left:0 !important;
+}
+
+/* Do not let the hero name get clipped by its section */
+.hero{
+  overflow:hidden;
+}
+
+.hero .hero-content{
+  position:relative;
+  z-index:10;
+}
+
+@media(max-width:700px){
+  .hero .name{
+    white-space:normal !important;
+  }
+  .hero .name-row{
+    white-space:nowrap !important;
+  }
+}
+</style>
+
+<style>
+/* FINAL HERO ALIGNMENT */
+.hero .hero-content{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:8vw !important;
+}
+
+.hero .name{
+  flex:1 1 0 !important;
+  min-width:0 !important;
+  color:#111 !important;
+  text-align:left !important;
+}
+
+.hero .name-row,
+.hero .name-row.two{
+  color:#111 !important;
+  margin-left:0 !important;
+  text-align:left !important;
+}
+
+/* Slightly smaller name so it doesn't collide with the photo */
+@media(min-width:701px){
+  .hero .name{
+    font-size:clamp(55px, 8.2vw, 130px) !important;
+    line-height:.82 !important;
+    letter-spacing:-.075em !important;
+  }
+
+  .hero .photo-wrap{
+    flex:0 0 min(310px,25vw) !important;
+    margin-left:2vw !important;
+    margin-right:3vw !important;
+  }
+}
+
+/* Mobile: stack text and photo cleanly */
+@media(max-width:700px){
+  .hero .hero-content{
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    gap:45px !important;
+  }
+
+  .hero .name{
+    font-size:clamp(55px,15vw,90px) !important;
+    width:100% !important;
+  }
+
+  .hero .photo-wrap{
+    align-self:center !important;
+    margin:0 !important;
+  }
+}
+</style>
+
+<style>
+/* CLEAN HERO: BLACK NAME */
+.hero .name,
+.hero .name-row,
+.hero .name-row.two{
+  color:#111 !important;
+  -webkit-text-fill-color:#111 !important;
+}
+
+/* Keep the two-line name clean and aligned */
+.hero .name-row{
+  display:block !important;
+  margin-left:0 !important;
+  white-space:nowrap !important;
+}
+
+.hero .name-row.two{
+  margin-left:0 !important;
+}
+
+/* Prevent any accidental orange hover state on the hero name */
+.hero .name *{
+  color:#111 !important;
+  -webkit-text-fill-color:#111 !important;
+}
+
+@media(max-width:700px){
+  .hero .name{
+    color:#111 !important;
+    -webkit-text-fill-color:#111 !important;
+  }
+}
+</style>
+
+<style>
+/* FINAL CONTACT VISIBILITY FIX */
+.contact{
+  overflow:hidden !important;
+  isolation:isolate !important;
+}
+
+.contact-title{
+  z-index:2 !important;
+  position:relative !important;
+}
+
+.contact-links{
+  z-index:50 !important;
+  position:relative !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+
+.contact-link{
+  z-index:51 !important;
+  position:relative !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  color:#111 !important;
+}
+</style>
+
+<style>
+/* FINAL WORK 01 VISIBILITY FIX */
+.project:nth-of-type(1) .project-box{
+  background:#ff4d16 !important;
+}
+
+.project:nth-of-type(1) .project-info{
+  color:#111 !important;
+  mix-blend-mode:normal !important;
+  z-index:20 !important;
+}
+
+.project:nth-of-type(1) .project-info h3,
+.project:nth-of-type(1) .project-info p{
+  color:#111 !important;
+}
+
+/* Experiment image */
+.experiment-image-box{
+  position:relative !important;
+}
+</style>
+
+<style>
+/* WORK PROJECT COLORS — prevents Project 01 from blending into the page */
+#work .project:nth-of-type(1) .project-box{
+  background:#ff4d16 !important;
+  color:#111 !important;
+}
+#work .project:nth-of-type(2) .project-box{
+  background:#d7ff00 !important;
+  color:#111 !important;
+}
+#work .project:nth-of-type(3) .project-box{
+  background:#8e70ff !important;
+  color:#111 !important;
+}
+#work .project:nth-of-type(4) .project-box{
+  background:#111 !important;
+  color:#fff !important;
+}
+#work .project:nth-of-type(1) .project-info{
+  color:#111 !important;
+  mix-blend-mode:normal !important;
+}
+</style>
+
+
+
+<style>
+/* RESTORE 05 / EXPERIMENTS — ORIGINAL ALIGNMENT */
+#experiments .poster{
+  position:relative !important;
+  overflow:hidden !important;
+}
+
+#experiments .poster > img,
+#experiments .experiment-image{
+  display:none !important;
+}
+
+/* Keep the original poster content centered and aligned */
+#experiments .poster{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+</style>
+
+<style>
+/* =========================================================
+   WORK — CLEAN FOUR-PANEL LAYOUT
+========================================================= */
+
+/* Hide secondary/floating preview cards; keep the actual work panels */
+.work-preview,
+.project-preview,
+.preview-box,
+.floating-preview,
+.work-hover-preview,
+.project-hover-preview,
+.project-preview-card{
+  display:none !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+
+/* Remove accidental pseudo-element preview cards */
+.project::before,
+.project::after{
+  pointer-events:none;
+}
+
+/* Keep a clean, consistent gap between the work panels */
+.work,
+.work-grid,
+.projects,
+.projects-grid{
+  gap:clamp(24px, 4vw, 64px) !important;
+}
+
+/* Prevent panels from visually overlapping each other */
+.project{
+  position:relative !important;
+  margin-bottom:clamp(24px, 4vw, 64px) !important;
+  z-index:1 !important;
+}
+
+/* =========================================================
+   WORK NUMBERING
+   01
+   02
+   03
+========================================================= */
+
+/* If the original panels contain 01 / 02 / 03 / 04,
+   show only 01 / 02 / 03 after removing the fourth panel. */
+.project:nth-of-type(4){
+  display:none !important;
+}
+
+/* Normalize numbering based on the remaining three panels */
+.project:nth-of-type(1) .project-number{
+  font-size:inherit;
+}
+.project:nth-of-type(2) .project-number{
+  font-size:0;
+}
+.project:nth-of-type(2) .project-number::after{
+  content:"02";
+  font-size:inherit;
+}
+.project:nth-of-type(3) .project-number{
+  font-size:0;
+}
+.project:nth-of-type(3) .project-number::after{
+  content:"03";
+  font-size:inherit;
+}
+</style>
+
+<style>
+/* WORK SECTION REMOVED */
+.project,
+.projects,
+.project-box,
+.project-number,
+.project-info,
+.work-preview,
+.project-preview,
+.preview-box,
+.floating-preview{
+  display:none !important;
+}
+</style>
+
+<style>
+/* =========================================================
+   FINAL OVERVIEW / SECTION RHYTHM
+========================================================= */
+
+.section-number{
+  display:block;
+  margin-bottom:clamp(24px, 3vw, 48px);
+  letter-spacing:.08em;
+  line-height:1;
+}
+
+/* Give major sections a little more breathing room */
+section.section{
+  scroll-margin-top:20px;
+}
+
+/* Keep section headings visually balanced after the Work section removal */
+.gallery,
+.education,
+.skills-section,
+#experiments,
+.contact{
+  position:relative;
+}
+
+/* Contact email remains clearly clickable */
+.contact-link[href^="mailto:"]{
+  cursor:pointer;
+  text-decoration:none;
+}
+
+/* Prevent accidental text clipping at section boundaries */
+.section,
+.gallery,
+.education,
+.skills-section,
+#experiments,
+.contact{
+  overflow:visible;
+}
+</style>
