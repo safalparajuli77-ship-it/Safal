@@ -745,6 +745,8 @@ button{
 .overview{
 
   min-height:90vh;
+  background:#F47B20;
+  color:#111;
 
   display:grid;
 
@@ -779,7 +781,7 @@ button{
 
 .overview-copy span{
 
-  color:#ff4d16;
+  color:#111;
 }
 
 
@@ -1501,6 +1503,185 @@ button{
 
 
 /* =========================================================
+   CONTACT LINKS — PREMIUM FINISH
+========================================================= */
+
+.contact-links{
+  gap:14px !important;
+  align-items:stretch !important;
+  padding-top:34px !important;
+}
+
+.contact-link{
+  min-width:190px;
+  min-height:58px;
+  display:grid !important;
+  grid-template-columns:30px 1fr 24px;
+  align-items:center;
+  gap:10px;
+  padding:0 16px !important;
+  border:1px solid rgba(17,17,17,.45) !important;
+  border-radius:999px;
+  background:rgba(255,255,255,.10);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  overflow:hidden;
+  transform:translateY(0);
+  transition:
+    transform .45s cubic-bezier(.16,1,.3,1),
+    background .35s ease,
+    color .35s ease,
+    border-color .35s ease,
+    box-shadow .45s ease;
+}
+
+.contact-link::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:#111;
+  transform:translateX(-105%);
+  transition:transform .55s cubic-bezier(.16,1,.3,1);
+  z-index:-1;
+}
+
+.contact-link::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-45%;
+  width:35%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);
+  transform:skewX(-18deg);
+  transition:left .7s ease;
+}
+
+.contact-link:hover{
+  padding-left:16px !important;
+  padding-right:16px !important;
+  color:#fff !important;
+  border-color:#111 !important;
+  background:#111;
+  transform:translateY(-8px) rotate(-1.5deg);
+  box-shadow:8px 8px 0 rgba(17,17,17,.18);
+}
+
+.contact-link:hover::before{
+  transform:translateX(0);
+}
+
+.contact-link:hover::after{
+  left:125%;
+}
+
+.contact-icon{
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  border:1px solid currentColor;
+  border-radius:50%;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:12px;
+  font-weight:800;
+  transition:transform .45s cubic-bezier(.16,1,.3,1), background .35s ease;
+}
+
+.contact-link:hover .contact-icon{
+  transform:rotate(12deg) scale(1.12);
+  background:#fff;
+  color:#111;
+}
+
+.contact-label{
+  font-family:monospace;
+  font-size:10px;
+  letter-spacing:.14em;
+  font-weight:700;
+}
+
+.contact-arrow{
+  font-size:18px;
+  line-height:1;
+  transform:translate(0,0);
+  transition:transform .45s cubic-bezier(.16,1,.3,1);
+}
+
+.contact-link:hover .contact-arrow{
+  transform:translate(5px,-5px) scale(1.15);
+}
+
+.contact-link:focus-visible{
+  outline:2px solid #fff;
+  outline-offset:5px;
+}
+
+/* Footer gets a clean final navigation row */
+.footer{
+  align-items:center;
+  gap:24px;
+  flex-wrap:wrap;
+}
+
+.footer-socials{
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
+.footer-socials a{
+  position:relative;
+  color:#fff;
+  opacity:.72;
+  font-family:monospace;
+  font-size:9px;
+  letter-spacing:.08em;
+  transition:opacity .3s ease, transform .3s ease;
+}
+
+.footer-socials a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-5px;
+  width:100%;
+  height:1px;
+  background:#fff;
+  transform:scaleX(0);
+  transform-origin:right;
+  transition:transform .35s cubic-bezier(.16,1,.3,1);
+}
+
+.footer-socials a:hover{
+  opacity:1;
+  transform:translateY(-3px);
+}
+
+.footer-socials a:hover::after{
+  transform:scaleX(1);
+  transform-origin:left;
+}
+
+@media(max-width:700px){
+  .contact-links{
+    display:grid !important;
+    grid-template-columns:1fr;
+    width:100%;
+  }
+
+  .contact-link{
+    width:100%;
+  }
+
+  .footer{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+}
+
+
+/* =========================================================
    FOOTER
 ========================================================= */
 
@@ -1811,6 +1992,267 @@ footer{
 
 }
 
+</style>
+
+
+<style>
+/* =========================================================
+   OVERVIEW — WOW MODE / ORANGE EDITION
+========================================================= */
+
+#overview{
+  --ov-orange:#F47B20;
+  --ov-ink:#111;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 78% 35%, rgba(255,220,150,.38) 0%, rgba(255,220,150,0) 28%),
+    radial-gradient(circle at 15% 85%, rgba(255,120,20,.25) 0%, rgba(255,120,20,0) 32%),
+    var(--ov-orange);
+  cursor:none;
+}
+
+/* oversized graphic number */
+#overview::before{
+  content:"01";
+  position:absolute;
+  right:-.04em;
+  bottom:-.22em;
+  z-index:-1;
+  font-size:clamp(220px,42vw,720px);
+  line-height:.7;
+  font-weight:900;
+  letter-spacing:-.12em;
+  color:transparent;
+  -webkit-text-stroke:2px rgba(17,17,17,.10);
+  transform:rotate(-7deg);
+  pointer-events:none;
+  animation:ovNumberFloat 8s ease-in-out infinite;
+}
+
+/* moving technical grid */
+#overview::after{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  z-index:-1;
+  opacity:.18;
+  background-image:
+    linear-gradient(rgba(17,17,17,.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17,17,17,.35) 1px, transparent 1px);
+  background-size:46px 46px;
+  transform:rotate(-7deg) scale(1.15);
+  animation:ovGrid 18s linear infinite;
+  pointer-events:none;
+}
+
+#overview > *{
+  position:relative;
+  z-index:2;
+}
+
+#overview .section-number{
+  display:inline-block;
+  position:relative;
+  padding:8px 12px;
+  margin-bottom:42px;
+  border:1px solid rgba(17,17,17,.35);
+  overflow:hidden;
+  animation:ovFadeUp .8s cubic-bezier(.16,1,.3,1) both;
+}
+
+#overview .section-number::after{
+  content:"";
+  position:absolute;
+  left:-110%;
+  top:0;
+  width:70%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
+  transform:skewX(-20deg);
+  animation:ovScan 3.5s ease-in-out infinite;
+}
+
+.overview-title{
+  position:relative;
+  z-index:3;
+  perspective:800px;
+  text-shadow:8px 8px 0 rgba(17,17,17,.08);
+}
+
+.ov-line{
+  display:inline-block;
+  overflow:hidden;
+  vertical-align:top;
+  padding:.04em .08em .08em 0;
+}
+
+.ov-word{
+  display:inline-block;
+  transform:translateY(115%) rotateX(-55deg);
+  transform-origin:bottom left;
+  opacity:0;
+  animation:ovTitleIn 1.15s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.ov-line:nth-of-type(1) .ov-word{animation-delay:.18s}
+.ov-line:nth-of-type(2) .ov-word{animation-delay:.34s}
+.ov-line:nth-of-type(3) .ov-word{animation-delay:.50s}
+
+.overview-title:hover .ov-word{
+  animation:ovTitleHover .65s cubic-bezier(.16,1,.3,1) both;
+}
+
+.overview-title::after{
+  content:"";
+  position:absolute;
+  left:-5%;
+  top:48%;
+  width:110%;
+  height:3px;
+  background:#111;
+  transform:scaleX(0) rotate(-2deg);
+  transform-origin:left;
+  opacity:.85;
+  transition:transform .7s cubic-bezier(.16,1,.3,1);
+}
+
+.overview-title:hover::after{
+  transform:scaleX(1) rotate(-2deg);
+}
+
+.overview-copy{
+  position:relative;
+  max-width:650px;
+  font-weight:500;
+  letter-spacing:-.025em;
+  text-transform:uppercase;
+}
+
+.ov-copy-line{
+  display:block;
+  opacity:0;
+  transform:translateX(55px);
+  filter:blur(8px);
+  animation:ovCopyIn .9s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.ov-copy-line:nth-child(1){animation-delay:.55s}
+.ov-copy-line:nth-child(2){animation-delay:.70s}
+.ov-copy-line:nth-child(3){animation-delay:.85s}
+
+.ov-copy-line::selection,
+.ov-word::selection{background:#111;color:#F47B20}
+
+/* glowing mouse spotlight */
+#overview .ov-spotlight{
+  position:absolute;
+  width:420px;
+  height:420px;
+  left:0;
+  top:0;
+  z-index:1;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle, rgba(255,225,170,.34), rgba(255,225,170,0) 68%);
+  transform:translate(-50%,-50%);
+  mix-blend-mode:screen;
+  opacity:.75;
+}
+
+#overview .ov-orbit{
+  position:absolute;
+  width:170px;
+  height:170px;
+  right:8%;
+  top:17%;
+  border:1px solid rgba(17,17,17,.25);
+  border-radius:50%;
+  z-index:1;
+  pointer-events:none;
+  animation:ovOrbit 10s linear infinite;
+}
+
+#overview .ov-orbit::before,
+#overview .ov-orbit::after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  background:#111;
+}
+
+#overview .ov-orbit::before{
+  width:9px;
+  height:9px;
+  left:16px;
+  top:18px;
+}
+
+#overview .ov-orbit::after{
+  width:5px;
+  height:5px;
+  right:24px;
+  bottom:12px;
+}
+
+@keyframes ovTitleIn{
+  0%{opacity:0;transform:translateY(115%) rotateX(-55deg);}
+  65%{opacity:1;}
+  100%{opacity:1;transform:translateY(0) rotateX(0);}
+}
+
+@keyframes ovTitleHover{
+  0%{transform:translateY(0) skewX(0);}
+  45%{transform:translateY(-10px) skewX(-3deg);}
+  100%{transform:translateY(0) skewX(0);}
+}
+
+@keyframes ovCopyIn{
+  to{opacity:1;transform:translateX(0);filter:blur(0);}
+}
+
+@keyframes ovFadeUp{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes ovScan{
+  0%,45%{left:-110%;}
+  70%,100%{left:140%;}
+}
+
+@keyframes ovGrid{
+  to{transform:rotate(-7deg) scale(1.15) translate(46px,46px);}
+}
+
+@keyframes ovNumberFloat{
+  0%,100%{transform:rotate(-7deg) translateY(0);}
+  50%{transform:rotate(-4deg) translateY(-22px);}
+}
+
+@keyframes ovOrbit{
+  to{transform:rotate(360deg);}
+}
+
+@media(max-width:700px){
+  #overview::before{font-size:62vw;bottom:-.05em;}
+  #overview .ov-orbit{width:105px;height:105px;right:4%;top:13%;}
+  #overview .ov-spotlight{width:260px;height:260px;}
+  .overview-title{font-size:clamp(64px,18vw,110px);}
+  .overview-copy{font-size:20px;}
+}
+
+@media(prefers-reduced-motion:reduce){
+  #overview::before,
+  #overview::after,
+  #overview .ov-orbit,
+  #overview .section-number::after,
+  .ov-word,
+  .ov-copy-line{animation:none!important;}
+  .ov-word{opacity:1;transform:none;}
+  .ov-copy-line{opacity:1;transform:none;filter:none;}
+}
 </style>
 
 </head>
@@ -2125,20 +2567,19 @@ footer{
       01 / OVERVIEW
     </div>
 
-    <h2 class="overview-title">
-      HELLO.<br>
-      I'M<br>
-      SAFAL.
+    <h2 class="overview-title" aria-label="Hello. I'm Safal.">
+      <span class="ov-line"><span class="ov-word">HELLO.</span></span><br>
+      <span class="ov-line"><span class="ov-word">I'M</span></span><br>
+      <span class="ov-line"><span class="ov-word">SAFAL.</span></span>
     </h2>
 
   </div>
 
 
   <div class="overview-copy">
-
-    LOOKING BEYOND THE HORIZON,
-    CHASING QUESTIONS THAT REACH FAR BEYOND THE STARS.
-
+    <span class="ov-copy-line">LOOKING BEYOND THE HORIZON,</span>
+    <span class="ov-copy-line">CHASING QUESTIONS THAT REACH FAR</span>
+    <span class="ov-copy-line">BEYOND THE STARS.</span>
   </div>
 
 </section>
@@ -2334,29 +2775,50 @@ footer{
       </div>
     </a>
 
-    <article class="experience-card reveal">
+    <a
+      class="experience-card reveal experience-link-card"
+      href="external science exhibition link.html"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Open Science Exhibition experience"
+    >
       <span class="experience-number">02</span>
       <div>
         <h3>SCIENCE EXHIBITION</h3>
         <p>Helped bring a practical robotics activity to life as part of a student-led technology initiative.</p>
+        <span class="experience-open">OPEN SCIENCE EXHIBITION <span>↗</span></span>
       </div>
-    </article>
+    </a>
 
-    <article class="experience-card reveal">
+    <a
+      class="experience-card reveal experience-link-card"
+      href="external student leadership link.html"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Open Student Leadership experience"
+    >
       <span class="experience-number">03</span>
       <div>
         <h3>STUDENT LEADERSHIP</h3>
         <p>Served in student leadership roles and took responsibility for representing and supporting fellow students.</p>
+        <span class="experience-open">OPEN STUDENT LEADERSHIP <span>↗</span></span>
       </div>
-    </article>
+    </a>
 
-    <article class="experience-card reveal">
+    <a
+      class="experience-card reveal experience-link-card"
+      href="external science technology link.html"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Open Science and Technology experience"
+    >
       <span class="experience-number">04</span>
       <div>
         <h3>SCIENCE &amp; TECHNOLOGY</h3>
         <p>Actively involved in activities that connect learning with practical science, technology and teamwork.</p>
+        <span class="experience-open">OPEN SCIENCE &amp; TECHNOLOGY <span>↗</span></span>
       </div>
-    </article>
+    </a>
 
   </div>
 </section>
@@ -2381,8 +2843,8 @@ footer{
     <h2 class="contact-title reveal">
 
       LET'S<br>
-      MAKE<br>
-      SOMETHING.
+      GET <br>
+      CONNECT.
 
     </h2>
 
@@ -2392,26 +2854,39 @@ footer{
   <div class="contact-links">
 
     <a
-      class="contact-link magnetic"
+      class="contact-link magnetic contact-link--email"
       href="mailto:officeofsafalparajuli@gmail.com"
+      aria-label="Email Safal Parajuli"
     >
-      EMAIL
+      <span class="contact-icon">✉</span>
+      <span class="contact-label">EMAIL</span>
+      <span class="contact-arrow">↗</span>
     </a>
 
 
     <a
       class="contact-link magnetic"
-      href="#"
+      href="https://www.instagram.com/xxpshuffle/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Open Safal Parajuli on Instagram"
     >
-      INSTAGRAM
+      <span class="contact-icon">◎</span>
+      <span class="contact-label">INSTAGRAM</span>
+      <span class="contact-arrow">↗</span>
     </a>
 
 
     <a
       class="contact-link magnetic"
-      href="#"
+      href="https://www.linkedin.com/in/safal-parajuli-054893283/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Open Safal Parajuli on LinkedIn"
     >
-      LINKEDIN
+      <span class="contact-icon">in</span>
+      <span class="contact-label">LINKEDIN</span>
+      <span class="contact-arrow">↗</span>
     </a>
 
   </div>
@@ -2432,6 +2907,8 @@ footer{
   <span>
     DESIGNED / DEVELOPED BY SAFAL
   </span>
+
+  
 
   <span>
     © 2026
@@ -3380,6 +3857,65 @@ console.log(
   animation:none;
 }
 </style>
+
+<script>
+/* =========================================================
+   OVERVIEW — INTERACTIVE SPOTLIGHT + PARALLAX
+========================================================= */
+(() => {
+  const overview = document.getElementById('overview');
+  if (!overview) return;
+
+  const spotlight = document.createElement('div');
+  spotlight.className = 'ov-spotlight';
+  overview.appendChild(spotlight);
+
+  const orbit = document.createElement('div');
+  orbit.className = 'ov-orbit';
+  overview.appendChild(orbit);
+
+  let raf = null;
+  let mx = 0, my = 0;
+  let tx = 0, ty = 0;
+
+  overview.addEventListener('mousemove', (e) => {
+    const r = overview.getBoundingClientRect();
+    mx = e.clientX - r.left;
+    my = e.clientY - r.top;
+
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      spotlight.style.left = mx + 'px';
+      spotlight.style.top = my + 'px';
+
+      const x = (mx / r.width - .5) * 14;
+      const y = (my / r.height - .5) * 10;
+      tx += (x - tx) * .12;
+      ty += (y - ty) * .12;
+
+      const title = overview.querySelector('.overview-title');
+      const copy = overview.querySelector('.overview-copy');
+      if (title) title.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+      if (copy) copy.style.transform = `translate3d(${-tx*.45}px, ${-ty*.45}px, 0)`;
+
+      raf = null;
+    });
+  });
+
+  overview.addEventListener('mouseleave', () => {
+    spotlight.style.opacity = '0';
+    const title = overview.querySelector('.overview-title');
+    const copy = overview.querySelector('.overview-copy');
+    if (title) title.style.transform = 'translate3d(0,0,0)';
+    if (copy) copy.style.transform = 'translate3d(0,0,0)';
+  });
+
+  overview.addEventListener('mouseenter', () => {
+    spotlight.style.opacity = '.75';
+  });
+})();
+</script>
+
 </body>
 </html>
 
