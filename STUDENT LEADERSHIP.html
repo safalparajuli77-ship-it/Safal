@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Student leadership portfolio — Safal Parajuli.">
+<title>Student Leadership — Safal Parajuli</title>
+
+<style>
+/* =========================================================
+   STUDENT LEADERSHIP — READYMAG STYLE HERO
+   No card outlines. Floating logos + cursor interaction.
+   ========================================================= */
+
+:root {
+  --paper: #eeebe3;
+  --ink: #171717;
+  --purple: #8668f2;
+  --lime: #d9ff00;
+  --orange: #ff4b1f;
+  --grid: rgba(35, 35, 35, .045);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; min-height: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+/* ---------- page / background ---------- */
+.page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 620px;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--paper);
+}
+
+/* subtle tilted grid like the reference */
+.grid {
+  position: absolute;
+  inset: -45%;
+  z-index: -5;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(
+      79deg,
+      var(--grid) 0,
+      var(--grid) 1px,
+      transparent 1px,
+      transparent 54px
+    ),
+    repeating-linear-gradient(
+      169deg,
+      var(--grid) 0,
+      var(--grid) 1px,
+      transparent 1px,
+      transparent 54px
+    );
+  transform: rotate(-6deg);
+}
+
+/* colored background circles */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -3;
+  will-change: transform;
+  transition: transform .8s cubic-bezier(.16,1,.3,1);
+}
+
+.blob-purple {
+  width: 190px;
+  height: 190px;
+  left: -48px;
+  bottom: -20px;
+  background: var(--purple);
+}
+
+.blob-lime {
+  width: 270px;
+  height: 270px;
+  left: 49%;
+  top: 48%;
+  background: var(--lime);
+  transform: translate(-50%, -50%);
+}
+
+.blob-orange {
+  width: 290px;
+  height: 290px;
+  right: 7%;
+  top: 8%;
+  background: var(--orange);
+}
+
+/* soft cursor light */
+.cursor-light {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: .32;
+  background: radial-gradient(circle, rgba(255,255,255,.8) 0, rgba(255,255,255,0) 68%);
+  transform: translate(-50%, -50%);
+  mix-blend-mode: soft-light;
+}
+
+
+
+/* ---------- hover information panel ---------- */
+.info-panel {
+  position: fixed;
+  z-index: 30;
+  width: min(620px, 82vw);
+  min-height: 245px;
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 28px;
+  padding: 26px;
+  background: rgba(246,243,235,.94);
+  border: 1px solid rgba(20,20,20,.08);
+  box-shadow: 0 28px 70px rgba(0,0,0,.16);
+  backdrop-filter: blur(14px);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(.92) rotate(-1.5deg);
+  transform-origin: center;
+  transition: opacity .3s ease, transform .6s cubic-bezier(.16,1,.3,1);
+}
+
+.info-panel.active {
+  opacity: 1;
+  transform: translate3d(-50%, -50%, 0) scale(1) rotate(0deg);
+}
+
+.info-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.info-kicker {
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: .48;
+}
+
+.info-title {
+  margin-top: 12px;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: .9;
+  letter-spacing: -.055em;
+  text-transform: uppercase;
+}
+
+.info-description {
+  max-width: 290px;
+  margin-top: 20px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #45423d;
+}
+
+.info-index {
+  margin-top: 22px;
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .42;
+}
+
+.info-image {
+  width: 220px;
+  height: 245px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.info-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 18px rgba(0,0,0,.14));
+  transform: scale(.9) translateY(10px);
+  opacity: 0;
+  transition: opacity .45s ease .08s, transform .7s cubic-bezier(.16,1,.3,1) .08s;
+}
+
+.info-panel.active .info-image img {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.info-panel::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(0,0,0,.045);
+  pointer-events: none;
+}
+
+@media (max-width: 800px) {
+  .info-panel {
+    width: calc(100vw - 30px);
+    min-height: 180px;
+    grid-template-columns: 1fr 125px;
+    gap: 14px;
+    padding: 18px;
+  }
+  .info-image { width: 125px; height: 175px; }
+  .info-title { font-size: 28px; }
+  .info-description { font-size: 10px; margin-top: 12px; }
+}
+
+/* ---------- top / footer ---------- */
+.top-line {
+  position: absolute;
+  top: 28px;
+  left: 34px;
+  right: 34px;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  opacity: .65;
+}
+
+.footer {
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  bottom: 20px;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(20,20,20,.15);
+  padding-top: 11px;
+  font-size: 9px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  opacity: .62;
+}
+
+/* ---------- title ---------- */
+.title-wrap {
+  position: absolute;
+  left: 6vw;
+  top: 13vh;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.title {
+  font-size: clamp(48px, 7vw, 112px);
+  line-height: .82;
+  letter-spacing: -.075em;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  margin-top: 18px;
+  font-size: 10px;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  opacity: .58;
+}
+
+/* ---------- logo stage ---------- */
+.stage {
+  position: absolute;
+  left: 5vw;
+  right: 5vw;
+  top: 35vh;
+  height: 42vh;
+  min-height: 250px;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 5vw;
+}
+
+.logo-item {
+  --mx: 0px;
+  --my: 0px;
+  --rx: 0deg;
+  --ry: 0deg;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform:
+    perspective(1000px)
+    translate3d(var(--mx), var(--my), 0)
+    rotateX(var(--rx))
+    rotateY(var(--ry));
+  transition: transform .55s cubic-bezier(.16,1,.3,1);
+  will-change: transform;
+}
+
+/* individual editorial offsets */
+.logo-item:nth-child(1) { transform-origin: 50% 50%; }
+.logo-item:nth-child(2) { transform-origin: 50% 50%; }
+.logo-item:nth-child(3) { transform-origin: 50% 50%; }
+
+.logo-item img {
+  position: relative;
+  z-index: 3;
+  width: min(74%, 260px);
+  max-height: 82%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 18px 18px rgba(0,0,0,.14));
+  transform: translateZ(0) scale(1) rotate(0deg);
+  transition:
+    transform .65s cubic-bezier(.16,1,.3,1),
+    filter .65s cubic-bezier(.16,1,.3,1);
+  will-change: transform, filter;
+}
+
+/* no rectangular outline — only a soft shadow */
+.logo-item::before {
+  content: "";
+  position: absolute;
+  width: 52%;
+  height: 42%;
+  border-radius: 50%;
+  background: rgba(0,0,0,.13);
+  filter: blur(25px);
+  opacity: .26;
+  transform: translateY(32%) scale(.82);
+  transition: all .65s cubic-bezier(.16,1,.3,1);
+  z-index: 1;
+}
+
+/* subtle halo appears only near the cursor */
+.logo-item::after {
+  content: "";
+  position: absolute;
+  width: 76%;
+  height: 76%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.48), rgba(255,255,255,0) 67%);
+  opacity: 0;
+  transform: scale(.7);
+  transition: opacity .45s ease, transform .7s cubic-bezier(.16,1,.3,1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.logo-item:hover img {
+  transform: translateZ(35px) scale(1.12) rotate(-1deg);
+  filter: drop-shadow(0 28px 28px rgba(0,0,0,.24));
+}
+
+.logo-item:hover::before {
+  opacity: .38;
+  transform: translateY(36%) scale(1);
+}
+
+.logo-item:hover::after {
+  opacity: .75;
+  transform: scale(1);
+}
+
+/* tiny label that fades in without a box */
+.logo-label {
+  position: absolute;
+  left: 50%;
+  bottom: 2%;
+  transform: translate(-50%, 12px);
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity .4s ease, transform .5s cubic-bezier(.16,1,.3,1);
+}
+
+.logo-item:hover .logo-label {
+  opacity: .65;
+  transform: translate(-50%, 0);
+}
+
+/* ---------- active glow based on selected logo ---------- */
+.stage.is-interacting .blob-lime {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.stage.is-interacting .blob-orange {
+  transform: scale(1.04);
+}
+
+.stage.is-interacting .blob-purple {
+  transform: scale(1.04);
+}
+
+/* ---------- entrance animation ---------- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(45px) scale(.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.logo-item { animation: rise .9s cubic-bezier(.16,1,.3,1) both; }
+.logo-item:nth-child(1) { animation-delay: .12s; }
+.logo-item:nth-child(2) { animation-delay: .24s; }
+.logo-item:nth-child(3) { animation-delay: .36s; }
+
+.title-wrap { animation: rise 1s cubic-bezier(.16,1,.3,1) .05s both; }
+.footer { animation: rise .8s ease .6s both; }
+
+/* ---------- mobile ---------- */
+@media (max-width: 800px) {
+  body { overflow: hidden; }
+  .page { min-height: 560px; }
+  .top-line { top: 20px; left: 20px; right: 20px; }
+  .title-wrap { left: 20px; top: 12vh; }
+  .title { font-size: clamp(43px, 12vw, 76px); }
+  .subtitle { font-size: 8px; margin-top: 12px; }
+
+  .stage {
+    left: 5vw;
+    right: 5vw;
+    top: 37vh;
+    height: 35vh;
+    gap: 2vw;
+  }
+
+  .logo-item img { width: 88%; max-height: 78%; }
+  .logo-item:hover img { transform: translateZ(20px) scale(1.07); }
+
+  .blob-purple { width: 130px; height: 130px; left: -55px; }
+  .blob-lime { width: 180px; height: 180px; }
+  .blob-orange { width: 190px; height: 190px; right: -20px; top: 7%; }
+
+  .footer { left: 20px; right: 20px; bottom: 14px; font-size: 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="page" id="page">
+  <div class="grid"></div>
+  <div class="blob blob-purple"></div>
+  <div class="blob blob-lime"></div>
+  <div class="blob blob-orange"></div>
+  <div class="cursor-light" id="cursorLight"></div>
+
+  <header class="top-line">
+    <span>Personal Archive / 01</span>
+    <span>2026</span>
+  </header>
+
+  <section class="title-wrap">
+    <h1 class="title">Student<br>Leadership</h1>
+    <p class="subtitle">Responsibility · Service · Leadership</p>
+  </section>
+
+  <main class="stage" id="stage" aria-label="Student leadership roles">
+    <article class="logo-item" data-name="Head Boy" data-role="HEAD BOY" data-title="Safal Parajuli" data-description="During my 9th standard, I served as the Head Boy of my school. I was elected from among 10 candidates across the school and received 217 votes, which led to my nomination as Head Boy." data-index="01 / 03" data-image="vss.png">
+      <img src="headboy.webp" alt="Head Boy badge">
+      <span class="logo-label">Head Boy</span>
+    </article>
+
+    <article class="logo-item" data-name="Interact Club Vice President" data-role="INTERACT CLUB" data-title="Vice President" data-description="I served as the Vice President of the Interact Club during my tenure, taking part in leadership, service activities, teamwork and community engagement." data-index="02 / 03" data-image="icsaf.png">
+      <img src="icnps.png" alt="Interact Club Vice President badge">
+      <span class="logo-label">Interact Club</span>
+    </article>
+
+    <article class="logo-item" data-name="Scout Rover" data-role="SCOUT" data-title="Rover" data-description="Currently serving as a Rover in the Scout movement, developing through service, discipline, teamwork and community involvement." data-index="03 / 03" data-image="scout safal.png">
+      <img src="scout.png" alt="Scout emblem">
+      <span class="logo-label">Scout</span>
+    </article>
+  </main>
+
+
+
+  <aside class="info-panel" id="infoPanel" aria-hidden="true">
+    <div class="info-copy">
+      <div>
+        <div class="info-kicker" id="infoKicker">HEAD BOY</div>
+        <h2 class="info-title" id="infoTitle">Safal Parajuli</h2>
+        <p class="info-description" id="infoDescription">During my 9th standard, I served as the Head Boy of my school. I was elected from among 10 candidates across the school and received 217 votes, which led to my nomination as Head Boy.</p>
+      </div>
+      <div class="info-index" id="infoIndex">01 / 03</div>
+    </div>
+    <div class="info-image"><img id="infoImage" src="headboy.webp" alt=""></div>
+  </aside>
+
+  <footer class="footer">
+    <span>Student Leadership</span>
+    <span>© 2026 Safal Parajuli</span>
+  </footer>
+</div>
+
+<script>
+/* =========================================================
+   CURSOR / MAGNETIC LOGO INTERACTION
+   Move around a logo → it subtly follows the cursor,
+   tilts in 3D, grows, and creates a soft halo.
+   ========================================================= */
+
+const stage = document.getElementById('stage');
+const page = document.getElementById('page');
+const cursorLight = document.getElementById('cursorLight');
+const items = [...document.querySelectorAll('.logo-item')];
+const blobs = {
+  purple: document.querySelector('.blob-purple'),
+  lime: document.querySelector('.blob-lime'),
+  orange: document.querySelector('.blob-orange')
+};
+
+let pointer = { x: innerWidth / 2, y: innerHeight / 2 };
+let light = { x: pointer.x, y: pointer.y };
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function moveItem(item, event) {
+  const rect = item.getBoundingClientRect();
+  const x = (event.clientX - rect.left) / rect.width - .5;
+  const y = (event.clientY - rect.top) / rect.height - .5;
+
+  /* magnetic movement */
+  const moveX = clamp(x * 24, -16, 16);
+  const moveY = clamp(y * 20, -14, 14);
+
+  /* subtle 3D tilt */
+  const rotateX = y * -7;
+  const rotateY = x * 9;
+
+  item.style.setProperty('--mx', moveX + 'px');
+  item.style.setProperty('--my', moveY + 'px');
+  item.style.setProperty('--rx', rotateX + 'deg');
+  item.style.setProperty('--ry', rotateY + 'deg');
+}
+
+function resetItem(item) {
+  item.style.setProperty('--mx', '0px');
+  item.style.setProperty('--my', '0px');
+  item.style.setProperty('--rx', '0deg');
+  item.style.setProperty('--ry', '0deg');
+}
+
+document.addEventListener('pointermove', (event) => {
+  pointer.x = event.clientX;
+  pointer.y = event.clientY;
+
+  cursorLight.style.left = pointer.x + 'px';
+  cursorLight.style.top = pointer.y + 'px';
+
+  const hovered = document.elementFromPoint(pointer.x, pointer.y)?.closest('.logo-item');
+
+  if (hovered) {
+    stage.classList.add('is-interacting');
+    moveItem(hovered, event);
+
+    /* Move the background shapes very slightly toward the active logo. */
+    const rect = hovered.getBoundingClientRect();
+    const cx = (rect.left + rect.width / 2 - innerWidth / 2) / innerWidth;
+    const cy = (rect.top + rect.height / 2 - innerHeight / 2) / innerHeight;
+
+    blobs.purple.style.transform = `translate(${cx * -10}px, ${cy * -8}px) scale(1.04)`;
+    blobs.lime.style.transform = `translate(calc(-50% + ${cx * 12}px), calc(-50% + ${cy * 10}px)) scale(1.05)`;
+    blobs.orange.style.transform = `translate(${cx * 10}px, ${cy * 8}px) scale(1.04)`;
+  }
+});
+
+items.forEach(item => {
+  item.addEventListener('pointerenter', () => {
+    stage.classList.add('is-interacting');
+  });
+
+  item.addEventListener('pointermove', event => {
+    moveItem(item, event);
+  });
+
+  item.addEventListener('pointerleave', () => {
+    resetItem(item);
+    stage.classList.remove('is-interacting');
+
+    blobs.purple.style.transform = '';
+    blobs.lime.style.transform = 'translate(-50%, -50%)';
+    blobs.orange.style.transform = '';
+  });
+});
+
+/* smooth cursor light */
+function animateLight() {
+  light.x += (pointer.x - light.x) * .12;
+  light.y += (pointer.y - light.y) * .12;
+  cursorLight.style.left = light.x + 'px';
+  cursorLight.style.top = light.y + 'px';
+  requestAnimationFrame(animateLight);
+}
+animateLight();
+
+
+/* ---------- incoming hover information ---------- */
+const infoPanel = document.getElementById('infoPanel');
+const infoKicker = document.getElementById('infoKicker');
+const infoTitle = document.getElementById('infoTitle');
+const infoDescription = document.getElementById('infoDescription');
+const infoIndex = document.getElementById('infoIndex');
+const infoImage = document.getElementById('infoImage');
+
+let panelTarget = { x: innerWidth / 2, y: innerHeight / 2 };
+let panelCurrent = { x: innerWidth / 2, y: innerHeight / 2 };
+let activeItem = null;
+
+function showInfo(item, event) {
+  activeItem = item;
+  infoKicker.textContent = item.dataset.role;
+  infoTitle.textContent = item.dataset.title;
+  infoDescription.textContent = item.dataset.description;
+  infoIndex.textContent = item.dataset.index;
+  infoImage.src = item.dataset.image;
+  infoImage.alt = item.dataset.name;
+
+  panelTarget.x = event.clientX + 230;
+  panelTarget.y = event.clientY - 10;
+  positionPanel();
+  infoPanel.classList.add('active');
+  infoPanel.setAttribute('aria-hidden', 'false');
+}
+
+function positionPanel() {
+  const w = infoPanel.offsetWidth || 620;
+  const h = infoPanel.offsetHeight || 245;
+  let x = panelTarget.x;
+  let y = panelTarget.y;
+  const margin = 18;
+
+  if (x + w / 2 > innerWidth - margin) x = innerWidth - w / 2 - margin;
+  if (x - w / 2 < margin) x = w / 2 + margin;
+  if (y + h / 2 > innerHeight - margin) y = innerHeight - h / 2 - margin;
+  if (y - h / 2 < margin) y = h / 2 + margin;
+
+  panelCurrent.x += (x - panelCurrent.x) * .18;
+  panelCurrent.y += (y - panelCurrent.y) * .18;
+  infoPanel.style.left = panelCurrent.x + 'px';
+  infoPanel.style.top = panelCurrent.y + 'px';
+}
+
+function hideInfo() {
+  activeItem = null;
+  infoPanel.classList.remove('active');
+  infoPanel.setAttribute('aria-hidden', 'true');
+}
+
+items.forEach(item => {
+  item.addEventListener('pointerenter', event => {
+    showInfo(item, event);
+  });
+
+  item.addEventListener('pointermove', event => {
+    /* The panel follows the cursor gently, while the logo itself tilts. */
+    panelTarget.x = event.clientX + 230;
+    panelTarget.y = event.clientY - 10;
+    if (activeItem === item) positionPanel();
+  });
+
+  item.addEventListener('pointerleave', () => {
+    hideInfo();
+  });
+});
+
+function animateInfoPanel() {
+  if (infoPanel.classList.contains('active')) positionPanel();
+  requestAnimationFrame(animateInfoPanel);
+}
+animateInfoPanel();
+
+/* touch devices: don't keep desktop hover state */
+if (window.matchMedia('(hover: none)').matches) {
+  cursorLight.style.display = 'none';
+}
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Student leadership portfolio — Safal Parajuli.">
+<title>Student Leadership — Safal Parajuli</title>
+
+<style>
+/* =========================================================
+   STUDENT LEADERSHIP — READYMAG STYLE HERO
+   No card outlines. Floating logos + cursor interaction.
+   ========================================================= */
+
+:root {
+  --paper: #eeebe3;
+  --ink: #171717;
+  --purple: #8668f2;
+  --lime: #d9ff00;
+  --orange: #ff4b1f;
+  --grid: rgba(35, 35, 35, .045);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; min-height: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+/* ---------- page / background ---------- */
+.page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 620px;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--paper);
+}
+
+/* subtle tilted grid like the reference */
+.grid {
+  position: absolute;
+  inset: -45%;
+  z-index: -5;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(
+      79deg,
+      var(--grid) 0,
+      var(--grid) 1px,
+      transparent 1px,
+      transparent 54px
+    ),
+    repeating-linear-gradient(
+      169deg,
+      var(--grid) 0,
+      var(--grid) 1px,
+      transparent 1px,
+      transparent 54px
+    );
+  transform: rotate(-6deg);
+}
+
+/* colored background circles */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -3;
+  will-change: transform;
+  transition: transform .8s cubic-bezier(.16,1,.3,1);
+}
+
+.blob-purple {
+  width: 190px;
+  height: 190px;
+  left: -48px;
+  bottom: -20px;
+  background: var(--purple);
+}
+
+.blob-lime {
+  width: 270px;
+  height: 270px;
+  left: 49%;
+  top: 48%;
+  background: var(--lime);
+  transform: translate(-50%, -50%);
+}
+
+.blob-orange {
+  width: 290px;
+  height: 290px;
+  right: 7%;
+  top: 8%;
+  background: var(--orange);
+}
+
+/* soft cursor light */
+.cursor-light {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: .32;
+  background: radial-gradient(circle, rgba(255,255,255,.8) 0, rgba(255,255,255,0) 68%);
+  transform: translate(-50%, -50%);
+  mix-blend-mode: soft-light;
+}
+
+
+
+/* ---------- hover information panel ---------- */
+.info-panel {
+  position: fixed;
+  z-index: 30;
+  width: min(620px, 82vw);
+  min-height: 245px;
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 28px;
+  padding: 26px;
+  background: rgba(246,243,235,.94);
+  border: 1px solid rgba(20,20,20,.08);
+  box-shadow: 0 28px 70px rgba(0,0,0,.16);
+  backdrop-filter: blur(14px);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(.92) rotate(-1.5deg);
+  transform-origin: center;
+  transition: opacity .3s ease, transform .6s cubic-bezier(.16,1,.3,1);
+}
+
+.info-panel.active {
+  opacity: 1;
+  transform: translate3d(-50%, -50%, 0) scale(1) rotate(0deg);
+}
+
+.info-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.info-kicker {
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: .48;
+}
+
+.info-title {
+  margin-top: 12px;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: .9;
+  letter-spacing: -.055em;
+  text-transform: uppercase;
+}
+
+.info-description {
+  max-width: 290px;
+  margin-top: 20px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #45423d;
+}
+
+.info-index {
+  margin-top: 22px;
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .42;
+}
+
+.info-image {
+  width: 220px;
+  height: 245px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.info-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 18px rgba(0,0,0,.14));
+  transform: scale(.9) translateY(10px);
+  opacity: 0;
+  transition: opacity .45s ease .08s, transform .7s cubic-bezier(.16,1,.3,1) .08s;
+}
+
+.info-panel.active .info-image img {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.info-panel::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(0,0,0,.045);
+  pointer-events: none;
+}
+
+@media (max-width: 800px) {
+  .info-panel {
+    width: calc(100vw - 30px);
+    min-height: 180px;
+    grid-template-columns: 1fr 125px;
+    gap: 14px;
+    padding: 18px;
+  }
+  .info-image { width: 125px; height: 175px; }
+  .info-title { font-size: 28px; }
+  .info-description { font-size: 10px; margin-top: 12px; }
+}
+
+/* ---------- top / footer ---------- */
+.top-line {
+  position: absolute;
+  top: 28px;
+  left: 34px;
+  right: 34px;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  opacity: .65;
+}
+
+.footer {
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  bottom: 20px;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(20,20,20,.15);
+  padding-top: 11px;
+  font-size: 9px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  opacity: .62;
+}
+
+/* ---------- title ---------- */
+.title-wrap {
+  position: absolute;
+  left: 6vw;
+  top: 13vh;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.title {
+  font-size: clamp(48px, 7vw, 112px);
+  line-height: .82;
+  letter-spacing: -.075em;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  margin-top: 18px;
+  font-size: 10px;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  opacity: .58;
+}
+
+/* ---------- logo stage ---------- */
+.stage {
+  position: absolute;
+  left: 5vw;
+  right: 5vw;
+  top: 35vh;
+  height: 42vh;
+  min-height: 250px;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 5vw;
+}
+
+.logo-item {
+  --mx: 0px;
+  --my: 0px;
+  --rx: 0deg;
+  --ry: 0deg;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform:
+    perspective(1000px)
+    translate3d(var(--mx), var(--my), 0)
+    rotateX(var(--rx))
+    rotateY(var(--ry));
+  transition: transform .55s cubic-bezier(.16,1,.3,1);
+  will-change: transform;
+}
+
+/* individual editorial offsets */
+.logo-item:nth-child(1) { transform-origin: 50% 50%; }
+.logo-item:nth-child(2) { transform-origin: 50% 50%; }
+.logo-item:nth-child(3) { transform-origin: 50% 50%; }
+
+.logo-item img {
+  position: relative;
+  z-index: 3;
+  width: min(74%, 260px);
+  max-height: 82%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 18px 18px rgba(0,0,0,.14));
+  transform: translateZ(0) scale(1) rotate(0deg);
+  transition:
+    transform .65s cubic-bezier(.16,1,.3,1),
+    filter .65s cubic-bezier(.16,1,.3,1);
+  will-change: transform, filter;
+}
+
+/* no rectangular outline — only a soft shadow */
+.logo-item::before {
+  content: "";
+  position: absolute;
+  width: 52%;
+  height: 42%;
+  border-radius: 50%;
+  background: rgba(0,0,0,.13);
+  filter: blur(25px);
+  opacity: .26;
+  transform: translateY(32%) scale(.82);
+  transition: all .65s cubic-bezier(.16,1,.3,1);
+  z-index: 1;
+}
+
+/* subtle halo appears only near the cursor */
+.logo-item::after {
+  content: "";
+  position: absolute;
+  width: 76%;
+  height: 76%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.48), rgba(255,255,255,0) 67%);
+  opacity: 0;
+  transform: scale(.7);
+  transition: opacity .45s ease, transform .7s cubic-bezier(.16,1,.3,1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.logo-item:hover img {
+  transform: translateZ(35px) scale(1.12) rotate(-1deg);
+  filter: drop-shadow(0 28px 28px rgba(0,0,0,.24));
+}
+
+.logo-item:hover::before {
+  opacity: .38;
+  transform: translateY(36%) scale(1);
+}
+
+.logo-item:hover::after {
+  opacity: .75;
+  transform: scale(1);
+}
+
+/* tiny label that fades in without a box */
+.logo-label {
+  position: absolute;
+  left: 50%;
+  bottom: 2%;
+  transform: translate(-50%, 12px);
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity .4s ease, transform .5s cubic-bezier(.16,1,.3,1);
+}
+
+.logo-item:hover .logo-label {
+  opacity: .65;
+  transform: translate(-50%, 0);
+}
+
+/* ---------- active glow based on selected logo ---------- */
+.stage.is-interacting .blob-lime {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.stage.is-interacting .blob-orange {
+  transform: scale(1.04);
+}
+
+.stage.is-interacting .blob-purple {
+  transform: scale(1.04);
+}
+
+/* ---------- entrance animation ---------- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(45px) scale(.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.logo-item { animation: rise .9s cubic-bezier(.16,1,.3,1) both; }
+.logo-item:nth-child(1) { animation-delay: .12s; }
+.logo-item:nth-child(2) { animation-delay: .24s; }
+.logo-item:nth-child(3) { animation-delay: .36s; }
+
+.title-wrap { animation: rise 1s cubic-bezier(.16,1,.3,1) .05s both; }
+.footer { animation: rise .8s ease .6s both; }
+
+/* ---------- mobile ---------- */
+@media (max-width: 800px) {
+  body { overflow: hidden; }
+  .page { min-height: 560px; }
+  .top-line { top: 20px; left: 20px; right: 20px; }
+  .title-wrap { left: 20px; top: 12vh; }
+  .title { font-size: clamp(43px, 12vw, 76px); }
+  .subtitle { font-size: 8px; margin-top: 12px; }
+
+  .stage {
+    left: 5vw;
+    right: 5vw;
+    top: 37vh;
+    height: 35vh;
+    gap: 2vw;
+  }
+
+  .logo-item img { width: 88%; max-height: 78%; }
+  .logo-item:hover img { transform: translateZ(20px) scale(1.07); }
+
+  .blob-purple { width: 130px; height: 130px; left: -55px; }
+  .blob-lime { width: 180px; height: 180px; }
+  .blob-orange { width: 190px; height: 190px; right: -20px; top: 7%; }
+
+  .footer { left: 20px; right: 20px; bottom: 14px; font-size: 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="page" id="page">
+  <div class="grid"></div>
+  <div class="blob blob-purple"></div>
+  <div class="blob blob-lime"></div>
+  <div class="blob blob-orange"></div>
+  <div class="cursor-light" id="cursorLight"></div>
+
+  <header class="top-line">
+    <span>Personal Archive / 01</span>
+    <span>2026</span>
+  </header>
+
+  <section class="title-wrap">
+    <h1 class="title">Student<br>Leadership</h1>
+    <p class="subtitle">Responsibility · Service · Leadership</p>
+  </section>
+
+  <main class="stage" id="stage" aria-label="Student leadership roles">
+    <article class="logo-item" data-name="Head Boy" data-role="HEAD BOY" data-title="Safal Parajuli" data-description="During my 9th standard, I served as the Head Boy of my school. I was elected from among 10 candidates across the school and received 217 votes, which led to my nomination as Head Boy." data-index="01 / 03" data-image="headboy.webp">
+      <img src="headboy.webp" alt="Head Boy badge">
+      <span class="logo-label">Head Boy</span>
+    </article>
+
+    <article class="logo-item" data-name="Interact Club Vice President" data-role="INTERACT CLUB" data-title="Vice President" data-description="I served as the Vice President of the Interact Club during my tenure, taking part in leadership, service activities, teamwork and community engagement." data-index="02 / 03" data-image="icnps.png">
+      <img src="icnps.png" alt="Interact Club Vice President badge">
+      <span class="logo-label">Interact Club</span>
+    </article>
+
+    <article class="logo-item" data-name="Scout Rover" data-role="SCOUT" data-title="Rover" data-description="Currently serving as a Rover in the Scout movement, developing through service, discipline, teamwork and community involvement." data-index="03 / 03" data-image="scout.png">
+      <img src="scout safal.png" alt="Scout emblem">
+      <span class="logo-label">Scout</span>
+    </article>
+  </main>
+
+
+
+  <aside class="info-panel" id="infoPanel" aria-hidden="true">
+    <div class="info-copy">
+      <div>
+        <div class="info-kicker" id="infoKicker">HEAD BOY</div>
+        <h2 class="info-title" id="infoTitle">Safal Parajuli</h2>
+        <p class="info-description" id="infoDescription">During my 9th standard, I served as the Head Boy of my school. I was elected from among 10 candidates across the school and received 217 votes, which led to my nomination as Head Boy.</p>
+      </div>
+      <div class="info-index" id="infoIndex">01 / 03</div>
+    </div>
+    <div class="info-image"><img id="infoImage" src="headboy.webp" alt=""></div>
+  </aside>
+
+  <footer class="footer">
+    <span>Student Leadership</span>
+    <span>© 2026 Safal Parajuli</span>
+  </footer>
+</div>
+
+<script>
+/* =========================================================
+   CURSOR / MAGNETIC LOGO INTERACTION
+   Move around a logo → it subtly follows the cursor,
+   tilts in 3D, grows, and creates a soft halo.
+   ========================================================= */
+
+const stage = document.getElementById('stage');
+const page = document.getElementById('page');
+const cursorLight = document.getElementById('cursorLight');
+const items = [...document.querySelectorAll('.logo-item')];
+const blobs = {
+  purple: document.querySelector('.blob-purple'),
+  lime: document.querySelector('.blob-lime'),
+  orange: document.querySelector('.blob-orange')
+};
+
+let pointer = { x: innerWidth / 2, y: innerHeight / 2 };
+let light = { x: pointer.x, y: pointer.y };
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function moveItem(item, event) {
+  const rect = item.getBoundingClientRect();
+  const x = (event.clientX - rect.left) / rect.width - .5;
+  const y = (event.clientY - rect.top) / rect.height - .5;
+
+  /* magnetic movement */
+  const moveX = clamp(x * 24, -16, 16);
+  const moveY = clamp(y * 20, -14, 14);
+
+  /* subtle 3D tilt */
+  const rotateX = y * -7;
+  const rotateY = x * 9;
+
+  item.style.setProperty('--mx', moveX + 'px');
+  item.style.setProperty('--my', moveY + 'px');
+  item.style.setProperty('--rx', rotateX + 'deg');
+  item.style.setProperty('--ry', rotateY + 'deg');
+}
+
+function resetItem(item) {
+  item.style.setProperty('--mx', '0px');
+  item.style.setProperty('--my', '0px');
+  item.style.setProperty('--rx', '0deg');
+  item.style.setProperty('--ry', '0deg');
+}
+
+document.addEventListener('pointermove', (event) => {
+  pointer.x = event.clientX;
+  pointer.y = event.clientY;
+
+  cursorLight.style.left = pointer.x + 'px';
+  cursorLight.style.top = pointer.y + 'px';
+
+  const hovered = document.elementFromPoint(pointer.x, pointer.y)?.closest('.logo-item');
+
+  if (hovered) {
+    stage.classList.add('is-interacting');
+    moveItem(hovered, event);
+
+    /* Move the background shapes very slightly toward the active logo. */
+    const rect = hovered.getBoundingClientRect();
+    const cx = (rect.left + rect.width / 2 - innerWidth / 2) / innerWidth;
+    const cy = (rect.top + rect.height / 2 - innerHeight / 2) / innerHeight;
+
+    blobs.purple.style.transform = `translate(${cx * -10}px, ${cy * -8}px) scale(1.04)`;
+    blobs.lime.style.transform = `translate(calc(-50% + ${cx * 12}px), calc(-50% + ${cy * 10}px)) scale(1.05)`;
+    blobs.orange.style.transform = `translate(${cx * 10}px, ${cy * 8}px) scale(1.04)`;
+  }
+});
+
+items.forEach(item => {
+  item.addEventListener('pointerenter', () => {
+    stage.classList.add('is-interacting');
+  });
+
+  item.addEventListener('pointermove', event => {
+    moveItem(item, event);
+  });
+
+  item.addEventListener('pointerleave', () => {
+    resetItem(item);
+    stage.classList.remove('is-interacting');
+
+    blobs.purple.style.transform = '';
+    blobs.lime.style.transform = 'translate(-50%, -50%)';
+    blobs.orange.style.transform = '';
+  });
+});
+
+/* smooth cursor light */
+function animateLight() {
+  light.x += (pointer.x - light.x) * .12;
+  light.y += (pointer.y - light.y) * .12;
+  cursorLight.style.left = light.x + 'px';
+  cursorLight.style.top = light.y + 'px';
+  requestAnimationFrame(animateLight);
+}
+animateLight();
+
+
+/* ---------- incoming hover information ---------- */
+const infoPanel = document.getElementById('infoPanel');
+const infoKicker = document.getElementById('infoKicker');
+const infoTitle = document.getElementById('infoTitle');
+const infoDescription = document.getElementById('infoDescription');
+const infoIndex = document.getElementById('infoIndex');
+const infoImage = document.getElementById('infoImage');
+
+let panelTarget = { x: innerWidth / 2, y: innerHeight / 2 };
+let panelCurrent = { x: innerWidth / 2, y: innerHeight / 2 };
+let activeItem = null;
+
+function showInfo(item, event) {
+  activeItem = item;
+  infoKicker.textContent = item.dataset.role;
+  infoTitle.textContent = item.dataset.title;
+  infoDescription.textContent = item.dataset.description;
+  infoIndex.textContent = item.dataset.index;
+  infoImage.src = item.dataset.image;
+  infoImage.alt = item.dataset.name;
+
+  panelTarget.x = event.clientX + 230;
+  panelTarget.y = event.clientY - 10;
+  positionPanel();
+  infoPanel.classList.add('active');
+  infoPanel.setAttribute('aria-hidden', 'false');
+}
+
+function positionPanel() {
+  const w = infoPanel.offsetWidth || 620;
+  const h = infoPanel.offsetHeight || 245;
+  let x = panelTarget.x;
+  let y = panelTarget.y;
+  const margin = 18;
+
+  if (x + w / 2 > innerWidth - margin) x = innerWidth - w / 2 - margin;
+  if (x - w / 2 < margin) x = w / 2 + margin;
+  if (y + h / 2 > innerHeight - margin) y = innerHeight - h / 2 - margin;
+  if (y - h / 2 < margin) y = h / 2 + margin;
+
+  panelCurrent.x += (x - panelCurrent.x) * .18;
+  panelCurrent.y += (y - panelCurrent.y) * .18;
+  infoPanel.style.left = panelCurrent.x + 'px';
+  infoPanel.style.top = panelCurrent.y + 'px';
+}
+
+function hideInfo() {
+  activeItem = null;
+  infoPanel.classList.remove('active');
+  infoPanel.setAttribute('aria-hidden', 'true');
+}
+
+items.forEach(item => {
+  item.addEventListener('pointerenter', event => {
+    showInfo(item, event);
+  });
+
+  item.addEventListener('pointermove', event => {
+    /* The panel follows the cursor gently, while the logo itself tilts. */
+    panelTarget.x = event.clientX + 230;
+    panelTarget.y = event.clientY - 10;
+    if (activeItem === item) positionPanel();
+  });
+
+  item.addEventListener('pointerleave', () => {
+    hideInfo();
+  });
+});
+
+function animateInfoPanel() {
+  if (infoPanel.classList.contains('active')) positionPanel();
+  requestAnimationFrame(animateInfoPanel);
+}
+animateInfoPanel();
+
+/* touch devices: don't keep desktop hover state */
+if (window.matchMedia('(hover: none)').matches) {
+  cursorLight.style.display = 'none';
+}
+</script>
+</body>
+</html>
