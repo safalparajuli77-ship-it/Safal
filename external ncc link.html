@@ -1376,6 +1376,321 @@ figcaption{
   }
 }
 
+
+/* =========================================================
+   SIMPLE FINAL SIGNING-OFF DESIGN
+   ========================================================= */
+
+.final-signoff{
+  position:relative;
+  min-height:100vh !important;
+  padding:55px 7vw 35px !important;
+  background:#ff4d16 !important;
+  color:#111 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:space-between !important;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.final-signoff .signoff-header{
+  position:relative;
+  z-index:3;
+  display:flex;
+  justify-content:space-between;
+  font:10px "DM Mono",monospace;
+  letter-spacing:.12em;
+  opacity:.72;
+}
+
+.final-signoff .signoff-rule{
+  position:relative;
+  z-index:3;
+  width:100%;
+  height:1px;
+  margin:18px 0 0;
+  background:#111;
+  opacity:.4;
+}
+
+.final-signoff .signoff-main{
+  position:relative;
+  z-index:3;
+  max-width:1150px;
+  margin:auto 0;
+  padding:80px 0;
+}
+
+.final-signoff .eyebrow{
+  font:10px "DM Mono",monospace;
+  letter-spacing:.14em;
+  opacity:.65;
+  animation:finalUp .8s ease both;
+}
+
+.final-signoff .signoff-title{
+  margin-top:25px;
+  display:flex;
+  flex-direction:column;
+  line-height:.78;
+  letter-spacing:-.075em;
+  animation:finalUp 1s .1s cubic-bezier(.16,1,.3,1) both;
+}
+
+.final-signoff .small-title{
+  margin-bottom:18px;
+  font:11px "DM Mono",monospace;
+  letter-spacing:.12em;
+  opacity:.55;
+}
+
+.final-signoff .big-signature{
+  font-size:clamp(65px,10vw,155px);
+  font-weight:600;
+}
+
+.final-signoff .big-signature.italic{
+  font-style:italic;
+}
+
+.final-signoff .signoff-description{
+  margin:32px 0 0;
+  font:10px "DM Mono",monospace;
+  letter-spacing:.08em;
+  opacity:.7;
+  animation:finalUp .8s .25s cubic-bezier(.16,1,.3,1) both;
+}
+
+.final-signoff .signoff-description b{
+  padding:0 8px;
+  opacity:.45;
+}
+
+.final-signoff .signoff-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:38px;
+  animation:finalUp .8s .35s cubic-bezier(.16,1,.3,1) both;
+}
+
+.final-signoff .signoff-button{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:35px;
+  min-width:210px;
+  padding:16px 18px;
+  border:1px solid #111;
+  background:transparent;
+  color:#111;
+  text-decoration:none;
+  cursor:pointer;
+  font:10px "DM Mono",monospace;
+  letter-spacing:.09em;
+  overflow:hidden;
+  transition:
+    transform .35s cubic-bezier(.16,1,.3,1),
+    color .35s ease,
+    box-shadow .35s ease;
+}
+
+.final-signoff .signoff-button::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:#111;
+  transform:translateY(100%);
+  transition:transform .4s cubic-bezier(.16,1,.3,1);
+  z-index:-1;
+}
+
+.final-signoff .signoff-button span{
+  position:relative;
+  z-index:2;
+}
+
+.final-signoff .signoff-button:hover{
+  color:#f4f0e7;
+  transform:translateY(-5px);
+  box-shadow:7px 8px 0 rgba(17,17,17,.18);
+}
+
+.final-signoff .signoff-button:hover::before{
+  transform:translateY(0);
+}
+
+.final-signoff .button-icon{
+  font-size:17px;
+  transition:transform .3s ease;
+}
+
+.final-signoff .signoff-button:hover .button-icon{
+  transform:translate(4px,-3px);
+}
+
+.final-signoff .secondary{
+  background:rgba(233,229,220,.08);
+}
+
+.final-signoff .signoff-bottom{
+  position:relative;
+  z-index:3;
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid rgba(17,17,17,.25);
+  padding-top:15px;
+  font:8px "DM Mono",monospace;
+  letter-spacing:.12em;
+  opacity:.55;
+}
+
+.final-signoff .signoff-number{
+  position:absolute !important;
+  right:3vw !important;
+  bottom:2vw !important;
+  z-index:0 !important;
+  font-size:clamp(130px,20vw,300px) !important;
+  color:#111 !important;
+  opacity:.045 !important;
+  pointer-events:none;
+  animation:numberFloat 8s ease-in-out infinite alternate;
+}
+
+.final-signoff .signoff-bg-circle{
+  position:absolute;
+  border:1px solid rgba(17,17,17,.12);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:-1;
+}
+
+.final-signoff .circle-one{
+  width:45vw;
+  height:45vw;
+  right:-18vw;
+  top:12%;
+  animation:circleFloat 8s ease-in-out infinite alternate;
+}
+
+.final-signoff .circle-two{
+  width:28vw;
+  height:28vw;
+  right:-9vw;
+  top:25%;
+  opacity:.65;
+  animation:circleFloat 8s 1s ease-in-out infinite alternate-reverse;
+}
+
+.final-signoff .signoff-scanline{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 5px,
+    rgba(17,17,17,.018) 6px
+  );
+}
+
+@keyframes finalUp{
+  from{
+    opacity:0;
+    transform:translateY(28px);
+    filter:blur(5px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+    filter:blur(0);
+  }
+}
+
+@keyframes circleFloat{
+  from{transform:translate(0,0) scale(1);}
+  to{transform:translate(-18px,12px) scale(1.04);}
+}
+
+@keyframes numberFloat{
+  from{transform:translate(0,0);}
+  to{transform:translate(-15px,-10px);}
+}
+
+/* Smooth fade when going back to the portfolio. */
+body.leaving-page::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:#111;
+  z-index:99999;
+  pointer-events:none;
+  animation:leaveFade .65s ease forwards;
+}
+
+@keyframes leaveFade{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+@media(max-width:700px){
+  .final-signoff{
+    min-height:100svh !important;
+    padding:30px 6vw 25px !important;
+  }
+
+  .final-signoff .signoff-main{
+    padding:70px 0;
+  }
+
+  .final-signoff .big-signature{
+    font-size:16vw;
+  }
+
+  .final-signoff .signoff-buttons{
+    flex-direction:column;
+    margin-top:30px;
+  }
+
+  .final-signoff .signoff-button{
+    width:100%;
+  }
+
+  .final-signoff .signoff-bottom{
+    font-size:7px;
+    line-height:1.5;
+  }
+
+  .final-signoff .circle-one{
+    width:85vw;
+    height:85vw;
+    right:-35vw;
+  }
+
+  .final-signoff .circle-two{
+    width:55vw;
+    height:55vw;
+    right:-20vw;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .final-signoff *{
+    animation:none !important;
+    transition:none !important;
+  }
+}
+
+
+/* SECTION 02 — PURPLE BACKGROUND */
+.statement{
+  background:#8e70ff;
+  color:#111;
+}
+
 </style>
   <script>
 const lightbox = document.querySelector(".lightbox");
@@ -1426,6 +1741,36 @@ document.querySelectorAll(".art").forEach(card => {
     card.querySelector(".image-frame").style.transform = "";
   });
 });
+
+
+/* =========================================================
+   FINAL SIGN-OFF BUTTON JAVASCRIPT
+   ========================================================= */
+
+const portfolioButton = document.querySelector('.final-signoff .primary');
+const topButton = document.getElementById('topButton');
+
+if (portfolioButton) {
+  portfolioButton.addEventListener('click', function(event) {
+    const destination = this.href;
+
+    event.preventDefault();
+    document.body.classList.add('leaving-page');
+
+    setTimeout(function() {
+      window.location.href = destination;
+    }, 520);
+  });
+}
+
+if (topButton) {
+  topButton.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
 
 </script>
 </head>
@@ -1578,14 +1923,49 @@ document.querySelectorAll(".art").forEach(card => {
     </section>
 
 
-    <section class="signoff final-signoff">
-      <div class="signoff-rule"></div>
-      <div class="signoff-content">
-        <div class="eyebrow">SIGNING OFF</div>
-        <div class="signature-mark">SGT. SAFAL PARAJULI</div>
-        <p>47th Junior Division Batch · Sergeant</p>
-        <a class="return-link final-return" href="index.html">RETURN TO PORTFOLIO ↗</a>
+    <section class="signoff final-signoff" id="signing-off">
+      <div class="signoff-bg-circle circle-one"></div>
+      <div class="signoff-bg-circle circle-two"></div>
+      <div class="signoff-scanline"></div>
+
+      <div class="signoff-header">
+        <span>05 / SIGNING OFF</span>
+        <span>NCC / 2026</span>
       </div>
+
+      <div class="signoff-rule"></div>
+
+      <div class="signoff-main">
+        <div class="eyebrow">ARCHIVE COMPLETE</div>
+
+        <div class="signoff-title">
+          <span class="small-title">A JOURNEY OF</span>
+          <span class="big-signature">SGT. SAFAL</span>
+          <span class="big-signature italic">PARAJULI.</span>
+        </div>
+
+        <p class="signoff-description">
+          47th Junior Division Batch <b>·</b> Sergeant <b>·</b> Kohalpur, Banke
+        </p>
+
+        <div class="signoff-buttons">
+          <a href="Untitled-1.html" class="signoff-button primary">
+            <span>RETURN TO PORTFOLIO</span>
+            <span class="button-icon">↗</span>
+          </a>
+
+          <button type="button" class="signoff-button secondary" id="topButton">
+            <span>BACK TO TOP</span>
+            <span class="button-icon">↑</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="signoff-bottom">
+        <span>THANK YOU FOR VISITING</span>
+        <span>— ARCHIVE CLOSED —</span>
+      </div>
+
       <div class="signoff-number">47166</div>
     </section>
   </main>
