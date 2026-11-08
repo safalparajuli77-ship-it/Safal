@@ -1,1979 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Safal Parajuli — NCC experience, memories and visual archive.">
-  <title>NCC — Safal Parajuli</title>
-  <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
-:root{
-  --paper:#e9e5dc;
-  --ink:#111;
-  --orange:#ff4d16;
-  --lime:#d7ff00;
-  --violet:#8e70ff;
-  --line:rgba(17,17,17,.22);
-}
-
-*{box-sizing:border-box}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Safal Parajuli — NCC experience, memories and visual archive.">
+<meta name="theme-color" content="#eeeae2">
+<title>NCC — Safal Parajuli</title>
+<script>document.documentElement.classList.add("js")</script>
+<style>
+:root{--paper:#eeeae2;--ink:#111;--orange:#ff4d16;--lime:#d7ff00;--violet:#8e70ff;--ease:cubic-bezier(.16,1,.3,1);--mono:ui-monospace,Menlo,Consolas,monospace}
+*{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  margin:0;
-  background:var(--paper);
-  color:var(--ink);
-  font-family:"Space Grotesk",Arial,sans-serif;
-  overflow-x:hidden;
-}
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:50;
-  opacity:.08;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-}
-.noise{display:none}
+body{background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{border:0;background:none;font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+h1,h2,h3{font-weight:900}
+.label{display:block;font:10px var(--mono);letter-spacing:.12em;margin-bottom:clamp(24px,3vw,48px)}
 
-.topbar{
-  position:fixed;
-  top:0;left:0;right:0;
-  height:64px;
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  align-items:center;
-  padding:0 4vw;
-  border-bottom:1px solid var(--line);
-  background:rgba(233,229,220,.82);
-  backdrop-filter:blur(14px);
-  z-index:40;
-  font:11px "DM Mono",monospace;
-  letter-spacing:.08em;
+/* cursor, progress, nav */
+.cursor{display:none}
+@media(hover:hover) and (pointer:fine){
+  body,button,a{cursor:none}
+  .cursor{display:block;position:fixed;left:-50px;top:-50px;width:14px;height:14px;border:1px solid #fff;mix-blend-mode:difference;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);z-index:99999;transition:width .25s,height .25s,background .25s}
+  .cursor.big{width:55px;height:55px;background:#fff}
 }
-.top-title{text-align:center}
-.top-year{text-align:right}
-.back{color:var(--ink);text-decoration:none}
-.back:hover{text-decoration:underline}
+.progress{position:fixed;top:0;left:0;width:100%;height:4px;background:var(--orange);transform:scaleX(0);transform-origin:left;z-index:1001;pointer-events:none}
+.nav{position:fixed;top:0;left:0;width:100%;padding:20px 28px;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;z-index:1000;mix-blend-mode:difference;color:#fff;font:11px var(--mono);letter-spacing:.12em}
+.nav .mid{text-align:center}
+.nav .yr{text-align:right}
+.nav .back:hover{text-decoration:underline}
 
-main{padding-top:64px}
-.intro{
-  min-height:calc(100vh - 64px);
-  padding:8vw 7vw 5vw;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-.eyebrow{
-  font:11px "DM Mono",monospace;
-  letter-spacing:.1em;
-}
-.intro h1{
-  margin:7vh 0 0;
-  max-width:1000px;
-  font-size:clamp(72px,13vw,190px);
-  line-height:.78;
-  letter-spacing:-.085em;
-  font-weight:600;
-}
-.intro h1 span{font-style:italic}
-.intro-copy{
-  max-width:520px;
-  margin:7vh 0 0 auto;
-  font-size:clamp(17px,2vw,26px);
-  line-height:1.2;
-}
-.scroll-note{
-  margin-top:10vh;
-  font:10px "DM Mono",monospace;
-  letter-spacing:.08em;
-}
+/* intro */
+.intro{position:relative;min-height:100vh;padding:150px 6vw 80px;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:space-between;
+  background:radial-gradient(circle at 88% 12%,rgba(255,77,22,.13),transparent 46%),radial-gradient(circle at 8% 92%,rgba(142,112,255,.14),transparent 46%),radial-gradient(circle at 42% 38%,rgba(215,255,0,.14),transparent 42%),#f4edde}
+.grid{position:absolute;inset:-240px;z-index:-1;background-image:linear-gradient(rgba(17,17,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,17,.05) 1px,transparent 1px),linear-gradient(rgba(17,17,17,.085) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,17,.085) 1px,transparent 1px);background-size:48px 48px,48px 48px,240px 240px,240px 240px;animation:drift 40s linear infinite}
+@keyframes drift{to{transform:translate(240px,240px)}}
+.blob{position:absolute;z-index:-1;border-radius:50%;pointer-events:none}
+.b1{width:230px;height:230px;right:6%;top:16%;background:radial-gradient(circle at 30% 28%,#ff8a55,#ff4d16 62%,#e03a08);animation:bob 8s ease-in-out infinite}
+.b2{width:100px;height:100px;left:46%;bottom:14%;background:radial-gradient(circle at 30% 28%,#f3ff7a,#d7ff00 65%,#b9dc00);animation:bob 9s 1s ease-in-out infinite reverse}
+@keyframes bob{50%{transform:translate(-30px,34px)}}
+.intro h1{font-size:clamp(58px,12vw,190px);line-height:.8;letter-spacing:-.085em;text-transform:uppercase;margin-top:6vh}
+.intro h1 span{display:block;font-style:italic;color:var(--orange)}
+.intro-copy{max-width:520px;margin:6vh 0 0 auto;font-size:clamp(17px,2vw,24px);line-height:1.3}
+.memory-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:5vh}
+.memory-meta span{padding:8px 14px;border:1px solid var(--ink);border-radius:999px;background:rgba(255,255,255,.35);font:10px var(--mono);letter-spacing:.1em}
+.scroll-note{margin-top:5vh;font:10px var(--mono);letter-spacing:.12em}
 
-.statement,.timeline{
-  display:grid;
-  grid-template-columns:18% 1fr;
-  gap:5vw;
-  padding:12vw 7vw;
-  border-top:1px solid var(--line);
-}
-.section-no{font:12px "DM Mono",monospace}
-.big-text{
-  max-width:950px;
-  margin:0;
-  font-size:clamp(40px,6.4vw,94px);
-  line-height:.94;
-  letter-spacing:-.055em;
-}
-.big-text em{color:var(--orange);font-style:normal}
-.body-copy{
-  max-width:600px;
-  margin:7vw 0 0 auto;
-  font-size:17px;
-  line-height:1.55;
-}
+/* marquee */
+.marquee{overflow:hidden;white-space:nowrap;background:var(--ink);color:var(--paper);padding:17px 0}
+.marquee-track{display:inline-flex;font:11px var(--mono);letter-spacing:.1em;animation:mq 25s linear infinite}
+.marquee-track span{white-space:pre}
+@keyframes mq{to{transform:translateX(-50%)}}
 
-.museum{
-  padding:10vw 5vw 12vw;
-  background:#111;
-  color:#f4f0e7;
-}
-.museum-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  padding:0 2vw 7vw;
-}
-.museum-head h2,.timeline h2,.closing h2{
-  margin:.5em 0 0;
-  font-size:clamp(58px,9vw,130px);
-  line-height:.82;
-  letter-spacing:-.075em;
-}
-.museum-head p{
-  margin:0;
-  font:10px "DM Mono",monospace;
-  line-height:1.5;
-  text-align:right;
-  opacity:.7;
-}
+/* 02 statement */
+.statement{display:grid;grid-template-columns:18% 1fr;gap:5vw;padding:15vh 6vw;background:var(--violet)}
+.big-text{max-width:1150px;font-size:clamp(34px,5.6vw,86px);line-height:.94;letter-spacing:-.06em;font-weight:900;text-transform:uppercase}
+.big-text em{font-style:normal;background:var(--ink);color:var(--lime);padding:0 .12em}
+.body-copy{max-width:600px;margin:6vw 0 0 auto;font-size:17px;line-height:1.55}
 
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  gap:5vw 2vw;
-  align-items:start;
-}
-.art{margin:0;cursor:pointer}
-.art-a{grid-column:1 / span 5;transform:rotate(-2deg)}
-.art-b{grid-column:7 / span 5;margin-top:10vw;transform:rotate(1.5deg)}
-.art-c{grid-column:2 / span 5;margin-top:2vw;transform:rotate(1.2deg)}
-.art-d{grid-column:8 / span 4;margin-top:-4vw;transform:rotate(-1.5deg)}
+/* 03 museum */
+.museum{padding:12vh 5vw 14vh;background:var(--ink);color:#f4f0e7;overflow:hidden}
+.museum-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:0 1vw 2vw}
+.museum h2,.timeline h2{font-size:clamp(54px,9vw,130px);line-height:.8;letter-spacing:-.085em;text-transform:uppercase}
+.museum-head p{font:10px/1.6 var(--mono);text-align:right;opacity:.7}
+.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2vw;max-width:1700px;margin:0 auto;padding-top:100px}
+.art{position:relative;margin:0;cursor:pointer;transform-origin:50% 0;transform:rotate(var(--a,0deg));transition:transform .7s var(--ease),opacity 1s var(--ease)}
+.art:nth-child(1){--a:-2deg}.art:nth-child(2){--a:1.5deg}.art:nth-child(3){--a:-1deg}.art:nth-child(4){--a:2deg}
+.art::before{content:"";position:absolute;top:-76px;left:50%;width:1px;height:76px;background:var(--paper)}
+.art::after{content:"";position:absolute;top:-13px;left:50%;width:42px;height:26px;border:2px solid var(--ink);border-radius:5px 5px 8px 8px;background:#bcb8af;transform:translateX(-50%);z-index:5;box-shadow:inset 0 0 0 2px rgba(255,255,255,.28)}
+.js .art.reveal{opacity:0;transform:translateY(60px) rotate(var(--a))}
+.js .art.reveal.in{opacity:1;transform:rotate(var(--a))}
+.js .art.reveal.in:hover{transform:rotate(0) translateY(-10px)}
+.image-frame{position:relative;aspect-ratio:4/5;overflow:hidden;background:#242424;border:1px solid rgba(255,255,255,.18);box-shadow:10px 14px 0 rgba(0,0,0,.5)}
+.art img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(.1) contrast(1.05) saturate(.9);transition:transform .9s var(--ease),filter .6s}
+.art-a img,.art-c img{object-position:72% center}
+.art:hover img{transform:scale(1.06);filter:none}
+.image-number{position:absolute;top:12px;right:12px;padding:7px 9px;background:var(--paper);color:var(--ink);font:9px var(--mono);letter-spacing:.08em}
+figcaption{display:flex;justify-content:space-between;gap:10px;margin-top:14px;font:9px var(--mono);letter-spacing:.08em;color:#aaa}
 
-.image-frame{
-  position:relative;
-  overflow:hidden;
-  background:#242424;
-  border:1px solid rgba(255,255,255,.15);
-  box-shadow:12px 15px 0 rgba(0,0,0,.5);
-  transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s ease;
-}
-.art img{
-  display:block;
-  width:100%;
-  aspect-ratio:4/5;
-  object-fit:cover;
-  filter:grayscale(.12) contrast(1.05);
-  transition:transform .8s cubic-bezier(.16,1,.3,1),filter .6s ease;
-}
-.art:hover .image-frame{
-  transform:translateY(-14px) rotate(0deg);
-  box-shadow:20px 25px 0 rgba(0,0,0,.55);
-}
-.art:hover img{transform:scale(1.06);filter:grayscale(0) contrast(1.08)}
-.image-number{
-  position:absolute;
-  top:12px;right:12px;
-  background:#f4f0e7;color:#111;
-  padding:7px 9px;
-  font:9px "DM Mono",monospace;
-}
-figcaption{
-  display:flex;
-  justify-content:space-between;
-  margin-top:13px;
-  font:9px "DM Mono",monospace;
-  letter-spacing:.07em;
-  color:#aaa;
-}
+/* 04 memory */
+.timeline{padding:15vh 6vw 16vh;background:var(--lime)}
+.timeline .eyebrow{font:10px var(--mono);letter-spacing:.12em}
+.timeline h2{margin:20px 0 7vw}
+.experience-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.4vw}
+.experience-row article{position:relative;min-height:330px;padding:25px;border:1px solid rgba(17,17,17,.2);background:var(--paper);overflow:hidden;box-shadow:inset 3px 3px 0 rgba(255,255,255,.55),inset -3px -3px 0 rgba(0,0,0,.14),7px 7px 0 rgba(17,17,17,.16);transition:transform .4s var(--ease),box-shadow .4s}
+.experience-row article:nth-child(2){background:var(--violet)}
+.experience-row article:nth-child(3){background:var(--orange)}
+.experience-row article.training-detail{background:var(--ink);color:#f4f0e7}
+.experience-row article:hover{transform:translateY(-9px);box-shadow:inset 4px 4px 0 rgba(255,255,255,.6),inset -4px -4px 0 rgba(0,0,0,.18),12px 14px 0 rgba(17,17,17,.2)}
+.experience-row article>span{display:block;font:10px var(--mono);letter-spacing:.1em}
+.experience-row h3{margin:55px 0 16px;font-size:clamp(24px,2.35vw,38px);line-height:.92;letter-spacing:-.055em;text-transform:uppercase}
+.experience-row p{max-width:300px;font-size:14px;line-height:1.5}
+.training-detail strong{display:block;margin:55px 0 14px;font-size:clamp(42px,4.5vw,72px);line-height:.8;letter-spacing:-.075em;font-weight:900;color:var(--lime)}
 
-.timeline{background: #8E70FF;
-  grid-template-columns:repeat(3,1fr);
-  gap:2vw;
-}
-.notes article{
-  border-top:2px solid var(--ink);
-  padding-top:18px;
-}
-.notes span{font:10px "DM Mono",monospace}
-.notes h3{font-size:30px;margin:45px 0 12px}
-.notes p{max-width:260px;line-height:1.5}
+/* tribute */
+.tribute{padding:15vh 6vw;background:var(--ink);color:#f4f0e7}
+.tribute .eyebrow{font:10px var(--mono);letter-spacing:.12em}
+.tribute h2{margin:20px 0 7vw;font-size:clamp(54px,9vw,130px);line-height:.8;letter-spacing:-.085em;text-transform:uppercase}
+.tribute-grid{display:grid;grid-template-columns:1fr 1fr;gap:3vw}
+.tribute-grid article{padding-top:20px;border-top:1px solid rgba(244,240,231,.35);transition:padding .3s}
+.tribute-grid article:hover{padding-left:20px}
+.tribute-grid span{font:10px var(--mono);letter-spacing:.1em;color:var(--lime)}
+.tribute-grid h3{margin:50px 0 15px;font-size:clamp(25px,3vw,46px);letter-spacing:-.05em;font-weight:900}
+.tribute-grid p{max-width:420px;line-height:1.55;color:#aaa}
 
-.closing{
-  min-height:80vh;
-  padding:12vw 7vw;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  background:var(--orange);
-}
-.closing h2 span{font-style:italic}
-.return-link{
-  color:var(--ink);
-  text-decoration:none;
-  font:11px "DM Mono",monospace;
-  width:max-content;
-  border-bottom:1px solid var(--ink);
-  padding-bottom:7px;
-}
-.return-link:hover{padding-right:12px}
+/* 05 signing off */
+.final-signoff{position:relative;min-height:100vh;padding:55px 6vw 35px;background:var(--orange);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;isolation:isolate}
+.so-head{display:flex;justify-content:space-between;font:10px var(--mono);letter-spacing:.12em}
+.so-rule{height:1px;margin-top:18px;background:var(--ink);opacity:.5}
+.so-main{margin:auto 0;padding:80px 0;max-width:1150px}
+.so-main .eyebrow{font:10px var(--mono);letter-spacing:.14em;opacity:.7}
+.so-title{display:flex;flex-direction:column;margin-top:25px;line-height:.78;letter-spacing:-.085em;text-transform:uppercase}
+.small-title{margin-bottom:18px;font:11px var(--mono);letter-spacing:.12em;opacity:.65}
+.big-signature{font-size:clamp(58px,10vw,155px);font-weight:900}
+.big-signature.italic{font-style:italic}
+.so-desc{margin-top:32px;font:10px var(--mono);letter-spacing:.08em}
+.so-desc b{padding:0 8px;opacity:.5}
+.so-buttons{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px}
+.pill{position:relative;isolation:isolate;overflow:hidden;min-width:230px;min-height:58px;display:grid;grid-template-columns:30px 1fr 24px;align-items:center;gap:10px;padding:0 16px;border:1px solid rgba(17,17,17,.5);border-radius:999px;background:rgba(255,255,255,.12);text-align:left;transition:transform .45s var(--ease),color .35s,box-shadow .45s}
+.pill::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--ink);transform:translateX(-105%);transition:transform .55s var(--ease)}
+.pill:hover,.pill:focus-visible{color:#fff;transform:translateY(-6px) rotate(-1.2deg);box-shadow:8px 8px 0 rgba(17,17,17,.18)}
+.pill:hover::before,.pill:focus-visible::before{transform:none}
+.pi{width:28px;height:28px;display:grid;place-items:center;border:1px solid currentColor;border-radius:50%;font-size:12px;font-weight:800}
+.pl{font:700 10px var(--mono);letter-spacing:.14em}
+.pa{font-size:18px;transition:transform .45s var(--ease)}
+.pill:hover .pa{transform:translate(5px,-5px)}
+.so-bottom{display:flex;justify-content:space-between;padding-top:15px;border-top:1px solid rgba(17,17,17,.25);font:8px var(--mono);letter-spacing:.12em;opacity:.6}
+.so-number{position:absolute;right:3vw;bottom:2vw;z-index:-1;font-size:clamp(130px,20vw,300px);font-weight:900;line-height:.7;letter-spacing:-.1em;opacity:.06;pointer-events:none}
+.ring{position:absolute;z-index:-1;border:1px solid rgba(17,17,17,.14);border-radius:50%;pointer-events:none;animation:bob 9s ease-in-out infinite}
+.r1{width:45vw;height:45vw;right:-18vw;top:12%}
+.r2{width:28vw;height:28vw;right:-9vw;top:25%;animation-delay:1s}
 
-.lightbox{
-  position:fixed;
-  inset:0;
-  background:rgba(10,10,10,.94);
-  z-index:100;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:7vw;
-}
-.lightbox.open{display:flex}
-.lightbox img{
-  max-width:min(900px,90vw);
-  max-height:82vh;
-  object-fit:contain;
-}
-.close-lightbox{
-  position:absolute;
-  top:24px;right:30px;
-  border:0;background:none;color:white;
-  font-size:45px;cursor:pointer;
-}
-.lightbox-caption{
-  position:absolute;
-  bottom:25px;left:30px;
-  color:white;
-  font:10px "DM Mono",monospace;
-  letter-spacing:.08em;
-}
+/* lightbox */
+.lightbox{position:fixed;inset:0;z-index:99990;display:flex;align-items:center;justify-content:center;padding:7vw;background:rgba(17,17,17,.94);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.lightbox.open{opacity:1;visibility:visible}
+.lightbox img{max-width:min(900px,90vw);max-height:78vh;object-fit:contain;border:1px solid rgba(255,255,255,.25);box-shadow:12px 12px 0 var(--lime)}
+.close-lightbox{position:absolute;top:18px;right:18px;width:44px;height:44px;display:grid;place-items:center;border:1px solid rgba(238,234,226,.6);color:var(--paper);font:700 20px var(--mono)}
+.close-lightbox:hover{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+.lightbox-caption{position:absolute;bottom:25px;left:30px;color:#fff;font:10px var(--mono);letter-spacing:.1em}
 
+/* back to top + page fade */
+.to-top{position:fixed;right:28px;bottom:28px;z-index:900;padding:12px 14px;background:var(--lime);border:1px solid var(--ink);box-shadow:5px 5px 0 var(--ink);font:700 10px var(--mono);letter-spacing:.1em;opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .3s,transform .3s}
+.to-top.show{opacity:1;transform:none;pointer-events:auto}
+body.leaving::after{content:"";position:fixed;inset:0;z-index:999999;background:var(--ink);animation:leave .6s ease forwards}
+@keyframes leave{from{opacity:0}to{opacity:1}}
+
+/* reveal */
+.js .reveal{opacity:0;transform:translateY(60px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.js .reveal.in{opacity:1;transform:none}
+
+@media(max-width:1100px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:90px 3vw}.experience-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){
-  .topbar{grid-template-columns:1fr 1fr;height:56px}
-  .top-title{display:none}
-  main{padding-top:56px}
-  .intro{min-height:calc(100vh - 56px);padding:12vw 6vw}
-  .intro h1{font-size:18vw}
-  .intro-copy{margin-left:0}
-  .statement,.timeline{grid-template-columns:1fr;padding:20vw 6vw}
-  .section-no{margin-bottom:8vw}
-  .museum{padding:18vw 6vw}
-  .museum-head{display:block;padding:0 0 12vw}
-  .museum-head p{text-align:left;margin-top:7vw}
-  .gallery{display:block}
-  .art{margin:0 0 18vw!important}
-  .notes{grid-template-columns:1fr;gap:14vw}
-  .closing{min-height:70vh;padding:18vw 6vw}
-}
-
-
-/* =========================================================
-   PERSONAL PHOTO FRAMING
-   01 + 03: subject is on the RIGHT side
-========================================================= */
-.art-a img,
-.art-c img{
-  object-position:72% center;
-}
-
-/* =========================================================
-   THREE-PHOTO SEQUENTIAL MUSEUM REVEAL
-   01 → 02 → 03
-========================================================= */
-.art-a,
-.art-b,
-.art-c{
-  opacity:0;
-  animation: museumPhotoReveal 1s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-.art-a{animation-delay:.15s}
-.art-b{animation-delay:.55s}
-.art-c{animation-delay:.95s}
-
-@keyframes museumPhotoReveal{
-  from{
-    opacity:0;
-    transform:translateY(70px) rotate(-2deg) scale(.96);
-    filter:blur(7px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0) rotate(var(--museum-angle, 0deg)) scale(1);
-    filter:blur(0);
-  }
-}
-
-/* Keep each card's original museum angle after reveal */
-.art-a{--museum-angle:-2deg}
-.art-b{--museum-angle:1.5deg}
-.art-c{--museum-angle:1.2deg}
-
-@media (prefers-reduced-motion:reduce){
-  .art-a,.art-b,.art-c{
-    opacity:1;
-    animation:none;
-  }
-}
-
-
-.memory-meta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px 28px;
-  margin-top:4vw;
-  font:10px "DM Mono",monospace;
-  letter-spacing:.08em;
-}
-.memory-meta span{
-  border-bottom:1px solid var(--ink);
-  padding-bottom:6px;
-}
-
-
-
-.tribute{
-  padding:12vw 7vw;
-  background:#111;
-  color:#f4f0e7;
-}
-.tribute h2{
-  margin:1vw 0 8vw;
-  font-size:clamp(58px,9vw,130px);
-  line-height:.82;
-  letter-spacing:-.075em;
-}
-.tribute-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:3vw;
-}
-.tribute-grid article{
-  border-top:1px solid rgba(244,240,231,.35);
-  padding-top:20px;
-}
-.tribute-grid span{
-  font:10px "DM Mono",monospace;
-  letter-spacing:.08em;
-  opacity:.65;
-}
-.tribute-grid h3{
-  font-size:clamp(25px,3vw,46px);
-  font-weight:500;
-  margin:50px 0 15px;
-  letter-spacing:-.04em;
-}
-.tribute-grid p{
-  max-width:420px;
-  line-height:1.55;
-  color:#aaa;
-}
-
-
-
-.signoff{
-  position:relative;
-  min-height:55vh;
-  padding:10vw 7vw 8vw;
-  background:var(--paper);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  overflow:hidden;
-}
-.signoff-rule{
-  width:100%;
-  height:1px;
-  background:var(--ink);
-  margin-bottom:7vw;
-}
-.signoff-content{
-  position:relative;
-  z-index:2;
-}
-.signature-mark{
-  margin-top:2vw;
-  font-size:clamp(52px,9vw,145px);
-  line-height:.82;
-  letter-spacing:-.075em;
-  font-style:italic;
-  font-weight:600;
-  text-transform:uppercase;
-}
-.signoff-content p{
-  margin-top:2vw;
-  font:11px "DM Mono",monospace;
-  letter-spacing:.08em;
-}
-.signoff-number{
-  position:absolute;
-  right:6vw;
-  bottom:3vw;
-  font:clamp(90px,18vw,260px) "Space Grotesk",sans-serif;
-  line-height:.7;
-  letter-spacing:-.1em;
-  opacity:.06;
-}
-
-
-/* =========================================================
-   FINAL SIGN-OFF — LAST PAGE
-========================================================= */
-.final-signoff{
-  min-height:100vh;
-  background:var(--orange);
-  color:var(--ink);
-  padding:12vw 7vw 8vw;
-  justify-content:center;
-}
-
-.final-signoff .signoff-rule{
-  background:var(--ink);
-}
-
-.final-signoff .signoff-number{
-  color:var(--ink);
-  opacity:.08;
-}
-
-.final-signoff .signoff-content p{
-  color:var(--ink);
-}
-
-.final-return{
-  display:inline-block;
-  margin-top:5vw;
-  color:var(--ink);
-  text-decoration:none;
-  font:11px "DM Mono",monospace;
-  letter-spacing:.08em;
-  border-bottom:1px solid var(--ink);
-  padding-bottom:8px;
-  width:max-content;
-  transition:padding-right .3s ease;
-}
-
-.final-return:hover{
-  padding-right:14px;
-}
-
-
-/* =========================================================
-   03 / VISUAL ARCHIVE — HORIZONTAL MUSEUM STRIP
-========================================================= */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:2.2vw;
-  align-items:stretch;
-  max-width:1500px;
-  margin:0 auto;
-}
-
-.art{
-  margin:0 !important;
-  cursor:pointer;
-  transform:none !important;
-  opacity:0;
-  animation:galleryIn .9s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-.art-a{animation-delay:.12s}
-.art-b{animation-delay:.34s}
-.art-c{animation-delay:.56s}
-
-/* Keep the fourth archive image outside the main 3-image row if present. */
-.art-d{
-  grid-column:1 / -1;
-  width:min(430px,100%);
-  justify-self:center;
-  margin-top:1.5vw !important;
-  animation-delay:.78s;
-}
-
-.image-frame{
-  position:relative;
-  overflow:hidden;
-  background:#242424;
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:10px 12px 0 rgba(0,0,0,.45);
-  transition:
-    transform .55s cubic-bezier(.16,1,.3,1),
-    box-shadow .55s ease;
-}
-
-.art img{
-  display:block;
-  width:100%;
-  aspect-ratio:4/5;
-  object-fit:cover;
-  filter:grayscale(.12) contrast(1.06);
-  transition:
-    transform .8s cubic-bezier(.16,1,.3,1),
-    filter .6s ease;
-}
-
-/* Subject is on the right in photos 01 and 03. */
-.art-a img,
-.art-c img{
-  object-position:72% center;
-}
-
-.art:hover .image-frame{
-  transform:translateY(-12px) scale(1.018);
-  box-shadow:17px 20px 0 rgba(0,0,0,.55);
-}
-
-.art:hover img{
-  transform:scale(1.055);
-  filter:grayscale(0) contrast(1.08);
-}
-
-.art figcaption{
-  padding-top:12px;
-}
-
-@keyframes galleryIn{
-  from{
-    opacity:0;
-    transform:translateX(70px) translateY(18px) scale(.96) !important;
-    filter:blur(6px);
-  }
-  to{
-    opacity:1;
-    transform:translateX(0) translateY(0) scale(1) !important;
-    filter:blur(0);
-  }
-}
-
-/* =========================================================
-   04 / EXPERIENCE NOTES — HORIZONTAL CARDS
-========================================================= */
-.timeline{
-  display:block;
-  padding:10vw 7vw 12vw;
-  border-top:1px solid var(--line);
-  background:var(--lime);
-}
-
-.timeline > .section-no{
-  margin-bottom:4vw;
-}
-
-.timeline-content h2{
-  margin:0 0 7vw;
-}
-
-.notes{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:1.5vw;
-  align-items:stretch;
-}
-
-.notes article{
-  position:relative;
-  min-height:310px;
-  border:1px solid var(--ink);
-  padding:24px 25px 28px;
-  background:rgba(233,229,220,.25);
-  box-shadow:7px 7px 0 rgba(17,17,17,.13);
-  overflow:hidden;
-  transition:
-    transform .4s cubic-bezier(.16,1,.3,1),
-    box-shadow .4s ease,
-    background .4s ease;
-}
-
-.notes article::after{
-  content:"";
-  position:absolute;
-  width:90px;
-  height:90px;
-  right:-35px;
-  bottom:-35px;
-  border:1px solid rgba(17,17,17,.18);
-  border-radius:50%;
-  transition:transform .5s ease;
-}
-
-.notes article:hover{
-  transform:translateY(-9px);
-  box-shadow:13px 15px 0 rgba(17,17,17,.2);
-  background:rgba(233,229,220,.65);
-}
-
-.notes article:hover::after{
-  transform:scale(1.8);
-}
-
-.notes article > span{
-  display:block;
-  font:10px "DM Mono",monospace;
-  letter-spacing:.1em;
-}
-
-.notes h3{
-  margin:55px 0 15px;
-  font-size:clamp(25px,3vw,43px);
-  line-height:.95;
-  letter-spacing:-.05em;
-}
-
-.notes p{
-  max-width:330px;
-  margin:0;
-  line-height:1.5;
-}
-
-/* 100-day training block becomes a fourth horizontal card. */
-.training-detail{
-  position:relative;
-  margin:1.5vw 0 0;
-  padding:25px 25px 28px;
-  max-width:none;
-  border:1px solid var(--ink);
-  background:rgba(233,229,220,.25);
-  box-shadow:7px 7px 0 rgba(17,17,17,.13);
-  transition:
-    transform .4s cubic-bezier(.16,1,.3,1),
-    box-shadow .4s ease,
-    background .4s ease;
-}
-
-.training-detail:hover{
-  transform:translateY(-9px);
-  box-shadow:13px 15px 0 rgba(17,17,17,.2);
-  background:rgba(233,229,220,.65);
-}
-
-.training-detail span{
-  font:10px "DM Mono",monospace;
-  letter-spacing:.1em;
-}
-
-.training-detail strong{
-  display:block;
-  margin:45px 0 10px;
-  font-size:clamp(48px,6vw,90px);
-  line-height:.8;
-  letter-spacing:-.07em;
-}
-
-.training-detail p{
-  max-width:520px;
-  margin:0;
-  line-height:1.5;
-}
-
-/* On wider screens, make 100 DAYS a fourth card in the same row. */
-@media(min-width:1000px){
-  .training-detail{
-    display:block;
-    min-height:310px;
-    width:auto;
-  }
-
-  .timeline-content::after{
-    content:"";
-    display:block;
-    clear:both;
-  }
-
-  .notes{
-    grid-template-columns:repeat(3,minmax(0,1fr));
-  }
-}
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-@media(max-width:900px){
-  .gallery{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:6vw 3vw;
-  }
-
-  .art-d{
-    grid-column:1 / -1;
-  }
-
-  .notes{
-    grid-template-columns:1fr;
-    gap:4vw;
-  }
-
-  .training-detail{
-    margin-top:4vw;
-  }
-}
-
-@media(max-width:700px){
-  .gallery{
-    display:block;
-  }
-
-  .art,
-  .art-d{
-    width:100%;
-    margin:0 0 16vw !important;
-  }
-
-  .notes{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:7vw;
-  }
-
-  .notes article,
-  .training-detail{
-    min-height:auto;
-  }
-
-  .training-detail{
-    margin-top:7vw;
-  }
-}
-
-@media(prefers-reduced-motion:reduce){
-  .art{
-    opacity:1;
-    animation:none;
-  }
-}
-
-
-/* =========================================================
-   FINAL 04 / HORIZONTAL MEMORY ROW — 01 02 03 + 100 DAYS
-========================================================= */
-.experience-row{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:1.25vw;
-  align-items:stretch;
-}
-
-.experience-row > article{
-  position:relative;
-  min-height:330px;
-  border:1px solid var(--ink);
-  padding:24px 24px 28px;
-  background:rgba(233,229,220,.24);
-  box-shadow:7px 7px 0 rgba(17,17,17,.13);
-  overflow:hidden;
-  transition:
-    transform .45s cubic-bezier(.16,1,.3,1),
-    box-shadow .45s ease,
-    background .45s ease;
-}
-
-.experience-row > article::after{
-  content:"";
-  position:absolute;
-  width:95px;
-  height:95px;
-  right:-42px;
-  bottom:-42px;
-  border:1px solid rgba(17,17,17,.18);
-  border-radius:50%;
-  transition:transform .55s ease;
-}
-
-.experience-row > article:hover{
-  transform:translateY(-10px);
-  box-shadow:14px 17px 0 rgba(17,17,17,.2);
-  background:rgba(233,229,220,.72);
-}
-
-.experience-row > article:hover::after{
-  transform:scale(1.9);
-}
-
-.experience-row > article > span{
-  display:block;
-  font:10px "DM Mono",monospace;
-  letter-spacing:.1em;
-}
-
-.experience-row > article h3{
-  margin:55px 0 16px;
-  font-size:clamp(24px,2.35vw,38px);
-  line-height:.92;
-  letter-spacing:-.055em;
-}
-
-.experience-row > article p{
-  max-width:300px;
-  margin:0;
-  line-height:1.5;
-  font-size:14px;
-}
-
-.experience-row .training-detail{
-  margin:0;
-  padding:24px 24px 28px;
-  max-width:none;
-  min-height:330px;
-}
-
-.experience-row .training-detail strong{
-  display:block;
-  margin:55px 0 14px;
-  font-size:clamp(42px,4.6vw,72px);
-  line-height:.8;
-  letter-spacing:-.075em;
-}
-
-@media(max-width:1100px){
-  .experience-row{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:2vw;
-  }
-}
-
-@media(max-width:700px){
-  .experience-row{
-    grid-template-columns:1fr;
-    gap:6vw;
-  }
-
-  .experience-row > article,
-  .experience-row .training-detail{
-    min-height:auto;
-  }
-}
-
-
-/* =========================================================
-   03 / VISUAL ARCHIVE — CLEAN FOUR-PHOTO HORIZONTAL WALL
-========================================================= */
-.museum{
-  padding:9vw 5vw 11vw;
-  background:#111;
-  color:#f4f0e7;
-}
-
-.museum-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  padding:0 1vw 5vw;
-}
-
-.gallery{
-  display:grid !important;
-  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
-  gap:1.35vw !important;
-  width:100%;
-  max-width:1700px;
-  margin:0 auto;
-  align-items:start;
-}
-
-.gallery .art,
-.gallery .art-a,
-.gallery .art-b,
-.gallery .art-c,
-.gallery .art-d{
-  grid-column:auto !important;
-  width:auto !important;
-  margin:0 !important;
-  transform:none !important;
-  opacity:0;
-  animation:photoArrive .8s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-.gallery .art-a{animation-delay:.08s}
-.gallery .art-b{animation-delay:.28s}
-.gallery .art-c{animation-delay:.48s}
-.gallery .art-d{animation-delay:.68s}
-
-.gallery .image-frame{
-  width:100%;
-  aspect-ratio:4/5;
-  overflow:hidden;
-  background:#242424;
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:8px 10px 0 rgba(0,0,0,.42);
-  transition:
-    transform .5s cubic-bezier(.16,1,.3,1),
-    box-shadow .5s ease;
-}
-
-.gallery .art img{
-  display:block;
-  width:100%;
-  height:100%;
-  aspect-ratio:auto;
-  object-fit:cover;
-  filter:grayscale(.1) contrast(1.05);
-  transition:
-    transform .75s cubic-bezier(.16,1,.3,1),
-    filter .5s ease;
-}
-
-/* 01 and 03: keep the person on the right side visible. */
-.gallery .art-a img,
-.gallery .art-c img{
-  object-position:72% center;
-}
-
-.gallery .art:hover .image-frame{
-  transform:translateY(-10px);
-  box-shadow:13px 17px 0 rgba(0,0,0,.55);
-}
-
-.gallery .art:hover img{
-  transform:scale(1.045);
-  filter:grayscale(0) contrast(1.08);
-}
-
-.gallery figcaption{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding-top:11px;
-  margin:0;
-  font:9px "DM Mono",monospace;
-  letter-spacing:.07em;
-  color:#aaa;
-}
-
-@keyframes photoArrive{
-  from{
-    opacity:0;
-    transform:translateX(55px) translateY(15px) scale(.97) !important;
-    filter:blur(5px);
-  }
-  to{
-    opacity:1;
-    transform:translateX(0) translateY(0) scale(1) !important;
-    filter:blur(0);
-  }
-}
-
-
-/* =========================================================
-   04 / MEMORY — PROFESSIONAL HORIZONTAL CARDS
-========================================================= */
-.timeline{
-  display:block;
-  padding:10vw 7vw 12vw;
-  background:var(--lime);
-  color:var(--ink);
-}
-
-.experience-row{
-  display:grid !important;
-  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
-  gap:1.25vw;
-  width:100%;
-}
-
-.experience-row > article{
-  position:relative;
-  min-height:330px;
-  padding:25px;
-  border:1px solid var(--ink);
-  background:rgba(233,229,220,.28);
-  box-shadow:7px 7px 0 rgba(17,17,17,.13);
-  overflow:hidden;
-  transition:
-    transform .4s cubic-bezier(.16,1,.3,1),
-    box-shadow .4s ease,
-    background .4s ease;
-}
-
-.experience-row > article:hover{
-  transform:translateY(-9px);
-  box-shadow:13px 16px 0 rgba(17,17,17,.2);
-  background:rgba(233,229,220,.72);
-}
-
-/* Card 02 — purple */
-.experience-row > article:nth-child(2){
-  background:#8e70ff;
-  color:#111;
-  border-color:#111;
-}
-
-.experience-row > article:nth-child(2):hover{
-  background:#9d83ff;
-}
-
-.experience-row > article > span{
-  display:block;
-  font:10px "DM Mono",monospace;
-  letter-spacing:.1em;
-}
-
-.experience-row > article h3{
-  margin:55px 0 16px;
-  font-size:clamp(24px,2.35vw,38px);
-  line-height:.92;
-  letter-spacing:-.055em;
-}
-
-.experience-row > article p{
-  max-width:300px;
-  margin:0;
-  line-height:1.5;
-  font-size:14px;
-}
-
-.experience-row .training-detail{
-  margin:0;
-  min-height:330px;
-  padding:25px;
-  max-width:none;
-  background:rgba(233,229,220,.28);
-}
-
-.experience-row .training-detail strong{
-  display:block;
-  margin:55px 0 14px;
-  font-size:clamp(42px,4.5vw,72px);
-  line-height:.8;
-  letter-spacing:-.075em;
-}
-
-
-/* =========================================================
-   FINAL SIGNING OFF — CLEAN PROFESSIONAL END PAGE
-========================================================= */
-.final-signoff{
-  min-height:100vh !important;
-  padding:11vw 7vw 7vw !important;
-  background:#ff4d16 !important;
-  color:#111 !important;
-  display:flex;
-  justify-content:center;
-  flex-direction:column;
-  position:relative;
-  overflow:hidden;
-}
-
-.final-signoff::before{
-  content:"";
-  position:absolute;
-  inset:5vw;
-  border:1px solid rgba(17,17,17,.28);
-  pointer-events:none;
-}
-
-.final-signoff .signoff-rule{
-  width:100%;
-  height:1px;
-  background:#111;
-  margin:0 0 5vw;
-}
-
-.final-signoff .signoff-content{
-  position:relative;
-  z-index:2;
-  max-width:1500px;
-}
-
-.final-signoff .eyebrow{
-  font-size:10px;
-  letter-spacing:.14em;
-}
-
-.final-signoff .signature-mark{
-  margin:2.5vw 0 0;
-  font-size:clamp(58px,9.5vw,155px);
-  line-height:.78;
-  letter-spacing:-.085em;
-  font-style:italic;
-  font-weight:700;
-  text-transform:uppercase;
-  white-space:nowrap;
-}
-
-.final-signoff .signoff-content p{
-  margin:2.5vw 0 0;
-  font:11px "DM Mono",monospace;
-  letter-spacing:.08em;
-}
-
-.final-signoff .final-return{
-  display:inline-flex;
-  width:max-content;
-  margin-top:5vw;
-  padding:13px 0 9px;
-  border-bottom:1px solid #111;
-  color:#111;
-  text-decoration:none;
-  font:10px "DM Mono",monospace;
-  letter-spacing:.1em;
-  transition:padding-right .3s ease;
-}
-
-.final-signoff .final-return:hover{
-  padding-right:18px;
-}
-
-.final-signoff .signoff-number{
-  position:absolute;
-  right:7vw;
-  bottom:4vw;
-  color:#111;
-  font-size:clamp(120px,22vw,330px);
-  line-height:.7;
-  letter-spacing:-.1em;
-  opacity:.07;
-  pointer-events:none;
-}
-
-
-@media(max-width:1100px){
-  .gallery{
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    gap:4vw 2.5vw !important;
-  }
-  .experience-row{
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    gap:2vw;
-  }
-  .final-signoff .signature-mark{
-    white-space:normal;
-  }
-}
-
-@media(max-width:700px){
-  .museum{
-    padding:18vw 6vw 20vw;
-  }
-  .museum-head{
-    display:block;
-    padding-bottom:10vw;
-  }
-  .museum-head p{
-    text-align:left;
-    margin-top:6vw;
-  }
-  .gallery{
-    grid-template-columns:1fr !important;
-    gap:12vw !important;
-  }
-  .experience-row{
-    grid-template-columns:1fr !important;
-    gap:6vw;
-  }
-  .experience-row > article,
-  .experience-row .training-detail{
-    min-height:auto;
-  }
-  .final-signoff{
-    min-height:100svh !important;
-    padding:22vw 7vw 14vw !important;
-  }
-  .final-signoff::before{
-    inset:5vw;
-  }
-  .final-signoff .signature-mark{
-    font-size:18vw;
-  }
-}
-
-@media(prefers-reduced-motion:reduce){
-  .gallery .art{
-    opacity:1;
-    animation:none;
-  }
-}
-
-
-/* =========================================================
-   FINAL POLISH — SECTION 02 + SIGNING OFF
-========================================================= */
-
-/* SECTION 02 — keep the exact personal statement */
-.statement .big-text{
-  max-width:1250px;
-}
-
-.statement .big-text em{
-  display:inline;
-}
-
-/* =========================================================
-   SIGNING OFF — QUIET / EDITORIAL / PROFESSIONAL
-========================================================= */
-.final-signoff{
-  min-height:100svh !important;
-  box-sizing:border-box;
-  position:relative;
-  overflow:hidden;
-  padding:8vw 7vw 7vw !important;
-  background:#ff4d16 !important;
-  color:#111 !important;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  isolation:isolate;
-}
-
-/* calm framed architecture */
-.final-signoff::before{
-  content:"";
-  position:absolute;
-  inset:28px;
-  border:1px solid rgba(17,17,17,.25);
-  pointer-events:none;
-  z-index:-1;
-}
-
-.final-signoff::after{
-  content:"";
-  position:absolute;
-  width:42vw;
-  height:42vw;
-  right:-13vw;
-  bottom:-19vw;
-  border:1px solid rgba(17,17,17,.13);
-  border-radius:50%;
-  box-shadow:
-    0 0 0 5vw rgba(17,17,17,.035),
-    0 0 0 10vw rgba(17,17,17,.025);
-  pointer-events:none;
-  z-index:-1;
-}
-
-.final-signoff .signoff-rule{
-  width:100%;
-  height:1px;
-  margin:0 0 5.5vw;
-  background:#111;
-  opacity:.55;
-}
-
-.final-signoff .signoff-content{
-  position:relative;
-  z-index:2;
-  max-width:1280px;
-}
-
-.final-signoff .eyebrow{
-  font:10px "DM Mono",monospace;
-  letter-spacing:.13em;
-  opacity:.9;
-}
-
-/* More restrained than the previous giant italic treatment. */
-.final-signoff .signature-mark{
-  display:block;
-  margin:2.8vw 0 0;
-  max-width:1200px;
-  font-family:"Space Grotesk",sans-serif;
-  font-size:clamp(48px,7.7vw,118px);
-  line-height:.86;
-  letter-spacing:-.075em;
-  font-style:normal;
-  font-weight:600;
-  text-transform:uppercase;
-  white-space:normal;
-  animation:softSignIn 1.15s cubic-bezier(.16,1,.3,1) both;
-}
-
-.final-signoff .signoff-content p{
-  margin:2.4vw 0 0;
-  font:10px "DM Mono",monospace;
-  letter-spacing:.08em;
-  opacity:.82;
-  animation:softSignIn .9s .2s cubic-bezier(.16,1,.3,1) both;
-}
-
-.final-signoff .final-return{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  margin-top:4.5vw;
-  padding:0 0 9px;
-  width:max-content;
-  color:#111;
-  border-bottom:1px solid #111;
-  text-decoration:none;
-  font:10px "DM Mono",monospace;
-  letter-spacing:.1em;
-  transition:
-    gap .35s ease,
-    opacity .35s ease;
-  animation:softSignIn .9s .35s cubic-bezier(.16,1,.3,1) both;
-}
-
-.final-signoff .final-return:hover{
-  gap:18px;
-  opacity:.65;
-}
-
-/* Requested subtle 47166 archive number */
-.final-signoff .signoff-number{
-  position:absolute;
-  right:5vw;
-  bottom:1vw;
-  z-index:0;
-  font-family:"Space Grotesk",sans-serif;
-  font-size:clamp(100px,17vw,260px);
-  line-height:.68;
-  font-weight:500;
-  letter-spacing:-.11em;
-  color:#111;
-  opacity:.055;
-  user-select:none;
-  pointer-events:none;
-  animation:archiveDrift 12s ease-in-out infinite alternate;
-}
-
-@keyframes softSignIn{
-  from{
-    opacity:0;
-    transform:translateY(24px);
-    filter:blur(4px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-    filter:blur(0);
-  }
-}
-
-@keyframes archiveDrift{
-  from{
-    transform:translate3d(0,5px,0);
-  }
-  to{
-    transform:translate3d(-12px,-8px,0);
-  }
-}
-
-@media(max-width:700px){
-  .final-signoff{
-    padding:18vw 7vw 15vw !important;
-  }
-
-  .final-signoff::before{
-    inset:18px;
-  }
-
-  .final-signoff .signature-mark{
-    font-size:15vw;
-  }
-
-  .final-signoff .signoff-number{
-    right:4vw;
-    bottom:4vw;
-    font-size:27vw;
-  }
-}
-
-@media(prefers-reduced-motion:reduce){
-  .final-signoff .signature-mark,
-  .final-signoff .signoff-content p,
-  .final-signoff .final-return,
-  .final-signoff .signoff-number{
-    animation:none;
-  }
-}
-
-
-/* =========================================================
-   SIMPLE FINAL SIGNING-OFF DESIGN
-   ========================================================= */
-
-.final-signoff{
-  position:relative;
-  min-height:100vh !important;
-  padding:55px 7vw 35px !important;
-  background:#ff4d16 !important;
-  color:#111 !important;
-  display:flex !important;
-  flex-direction:column !important;
-  justify-content:space-between !important;
-  overflow:hidden;
-  isolation:isolate;
-}
-
-.final-signoff .signoff-header{
-  position:relative;
-  z-index:3;
-  display:flex;
-  justify-content:space-between;
-  font:10px "DM Mono",monospace;
-  letter-spacing:.12em;
-  opacity:.72;
-}
-
-.final-signoff .signoff-rule{
-  position:relative;
-  z-index:3;
-  width:100%;
-  height:1px;
-  margin:18px 0 0;
-  background:#111;
-  opacity:.4;
-}
-
-.final-signoff .signoff-main{
-  position:relative;
-  z-index:3;
-  max-width:1150px;
-  margin:auto 0;
-  padding:80px 0;
-}
-
-.final-signoff .eyebrow{
-  font:10px "DM Mono",monospace;
-  letter-spacing:.14em;
-  opacity:.65;
-  animation:finalUp .8s ease both;
-}
-
-.final-signoff .signoff-title{
-  margin-top:25px;
-  display:flex;
-  flex-direction:column;
-  line-height:.78;
-  letter-spacing:-.075em;
-  animation:finalUp 1s .1s cubic-bezier(.16,1,.3,1) both;
-}
-
-.final-signoff .small-title{
-  margin-bottom:18px;
-  font:11px "DM Mono",monospace;
-  letter-spacing:.12em;
-  opacity:.55;
-}
-
-.final-signoff .big-signature{
-  font-size:clamp(65px,10vw,155px);
-  font-weight:600;
-}
-
-.final-signoff .big-signature.italic{
-  font-style:italic;
-}
-
-.final-signoff .signoff-description{
-  margin:32px 0 0;
-  font:10px "DM Mono",monospace;
-  letter-spacing:.08em;
-  opacity:.7;
-  animation:finalUp .8s .25s cubic-bezier(.16,1,.3,1) both;
-}
-
-.final-signoff .signoff-description b{
-  padding:0 8px;
-  opacity:.45;
-}
-
-.final-signoff .signoff-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:38px;
-  animation:finalUp .8s .35s cubic-bezier(.16,1,.3,1) both;
-}
-
-.final-signoff .signoff-button{
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:35px;
-  min-width:210px;
-  padding:16px 18px;
-  border:1px solid #111;
-  background:transparent;
-  color:#111;
-  text-decoration:none;
-  cursor:pointer;
-  font:10px "DM Mono",monospace;
-  letter-spacing:.09em;
-  overflow:hidden;
-  transition:
-    transform .35s cubic-bezier(.16,1,.3,1),
-    color .35s ease,
-    box-shadow .35s ease;
-}
-
-.final-signoff .signoff-button::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:#111;
-  transform:translateY(100%);
-  transition:transform .4s cubic-bezier(.16,1,.3,1);
-  z-index:-1;
-}
-
-.final-signoff .signoff-button span{
-  position:relative;
-  z-index:2;
-}
-
-.final-signoff .signoff-button:hover{
-  color:#f4f0e7;
-  transform:translateY(-5px);
-  box-shadow:7px 8px 0 rgba(17,17,17,.18);
-}
-
-.final-signoff .signoff-button:hover::before{
-  transform:translateY(0);
-}
-
-.final-signoff .button-icon{
-  font-size:17px;
-  transition:transform .3s ease;
-}
-
-.final-signoff .signoff-button:hover .button-icon{
-  transform:translate(4px,-3px);
-}
-
-.final-signoff .secondary{
-  background:rgba(233,229,220,.08);
-}
-
-.final-signoff .signoff-bottom{
-  position:relative;
-  z-index:3;
-  display:flex;
-  justify-content:space-between;
-  border-top:1px solid rgba(17,17,17,.25);
-  padding-top:15px;
-  font:8px "DM Mono",monospace;
-  letter-spacing:.12em;
-  opacity:.55;
-}
-
-.final-signoff .signoff-number{
-  position:absolute !important;
-  right:3vw !important;
-  bottom:2vw !important;
-  z-index:0 !important;
-  font-size:clamp(130px,20vw,300px) !important;
-  color:#111 !important;
-  opacity:.045 !important;
-  pointer-events:none;
-  animation:numberFloat 8s ease-in-out infinite alternate;
-}
-
-.final-signoff .signoff-bg-circle{
-  position:absolute;
-  border:1px solid rgba(17,17,17,.12);
-  border-radius:50%;
-  pointer-events:none;
-  z-index:-1;
-}
-
-.final-signoff .circle-one{
-  width:45vw;
-  height:45vw;
-  right:-18vw;
-  top:12%;
-  animation:circleFloat 8s ease-in-out infinite alternate;
-}
-
-.final-signoff .circle-two{
-  width:28vw;
-  height:28vw;
-  right:-9vw;
-  top:25%;
-  opacity:.65;
-  animation:circleFloat 8s 1s ease-in-out infinite alternate-reverse;
-}
-
-.final-signoff .signoff-scanline{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:-1;
-  background:repeating-linear-gradient(
-    0deg,
-    transparent 0,
-    transparent 5px,
-    rgba(17,17,17,.018) 6px
-  );
-}
-
-@keyframes finalUp{
-  from{
-    opacity:0;
-    transform:translateY(28px);
-    filter:blur(5px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-    filter:blur(0);
-  }
-}
-
-@keyframes circleFloat{
-  from{transform:translate(0,0) scale(1);}
-  to{transform:translate(-18px,12px) scale(1.04);}
-}
-
-@keyframes numberFloat{
-  from{transform:translate(0,0);}
-  to{transform:translate(-15px,-10px);}
-}
-
-/* Smooth fade when going back to the portfolio. */
-body.leaving-page::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:#111;
-  z-index:99999;
-  pointer-events:none;
-  animation:leaveFade .65s ease forwards;
-}
-
-@keyframes leaveFade{
-  from{opacity:0;}
-  to{opacity:1;}
-}
-
-@media(max-width:700px){
-  .final-signoff{
-    min-height:100svh !important;
-    padding:30px 6vw 25px !important;
-  }
-
-  .final-signoff .signoff-main{
-    padding:70px 0;
-  }
-
-  .final-signoff .big-signature{
-    font-size:16vw;
-  }
-
-  .final-signoff .signoff-buttons{
-    flex-direction:column;
-    margin-top:30px;
-  }
-
-  .final-signoff .signoff-button{
-    width:100%;
-  }
-
-  .final-signoff .signoff-bottom{
-    font-size:7px;
-    line-height:1.5;
-  }
-
-  .final-signoff .circle-one{
-    width:85vw;
-    height:85vw;
-    right:-35vw;
-  }
-
-  .final-signoff .circle-two{
-    width:55vw;
-    height:55vw;
-    right:-20vw;
-  }
-}
-
-@media(prefers-reduced-motion:reduce){
-  .final-signoff *{
-    animation:none !important;
-    transition:none !important;
-  }
-}
-
-
-/* SECTION 02 — PURPLE BACKGROUND */
-.statement{
-  background:#8e70ff;
-  color:#111;
-}
-
+  .nav{padding:18px;grid-template-columns:1fr 1fr}.nav .mid{display:none}
+  .intro{padding:120px 6vw 60px}.intro-copy{margin-left:0}
+  .statement{grid-template-columns:1fr;gap:6vw}
+  .museum-head{display:block}.museum-head p{text-align:left;margin-top:6vw}
+  .gallery{grid-template-columns:1fr;gap:90px}
+  .experience-row{grid-template-columns:1fr;gap:6vw}.experience-row article{min-height:auto}
+  .tribute-grid{grid-template-columns:1fr;gap:8vw}
+  .so-buttons{flex-direction:column}.pill{width:100%}
+  .so-bottom{font-size:7px}.to-top{right:14px;bottom:14px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.js .reveal,.js .art.reveal{opacity:1;transform:none}.js .art.reveal{transform:rotate(var(--a))}}
 </style>
-  <script>
-const lightbox = document.querySelector(".lightbox");
-const lightboxImg = lightbox.querySelector("img");
-const lightboxCaption = lightbox.querySelector(".lightbox-caption");
-const closeButton = document.querySelector(".close-lightbox");
-
-document.querySelectorAll(".art").forEach(card => {
-  card.addEventListener("click", () => {
-    const image = card.querySelector("img");
-    lightboxImg.src = image.src;
-    lightboxImg.alt = image.alt;
-    lightboxCaption.textContent = card.dataset.caption || image.alt;
-    lightbox.classList.add("open");
-    lightbox.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-  });
-});
-
-function closeLightbox(){
-  lightbox.classList.remove("open");
-  lightbox.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
-}
-
-closeButton.addEventListener("click", closeLightbox);
-
-lightbox.addEventListener("click", event => {
-  if(event.target === lightbox) closeLightbox();
-});
-
-document.addEventListener("keydown", event => {
-  if(event.key === "Escape") closeLightbox();
-});
-
-// Subtle museum-style cursor movement on desktop.
-document.querySelectorAll(".art").forEach(card => {
-  card.addEventListener("mousemove", event => {
-    const rect = card.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - .5;
-    const y = (event.clientY - rect.top) / rect.height - .5;
-    const frame = card.querySelector(".image-frame");
-    frame.style.transform =
-      `translate(${x * 5}px, ${y * 5}px) translateY(-14px)`;
-  });
-
-  card.addEventListener("mouseleave", () => {
-    card.querySelector(".image-frame").style.transform = "";
-  });
-});
-
-
-/* =========================================================
-   FINAL SIGN-OFF BUTTON JAVASCRIPT
-   ========================================================= */
-
-const portfolioButton = document.querySelector('.final-signoff .primary');
-const topButton = document.getElementById('topButton');
-
-if (portfolioButton) {
-  portfolioButton.addEventListener('click', function(event) {
-    const destination = this.href;
-
-    event.preventDefault();
-    document.body.classList.add('leaving-page');
-
-    setTimeout(function() {
-      window.location.href = destination;
-    }, 520);
-  });
-}
-
-if (topButton) {
-  topButton.addEventListener('click', function() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
-}
-
-</script>
 </head>
-
 <body>
-  <div class="noise"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<button class="to-top" id="topFloat" type="button" aria-label="Back to top">TOP ↑</button>
 
-  <header class="topbar">
-    <a class="back" href="../index.html">← BACK</a>
-    <div class="top-title">NCC / ARCHIVE 01</div>
-    <div class="top-year">2026</div>
-  </header>
+<header class="nav">
+  <a class="back" href="index.html">← BACK</a>
+  <div class="mid">NCC / ARCHIVE 01</div>
+  <div class="yr">2026</div>
+</header>
 
-  <main>
-    <section class="intro">
-      <div class="eyebrow">01 / EXPERIENCE</div>
-      <h1>National<br><span>Cadet Corps.</span></h1>
-      <p class="intro-copy">
-        A personal archive of my journey with the 47th Junior Division Batch,
-        from training and discipline to the memories of our commissioning ceremony
-        at Kohalpur, Banke.
-      </p>
+<main>
+  <section class="intro">
+    <div class="grid"></div><div class="blob b1"></div><div class="blob b2"></div>
+    <div>
+      <div class="label">01 / EXPERIENCE</div>
+      <h1>National<span>Cadet Corps.</span></h1>
+    </div>
+    <div>
+      <p class="intro-copy">A personal archive of my journey with the 47th Junior Division Batch, from training and discipline to the memories of our commissioning ceremony at Kohalpur, Banke.</p>
       <div class="memory-meta">
         <span>47TH JUNIOR DIVISION BATCH</span>
         <span>SERGEANT / RANK HOLDER</span>
         <span>KOHALPUR, BANKE</span>
       </div>
       <div class="scroll-note">SCROLL TO EXPLORE ↓</div>
-    </section>
+    </div>
+  </section>
 
-    <section class="statement">
-      <div class="section-no">02</div>
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marqueeTrack"></div></div>
+
+  <section class="statement">
+    <div class="label">02</div>
+    <div>
+      <p class="big-text reveal">47th Junior Division Batch. <em>Fifteen continuous days that became a lasting memory.</em></p>
+      <p class="body-copy reveal">I was part of the 47th Junior Division Batch, an experience that brought discipline, teamwork and shared responsibility into everyday life. Our commissioning ceremony took place in Kohalpur, Banke, following 15 continuous days together — a period I remember for the people, training and moments that made the experience meaningful.</p>
+    </div>
+  </section>
+
+  <section class="museum">
+    <div class="museum-head">
       <div>
-        <p class="big-text">
-          47th Junior Division Batch.
-          <em>Fifteen continuous days that became a lasting memory.</em>
-        </p>
-        <p class="body-copy">
-          I was part of the 47th Junior Division Batch, an experience that brought
-          discipline, teamwork and shared responsibility into everyday life.
-          Our commissioning ceremony took place in Kohalpur, Banke, following
-          15 continuous days together — a period I remember for the people,
-          training and moments that made the experience meaningful.
-        </p>
+        <div class="label">03 / VISUAL ARCHIVE</div>
+        <h2>Field Notes<br>&amp; Memories</h2>
       </div>
-    </section>
+      <p>Hover over a photograph.<br>Click to enlarge.</p>
+    </div>
 
-    <section class="museum">
-      <div class="museum-head">
-        <div>
-          <div class="eyebrow">03 / VISUAL ARCHIVE</div>
-          <h2>Field Notes<br>& Memories</h2>
-        </div>
-        <p>Hover over a photograph.<br>Click to enlarge.</p>
+    <div class="gallery">
+      <!-- Replace these filenames with your actual NCC photographs. -->
+      <figure class="art art-a reveal" data-caption="NCC — Photograph 01">
+        <div class="image-frame"><img src="ncc-01.jpg" alt="NCC photograph 01"><span class="image-number">01</span></div>
+        <figcaption><span>NCC / 01</span><span>FIELD MEMORY</span></figcaption>
+      </figure>
+      <figure class="art art-b reveal" data-caption="NCC — Photograph 02">
+        <div class="image-frame"><img src="ncc-02.jpg" alt="NCC photograph 02"><span class="image-number">02</span></div>
+        <figcaption><span>NCC / 02</span><span>TRAINING</span></figcaption>
+      </figure>
+      <figure class="art art-c reveal" data-caption="NCC — Photograph 03">
+        <div class="image-frame"><img src="ncc-03.jpg" alt="NCC photograph 03"><span class="image-number">03</span></div>
+        <figcaption><span>NCC / 03</span><span>TEAMWORK</span></figcaption>
+      </figure>
+      <figure class="art art-d reveal" data-caption="NCC — Photograph 04">
+        <div class="image-frame"><img src="ncc-04.jpg" alt="NCC photograph 04"><span class="image-number">04</span></div>
+        <figcaption><span>NCC / 04</span><span>MEMORY</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="timeline">
+    <div class="label">04</div>
+    <div class="eyebrow">47TH JUNIOR DIVISION / MEMORY</div>
+    <h2 class="reveal">Training.<br>Discipline. Leadership.</h2>
+    <div class="experience-row">
+      <article class="reveal"><span>01</span><h3>47th JD Batch</h3><p>My NCC journey as a member of the 47th Junior Division Batch, beginning with school-level training.</p></article>
+      <article class="reveal"><span>02</span><h3>Sergeant</h3><p>I held the rank of Sergeant during my NCC experience, a responsibility built through training and discipline.</p></article>
+      <article class="reveal"><span>03</span><h3>Commissioning Ceremony</h3><p>Our commissioning ceremony took place at Kohalpur, Banke, following the commissioning phase of our NCC journey.</p></article>
+      <article class="training-detail reveal"><span>TRAINING MEMORY</span><strong>100 DAYS</strong><p>At school level, we completed 100 days of NCC training — building discipline, teamwork, responsibility and leadership before the commissioning experience.</p></article>
+    </div>
+  </section>
+
+  <section class="tribute">
+    <div class="eyebrow">SPECIAL TRIBUTE / INSTRUCTORS</div>
+    <h2 class="reveal">To the people<br>who guided me.</h2>
+    <div class="tribute-grid">
+      <article class="reveal"><span>INSTRUCTOR / 01</span><h3>Rt. Sgt. Anjan Adhikari</h3><p>With gratitude for the guidance, discipline and instruction that shaped my NCC experience.</p></article>
+      <article class="reveal"><span>INSTRUCTOR / 02</span><h3>Lance Corporal Bishal Rai</h3><p>With sincere appreciation for the support, training and memories throughout the journey.</p></article>
+    </div>
+  </section>
+
+  <section class="final-signoff" id="signing-off">
+    <div class="ring r1"></div><div class="ring r2"></div>
+    <div>
+      <div class="so-head"><span>05 / SIGNING OFF</span><span>NCC / 2026</span></div>
+      <div class="so-rule"></div>
+    </div>
+    <div class="so-main">
+      <div class="eyebrow">ARCHIVE COMPLETE</div>
+      <div class="so-title">
+        <span class="small-title">A JOURNEY OF</span>
+        <span class="big-signature">SGT. SAFAL</span>
+        <span class="big-signature italic">PARAJULI.</span>
       </div>
-
-      <div class="gallery">
-        <!-- Replace these filenames with your actual NCC photographs. -->
-        <figure class="art art-a" data-caption="NCC — Photograph 01">
-          <div class="image-frame">
-            <img src="ncc-01.jpg" alt="NCC photograph 01">
-            <span class="image-number">01</span>
-          </div>
-          <figcaption>
-            <span>NCC / 01</span>
-            <span>FIELD MEMORY</span>
-          </figcaption>
-        </figure>
-
-        <figure class="art art-b" data-caption="NCC — Photograph 02">
-          <div class="image-frame">
-            <img src="ncc-02.jpg" alt="NCC photograph 02">
-            <span class="image-number">02</span>
-          </div>
-          <figcaption>
-            <span>NCC / 02</span>
-            <span>TRAINING</span>
-          </figcaption>
-        </figure>
-
-        <figure class="art art-c" data-caption="NCC — Photograph 03">
-          <div class="image-frame">
-            <img src="ncc-03.jpg" alt="NCC photograph 03">
-            <span class="image-number">03</span>
-          </div>
-          <figcaption>
-            <span>NCC / 03</span>
-            <span>TEAMWORK</span>
-          </figcaption>
-        </figure>
-
-        <figure class="art art-d" data-caption="NCC — Photograph 04">
-          <div class="image-frame">
-            <img src="ncc-04.jpg" alt="NCC photograph 04">
-            <span class="image-number">04</span>
-          </div>
-          <figcaption>
-            <span>NCC / 04</span>
-            <span>MEMORY</span>
-          </figcaption>
-        </figure>
+      <p class="so-desc">47th Junior Division Batch <b>·</b> Sergeant <b>·</b> Kohalpur, Banke</p>
+      <div class="so-buttons">
+        <a href="index.html" class="pill" id="returnBtn"><span class="pi">↗</span><span class="pl">RETURN TO PORTFOLIO</span><span class="pa">↗</span></a>
+        <button type="button" class="pill" id="topButton"><span class="pi">↑</span><span class="pl">BACK TO TOP</span><span class="pa">↑</span></button>
       </div>
-    </section>
+    </div>
+    <div class="so-bottom"><span>THANK YOU FOR VISITING</span><span>— ARCHIVE CLOSED —</span></div>
+    <div class="so-number">47166</div>
+  </section>
+</main>
 
-    <section class="timeline">
-      <div class="section-no">04</div>
-      <div class="timeline-content">
-        <div class="eyebrow">47TH JUNIOR DIVISION / MEMORY</div>
-        <h2>Training.<br>Discipline. Leadership.</h2>
-        <div class="experience-row">
-          <article>
-            <span>01</span>
-            <h3>47th JD Batch</h3>
-            <p>My NCC journey as a member of the 47th Junior Division Batch, beginning with school-level training.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Sergeant</h3>
-            <p>I held the rank of Sergeant during my NCC experience, a responsibility built through training and discipline.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Commissioning Ceremony</h3>
-            <p>Our commissioning ceremony took place at Kohalpur, Banke, following the commissioning phase of our NCC journey.</p>
-          </article>
-          <article class="training-detail">
-            <span>TRAINING MEMORY</span>
-            <strong>100 DAYS</strong>
-            <p>At school level, we completed 100 days of NCC training — building discipline, teamwork, responsibility and leadership before the commissioning experience.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+<div class="lightbox" aria-hidden="true">
+  <button class="close-lightbox" aria-label="Close image">×</button>
+  <img src="" alt="">
+  <div class="lightbox-caption"></div>
+</div>
 
-    <section class="tribute">
-      <div class="eyebrow">SPECIAL TRIBUTE / INSTRUCTORS</div>
-      <h2>To the people<br>who guided me.</h2>
-      <div class="tribute-grid">
-        <article>
-          <span>INSTRUCTOR / 01</span>
-          <h3>Rt. Sgt. Anjan Adhikari</h3>
-          <p>With gratitude for the guidance, discipline and instruction that shaped my NCC experience.</p>
-        </article>
-        <article>
-          <span>INSTRUCTOR / 02</span>
-          <h3>Lance Corporal Bishal Rai</h3>
-          <p>With sincere appreciation for the support, training and memories throughout the journey.</p>
-        </article>
-      </div>
-    </section>
+<script>
+(() => {
+  const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  const fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
+  const reduced = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
+  $("#marqueeTrack").innerHTML = ["<span>", "</span>"].join("NATIONAL CADET CORPS × 47TH JUNIOR DIVISION × ".repeat(10)).repeat(2);
 
-    <section class="signoff final-signoff" id="signing-off">
-      <div class="signoff-bg-circle circle-one"></div>
-      <div class="signoff-bg-circle circle-two"></div>
-      <div class="signoff-scanline"></div>
+  /* cursor */
+  if (fine) {
+    const cur = $("#cursor");
+    addEventListener("mousemove", e => { cur.style.left = e.clientX + "px"; cur.style.top = e.clientY + "px"; });
+    $$("a,button,.art").forEach(el => {
+      el.addEventListener("mouseenter", () => cur.classList.add("big"));
+      el.addEventListener("mouseleave", () => cur.classList.remove("big"));
+    });
+  }
 
-      <div class="signoff-header">
-        <span>05 / SIGNING OFF</span>
-        <span>NCC / 2026</span>
-      </div>
+  /* scroll progress + back-to-top */
+  const prog = $("#progress"), floatTop = $("#topFloat");
+  const onScroll = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    prog.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+    floatTop.classList.toggle("show", scrollY > innerHeight);
+  };
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  const toTop = () => scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+  floatTop.addEventListener("click", toTop);
+  $("#topButton").addEventListener("click", toTop);
 
-      <div class="signoff-rule"></div>
+  /* reveal on scroll */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$(".reveal").forEach(el => io.observe(el));
 
-      <div class="signoff-main">
-        <div class="eyebrow">ARCHIVE COMPLETE</div>
+  /* photo viewer */
+  const lb = $(".lightbox"), lbImg = $("img", lb), lbCap = $(".lightbox-caption", lb);
+  const closeLb = () => { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; };
+  $$(".art").forEach(card => card.addEventListener("click", () => {
+    const im = $("img", card);
+    lbImg.src = im.src; lbImg.alt = im.alt;
+    lbCap.textContent = card.dataset.caption || im.alt;
+    lb.classList.add("open"); lb.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
+  }));
+  $(".close-lightbox", lb).addEventListener("click", closeLb);
+  lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeLb(); });
 
-        <div class="signoff-title">
-          <span class="small-title">A JOURNEY OF</span>
-          <span class="big-signature">SGT. SAFAL</span>
-          <span class="big-signature italic">PARAJULI.</span>
-        </div>
-
-        <p class="signoff-description">
-          47th Junior Division Batch <b>·</b> Sergeant <b>·</b> Kohalpur, Banke
-        </p>
-
-        <div class="signoff-buttons">
-          <a href="Untitled-1.html" class="signoff-button primary">
-            <span>RETURN TO PORTFOLIO</span>
-            <span class="button-icon">↗</span>
-          </a>
-
-          <button type="button" class="signoff-button secondary" id="topButton">
-            <span>BACK TO TOP</span>
-            <span class="button-icon">↑</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="signoff-bottom">
-        <span>THANK YOU FOR VISITING</span>
-        <span>— ARCHIVE CLOSED —</span>
-      </div>
-
-      <div class="signoff-number">47166</div>
-    </section>
-  </main>
-
-  <div class="lightbox" aria-hidden="true">
-    <button class="close-lightbox" aria-label="Close image">×</button>
-    <img src="" alt="">
-    <div class="lightbox-caption"></div>
-  </div>
+  /* smooth fade when returning to the portfolio */
+  $("#returnBtn").addEventListener("click", function (e) {
+    e.preventDefault();
+    document.body.classList.add("leaving");
+    setTimeout(() => { location.href = this.href; }, 520);
+  });
+})();
+</script>
 </body>
 </html>
