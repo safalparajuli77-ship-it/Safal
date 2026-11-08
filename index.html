@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,13 +10,17 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Safal Parajuli">
 <meta property="og:description" content="Student leader and cadet from Chitwan, Nepal.">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<!-- After publishing, change og-image.png below to the full web address, e.g. https://YOURNAME.github.io/og-image.png -->
+<meta property="og:image" content="og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="author" content="Safal Parajuli">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Safal Parajuli","email":"officeofsafalparajuli@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Chitwan","addressCountry":"NP"},"alumniOf":[{"@type":"EducationalOrganization","name":"Narayani English Public School"},{"@type":"EducationalOrganization","name":"Narayani Public College"}],"sameAs":["https://www.instagram.com/xxpshuffle/","https://www.linkedin.com/in/safal-parajuli-054893283/"]}</script>
 <script>document.documentElement.classList.add("js")</script>
 <style>
 :root{
-  --paper:#eeeae2; --ink:#111; --orange:#ff4d16; --lime:#d7ff00; --violet:#8e70ff; --amber:#F47B20;
+  --paper:#eeeae2; --ink:#111; --orange:#ff4d16; --lime:#d7ff00; --violet:#8e70ff; --amber:#F47B20; --accent:#F47B20;
   --ease:cubic-bezier(.16,1,.3,1);
   --mono:ui-monospace,Menlo,Consolas,monospace;
 }
@@ -29,7 +32,7 @@ button{border:0;background:none;font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--ink);outline-offset:4px}
 .skip{position:absolute;left:-999px;top:10px;z-index:1000000;background:var(--ink);color:#fff;padding:10px 14px;font:11px var(--mono)}
 .skip:focus{left:10px}
- 
+
 /* Custom cursor only for mouse users */
 .cursor{display:none}
 @media(hover:hover) and (pointer:fine){
@@ -38,14 +41,14 @@ button{border:0;background:none;font:inherit;color:inherit;cursor:pointer}
   .cursor{display:block;position:fixed;left:-50px;top:-50px;width:14px;height:14px;border:1px solid var(--ink);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);z-index:99999;transition:width .25s,height .25s,background .25s}
   .cursor.big{width:55px;height:55px;background:var(--lime)}
 }
- 
+
 /* Loader */
 .loader{position:fixed;inset:0;background:var(--ink);color:var(--paper);z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:transform .6s cubic-bezier(.77,0,.18,1)}
 .loader.hide{transform:translateY(-100%);pointer-events:none}
 .loader-bar{width:160px;height:2px;background:#444;overflow:hidden}
 .loader-progress{width:100%;height:100%;background:var(--lime);transform:scaleX(0);transform-origin:left;animation:ldFill .9s ease-out forwards}
 @keyframes ldFill{to{transform:scaleX(1)}}
- 
+
 /* Nav + menu */
 .nav{position:fixed;top:0;left:0;width:100%;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;z-index:1000;mix-blend-mode:difference;color:#fff}
 .logo,.menu-button{font:11px var(--mono);letter-spacing:.12em;color:#fff}
@@ -55,12 +58,12 @@ button{border:0;background:none;font:inherit;color:inherit;cursor:pointer}
 .menu-links li{overflow:hidden}
 .menu-links a{display:block;font-size:clamp(55px,10vw,150px);font-weight:900;line-height:.85;letter-spacing:-.08em;transition:transform .4s ease}
 .menu-links a:hover,.menu-links a:focus-visible{transform:translateX(25px) skewX(-8deg)}
- 
+
 /* Sections */
 .section{position:relative;padding:15vh 6vw;overflow:hidden;isolation:isolate}
 .section-number{display:block;font:10px var(--mono);letter-spacing:.08em;margin-bottom:clamp(24px,3vw,48px)}
 h1,h2,h3{font-weight:900}
- 
+
 /* Hero */
 .hero{background:radial-gradient(circle at 88% 12%,rgba(255,77,22,.13),transparent 46%),radial-gradient(circle at 8% 92%,rgba(142,112,255,.14),transparent 46%),radial-gradient(circle at 42% 38%,rgba(215,255,0,.14),transparent 42%),#f4edde;min-height:100vh;position:relative;padding:150px 6vw 120px;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:center}
 .hero-grid{position:absolute;inset:-240px;background-image:linear-gradient(rgba(17,17,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,17,.05) 1px,transparent 1px),linear-gradient(rgba(17,17,17,.085) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,17,.085) 1px,transparent 1px);background-size:48px 48px,48px 48px,240px 240px,240px 240px;animation:gridMove 40s linear infinite;z-index:0}
@@ -72,7 +75,7 @@ h1,h2,h3{font-weight:900}
 @keyframes blobOne{50%{transform:translate(-50px,40px) rotate(90deg)}}
 @keyframes blobTwo{50%{transform:translateY(-80px) scale(1.2)}}
 @keyframes blobThree{50%{transform:rotate(180deg) translateX(60px)}}
- 
+
 .hero-content{position:relative;z-index:10;width:100%;display:flex;align-items:center;justify-content:space-between;gap:4vw}
 .name{flex:1 1 0;min-width:0;font-size:clamp(58px,9.5vw,170px);line-height:.78;letter-spacing:-.09em;text-transform:uppercase;color:var(--ink);text-align:left}
 .name-row{display:block;white-space:nowrap}
@@ -86,7 +89,7 @@ h1,h2,h3{font-weight:900}
 .photo-meta{position:absolute;right:-34px;bottom:0;writing-mode:vertical-rl;font:9px var(--mono);letter-spacing:.1em}
 .hero-info{position:absolute;left:6vw;right:6vw;bottom:6vh;display:flex;justify-content:space-between;gap:20px;padding-top:18px;border-top:1px solid var(--ink);font:10px/1.8 var(--mono);letter-spacing:.08em;z-index:10}
 .hero-label{position:absolute;left:6vw;top:100px;z-index:10;margin:0}
- 
+
 /* Name counter */
 .counter{position:fixed;width:310px;padding:18px;background:var(--ink);color:var(--paper);z-index:900;display:none;pointer-events:none;box-shadow:10px 10px 0 var(--lime)}
 .counter.show{display:block}
@@ -95,16 +98,16 @@ h1,h2,h3{font-weight:900}
 .counter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .counter-number{font-size:25px;font-weight:900}
 .counter-unit{display:block;font:7px var(--mono);text-transform:uppercase;color:#777;margin-top:4px}
- 
+
 /* Marquee */
 .marquee{overflow:hidden;white-space:nowrap;background:var(--ink);color:var(--paper);padding:17px 0}
 .marquee-track{display:inline-flex;font:11px var(--mono);letter-spacing:.1em;animation:marquee 25s linear infinite}
 .marquee-track span{padding-right:.6em;white-space:pre}
 @keyframes marquee{to{transform:translateX(-50%)}}
- 
+
 /* Overview */
 .overview{min-height:90vh;display:grid;grid-template-columns:1fr 1fr;gap:10vw;align-items:center;color:var(--ink);
-  background:radial-gradient(circle at 78% 35%,rgba(255,220,150,.38),transparent 28%),radial-gradient(circle at 15% 85%,rgba(255,120,20,.25),transparent 32%),var(--amber)}
+  background:radial-gradient(circle at 78% 35%,rgba(255,220,150,.38),transparent 28%),radial-gradient(circle at 15% 85%,rgba(255,120,20,.25),transparent 32%),var(--accent)}
 .overview::before{content:"47";position:absolute;right:-.04em;bottom:-.22em;z-index:-1;font-size:clamp(220px,42vw,720px);line-height:.7;font-weight:900;letter-spacing:-.12em;color:transparent;-webkit-text-stroke:2px rgba(17,17,17,.1);transform:rotate(-7deg);pointer-events:none}
 .overview::after{content:"";position:absolute;inset:-30%;z-index:-1;opacity:.18;background-image:linear-gradient(rgba(17,17,17,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,17,.35) 1px,transparent 1px);background-size:46px 46px;transform:rotate(-7deg) scale(1.15);animation:ovGrid 18s linear infinite;pointer-events:none}
 @keyframes ovGrid{to{transform:rotate(-7deg) scale(1.15) translate(46px,46px)}}
@@ -123,9 +126,9 @@ h1,h2,h3{font-weight:900}
 .ov-copy-line:nth-child(3){animation-delay:.85s}
 @keyframes ovCopy{to{opacity:1;transform:none}}
 .ov-spotlight{position:absolute;width:420px;height:420px;z-index:1;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,225,170,.34),transparent 68%);transform:translate(-50%,-50%);mix-blend-mode:screen;opacity:0;transition:opacity .3s}
- 
+
 /* Basketball mini game: replaces the title while the cursor is over it */
-.title-zone{position:relative;min-height:clamp(260px,30vw,400px);outline-offset:8px}
+.title-zone{position:relative;min-height:clamp(330px,34vw,450px);outline-offset:8px}
 .title-zone .overview-title{transition:opacity .35s,transform .45s var(--ease)}
 .title-zone.playing .overview-title{opacity:0;transform:translateY(-14px);pointer-events:none}
 .court{position:absolute;inset:0;display:flex;flex-direction:column;gap:10px;color:var(--ink);opacity:0;visibility:hidden;transform:translateY(14px);pointer-events:none;transition:opacity .35s,transform .45s var(--ease),visibility .35s;touch-action:manipulation;user-select:none;-webkit-user-select:none}
@@ -159,7 +162,7 @@ h1,h2,h3{font-weight:900}
 @media(hover:none),(pointer:coarse){.court-close{display:grid}}
 .court-again{align-self:flex-start;padding:8px 12px;background:var(--ink);color:#fff7ea;font:700 10px var(--mono);letter-spacing:.1em}
 .court-again[hidden]{display:none}
- 
+
 /* Gallery */
 .gallery-section{min-height:100vh;background:var(--ink);color:#fff;padding:10vh 5vw;overflow:hidden}
 .horizontal-title{font-size:clamp(80px,15vw,220px);line-height:.78;letter-spacing:-.1em}
@@ -176,7 +179,7 @@ h1,h2,h3{font-weight:900}
 .gallery-card img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.04);transition:transform .9s var(--ease)}
 .gallery-card:hover img{transform:scale(1.05)}
 .gallery-index{position:absolute;left:14px;bottom:14px;z-index:8;padding:7px 9px;background:var(--ink);color:#fff;font:9px var(--mono);letter-spacing:.08em}
- 
+
 /* Education */
 .education{min-height:100vh;background:var(--lime)}
 .education-title{font-size:clamp(80px,14vw,200px);line-height:.78;letter-spacing:-.1em}
@@ -186,12 +189,12 @@ h1,h2,h3{font-weight:900}
 .timeline-year,.timeline-info{font:11px var(--mono)}
 .timeline-info{text-align:right}
 .timeline-title{font-size:30px;font-weight:700}
- 
+
 /* Skills */
 .skills-section{min-height:100vh;background:var(--paper)}
 .skill-word{display:block;font-size:clamp(50px,9vw,140px);font-weight:900;line-height:.85;letter-spacing:-.09em;transition:transform .5s ease,color .5s ease}
 .skill-word:hover{transform:translateX(60px) skewX(-8deg);color:var(--orange)}
- 
+
 /* Experiences */
 .playground{min-height:100vh;background:var(--ink);color:#fff}
 .playground-title{font-size:clamp(80px,14vw,210px);line-height:.78;letter-spacing:-.1em}
@@ -207,7 +210,7 @@ h1,h2,h3{font-weight:900}
 .experience-card p{max-width:520px;font:11px/1.5 var(--mono)}
 .experience-open{display:inline-flex;gap:8px;margin-top:18px;padding-bottom:4px;font:10px var(--mono);letter-spacing:.08em;border-bottom:1px solid currentColor;transition:gap .3s}
 .experience-card:hover .experience-open{gap:15px}
- 
+
 /* Contact */
 .contact{min-height:100svh;background:var(--violet);display:flex;flex-direction:column;justify-content:space-between;padding:8vh 6vw 7vh}
 .contact-title{font-size:clamp(72px,11.5vw,175px);line-height:.78;letter-spacing:-.085em}
@@ -220,24 +223,24 @@ h1,h2,h3{font-weight:900}
 .contact-label{font:700 10px var(--mono);letter-spacing:.14em}
 .contact-arrow{font-size:18px;transition:transform .45s var(--ease)}
 .contact-link:hover .contact-arrow{transform:translate(5px,-5px)}
- 
+
 .footer{background:var(--ink);color:#fff;padding:25px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font:9px var(--mono)}
- 
+
 /* Back to top */
 .to-top{position:fixed;right:28px;bottom:28px;z-index:900;padding:12px 14px;background:var(--lime);color:var(--ink);border:1px solid var(--ink);box-shadow:5px 5px 0 var(--ink);font:700 10px var(--mono);letter-spacing:.1em;opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .3s,transform .3s}
 .to-top.show{opacity:1;transform:none;pointer-events:auto}
 .to-top:hover{transform:translateY(-4px)}
- 
+
 /* Scroll progress + rotating role */
-.progress{position:fixed;top:0;left:0;width:100%;height:4px;background:var(--orange);transform:scaleX(0);transform-origin:left;z-index:1001;pointer-events:none}
+.progress{position:fixed;top:0;left:0;width:100%;height:4px;background:var(--accent);transform:scaleX(0);transform-origin:left;z-index:1001;pointer-events:none}
 .role{display:inline-block;min-width:11ch;transition:opacity .3s,transform .3s}
 .role.swap{opacity:0;transform:translateY(8px)}
 .contact-link.magnetic-on{transition:transform .2s ease,color .35s,border-color .35s,box-shadow .45s}
- 
+
 /* Performance helpers */
 .paused,.paused *,.paused::before,.paused::after{animation-play-state:paused!important}
 .gallery-section,.education,.skills-section,.playground,.contact{content-visibility:auto;contain-intrinsic-size:auto 100vh}
- 
+
 /* Language switch + Nepali typography (Devanagari needs normal spacing and taller lines) */
 .nav-right{display:flex;align-items:center;gap:18px}
 .lang-btn{padding:4px 9px;border:1px solid rgba(255,255,255,.7);font:11px var(--mono);letter-spacing:.08em;color:#fff}
@@ -250,7 +253,7 @@ html[lang="ne"] .experience-card h3{font-size:clamp(24px,3vw,42px)}
 html[lang="ne"] .menu-links a{font-size:clamp(46px,8vw,120px)}
 html[lang="ne"] .ov-line{padding-top:.12em}
 html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font-size:clamp(58px,9vw,150px)!important}
- 
+
 /* Gallery photo viewer */
 .gallery-card{cursor:pointer}
 .lightbox{position:fixed;inset:0;z-index:99990;display:flex;align-items:center;justify-content:center;gap:16px;padding:24px;background:rgba(17,17,17,.94);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
@@ -280,11 +283,71 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
 .mail-wrap:hover .contact-icon{transform:rotate(360deg) scale(1.12);background:#fff;color:var(--ink)}
 .contact{padding-bottom:calc(7vh + 120px)}
 @media(max-width:700px){.mail-wrap{display:block}.mail-card{width:auto}}
- 
+
+/* About text, numbers strip, awards */
+.awards{margin-top:70px}
+.awards[hidden]{display:none}
+.awards .section-number{margin-bottom:18px}
+
+/* Menu tools: accent swatches + dark mode */
+.menu-tools{position:absolute;left:50%;bottom:6vh;transform:translateX(-50%);width:90%;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;font:700 11px var(--mono);letter-spacing:.12em}
+.swatch{width:28px;height:28px;border-radius:50%;background:var(--c);border:2px solid var(--ink);transition:transform .3s var(--ease)}
+.swatch:hover{transform:scale(1.2)}
+.swatch[aria-pressed="true"]{box-shadow:0 0 0 3px var(--orange),0 0 0 5px var(--ink)}
+.mode-btn{padding:7px 12px;border:2px solid var(--ink);font:700 11px var(--mono);letter-spacing:.12em}
+.mode-btn[aria-pressed="true"]{background:var(--ink);color:var(--lime)}
+
+/* Dark mode (colour blocks stay; the cream areas go dark) */
+html[data-theme="dark"] body{background:#121212;color:#eeeae2}
+html[data-theme="dark"] .hero{background:radial-gradient(circle at 88% 12%,rgba(255,77,22,.16),transparent 46%),radial-gradient(circle at 8% 92%,rgba(142,112,255,.18),transparent 46%),#141414;color:#eeeae2}
+html[data-theme="dark"] .name{color:#eeeae2}
+html[data-theme="dark"] .hero-grid{background-image:linear-gradient(rgba(238,234,226,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(238,234,226,.06) 1px,transparent 1px),linear-gradient(rgba(238,234,226,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(238,234,226,.1) 1px,transparent 1px)}
+html[data-theme="dark"] .hero-info{border-top-color:rgba(238,234,226,.6)}
+html[data-theme="dark"] .photo{border-color:#eeeae2}
+html[data-theme="dark"] .skills-section{background:#141414;color:#eeeae2}
+html[data-theme="dark"] .marquee{background:#eeeae2;color:#111}
+html[data-theme="dark"] .cursor{border-color:#fff;mix-blend-mode:difference}
+html[data-theme="dark"] .cursor.big{background:#fff}
+
+/* Page wipe between sections, cursor trail, easter egg */
+.wipe{position:fixed;inset:0;z-index:99980;background:var(--ink);transform:translateY(100%);pointer-events:none;transition:transform .45s cubic-bezier(.77,0,.18,1)}
+.wipe.in{transform:none}
+.wipe.out{transform:translateY(-100%)}
+.egg47{position:absolute;right:2vw;bottom:1vw;width:24vw;height:12vw;z-index:3;opacity:0;background:none;border:0;cursor:pointer}
+.egg47:focus-visible{opacity:1;outline:2px dashed var(--ink)}
+.egg-ball{position:fixed;top:-60px;z-index:99985;pointer-events:none;animation:eggFall linear forwards}
+@keyframes eggFall{to{transform:translateY(112vh) rotate(540deg)}}
+.egg-toast{position:fixed;left:50%;bottom:12vh;z-index:99986;padding:14px 20px;background:var(--ink);color:var(--lime);font:700 12px var(--mono);letter-spacing:.1em;box-shadow:6px 6px 0 rgba(17,17,17,.3);transform:translateX(-50%);animation:toastIn .4s var(--ease)}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,12px)}}
+
+/* Game options row */
+.court-opts{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.court-levels{display:flex;gap:5px}
+.court-opts button{padding:4px 8px;border:1.5px solid var(--ink);font:700 9px var(--mono);letter-spacing:.1em}
+.court-opts button[aria-pressed="true"]{background:var(--ink);color:#fff7ea}
+
+/* Gallery: flip card with photo location, and swipe-snap on phones */
+.gallery-card{perspective:1100px}
+.gc-inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .8s var(--ease)}
+.gallery-card.flipped .gc-inner{transform:rotateY(180deg)}
+.gc-face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.gc-back{transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;background:var(--ink);color:var(--paper);text-align:center}
+.gc-back small{font:700 9px var(--mono);letter-spacing:.16em;color:var(--lime)}
+.gc-back b{font-size:clamp(22px,2.6vw,34px);line-height:1.05;letter-spacing:-.03em}
+.gc-back a{padding:9px 14px;background:var(--lime);color:var(--ink);font:700 10px var(--mono);letter-spacing:.1em}
+.gc-back span{font:9px var(--mono);letter-spacing:.12em;opacity:.6}
+.gc-zoom{position:absolute;right:12px;bottom:12px;z-index:9;width:34px;height:34px;display:grid;place-items:center;background:var(--ink);color:#fff;font:700 15px var(--mono)}
+.gc-zoom:hover{background:var(--lime);color:var(--ink)}
+@media(max-width:700px){
+  .gallery-track{width:100%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 14vw;transform:none!important;scrollbar-width:none}
+  .gallery-track::-webkit-scrollbar{display:none}
+  .gallery-card{scroll-snap-align:center}
+}
+
 /* Reveal (only hidden when JS is running) */
 .js .reveal{opacity:0;transform:translateY(70px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .js .reveal.visible{opacity:1;transform:none}
- 
+
 /* Mobile */
 @media(max-width:700px){
   .contact-link{backdrop-filter:none;-webkit-backdrop-filter:none}
@@ -310,7 +373,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   .contact-links{display:grid;grid-template-columns:1fr}
   .footer{flex-direction:column;gap:12px}
 }
- 
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .ov-word,.ov-copy-line{opacity:1;transform:none}
@@ -320,21 +383,22 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
 </head>
 <body>
 <a class="skip" href="#overview">Skip to content</a>
- 
+
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader-bar"><div class="loader-progress" id="loaderProgress"></div></div>
 </div>
- 
+
 <div class="cursor" id="cursor" aria-hidden="true"></div>
 <div class="progress" id="progress" aria-hidden="true"></div>
- 
+<div class="wipe" id="wipe" aria-hidden="true"></div>
+
 <button class="to-top" id="toTop" aria-label="Back to top">TOP ↑</button>
- 
+
 <nav class="nav" aria-label="Main">
   <div class="logo">SAFAL PARAJULI®</div>
   <div class="nav-right"><button class="lang-btn" id="langBtn" type="button" aria-label="नेपालीमा हेर्नुहोस्">नेपाली</button><button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="menu">MENU +</button></div>
 </nav>
- 
+
 <div class="menu" id="menu">
   <ul class="menu-links">
     <li><a href="#overview">OVERVIEW</a></li>
@@ -344,8 +408,15 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     <li><a href="#experiments">EXPERIENCE</a></li>
     <li><a href="#contact">CONTACT</a></li>
   </ul>
+  <div class="menu-tools">
+    <span class="mt-label">THEME</span>
+    <button class="swatch" type="button" data-accent="#F47B20" style="--c:#F47B20" aria-label="Orange theme"></button>
+    <button class="swatch" type="button" data-accent="#d7ff00" style="--c:#d7ff00" aria-label="Lime theme"></button>
+    <button class="swatch" type="button" data-accent="#8e70ff" style="--c:#8e70ff" aria-label="Violet theme"></button>
+    <button class="mode-btn" id="modeBtn" type="button" aria-pressed="false">DARK MODE</button>
+  </div>
 </div>
- 
+
 <div class="counter" id="counter" aria-hidden="true">
   <div class="counter-small">TIME SINCE</div>
   <div class="counter-date">30 JULY 2007</div>
@@ -356,31 +427,31 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     <div><div class="counter-number" id="seconds">00</div><span class="counter-unit">SEC</span></div>
   </div>
 </div>
- 
+
 <main>
 <section class="hero">
   <div class="hero-grid"></div>
   <div class="section-number hero-label">00 / INTRO</div>
   <div class="blob one"></div><div class="blob two"></div><div class="blob three"></div>
- 
+
   <div class="hero-content">
     <h1 class="name" aria-label="Safal Parajuli">
       <span class="name-row" aria-hidden="true"><span class="letter">S</span><span class="letter">A</span><span class="letter">F</span><span class="letter">A</span><span class="letter">L</span></span>
       <span class="name-row" aria-hidden="true"><span class="letter">P</span><span class="letter">A</span><span class="letter">R</span><span class="letter">A</span><span class="letter">J</span><span class="letter">U</span><span class="letter">L</span><span class="letter">I</span></span>
     </h1>
- 
+
     <!-- Keep safal.jpg.png beside index.html -->
     <div class="photo-wrap">
       <div class="photo" id="photo"><img src="safal.jpg.png" alt="Portrait of Safal Parajuli" width="620" height="775" fetchpriority="high" decoding="async" onerror="this.remove()"></div>
       <div class="photo-meta">SAFAL PARAJULI / 2026</div>
     </div>
   </div>
- 
+
   <div class="hero-info"><span><span id="iam">I AM A</span> <b class="role" id="role">LEADER</b></span><span>NEPAL / CHITWAN</span></div>
 </section>
- 
+
 <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marqueeTrack"></div></div>
- 
+
 <section class="section overview" id="overview">
   <div>
     <div class="section-number">01 / OVERVIEW</div>
@@ -397,19 +468,20 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     <span class="ov-copy-line">EXPLORER BY CURIOSITY.</span>
     <span class="ov-copy-line">LEADER BY CHOICE.</span>
   </div>
+  <button class="egg47" id="egg47" type="button" aria-label="Secret: press for a surprise"></button>
 </section>
- 
+
 <section class="gallery-section" id="interests">
   <div class="section-number">02 / GALLERY</div>
   <h2 class="horizontal-title">MY<br>GALLERY.</h2>
   <div class="gallery-track" id="horizontalTrack">
-    <div class="gallery-card"><img src="parajuli.png.jpg" alt="Safal Parajuli, gallery photo 1" loading="lazy" decoding="async"><span class="gallery-index">01 / GALLERY</span></div>
-    <div class="gallery-card"><img src="prasad.png.jpg" alt="Gallery photo 2" loading="lazy" decoding="async"><span class="gallery-index">02 / GALLERY</span></div>
-    <div class="gallery-card"><img src="uppadhya.png.jpg" alt="Gallery photo 3" loading="lazy" decoding="async"><span class="gallery-index">03 / GALLERY</span></div>
-    <div class="gallery-card"><img src="ram.png.jpg" alt="Gallery photo 4" loading="lazy" decoding="async"><span class="gallery-index">04 / GALLERY</span></div>
+    <div class="gallery-card" data-location="Jomsom, Mustang"><img src="parajuli.png.jpg" alt="Safal Parajuli, gallery photo 1" loading="lazy" decoding="async"><span class="gallery-index">01 / GALLERY</span></div>
+    <div class="gallery-card" data-location="Saga, Bhaktapur"><img src="prasad.png.jpg" alt="Gallery photo 2" loading="lazy" decoding="async"><span class="gallery-index">02 / GALLERY</span></div>
+    <div class="gallery-card" data-location="Bhaktapur Durbar Square"><img src="uppadhya.png.jpg" alt="Gallery photo 3" loading="lazy" decoding="async"><span class="gallery-index">03 / GALLERY</span></div>
+    <div class="gallery-card" data-location="Muktinath Temple"><img src="ram.png.jpg" alt="Gallery photo 4" loading="lazy" decoding="async"><span class="gallery-index">04 / GALLERY</span></div>
   </div>
 </section>
- 
+
 <section class="section education" id="education">
   <div class="section-number">03 / EDUCATION</div>
   <h2 class="education-title reveal">LEARN.<br>BUILD.<br>REPEAT.</h2>
@@ -425,8 +497,9 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       <div class="timeline-info">+2</div>
     </div>
   </div>
+  <div class="awards" id="awards" hidden></div>
 </section>
- 
+
 <section class="section skills-section" id="skills">
   <div class="section-number">04 / SKILLS</div>
   <span class="skill-word reveal">LEADERSHIP</span>
@@ -436,11 +509,11 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   <span class="skill-word reveal">PROBLEM SOLVING</span>
   <span class="skill-word reveal">PUBLIC SPEAKING</span>
 </section>
- 
+
 <section class="section playground" id="experiments">
   <div class="section-number">05 / EXPERIENCES</div>
   <h2 class="playground-title reveal">WHAT<br>I HAVE<br>DONE.</h2>
- 
+
   <div class="experience-grid">
     <a class="experience-card reveal" href="external ncc link.html" target="_blank" rel="noopener noreferrer">
       <span class="experience-number">01</span>
@@ -476,7 +549,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     </a>
   </div>
 </section>
- 
+
 <section class="section contact" id="contact">
   <div>
     <div class="section-number">06 / CONTACT</div>
@@ -501,41 +574,41 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     <a class="contact-link" href="https://www.linkedin.com/in/safal-parajuli-054893283/" target="_blank" rel="noopener noreferrer" aria-label="Safal Parajuli on LinkedIn">
       <span class="contact-icon" aria-hidden="true">in</span><span class="contact-label">LINKEDIN</span><span class="contact-arrow" aria-hidden="true">↗</span>
     </a>
-    <a class="contact-link" href="404.html" target="_blank" rel="noopener" aria-label="View CV">
+    <a class="contact-link" href="cv.html" target="_blank" rel="noopener" aria-label="View CV">
       <span class="contact-icon" aria-hidden="true">↓</span><span class="contact-label">VIEW CV</span><span class="contact-arrow" aria-hidden="true">↗</span>
     </a>
   </div>
 </section>
 </main>
- 
+
 <footer class="footer">
   <span>SAFAL PARAJULI®</span>
   <span>DESIGNED / DEVELOPED BY SAFAL</span>
   <span>© 2026</span>
 </footer>
- 
+
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
   <button class="lb-close" type="button" aria-label="Close">×</button>
   <button class="lb-nav lb-prev" type="button" aria-label="Previous photo">←</button>
   <figure><img alt=""><figcaption></figcaption></figure>
   <button class="lb-nav lb-next" type="button" aria-label="Next photo">→</button>
 </div>
- 
+
 <script>
 (() => {
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
   const reduced = matchMedia("(prefers-reduced-motion:reduce)").matches;
-  let lang = "en", gameRefresh = () => {};
- 
+  let lang = "en", gameRefresh = () => {}, themeRefresh = () => {};
+
   /* Marquee: build from one repeated phrase */
   const buildMarquee = () => {
     const ph = lang === "ne" ? "सफल पराजुली × " : "SAFAL PARAJULI × ";
     $("#marqueeTrack").innerHTML = `<span>${ph.repeat(24)}</span><span>${ph.repeat(24)}</span>`;
   };
   buildMarquee();
- 
+
   /* Loader */
   const loader = $("#loader");
   const hideLoader = () => loader.classList.add("hide");
@@ -543,7 +616,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   const loaded = new Promise(res => document.readyState === "complete" ? res() : addEventListener("load", res, { once: true }));
   Promise.all([minTime, loaded]).then(hideLoader);
   setTimeout(hideLoader, 4000); // safety net
- 
+
   /* Cursor + name counter + photo tilt (one mousemove listener) */
   const cursor = $("#cursor"), counter = $("#counter"), photo = $("#photo");
   const letters = $$(".letter");
@@ -561,7 +634,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
         queued = false;
         cursor.style.left = ev.clientX + "px";
         cursor.style.top = ev.clientY + "px";
- 
+
         const near = letters.some(l => {
           const r = l.getBoundingClientRect();
           if (!r.width) return false;
@@ -575,7 +648,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
           counter.style.left = x + "px";
           counter.style.top = y + "px";
         }
- 
+
         if (!reduced) {
           const r = photo.getBoundingClientRect();
           const px = (ev.clientX - r.left) / r.width - .5;
@@ -585,7 +658,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       });
     });
   }
- 
+
   /* Time counter */
   const start = new Date("2007-07-30T00:00:00+05:45").getTime();
   const out = { d: $("#days"), h: $("#hours"), m: $("#minutes"), s: $("#seconds") };
@@ -599,7 +672,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   }
   updateCounter();
   setInterval(() => { if (!document.hidden) updateCounter(); }, 1000);
- 
+
   /* Menu */
   const menu = $("#menu"), btn = $("#menuButton");
   const setMenu = open => {
@@ -611,13 +684,13 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   btn.addEventListener("click", () => setMenu(!menu.classList.contains("open")));
   $$(".menu a").forEach(a => a.addEventListener("click", () => setMenu(false)));
   document.addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
- 
+
   /* Scroll reveal */
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
   }), { threshold: .12 });
   $$(".reveal").forEach(el => io.observe(el));
- 
+
   /* Gallery drift on scroll */
   const track = $("#horizontalTrack"), gallery = $("#interests");
   let ticking = false;
@@ -632,11 +705,11 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   };
   addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, { passive: true });
   drift();
- 
+
   /* Pause looping animations while their section is off-screen */
   const pauser = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("paused", !e.isIntersecting)));
   $$(".hero,.marquee,.overview").forEach(el => pauser.observe(el));
- 
+
   /* Scroll progress bar */
   const prog = $("#progress");
   const toTop = $("#toTop");
@@ -648,7 +721,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   };
   addEventListener("scroll", setProg, { passive: true });
   setProg();
- 
+
   /* Rotating role word in the hero */
   const role = $("#role");
   const roleWords = { en: ["LEADER", "CADET", "ORGANIZER", "SPEAKER", "BUILDER"], ne: ["नेता", "क्याडेट", "आयोजक", "वक्ता", "निर्माता"] };
@@ -657,7 +730,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     role.classList.add("swap");
     setTimeout(() => { wi = (wi + 1) % roleWords[lang].length; role.textContent = roleWords[lang][wi]; role.classList.remove("swap"); }, 300);
   }, 2200);
- 
+
   /* Magnetic contact buttons (mouse only) */
   if (fine && !reduced) $$(".contact-link").forEach(el => {
     el.addEventListener("mousemove", e => {
@@ -666,7 +739,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     });
     el.addEventListener("mouseleave", () => el.style.transform = "");
   });
- 
+
   /* Overview spotlight (mouse only) */
   const ov = $("#overview");
   if (fine && !reduced) {
@@ -681,7 +754,99 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     });
     ov.addEventListener("mouseleave", () => spot.style.opacity = "0");
   }
- 
+
+  /* Awards: fill this list and the section appears by itself. Example:
+     { year: "2081", title: "Best Cadet", by: "NCC" } */
+  const AWARDS = [];
+  const awardBox = $("#awards");
+  if (AWARDS.length) {
+    awardBox.hidden = false;
+    awardBox.innerHTML = '<div class="section-number">AWARDS &amp; CERTIFICATES / पुरस्कार</div><div class="timeline">' +
+      AWARDS.map(() => '<div class="timeline-item"><div class="timeline-year"></div><div class="timeline-title"></div><div class="timeline-info"></div></div>').join("") + "</div>";
+    const rows = $$(".timeline-item", awardBox);
+    AWARDS.forEach((a, i) => {
+      $(".timeline-year", rows[i]).textContent = a.year;
+      $(".timeline-title", rows[i]).textContent = a.title;
+      $(".timeline-info", rows[i]).textContent = a.by;
+    });
+  }
+
+  /* Theme: dark mode + accent colour (in the menu) */
+  (() => {
+    const root = document.documentElement, modeBtn = $("#modeBtn"), swatches = $$(".swatch");
+    const metaTheme = $('meta[name="theme-color"]');
+    let dark = false, accent = "#F47B20";
+    try { dark = localStorage.getItem("theme") === "dark"; accent = localStorage.getItem("accent") || accent; } catch (e) {}
+    const paint = () => {
+      root.dataset.theme = dark ? "dark" : "light";
+      root.style.setProperty("--accent", accent);
+      swatches.forEach(b => b.setAttribute("aria-pressed", b.dataset.accent === accent));
+      modeBtn.setAttribute("aria-pressed", dark);
+      modeBtn.textContent = lang === "ne" ? (dark ? "उज्यालो मोड" : "अँध्यारो मोड") : (dark ? "LIGHT MODE" : "DARK MODE");
+      if (metaTheme) metaTheme.setAttribute("content", dark ? "#141414" : "#eeeae2");
+    };
+    swatches.forEach(b => b.addEventListener("click", () => {
+      accent = b.dataset.accent;
+      try { localStorage.setItem("accent", accent); } catch (e) {}
+      paint();
+    }));
+    modeBtn.addEventListener("click", () => {
+      dark = !dark;
+      try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch (e) {}
+      paint();
+    });
+    themeRefresh = paint;
+    paint();
+  })();
+
+  /* Page wipe when jumping to a section from the menu */
+  (() => {
+    const wipe = $("#wipe");
+    const go = hash => {
+      const target = $(hash);
+      if (!target) return;
+      if (reduced) { target.scrollIntoView(); history.replaceState(null, "", hash); return; }
+      wipe.classList.add("in");
+      setTimeout(() => {
+        const de = document.documentElement;
+        de.style.scrollBehavior = "auto"; target.scrollIntoView(); de.style.scrollBehavior = "";
+        history.replaceState(null, "", hash);
+        wipe.classList.add("out");
+        setTimeout(() => {
+          wipe.style.transition = "none"; wipe.classList.remove("in", "out");
+          void wipe.offsetWidth; wipe.style.transition = "";
+        }, 500);
+      }, 480);
+    };
+    $$(".menu a").forEach(a => a.addEventListener("click", e => {
+      e.preventDefault(); setMenu(false); go(a.getAttribute("href"));
+    }));
+  })();
+
+  /* Easter egg: press the big 47 */
+  (() => {
+    const egg = $("#egg47"); let busy = false;
+    egg.addEventListener("click", () => {
+      if (busy) return; busy = true;
+      const toast = document.createElement("div");
+      toast.className = "egg-toast";
+      toast.textContent = lang === "ne" ? "🏀 तपाईंले #47 भेट्टाउनुभयो!" : "🏀 YOU FOUND #47. NOTHING BUT NET!";
+      document.body.appendChild(toast);
+      const n = reduced ? 0 : 28;
+      for (let i = 0; i < n; i++) {
+        const b = document.createElement("span");
+        b.className = "egg-ball"; b.textContent = "🏀";
+        b.style.left = Math.random() * 100 + "vw";
+        b.style.fontSize = (18 + Math.random() * 26) + "px";
+        b.style.animationDuration = (1.6 + Math.random() * 1.6) + "s";
+        b.style.animationDelay = (Math.random() * .6) + "s";
+        document.body.appendChild(b);
+        setTimeout(() => b.remove(), 4200);
+      }
+      setTimeout(() => { toast.remove(); busy = false; }, 3200);
+    });
+  })();
+
   /* English / नेपाली */
   const NE = [
     [".logo", ["सफल पराजुली®"]],
@@ -712,6 +877,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     [".contact-title", ["आउनुहोस्<br>जोडिऔँ।"]],
     [".contact-label", ["इमेल", "INSTAGRAM", "LINKEDIN", "सीभी हेर्नुहोस्"]],
     [".footer span:nth-child(2)", ["डिजाइन / विकास: सफल"]],
+    [".mt-label", ["थिम"]],
     [".counter-small", ["समय बितेको"]],
     [".counter-unit", ["दिन", "घण्टा", "मिनेट", "सेकेन्ड"]]
   ];
@@ -742,13 +908,14 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     btn.textContent = l === "ne" ? (isOpen ? "बन्द ×" : "मेनु +") : (isOpen ? "CLOSE ×" : "MENU +");
     wi = 0; role.textContent = roleWords[l][0];
     gameRefresh();
+    themeRefresh();
     if (save) { try { localStorage.setItem("lang", l); } catch (e) {} }
   }
   langBtn.addEventListener("click", () => setLang(lang === "ne" ? "en" : "ne", true));
   let savedLang = null;
   try { savedLang = localStorage.getItem("lang"); } catch (e) {}
   if (savedLang === "ne") setLang("ne");
- 
+
   /* Gallery photo viewer */
   (() => {
     const cards = $$(".gallery-card"), lb = $("#lightbox"), img = $("img", lb), cap = $("figcaption", lb);
@@ -762,9 +929,24 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     const openLb = i => { show(i); lb.classList.add("open"); document.body.style.overflow = "hidden"; $(".lb-close", lb).focus(); };
     const closeLb = () => { lb.classList.remove("open"); document.body.style.overflow = ""; cards[idx].focus(); };
     cards.forEach((c, i) => {
-      c.tabIndex = 0; c.setAttribute("role", "button");
-      c.addEventListener("click", () => openLb(i));
-      c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLb(i); } });
+      const loc = c.dataset.location || "Chitwan, Nepal";
+      const front = document.createElement("div"); front.className = "gc-face gc-front";
+      while (c.firstChild) front.appendChild(c.firstChild);
+      const back = document.createElement("div"); back.className = "gc-face gc-back";
+      back.innerHTML = '<b></b>';
+      $("b", back).textContent = loc;
+      const inner = document.createElement("div"); inner.className = "gc-inner"; inner.append(front, back); c.appendChild(inner);
+      const zoom = document.createElement("button");
+      zoom.type = "button"; zoom.className = "gc-zoom"; zoom.textContent = "⤢"; zoom.setAttribute("aria-label", "Enlarge photo");
+      front.appendChild(zoom);
+      zoom.addEventListener("click", e => { e.stopPropagation(); openLb(i); });
+      c.tabIndex = 0; c.setAttribute("role", "button"); c.setAttribute("aria-pressed", "false");
+      const flip = () => { const on = c.classList.toggle("flipped"); c.setAttribute("aria-pressed", on); };
+      const unflip = () => { c.classList.remove("flipped"); c.setAttribute("aria-pressed", "false"); };
+      c.addEventListener("click", flip);
+      c.addEventListener("mouseleave", unflip);
+      document.addEventListener("pointerdown", e => { if (!c.contains(e.target)) unflip(); });
+      c.addEventListener("keydown", e => { if (e.target === c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); flip(); } });
     });
     $(".lb-close", lb).addEventListener("click", closeLb);
     $(".lb-prev", lb).addEventListener("click", () => show(idx - 1));
@@ -777,7 +959,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       else if (e.key === "ArrowRight") show(idx + 1);
     });
   })();
- 
+
   /* Email dropdown: copy the address or open the mail app */
   (() => {
     const wrap = $("#mailWrap"), link = $(".contact-link", wrap), copyBtn = $("#copyEmail"), hint = $("#mailHint"), openLink = $("#mailOpen");
@@ -810,7 +992,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       timer = setTimeout(idle, 1800);
     });
   })();
- 
+
   /* Three-point shootout: hover (or tap / press the button) on the Overview title */
   (() => {
     const zone = $("#titleZone");
@@ -821,10 +1003,11 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     court.innerHTML = `<div class="court-hud"><div class="sb-pips" id="cPips" role="img"></div><div class="sb-box"><small id="cScoreLbl">SCORE</small><b id="cScore">0<em>/3</em></b></div><div class="sb-box"><small id="cBestLbl">BEST</small><b id="cBest">0<em>/3</em></b></div><button class="court-close" type="button" aria-label="Close game">×</button></div>
       <canvas id="cCanvas"></canvas>
       <div class="court-meter"><div class="court-zone"></div><div class="court-mark" id="cMark"></div></div>
+      <div class="court-opts"><div class="court-levels" role="group" aria-label="Difficulty"><button type="button" data-level="easy">EASY</button><button type="button" data-level="pro">PRO</button><button type="button" data-level="legend">LEGEND</button></div><button type="button" class="court-snd" id="cSnd">SOUND ON</button></div>
       <p class="court-msg" id="cMsg" aria-live="polite"></p>
       <button class="court-again" id="cAgain" type="button" hidden>PLAY AGAIN</button>`;
     zone.appendChild(court);
- 
+
     const cv = $("#cCanvas"), ctx = cv.getContext("2d");
     const mark = $("#cMark"), msgEl = $("#cMsg"), again = $("#cAgain"), closeBtn = $(".court-close", court);
     const W = 900, H = 450, FLOOR = 400, R = 22, G = .35, ANG = 52 * Math.PI / 180;
@@ -832,18 +1015,24 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     const dpr = Math.min(2, devicePixelRatio || 1);
     cv.width = W * dpr; cv.height = H * dpr;
     ctx.scale(dpr, dpr);
- 
+
     // speed that drops a shot dead-centre through the rim
     const dx = RIMX - X0, dy = Y0 - RIMY;
     const VP = Math.sqrt(G * dx * dx / (2 * Math.cos(ANG) ** 2 * (dx * Math.tan(ANG) - dy)));
- 
+
     let open = false, raf = 0, last = 0, tStart = 0, timers = [];
     let state = "aim", shots = 3, score = 0, scored = false, crossed = false, bounces = 0, frames = 0, miss = "air";
     let ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
+    const LEVELS = { easy: 2200, pro: 1600, legend: 1000 };
+    let level = "pro";
+    try { level = localStorage.getItem("shotLevel") || "pro"; } catch (e) {}
+    if (!LEVELS[level]) level = "pro";
+    const bestKey = () => "bestShots_" + level;
     let best = 0;
-    try { best = +localStorage.getItem("bestShots") || 0; } catch (e) {}
+    const loadBest = () => { try { best = +localStorage.getItem(bestKey()) || 0; } catch (e) { best = 0; } };
+    loadBest();
     const TXT = {
-      en: { score: "SCORE", best: "BEST", again: "PLAY AGAIN", newbest: "NEW BEST! 🔥",
+      en: { score: "SCORE", best: "BEST", again: "PLAY AGAIN", easy: "EASY", pro: "PRO", legend: "LEGEND", sndOn: "SOUND ON", sndOff: "SOUND OFF", newbest: "NEW BEST! 🔥",
         start: "Three shots. Stop the marker in the black zone. Click or press Space",
         shot: n => n === 3 ? "Last shot. Make it count!" : "Shot 2 of 3. Find your rhythm",
         swish: ["SWISH! Nothing but net 🔥", "BUCKET! +1", "Cold-blooded three! +1", "From downtown. Good!", "Splash! +1"],
@@ -852,7 +1041,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
         long: ["Overcooked it. Ease off", "Long! Softer next time"],
         air: ["Airball! The crowd gasps", "Missed everything. Next one!"],
         final: n => `${n}/3. ${["Cold night. Shake it off!", "Rookie. A bucket is a bucket.", "Starter material. One short!", "MVP! Perfect round 🏆"][n]}` },
-      ne: { score: "अंक", best: "उत्कृष्ट", again: "फेरि खेल्नुहोस्", newbest: "नयाँ उत्कृष्ट! 🔥",
+      ne: { score: "अंक", best: "उत्कृष्ट", again: "फेरि खेल्नुहोस्", easy: "सजिलो", pro: "प्रो", legend: "लेजेन्ड", sndOn: "आवाज खुला", sndOff: "आवाज बन्द", newbest: "नयाँ उत्कृष्ट! 🔥",
         start: "३ शट। मार्कर कालो भागमा हुँदा क्लिक गर्नुहोस् वा Space थिच्नुहोस्",
         shot: n => n === 3 ? "अन्तिम शट! गोल बनाउनुहोस्!" : "शट 2 / 3। लय समात्नुहोस्",
         swish: ["वाह! जालमै! 🔥", "गोल! +1", "तीन अंक! शानदार! +1", "ठ्याक्कै निशाना! +1"],
@@ -867,7 +1056,42 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       if (Array.isArray(v)) return v[Math.floor(Math.random() * v.length)];
       return typeof v === "function" ? v(n) : v;
     };
- 
+    // crowd + ball sounds, made in the browser (no audio files)
+    let muted = false;
+    try { muted = localStorage.getItem("shotMuted") === "1"; } catch (e) {}
+    let ac = null;
+    const audio = () => {
+      if (!ac) { const AC = window.AudioContext || window.webkitAudioContext; if (AC) ac = new AC(); }
+      if (ac && ac.state === "suspended") ac.resume();
+      return ac;
+    };
+    const noise = (c, dur) => {
+      const buf = c.createBuffer(1, Math.floor(c.sampleRate * dur), c.sampleRate), d = buf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      const src = c.createBufferSource(); src.buffer = buf; return src;
+    };
+    const tone = (c, f0, f1, dur, vol, type) => {
+      const o = c.createOscillator(), g = c.createGain(), t = c.currentTime;
+      o.type = type; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur);
+      g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+      o.connect(g); g.connect(c.destination); o.start(); o.stop(t + dur);
+    };
+    const crowd = (c, vol, dur, freq, swell) => {
+      const n = noise(c, dur), f = c.createBiquadFilter(), g = c.createGain(), t = c.currentTime;
+      f.type = "bandpass"; f.frequency.value = freq; f.Q.value = .7;
+      g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + swell); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+      n.connect(f); f.connect(g); g.connect(c.destination); n.start();
+    };
+    const sfx = kind => {
+      if (muted) return;
+      const c = audio(); if (!c) return;
+      if (kind === "swish") { crowd(c, .35, 1.6, 900, .25); crowd(c, .12, .25, 4000, .02); tone(c, 880, 1320, .18, .06, "sine"); }
+      else if (kind === "rim") { tone(c, 330, 180, .25, .18, "triangle"); crowd(c, .18, .8, 500, .1); }
+      else if (kind === "miss") { crowd(c, .2, 1.1, 350, .15); tone(c, 300, 140, .6, .06, "sine"); }
+      else if (kind === "bounce") tone(c, 140, 70, .12, .22, "sine");
+      else if (kind === "shoot") crowd(c, .06, .3, 2500, .05);
+    };
+
     const say = (t, kind) => {
       msgEl.textContent = t; msgEl.dataset.kind = kind || "";
       msgEl.classList.remove("in"); void msgEl.offsetWidth; msgEl.classList.add("in");
@@ -879,8 +1103,8 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       $("#cScore").innerHTML = `${score}<em>/3</em>`; $("#cBest").innerHTML = `${best}<em>/3</em>`;
     };
     const pop = id => { const b = $(id).parentElement; b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop"); };
-    const meter = () => { const t = ((performance.now() - tStart) / 1600) % 2; return t < 1 ? t : 2 - t; };
- 
+    const meter = () => { const t = ((performance.now() - tStart) / LEVELS[level]) % 2; return t < 1 ? t : 2 - t; };
+
     function reset() {
       timers.forEach(clearTimeout); timers = [];
       shots = 3; score = 0; results.length = 0; state = "aim";
@@ -888,15 +1112,15 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       tStart = performance.now(); again.hidden = true; hud();
       say(T("start"));
     }
- 
+
     function shoot() {
       if (!open || state !== "aim") return;
       const v = VP * (.9 + .2 * meter());
       ball.vx = v * Math.cos(ANG); ball.vy = -v * Math.sin(ANG);
-      state = "flight"; crossed = false; scored = false; bounces = 0; frames = 0; miss = "air";
+      sfx("shoot"); state = "flight"; crossed = false; scored = false; bounces = 0; frames = 0; miss = "air";
       say("");
     }
- 
+
     function finish() {
       state = "result";
       if (scored) score++;
@@ -904,9 +1128,10 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       shots--; hud();
       if (scored) pop("#cScore");
       say(scored ? T("swish") : T(miss), scored ? "good" : "bad");
+      if (!scored && miss !== "rim") sfx("miss");
       timers.push(setTimeout(next, 1100));
     }
- 
+
     function next() {
       if (!open) return;
       if (shots > 0) {
@@ -916,14 +1141,14 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       } else {
         state = "done";
         const isBest = score > best;
-        if (isBest) { best = score; try { localStorage.setItem("bestShots", String(best)); } catch (e) {} }
+        if (isBest) { best = score; try { localStorage.setItem(bestKey(), String(best)); } catch (e) {} }
         hud();
         if (isBest) pop("#cBest");
         say(T("final", score) + (isBest ? " " + T("newbest") : ""));
         again.hidden = false;
       }
     }
- 
+
     function step(dt) {
       mark.style.left = (meter() * 100) + "%";
       if (state === "aim") { ball.y = Y0 + Math.sin(performance.now() / 260) * 3; return; }
@@ -935,14 +1160,14 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
         crossed = true;
         const cx = px + (ball.x - px) * ((RIMY - py) / (ball.y - py));
         const off = cx - RIMX;
-        if (Math.abs(off) <= HALF) { scored = true; ball.vx *= .25; }
-        else miss = Math.abs(off) < HALF + 22 ? "rim" : off < 0 ? "short" : "long";
+        if (Math.abs(off) <= HALF) { scored = true; ball.vx *= .25; sfx("swish"); }
+        else { miss = Math.abs(off) < HALF + 22 ? "rim" : off < 0 ? "short" : "long"; if (miss === "rim") sfx("rim"); }
       }
       if (ball.x + R >= 788 && ball.y > 95 && ball.y < 235 && ball.vx > 0) { ball.x = 788 - R; ball.vx *= -.45; }
-      if (ball.y + R >= FLOOR) { ball.y = FLOOR - R; ball.vy *= -.55; ball.vx *= .85; bounces++; }
+      if (ball.y + R >= FLOOR) { ball.y = FLOOR - R; ball.vy *= -.55; ball.vx *= .85; bounces++; sfx("bounce"); }
       if (bounces >= 2 || ball.x > W + 40 || frames > 240) finish();
     }
- 
+
     function drawBall(x, y, rot) {
       ctx.save(); ctx.translate(x, y); ctx.rotate(rot);
       ctx.fillStyle = "#111"; ctx.strokeStyle = "#F47B20"; ctx.lineWidth = 3;
@@ -954,7 +1179,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       }
       ctx.stroke(); ctx.restore();
     }
- 
+
     function draw() {
       ctx.clearRect(0, 0, W, H);
       ctx.strokeStyle = "#111"; ctx.fillStyle = "#111"; ctx.lineCap = "round";
@@ -967,11 +1192,11 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       ctx.lineWidth = 8;
       ctx.beginPath(); ctx.moveTo(792, 95); ctx.lineTo(792, 235);
       ctx.moveTo(RIMX - HALF - 8, RIMY); ctx.lineTo(RIMX + HALF + 8, RIMY); ctx.stroke();
- 
+
       ctx.fillStyle = "rgba(17,17,17,.18)"; ctx.beginPath();
       ctx.ellipse(ball.x, FLOOR + 14, R * (1 - Math.min(.5, (FLOOR - ball.y) / 700)), 6, 0, 0, 7); ctx.fill();
       drawBall(ball.x, ball.y, ball.rot);
- 
+
       ctx.strokeStyle = "rgba(17,17,17,.75)"; ctx.lineWidth = 2; ctx.beginPath();
       for (let i = 0; i <= 4; i++) {
         const a = RIMX - HALF - 4 + i * (HALF * 2 + 8) / 4, b = RIMX - HALF + 8 + i * (HALF * 2 - 16) / 4;
@@ -983,14 +1208,14 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       }
       ctx.stroke();
     }
- 
+
     function loop(t) {
       if (!open) return;
       const dt = Math.min(2, (t - (last || t)) / 16.667); last = t;
       step(dt); draw();
       raf = requestAnimationFrame(loop);
     }
- 
+
     function openGame() {
       if (open) return;
       open = true; zone.classList.add("playing");
@@ -1001,7 +1226,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       open = false; zone.classList.remove("playing");
       cancelAnimationFrame(raf); timers.forEach(clearTimeout);
     }
- 
+
     if (fine) {
       zone.addEventListener("mouseenter", openGame);
       zone.addEventListener("mouseleave", closeGame);
@@ -1018,7 +1243,23 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       if (e.key === "Escape") closeGame();
       else if (e.code === "Space" && !e.target.closest("button")) { e.preventDefault(); shoot(); }
     });
-    gameRefresh = () => { hud(); again.textContent = T("again"); if (state === "aim" && shots === 3) say(T("start")); };
+    const lvBtns = $$(".court-levels button", court), zoneEl = $(".court-zone", court), sndBtn = $("#cSnd", court);
+    const paintOpts = () => {
+      lvBtns.forEach(b => { b.setAttribute("aria-pressed", b.dataset.level === level); b.textContent = T(b.dataset.level); });
+      zoneEl.style.visibility = level === "legend" ? "hidden" : "visible";
+      sndBtn.textContent = T(muted ? "sndOff" : "sndOn"); sndBtn.setAttribute("aria-pressed", !muted);
+    };
+    lvBtns.forEach(b => b.addEventListener("click", e => {
+      e.stopPropagation(); level = b.dataset.level;
+      try { localStorage.setItem("shotLevel", level); } catch (x) {}
+      loadBest(); reset(); paintOpts();
+    }));
+    sndBtn.addEventListener("click", e => {
+      e.stopPropagation(); muted = !muted;
+      try { localStorage.setItem("shotMuted", muted ? "1" : "0"); } catch (x) {}
+      paintOpts(); if (!muted) sfx("bounce");
+    });
+    gameRefresh = () => { hud(); paintOpts(); again.textContent = T("again"); if (state === "aim" && shots === 3) say(T("start")); };
     gameRefresh();
     draw();
   })();
