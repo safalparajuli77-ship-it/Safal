@@ -22,7 +22,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
+body{background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,"Noto Sans Devanagari","Nirmala UI",Mangal,sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button{border:0;background:none;font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--ink);outline-offset:4px}
@@ -218,6 +218,19 @@ h1,h2,h3{font-weight:900}
 .paused,.paused *,.paused::before,.paused::after{animation-play-state:paused!important}
 .gallery-section,.education,.skills-section,.playground,.contact{content-visibility:auto;contain-intrinsic-size:auto 100vh}
 
+/* Language switch + Nepali typography (Devanagari needs normal spacing and taller lines) */
+.nav-right{display:flex;align-items:center;gap:18px}
+.lang-btn{padding:4px 9px;border:1px solid rgba(255,255,255,.7);font:11px var(--mono);letter-spacing:.08em;color:#fff}
+html[lang="ne"] :is(.overview-title,.horizontal-title,.education-title,.playground-title,.contact-title,.skill-word,.experience-card h3,.menu-links a,.timeline-title,.overview-copy){letter-spacing:0!important;line-height:1.15!important}
+html[lang="ne"] .overview-title{font-size:clamp(52px,8vw,120px)}
+html[lang="ne"] :is(.horizontal-title,.education-title,.playground-title){font-size:clamp(56px,10vw,150px)}
+html[lang="ne"] .contact-title{font-size:clamp(56px,9vw,130px)}
+html[lang="ne"] .skill-word{font-size:clamp(40px,7vw,100px)}
+html[lang="ne"] .experience-card h3{font-size:clamp(24px,3vw,42px)}
+html[lang="ne"] .menu-links a{font-size:clamp(46px,8vw,120px)}
+html[lang="ne"] .ov-line{padding-top:.12em}
+html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font-size:clamp(58px,9vw,150px)!important}
+
 /* Reveal (only hidden when JS is running) */
 .js .reveal{opacity:0;transform:translateY(70px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .js .reveal.visible{opacity:1;transform:none}
@@ -269,7 +282,7 @@ h1,h2,h3{font-weight:900}
 
 <nav class="nav" aria-label="Main">
   <div class="logo">SAFAL PARAJULI®</div>
-  <button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="menu">MENU +</button>
+  <div class="nav-right"><button class="lang-btn" id="langBtn" type="button" aria-label="नेपालीमा हेर्नुहोस्">नेपाली</button><button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="menu">MENU +</button></div>
 </nav>
 
 <div class="menu" id="menu">
@@ -313,7 +326,7 @@ h1,h2,h3{font-weight:900}
     </div>
   </div>
 
-  <div class="hero-info"><span>I AM A <b class="role" id="role">LEADER</b></span><span>NEPAL / CHITWAN</span></div>
+  <div class="hero-info"><span><span id="iam">I AM A</span> <b class="role" id="role">LEADER</b></span><span>NEPAL / CHITWAN</span></div>
 </section>
 
 <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marqueeTrack"></div></div>
@@ -429,6 +442,9 @@ h1,h2,h3{font-weight:900}
     <a class="contact-link" href="https://www.linkedin.com/in/safal-parajuli-054893283/" target="_blank" rel="noopener noreferrer" aria-label="Safal Parajuli on LinkedIn">
       <span class="contact-icon" aria-hidden="true">in</span><span class="contact-label">LINKEDIN</span><span class="contact-arrow" aria-hidden="true">↗</span>
     </a>
+    <a class="contact-link" href="cv.html" target="_blank" rel="noopener" aria-label="View CV">
+      <span class="contact-icon" aria-hidden="true">↓</span><span class="contact-label">VIEW CV</span><span class="contact-arrow" aria-hidden="true">↗</span>
+    </a>
   </div>
 </section>
 </main>
@@ -445,10 +461,14 @@ h1,h2,h3{font-weight:900}
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
   const reduced = matchMedia("(prefers-reduced-motion:reduce)").matches;
+  let lang = "en", gameRefresh = () => {};
 
   /* Marquee: build from one repeated phrase */
-  const phrase = "SAFAL PARAJULI × ";
-  $("#marqueeTrack").innerHTML = `<span>${phrase.repeat(24)}</span><span>${phrase.repeat(24)}</span>`;
+  const buildMarquee = () => {
+    const ph = lang === "ne" ? "सफल पराजुली × " : "SAFAL PARAJULI × ";
+    $("#marqueeTrack").innerHTML = `<span>${ph.repeat(24)}</span><span>${ph.repeat(24)}</span>`;
+  };
+  buildMarquee();
 
   /* Loader */
   const loader = $("#loader");
@@ -478,6 +498,7 @@ h1,h2,h3{font-weight:900}
 
         const near = letters.some(l => {
           const r = l.getBoundingClientRect();
+          if (!r.width) return false;
           return Math.hypot(ev.clientX - (r.left + r.width / 2), ev.clientY - (r.top + r.height / 2)) < 85;
         });
         counter.classList.toggle("show", near);
@@ -517,7 +538,7 @@ h1,h2,h3{font-weight:900}
   const menu = $("#menu"), btn = $("#menuButton");
   const setMenu = open => {
     menu.classList.toggle("open", open);
-    btn.textContent = open ? "CLOSE ×" : "MENU +";
+    btn.textContent = lang === "ne" ? (open ? "बन्द ×" : "मेनु +") : (open ? "CLOSE ×" : "MENU +");
     btn.setAttribute("aria-expanded", open);
     document.body.style.overflow = open ? "hidden" : "";
   };
@@ -564,11 +585,11 @@ h1,h2,h3{font-weight:900}
 
   /* Rotating role word in the hero */
   const role = $("#role");
-  const words = ["LEADER", "CADET", "ORGANIZER", "SPEAKER", "BUILDER"];
+  const roleWords = { en: ["LEADER", "CADET", "ORGANIZER", "SPEAKER", "BUILDER"], ne: ["नेता", "क्याडेट", "आयोजक", "वक्ता", "निर्माता"] };
   let wi = 0;
   if (!reduced) setInterval(() => {
     role.classList.add("swap");
-    setTimeout(() => { wi = (wi + 1) % words.length; role.textContent = words[wi]; role.classList.remove("swap"); }, 300);
+    setTimeout(() => { wi = (wi + 1) % roleWords[lang].length; role.textContent = roleWords[lang][wi]; role.classList.remove("swap"); }, 300);
   }, 2200);
 
   /* Magnetic contact buttons (mouse only) */
@@ -595,6 +616,73 @@ h1,h2,h3{font-weight:900}
     ov.addEventListener("mouseleave", () => spot.style.opacity = "0");
   }
 
+  /* English / नेपाली */
+  const NE = [
+    [".logo", ["सफल पराजुली®"]],
+    [".photo-meta", ["सफल पराजुली / 2026"]],
+    [".footer span:nth-child(1)", ["सफल पराजुली®"]],
+    [".menu-links a", ["परिचय", "ग्यालरी", "शिक्षा", "सीप", "अनुभव", "सम्पर्क"]],
+    [".section-number", ["00 / सुरुवात", "01 / परिचय", "02 / ग्यालरी", "03 / शिक्षा", "04 / सीप", "05 / अनुभव", "06 / सम्पर्क"]],
+    ["#iam", ["म एक"]],
+    [".hero-info > span:last-child", ["नेपाल / चितवन"]],
+    [".ov-word", ["नमस्ते।", "म", "सफल हुँ।"]],
+    [".ov-copy-line", ["विद्यार्थी नेता, चितवनबाट,", "एनसीसी क्याडेट र विज्ञान प्रेमी,", "विचारलाई कार्यमा बदल्दै।"]],
+    [".horizontal-title", ["मेरो<br>ग्यालरी।"]],
+    [".education-title", ["सिक।<br>बनाऊ।<br>दोहोर्याऊ।"]],
+    [".timeline-title", ["नारायणी इङ्ग्लिस पब्लिक स्कुल", "नारायणी पब्लिक कलेज"]],
+    [".skill-word", ["नेतृत्व", "सञ्चार", "टोली कार्य", "कार्यक्रम समन्वय", "समस्या समाधान", "सार्वजनिक वक्तृत्व"]],
+    [".playground-title", ["मैले<br>गरेका<br>कामहरू।"]],
+    [".experience-card h3", ["एनसीसी", "सामुदायिक तथा वातावरणीय पहलहरू", "विद्यार्थी नेतृत्व", "विज्ञान र प्रविधि"]],
+    [".experience-card p", [
+      "राष्ट्रिय क्याडेट कोर (एनसीसी) मा सहभागी भई तालिम र गतिविधिमार्फत अनुशासन, टोली भावना, जिम्मेवारी र नेतृत्व सिकेँ।",
+      "समस्या देख्नुहोस्। काम गर्ने निर्णय लिनुहोस्।",
+      "विद्यार्थी नेतृत्वका भूमिकामा रहेर सहपाठीहरूको प्रतिनिधित्व र सहयोगको जिम्मेवारी लिएँ।",
+      "विज्ञान, प्रविधि र टोली कार्यसँग सिकाइलाई जोड्ने गतिविधिहरूमा सक्रिय रूपमा सहभागी भएँ।"]],
+    [".experience-open", [
+      'एनसीसी हेर्नुहोस् <span aria-hidden="true">↗</span>',
+      'पहलहरू हेर्नुहोस् <span aria-hidden="true">↗</span>',
+      'विद्यार्थी नेतृत्व हेर्नुहोस् <span aria-hidden="true">↗</span>',
+      'विज्ञान र प्रविधि हेर्नुहोस् <span aria-hidden="true">↗</span>']],
+    [".contact-title", ["आउनुहोस्<br>जोडिऔँ।"]],
+    [".contact-label", ["इमेल", "INSTAGRAM", "LINKEDIN", "सीभी हेर्नुहोस्"]],
+    [".footer span:nth-child(2)", ["डिजाइन / विकास: सफल"]],
+    [".counter-small", ["समय बितेको"]],
+    [".counter-unit", ["दिन", "घण्टा", "मिनेट", "सेकेन्ड"]]
+  ];
+  const applyLang = l => NE.forEach(([sel, arr]) => $$(sel).forEach((el, i) => {
+    if (arr[i] == null) return;
+    if (el.dataset.en === undefined) el.dataset.en = el.innerHTML;
+    el.innerHTML = l === "ne" ? arr[i] : el.dataset.en;
+  }));
+  const NAME_NE = [["स", "फ", "ल"], ["प", "रा", "जु", "ली"]];
+  const applyName = l => $$(".name-row").forEach((row, k) => $$(".letter", row).forEach((sp, i) => {
+    if (sp.dataset.en === undefined) sp.dataset.en = sp.textContent;
+    if (l === "ne" && NAME_NE[k][i] !== undefined) { sp.textContent = NAME_NE[k][i]; sp.style.display = ""; }
+    else if (l === "ne") sp.style.display = "none";
+    else { sp.textContent = sp.dataset.en; sp.style.display = ""; }
+  }));
+  const langBtn = $("#langBtn");
+  function setLang(l, save) {
+    lang = l;
+    document.documentElement.lang = l;
+    applyLang(l);
+    applyName(l);
+    buildMarquee();
+    $(".name").setAttribute("aria-label", l === "ne" ? "सफल पराजुली" : "Safal Parajuli");
+    $(".overview-title").setAttribute("aria-label", l === "ne" ? "नमस्ते। म सफल हुँ।" : "Hello. I’m Safal.");
+    langBtn.textContent = l === "ne" ? "EN" : "नेपाली";
+    langBtn.setAttribute("aria-label", l === "ne" ? "Switch to English" : "नेपालीमा हेर्नुहोस्");
+    const isOpen = menu.classList.contains("open");
+    btn.textContent = l === "ne" ? (isOpen ? "बन्द ×" : "मेनु +") : (isOpen ? "CLOSE ×" : "MENU +");
+    wi = 0; role.textContent = roleWords[l][0];
+    gameRefresh();
+    if (save) { try { localStorage.setItem("lang", l); } catch (e) {} }
+  }
+  langBtn.addEventListener("click", () => setLang(lang === "ne" ? "en" : "ne", true));
+  let savedLang = null;
+  try { savedLang = localStorage.getItem("lang"); } catch (e) {}
+  if (savedLang === "ne") setLang("ne");
+
   /* Three-point shootout: hover (or tap / press the button) on the Overview title */
   (() => {
     const zone = $("#titleZone");
@@ -602,7 +690,7 @@ h1,h2,h3{font-weight:900}
     court.className = "court";
     court.setAttribute("role", "dialog");
     court.setAttribute("aria-label", "Three-point shootout");
-    court.innerHTML = `<div class="court-hud"><span id="cScore">SCORE 0 / 3</span><span id="cLeft">SHOTS LEFT 3</span><button class="court-close" type="button" aria-label="Close game">×</button></div>
+    court.innerHTML = `<div class="court-hud"><span id="cScore">SCORE 0 / 3</span><span id="cLeft">SHOTS LEFT 3</span><span id="cBest"></span><button class="court-close" type="button" aria-label="Close game">×</button></div>
       <canvas id="cCanvas"></canvas>
       <div class="court-meter"><div class="court-zone"></div><div class="court-mark" id="cMark"></div></div>
       <p class="court-msg" id="cMsg" aria-live="polite"></p>
@@ -622,11 +710,24 @@ h1,h2,h3{font-weight:900}
     const VP = Math.sqrt(G * dx * dx / (2 * Math.cos(ANG) ** 2 * (dx * Math.tan(ANG) - dy)));
 
     let open = false, raf = 0, last = 0, tStart = 0, timers = [];
-    let state = "aim", shots = 3, score = 0, scored = false, crossed = false, bounces = 0, frames = 0, miss = "AIRBALL";
+    let state = "aim", shots = 3, score = 0, scored = false, crossed = false, bounces = 0, frames = 0, miss = "air";
     let ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
+    let best = 0;
+    try { best = +localStorage.getItem("bestShots") || 0; } catch (e) {}
+    const TXT = {
+      en: { score: "SCORE", left: "SHOTS LEFT", best: "BEST", again: "PLAY AGAIN", newbest: "NEW BEST!",
+        start: "Shot 1 of 3. Click or press Space when the marker is in the black zone",
+        shot: n => `Shot ${n} of 3`, swish: "SWISH! +1", rim: "RIM OUT!", short: "TOO SHORT", long: "TOO LONG", air: "AIRBALL",
+        final: n => `FINAL ${n} / 3. ${["Try again.", "Keep shooting.", "Sharp shooter.", "Perfect round!"][n]}` },
+      ne: { score: "अंक", left: "बाँकी शट", best: "उत्कृष्ट", again: "फेरि खेल्नुहोस्", newbest: "नयाँ उत्कृष्ट!",
+        start: "शट 1 / 3। मार्कर कालो भागमा हुँदा क्लिक गर्नुहोस् वा Space थिच्नुहोस्",
+        shot: n => `शट ${n} / 3`, swish: "गोल! +1", rim: "रिमबाट बाहिर!", short: "छोटो भयो", long: "लामो भयो", air: "चुक्यो",
+        final: n => `अन्तिम ${n} / 3। ${["फेरि प्रयास गर्नुहोस्।", "खेलिरहनुहोस्।", "राम्रो निशाना!", "पूर्ण राउन्ड!"][n]}` }
+    };
+    const T = (k, n) => { const v = TXT[lang][k]; return typeof v === "function" ? v(n) : v; };
 
     const say = t => msgEl.textContent = t;
-    const hud = () => { $("#cScore").textContent = `SCORE ${score} / 3`; $("#cLeft").textContent = `SHOTS LEFT ${shots}`; };
+    const hud = () => { $("#cScore").textContent = `${T("score")} ${score} / 3`; $("#cLeft").textContent = `${T("left")} ${shots}`; $("#cBest").textContent = `${T("best")} ${best} / 3`; };
     const meter = () => { const t = ((performance.now() - tStart) / 1600) % 2; return t < 1 ? t : 2 - t; };
 
     function reset() {
@@ -634,14 +735,14 @@ h1,h2,h3{font-weight:900}
       shots = 3; score = 0; state = "aim";
       ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
       tStart = performance.now(); again.hidden = true; hud();
-      say("Shot 1 of 3. Click or press Space when the marker is in the black zone");
+      say(T("start"));
     }
 
     function shoot() {
       if (!open || state !== "aim") return;
       const v = VP * (.9 + .2 * meter());
       ball.vx = v * Math.cos(ANG); ball.vy = -v * Math.sin(ANG);
-      state = "flight"; crossed = false; scored = false; bounces = 0; frames = 0; miss = "AIRBALL";
+      state = "flight"; crossed = false; scored = false; bounces = 0; frames = 0; miss = "air";
       say("");
     }
 
@@ -649,7 +750,7 @@ h1,h2,h3{font-weight:900}
       state = "result";
       if (scored) score++;
       shots--; hud();
-      say(scored ? "SWISH! +1" : miss);
+      say(scored ? T("swish") : T(miss));
       timers.push(setTimeout(next, 1100));
     }
 
@@ -658,11 +759,13 @@ h1,h2,h3{font-weight:900}
       if (shots > 0) {
         ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
         state = "aim"; tStart = performance.now();
-        say(`Shot ${4 - shots} of 3`);
+        say(T("shot", 4 - shots));
       } else {
         state = "done";
-        const verdict = ["Try again.", "Keep shooting.", "Sharp shooter.", "Perfect round!"][score];
-        say(`FINAL ${score} / 3. ${verdict}`);
+        const isBest = score > best;
+        if (isBest) { best = score; try { localStorage.setItem("bestShots", String(best)); } catch (e) {} }
+        hud();
+        say(T("final", score) + (isBest ? " " + T("newbest") : ""));
         again.hidden = false;
       }
     }
@@ -679,7 +782,7 @@ h1,h2,h3{font-weight:900}
         const cx = px + (ball.x - px) * ((RIMY - py) / (ball.y - py));
         const off = cx - RIMX;
         if (Math.abs(off) <= HALF) { scored = true; ball.vx *= .25; }
-        else miss = Math.abs(off) < HALF + 22 ? "RIM OUT!" : off < 0 ? "TOO SHORT" : "TOO LONG";
+        else miss = Math.abs(off) < HALF + 22 ? "rim" : off < 0 ? "short" : "long";
       }
       if (ball.x + R >= 788 && ball.y > 95 && ball.y < 235 && ball.vx > 0) { ball.x = 788 - R; ball.vx *= -.45; }
       if (ball.y + R >= FLOOR) { ball.y = FLOOR - R; ball.vy *= -.55; ball.vx *= .85; bounces++; }
@@ -761,6 +864,8 @@ h1,h2,h3{font-weight:900}
       if (e.key === "Escape") closeGame();
       else if (e.code === "Space" && !e.target.closest("button")) { e.preventDefault(); shoot(); }
     });
+    gameRefresh = () => { hud(); again.textContent = T("again"); if (state === "aim" && shots === 3) say(T("start")); };
+    gameRefresh();
     draw();
   })();
 })();
