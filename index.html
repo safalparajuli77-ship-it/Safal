@@ -344,6 +344,30 @@ html[data-theme="dark"] .cursor.big{background:#fff}
   .gallery-card{scroll-snap-align:center}
 }
 
+/* Top-bar analog clock */
+.clock{display:flex;align-items:center;gap:8px;font:11px var(--mono);letter-spacing:.08em;color:#fff}
+.clock svg{display:block;width:36px;height:36px}
+@media(max-width:700px){.clock-digital{display:none}.clock svg{width:30px;height:30px}.nav-right{gap:10px}}
+
+/* Full-screen clock */
+.clock{cursor:pointer}
+.clock-full{position:fixed;inset:0;z-index:99995;display:flex;align-items:center;justify-content:center;background:linear-gradient(#02030a,#04070f 60%,#07121d);color:#fff;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;font-family:Arial,Helvetica,"Noto Sans Devanagari","Nirmala UI",sans-serif}
+.clock-full.open{opacity:1;visibility:visible}
+.cf-modes{position:absolute;top:26px;right:34px;display:flex;gap:30px}
+.cf-modes button{display:flex;align-items:center;gap:9px;font-size:16px;color:#fff;transition:color .3s}
+.cf-modes button[aria-pressed="true"]{color:#3aa0ff}
+.cf-modes svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.cf-view[hidden]{display:none}
+.cf-digital{display:flex;align-items:baseline;font:800 clamp(64px,16.5vw,310px)/1 "Montserrat","Arial Black",Arial,sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#dedede;white-space:pre}
+.cf-digital .dim{color:#4a4e57}
+.cf-digital small{margin-left:.4em;font-size:.16em;letter-spacing:.04em;color:#4a4e57}
+.cf-analog svg{display:block;width:min(80vmin,760px);height:auto}
+#cfFace text{fill:#3d4048;font:800 44px Arial,sans-serif}
+#cfFace circle{fill:#3d4048}
+.cf-exit{position:absolute;left:50%;bottom:4.5vh;transform:translateX(-50%);padding:14px 26px;background:#0b7fc7;color:#fff;font-size:20px;border-radius:2px;transition:background .3s}
+.cf-exit:hover{background:#1590e0}
+@media(max-width:700px){.cf-modes{top:16px;right:16px;gap:18px}.cf-digital{font-size:clamp(40px,15.5vw,140px)}.cf-exit{font-size:16px;padding:12px 20px;bottom:6vh}}
+
 /* Reveal (only hidden when JS is running) */
 .js .reveal{opacity:0;transform:translateY(70px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .js .reveal.visible{opacity:1;transform:none}
@@ -396,7 +420,17 @@ html[data-theme="dark"] .cursor.big{background:#fff}
 
 <nav class="nav" aria-label="Main">
   <div class="logo">SAFAL PARAJULI®</div>
-  <div class="nav-right"><button class="lang-btn" id="langBtn" type="button" aria-label="नेपालीमा हेर्नुहोस्">नेपाली</button><button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="menu">MENU +</button></div>
+  <div class="nav-right"><div class="clock" id="clock" role="button" tabindex="0" aria-label="Open full-screen clock">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="47" fill="#fff" stroke="#111" stroke-width="5"/>
+        <g id="clockMarks" stroke="#111" stroke-linecap="round"></g>
+        <g id="hHand"><line x1="50" y1="55" x2="50" y2="28" stroke="#111" stroke-width="6" stroke-linecap="round"/></g>
+        <g id="mHand"><line x1="50" y1="57" x2="50" y2="15" stroke="#111" stroke-width="4.5" stroke-linecap="round"/></g>
+        <g id="sHand"><line x1="50" y1="62" x2="50" y2="11" stroke="#111" stroke-width="1.8" stroke-linecap="round"/></g>
+        <circle cx="50" cy="50" r="4" fill="#111"/>
+      </svg>
+      <span class="clock-digital" id="clockDigital"></span>
+    </div><button class="lang-btn" id="langBtn" type="button" aria-label="नेपालीमा हेर्नुहोस्">नेपाली</button><button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="menu">MENU +</button></div>
 </nav>
 
 <div class="menu" id="menu">
@@ -586,6 +620,24 @@ html[data-theme="dark"] .cursor.big{background:#fff}
   <span>DESIGNED / DEVELOPED BY SAFAL</span>
   <span>© 2026</span>
 </footer>
+
+<div class="clock-full" id="clockFull" role="dialog" aria-modal="true" aria-label="Full-screen clock" aria-hidden="true">
+  <div class="cf-modes">
+    <button type="button" id="cfDigital" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6.5" width="19" height="11" rx="2"/><path d="M7 10v4M12 10v4M17 10v4"/></svg><span>Digital</span></button>
+    <button type="button" id="cfAnalog" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Analog</span></button>
+  </div>
+  <div class="cf-view cf-digital" id="cfDigitalView"></div>
+  <div class="cf-view cf-analog" id="cfAnalogView" hidden>
+    <svg viewBox="0 0 400 400" aria-hidden="true">
+      <g id="cfFace"></g>
+      <g id="cfH"><rect x="191" y="94" width="18" height="114" rx="9" fill="none" stroke="#4a4d55" stroke-width="3.5"/></g>
+      <g id="cfM"><line x1="200" y1="212" x2="200" y2="63" stroke="#4a4d55" stroke-width="14" stroke-linecap="round"/></g>
+      <g id="cfS"><line x1="200" y1="224" x2="200" y2="13" stroke="#ff3d6e" stroke-width="2.2"/></g>
+      <circle cx="200" cy="200" r="7" fill="#ff3d6e"/>
+    </svg>
+  </div>
+  <button type="button" class="cf-exit" id="cfExit">Exit Full screen</button>
+</div>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
   <button class="lb-close" type="button" aria-label="Close">×</button>
@@ -845,6 +897,122 @@ html[data-theme="dark"] .cursor.big{background:#fff}
       }
       setTimeout(() => { toast.remove(); busy = false; }, 3200);
     });
+  })();
+
+  /* Analog clock in the top bar (device time) */
+  (() => {
+    const clock = $("#clock"), digital = $("#clockDigital"), marks = $("#clockMarks");
+    const NS = "http://www.w3.org/2000/svg";
+    for (let i = 0; i < 12; i++) {
+      const l = document.createElementNS(NS, "line"), major = i % 3 === 0;
+      l.setAttribute("x1", 50); l.setAttribute("x2", 50);
+      l.setAttribute("y1", 9); l.setAttribute("y2", major ? 20 : 15);
+      l.setAttribute("stroke-width", major ? 3 : 1.8);
+      l.setAttribute("transform", `rotate(${i * 30} 50 50)`);
+      marks.appendChild(l);
+    }
+    const hH = $("#hHand"), hM = $("#mHand"), hS = $("#sHand");
+    const tick = () => {
+      if (document.hidden) return;
+      const d = new Date(), sec = d.getSeconds(), min = d.getMinutes() + sec / 60, hr = (d.getHours() % 12) + min / 60;
+      hH.setAttribute("transform", `rotate(${hr * 30} 50 50)`);
+      hM.setAttribute("transform", `rotate(${min * 6} 50 50)`);
+      hS.setAttribute("transform", `rotate(${sec * 6} 50 50)`);
+      const t = d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+      digital.textContent = t;
+      clock.setAttribute("aria-label", "Local time " + t + ". Open full-screen clock");
+      clock.title = d.toLocaleDateString([], { weekday: "long", day: "numeric", month: "long" });
+    };
+    tick(); setInterval(tick, 1000);
+    document.addEventListener("visibilitychange", tick);
+  })();
+
+  /* Full-screen clock: opens from the small clock in the top bar */
+  (() => {
+    const box = $("#clockFull"), btnD = $("#cfDigital"), btnA = $("#cfAnalog"), exit = $("#cfExit"), navClock = $("#clock");
+    const digital = $("#cfDigitalView"), analog = $("#cfAnalogView"), face = $("#cfFace");
+    const hourH = $("#cfH"), minH = $("#cfM"), secH = $("#cfS");
+    const NS = "http://www.w3.org/2000/svg";
+    for (let i = 1; i <= 12; i++) {
+      const a = (i * 30 - 90) * Math.PI / 180;
+      const t = document.createElementNS(NS, "text");
+      t.setAttribute("x", 200 + 148 * Math.cos(a)); t.setAttribute("y", 200 + 148 * Math.sin(a));
+      t.setAttribute("text-anchor", "middle"); t.setAttribute("dominant-baseline", "central");
+      t.textContent = i; face.appendChild(t);
+      const c = document.createElementNS(NS, "circle");
+      c.setAttribute("cx", 200 + 188 * Math.cos(a)); c.setAttribute("cy", 200 + 188 * Math.sin(a)); c.setAttribute("r", 4.5);
+      face.appendChild(c);
+    }
+    const fmt = new Intl.DateTimeFormat([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    let mode = "digital", isOpen = false, raf = 0, to = 0, lastSec = -1;
+    try { mode = localStorage.getItem("clockMode") === "analog" ? "analog" : "digital"; } catch (e) {}
+    const applyText = () => {
+      const ne = lang === "ne";
+      $("span", btnD).textContent = ne ? "डिजिटल" : "Digital";
+      $("span", btnA).textContent = ne ? "एनालग" : "Analog";
+      exit.textContent = ne ? "पूर्ण स्क्रिन बन्द गर्नुहोस्" : "Exit Full screen";
+    };
+    const paintMode = () => {
+      digital.hidden = mode !== "digital"; analog.hidden = mode !== "analog";
+      btnD.setAttribute("aria-pressed", mode === "digital"); btnA.setAttribute("aria-pressed", mode === "analog");
+    };
+    const render = () => {
+      const d = new Date(), sec = d.getSeconds() + d.getMilliseconds() / 1000;
+      if (mode === "digital") {
+        if (d.getSeconds() === lastSec) return;
+        lastSec = d.getSeconds();
+        let html = "", prev = "";
+        fmt.formatToParts(d).forEach(p => {
+          if (p.type === "hour" || p.type === "minute") html += `<span>${p.value}</span>`;
+          else if (p.type === "second") html += `<span class="dim">${p.value}</span>`;
+          else if (p.type === "literal") html += `<span class="${prev === "minute" ? "dim" : ""}">${p.value}</span>`;
+          else if (p.type === "dayPeriod") html += `<small>${p.value}</small>`;
+          prev = p.type;
+        });
+        digital.innerHTML = html;
+      } else {
+        const min = d.getMinutes() + sec / 60, hr = (d.getHours() % 12) + min / 60;
+        hourH.setAttribute("transform", `rotate(${hr * 30} 200 200)`);
+        minH.setAttribute("transform", `rotate(${min * 6} 200 200)`);
+        secH.setAttribute("transform", `rotate(${(reduced ? Math.floor(sec) : sec) * 6} 200 200)`);
+      }
+    };
+    const loop = () => {
+      if (!isOpen) return;
+      render();
+      if (mode === "analog" && !reduced) raf = requestAnimationFrame(loop);
+      else to = setTimeout(loop, 200);
+    };
+    const stop = () => { cancelAnimationFrame(raf); clearTimeout(to); };
+    const openClock = () => {
+      if (isOpen) return;
+      isOpen = true; lastSec = -1;
+      applyText(); paintMode();
+      box.classList.add("open"); box.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      if (box.requestFullscreen) box.requestFullscreen().catch(() => {});
+      loop(); exit.focus();
+    };
+    const closeClock = () => {
+      if (!isOpen) return;
+      isOpen = false; stop();
+      box.classList.remove("open"); box.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      navClock.focus();
+    };
+    const setMode = m => {
+      mode = m; lastSec = -1;
+      try { localStorage.setItem("clockMode", m); } catch (e) {}
+      paintMode(); stop(); loop();
+    };
+    navClock.addEventListener("click", openClock);
+    navClock.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openClock(); } });
+    btnD.addEventListener("click", () => setMode("digital"));
+    btnA.addEventListener("click", () => setMode("analog"));
+    exit.addEventListener("click", closeClock);
+    document.addEventListener("fullscreenchange", () => { if (!document.fullscreenElement && isOpen) closeClock(); });
+    document.addEventListener("keydown", e => { if (isOpen && e.key === "Escape") closeClock(); });
   })();
 
   /* English / नेपाली */
