@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +29,7 @@ button{border:0;background:none;font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--ink);outline-offset:4px}
 .skip{position:absolute;left:-999px;top:10px;z-index:1000000;background:var(--ink);color:#fff;padding:10px 14px;font:11px var(--mono)}
 .skip:focus{left:10px}
-
+ 
 /* Custom cursor only for mouse users */
 .cursor{display:none}
 @media(hover:hover) and (pointer:fine){
@@ -37,14 +38,14 @@ button{border:0;background:none;font:inherit;color:inherit;cursor:pointer}
   .cursor{display:block;position:fixed;left:-50px;top:-50px;width:14px;height:14px;border:1px solid var(--ink);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);z-index:99999;transition:width .25s,height .25s,background .25s}
   .cursor.big{width:55px;height:55px;background:var(--lime)}
 }
-
+ 
 /* Loader */
 .loader{position:fixed;inset:0;background:var(--ink);color:var(--paper);z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:transform .6s cubic-bezier(.77,0,.18,1)}
 .loader.hide{transform:translateY(-100%);pointer-events:none}
 .loader-bar{width:160px;height:2px;background:#444;overflow:hidden}
 .loader-progress{width:100%;height:100%;background:var(--lime);transform:scaleX(0);transform-origin:left;animation:ldFill .9s ease-out forwards}
 @keyframes ldFill{to{transform:scaleX(1)}}
-
+ 
 /* Nav + menu */
 .nav{position:fixed;top:0;left:0;width:100%;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;z-index:1000;mix-blend-mode:difference;color:#fff}
 .logo,.menu-button{font:11px var(--mono);letter-spacing:.12em;color:#fff}
@@ -54,24 +55,24 @@ button{border:0;background:none;font:inherit;color:inherit;cursor:pointer}
 .menu-links li{overflow:hidden}
 .menu-links a{display:block;font-size:clamp(55px,10vw,150px);font-weight:900;line-height:.85;letter-spacing:-.08em;transition:transform .4s ease}
 .menu-links a:hover,.menu-links a:focus-visible{transform:translateX(25px) skewX(-8deg)}
-
+ 
 /* Sections */
 .section{position:relative;padding:15vh 6vw;overflow:hidden;isolation:isolate}
 .section-number{display:block;font:10px var(--mono);letter-spacing:.08em;margin-bottom:clamp(24px,3vw,48px)}
 h1,h2,h3{font-weight:900}
-
+ 
 /* Hero */
-.hero{min-height:100vh;position:relative;padding:150px 6vw 120px;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:center}
-.hero-grid{position:absolute;inset:-20%;background-image:linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px);background-size:60px 60px;transform:rotate(-8deg) scale(1.3);animation:gridMove 20s linear infinite;z-index:0}
-@keyframes gridMove{to{transform:rotate(-8deg) scale(1.3) translate(60px,60px)}}
+.hero{background:radial-gradient(circle at 88% 12%,rgba(255,77,22,.13),transparent 46%),radial-gradient(circle at 8% 92%,rgba(142,112,255,.14),transparent 46%),radial-gradient(circle at 42% 38%,rgba(215,255,0,.14),transparent 42%),#f4edde;min-height:100vh;position:relative;padding:150px 6vw 120px;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:center}
+.hero-grid{position:absolute;inset:-240px;background-image:linear-gradient(rgba(17,17,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,17,.05) 1px,transparent 1px),linear-gradient(rgba(17,17,17,.085) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,17,.085) 1px,transparent 1px);background-size:48px 48px,48px 48px,240px 240px,240px 240px;animation:gridMove 40s linear infinite;z-index:0}
+@keyframes gridMove{to{transform:translate(240px,240px)}}
 .blob{position:absolute;border-radius:50%;pointer-events:none}
-.blob.one{width:320px;height:320px;right:4%;top:12%;background:var(--orange);animation:blobOne 7s ease-in-out infinite}
-.blob.two{width:110px;height:110px;left:48%;top:16%;background:var(--lime);animation:blobTwo 8s ease-in-out infinite}
-.blob.three{width:84px;height:84px;left:6vw;bottom:calc(6vh + 70px);background:var(--violet);animation:blobThree 9s ease-in-out infinite}
+.blob.one{width:320px;height:320px;right:4%;top:12%;background:radial-gradient(circle at 30% 28%,#ff8a55,#ff4d16 62%,#e03a08);animation:blobOne 7s ease-in-out infinite}
+.blob.two{width:110px;height:110px;left:48%;top:16%;background:radial-gradient(circle at 30% 28%,#f3ff7a,#d7ff00 65%,#b9dc00);animation:blobTwo 8s ease-in-out infinite}
+.blob.three{width:84px;height:84px;left:6vw;bottom:calc(6vh + 70px);background:radial-gradient(circle at 30% 28%,#bfaeff,#8e70ff 62%,#6d4fe0);animation:blobThree 9s ease-in-out infinite}
 @keyframes blobOne{50%{transform:translate(-50px,40px) rotate(90deg)}}
 @keyframes blobTwo{50%{transform:translateY(-80px) scale(1.2)}}
 @keyframes blobThree{50%{transform:rotate(180deg) translateX(60px)}}
-
+ 
 .hero-content{position:relative;z-index:10;width:100%;display:flex;align-items:center;justify-content:space-between;gap:4vw}
 .name{flex:1 1 0;min-width:0;font-size:clamp(58px,9.5vw,170px);line-height:.78;letter-spacing:-.09em;text-transform:uppercase;color:var(--ink);text-align:left}
 .name-row{display:block;white-space:nowrap}
@@ -85,7 +86,7 @@ h1,h2,h3{font-weight:900}
 .photo-meta{position:absolute;right:-34px;bottom:0;writing-mode:vertical-rl;font:9px var(--mono);letter-spacing:.1em}
 .hero-info{position:absolute;left:6vw;right:6vw;bottom:6vh;display:flex;justify-content:space-between;gap:20px;padding-top:18px;border-top:1px solid var(--ink);font:10px/1.8 var(--mono);letter-spacing:.08em;z-index:10}
 .hero-label{position:absolute;left:6vw;top:100px;z-index:10;margin:0}
-
+ 
 /* Name counter */
 .counter{position:fixed;width:310px;padding:18px;background:var(--ink);color:var(--paper);z-index:900;display:none;pointer-events:none;box-shadow:10px 10px 0 var(--lime)}
 .counter.show{display:block}
@@ -94,13 +95,13 @@ h1,h2,h3{font-weight:900}
 .counter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .counter-number{font-size:25px;font-weight:900}
 .counter-unit{display:block;font:7px var(--mono);text-transform:uppercase;color:#777;margin-top:4px}
-
+ 
 /* Marquee */
 .marquee{overflow:hidden;white-space:nowrap;background:var(--ink);color:var(--paper);padding:17px 0}
 .marquee-track{display:inline-flex;font:11px var(--mono);letter-spacing:.1em;animation:marquee 25s linear infinite}
 .marquee-track span{padding-right:.6em;white-space:pre}
 @keyframes marquee{to{transform:translateX(-50%)}}
-
+ 
 /* Overview */
 .overview{min-height:90vh;display:grid;grid-template-columns:1fr 1fr;gap:10vw;align-items:center;color:var(--ink);
   background:radial-gradient(circle at 78% 35%,rgba(255,220,150,.38),transparent 28%),radial-gradient(circle at 15% 85%,rgba(255,120,20,.25),transparent 32%),var(--amber)}
@@ -122,7 +123,7 @@ h1,h2,h3{font-weight:900}
 .ov-copy-line:nth-child(3){animation-delay:.85s}
 @keyframes ovCopy{to{opacity:1;transform:none}}
 .ov-spotlight{position:absolute;width:420px;height:420px;z-index:1;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,225,170,.34),transparent 68%);transform:translate(-50%,-50%);mix-blend-mode:screen;opacity:0;transition:opacity .3s}
-
+ 
 /* Basketball mini game: replaces the title while the cursor is over it */
 .title-zone{position:relative;min-height:clamp(260px,30vw,400px);outline-offset:8px}
 .title-zone .overview-title{transition:opacity .35s,transform .45s var(--ease)}
@@ -158,7 +159,7 @@ h1,h2,h3{font-weight:900}
 @media(hover:none),(pointer:coarse){.court-close{display:grid}}
 .court-again{align-self:flex-start;padding:8px 12px;background:var(--ink);color:#fff7ea;font:700 10px var(--mono);letter-spacing:.1em}
 .court-again[hidden]{display:none}
-
+ 
 /* Gallery */
 .gallery-section{min-height:100vh;background:var(--ink);color:#fff;padding:10vh 5vw;overflow:hidden}
 .horizontal-title{font-size:clamp(80px,15vw,220px);line-height:.78;letter-spacing:-.1em}
@@ -175,7 +176,7 @@ h1,h2,h3{font-weight:900}
 .gallery-card img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.04);transition:transform .9s var(--ease)}
 .gallery-card:hover img{transform:scale(1.05)}
 .gallery-index{position:absolute;left:14px;bottom:14px;z-index:8;padding:7px 9px;background:var(--ink);color:#fff;font:9px var(--mono);letter-spacing:.08em}
-
+ 
 /* Education */
 .education{min-height:100vh;background:var(--lime)}
 .education-title{font-size:clamp(80px,14vw,200px);line-height:.78;letter-spacing:-.1em}
@@ -185,12 +186,12 @@ h1,h2,h3{font-weight:900}
 .timeline-year,.timeline-info{font:11px var(--mono)}
 .timeline-info{text-align:right}
 .timeline-title{font-size:30px;font-weight:700}
-
+ 
 /* Skills */
 .skills-section{min-height:100vh;background:var(--paper)}
 .skill-word{display:block;font-size:clamp(50px,9vw,140px);font-weight:900;line-height:.85;letter-spacing:-.09em;transition:transform .5s ease,color .5s ease}
 .skill-word:hover{transform:translateX(60px) skewX(-8deg);color:var(--orange)}
-
+ 
 /* Experiences */
 .playground{min-height:100vh;background:var(--ink);color:#fff}
 .playground-title{font-size:clamp(80px,14vw,210px);line-height:.78;letter-spacing:-.1em}
@@ -206,7 +207,7 @@ h1,h2,h3{font-weight:900}
 .experience-card p{max-width:520px;font:11px/1.5 var(--mono)}
 .experience-open{display:inline-flex;gap:8px;margin-top:18px;padding-bottom:4px;font:10px var(--mono);letter-spacing:.08em;border-bottom:1px solid currentColor;transition:gap .3s}
 .experience-card:hover .experience-open{gap:15px}
-
+ 
 /* Contact */
 .contact{min-height:100svh;background:var(--violet);display:flex;flex-direction:column;justify-content:space-between;padding:8vh 6vw 7vh}
 .contact-title{font-size:clamp(72px,11.5vw,175px);line-height:.78;letter-spacing:-.085em}
@@ -219,24 +220,24 @@ h1,h2,h3{font-weight:900}
 .contact-label{font:700 10px var(--mono);letter-spacing:.14em}
 .contact-arrow{font-size:18px;transition:transform .45s var(--ease)}
 .contact-link:hover .contact-arrow{transform:translate(5px,-5px)}
-
+ 
 .footer{background:var(--ink);color:#fff;padding:25px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font:9px var(--mono)}
-
+ 
 /* Back to top */
 .to-top{position:fixed;right:28px;bottom:28px;z-index:900;padding:12px 14px;background:var(--lime);color:var(--ink);border:1px solid var(--ink);box-shadow:5px 5px 0 var(--ink);font:700 10px var(--mono);letter-spacing:.1em;opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .3s,transform .3s}
 .to-top.show{opacity:1;transform:none;pointer-events:auto}
 .to-top:hover{transform:translateY(-4px)}
-
+ 
 /* Scroll progress + rotating role */
 .progress{position:fixed;top:0;left:0;width:100%;height:4px;background:var(--orange);transform:scaleX(0);transform-origin:left;z-index:1001;pointer-events:none}
 .role{display:inline-block;min-width:11ch;transition:opacity .3s,transform .3s}
 .role.swap{opacity:0;transform:translateY(8px)}
 .contact-link.magnetic-on{transition:transform .2s ease,color .35s,border-color .35s,box-shadow .45s}
-
+ 
 /* Performance helpers */
 .paused,.paused *,.paused::before,.paused::after{animation-play-state:paused!important}
 .gallery-section,.education,.skills-section,.playground,.contact{content-visibility:auto;contain-intrinsic-size:auto 100vh}
-
+ 
 /* Language switch + Nepali typography (Devanagari needs normal spacing and taller lines) */
 .nav-right{display:flex;align-items:center;gap:18px}
 .lang-btn{padding:4px 9px;border:1px solid rgba(255,255,255,.7);font:11px var(--mono);letter-spacing:.08em;color:#fff}
@@ -249,11 +250,41 @@ html[lang="ne"] .experience-card h3{font-size:clamp(24px,3vw,42px)}
 html[lang="ne"] .menu-links a{font-size:clamp(46px,8vw,120px)}
 html[lang="ne"] .ov-line{padding-top:.12em}
 html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font-size:clamp(58px,9vw,150px)!important}
-
+ 
+/* Gallery photo viewer */
+.gallery-card{cursor:pointer}
+.lightbox{position:fixed;inset:0;z-index:99990;display:flex;align-items:center;justify-content:center;gap:16px;padding:24px;background:rgba(17,17,17,.94);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.lightbox.open{opacity:1;visibility:visible}
+.lightbox figure{max-width:min(900px,80vw);text-align:center;color:var(--paper)}
+.lightbox img{display:block;max-width:100%;max-height:75vh;margin:0 auto;border:1px solid rgba(255,255,255,.25);box-shadow:12px 12px 0 var(--lime)}
+.lightbox figcaption{margin-top:22px;font:700 12px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.lb-close,.lb-nav{width:44px;height:44px;display:grid;place-items:center;border:1px solid rgba(238,234,226,.6);color:var(--paper);font:700 18px var(--mono)}
+.lb-close{position:absolute;top:18px;right:18px}
+.lb-close:hover,.lb-nav:hover{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+@media(max-width:600px){.lb-nav{position:absolute;bottom:20px}.lb-prev{left:20px}.lb-next{right:20px}.lightbox figure{max-width:92vw}}
+.contact-link{text-align:left}
+.mail-wrap{position:relative;display:inline-block}
+.mail-wrap .contact-link{width:100%}
+.mail-pop{position:absolute;left:0;top:100%;min-width:100%;padding-top:14px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .3s,transform .45s var(--ease),visibility .3s;z-index:60}
+.mail-wrap:hover .mail-pop,.mail-wrap:focus-within .mail-pop,.mail-wrap.open .mail-pop{opacity:1;visibility:visible;transform:none}
+.mail-card{position:relative;display:flex;flex-direction:column;gap:8px;width:max-content;min-width:100%;padding:14px 16px;background:var(--ink);color:#fff;box-shadow:6px 6px 0 rgba(17,17,17,.25)}
+.mail-card::before{content:"";position:absolute;left:30px;top:-6px;width:12px;height:12px;background:var(--ink);transform:rotate(45deg)}
+.mail-card small{font:700 9px var(--mono);letter-spacing:.14em;color:var(--lime)}
+.mail-card b{font:700 12px var(--mono);letter-spacing:.04em}
+.mail-actions{display:flex;gap:8px;flex-wrap:wrap}
+.mail-actions button,.mail-actions a{padding:8px 12px;font:700 10px var(--mono);letter-spacing:.1em;background:var(--lime);color:var(--ink);border:1px solid var(--lime);transition:background .3s,color .3s}
+.mail-actions a{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+.mail-actions button:hover,.mail-actions a:hover{background:#fff;color:var(--ink);border-color:#fff}
+.mail-wrap.copied .mail-card small{color:#4dff88}
+.contact-icon{transition:transform .6s var(--ease),background .35s,color .35s}
+.mail-wrap:hover .contact-icon{transform:rotate(360deg) scale(1.12);background:#fff;color:var(--ink)}
+.contact{padding-bottom:calc(7vh + 120px)}
+@media(max-width:700px){.mail-wrap{display:block}.mail-card{width:auto}}
+ 
 /* Reveal (only hidden when JS is running) */
 .js .reveal{opacity:0;transform:translateY(70px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .js .reveal.visible{opacity:1;transform:none}
-
+ 
 /* Mobile */
 @media(max-width:700px){
   .contact-link{backdrop-filter:none;-webkit-backdrop-filter:none}
@@ -279,7 +310,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   .contact-links{display:grid;grid-template-columns:1fr}
   .footer{flex-direction:column;gap:12px}
 }
-
+ 
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .ov-word,.ov-copy-line{opacity:1;transform:none}
@@ -289,21 +320,21 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
 </head>
 <body>
 <a class="skip" href="#overview">Skip to content</a>
-
+ 
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader-bar"><div class="loader-progress" id="loaderProgress"></div></div>
 </div>
-
+ 
 <div class="cursor" id="cursor" aria-hidden="true"></div>
 <div class="progress" id="progress" aria-hidden="true"></div>
-
+ 
 <button class="to-top" id="toTop" aria-label="Back to top">TOP ↑</button>
-
+ 
 <nav class="nav" aria-label="Main">
   <div class="logo">SAFAL PARAJULI®</div>
   <div class="nav-right"><button class="lang-btn" id="langBtn" type="button" aria-label="नेपालीमा हेर्नुहोस्">नेपाली</button><button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="menu">MENU +</button></div>
 </nav>
-
+ 
 <div class="menu" id="menu">
   <ul class="menu-links">
     <li><a href="#overview">OVERVIEW</a></li>
@@ -314,7 +345,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     <li><a href="#contact">CONTACT</a></li>
   </ul>
 </div>
-
+ 
 <div class="counter" id="counter" aria-hidden="true">
   <div class="counter-small">TIME SINCE</div>
   <div class="counter-date">30 JULY 2007</div>
@@ -325,37 +356,37 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     <div><div class="counter-number" id="seconds">00</div><span class="counter-unit">SEC</span></div>
   </div>
 </div>
-
+ 
 <main>
 <section class="hero">
   <div class="hero-grid"></div>
   <div class="section-number hero-label">00 / INTRO</div>
   <div class="blob one"></div><div class="blob two"></div><div class="blob three"></div>
-
+ 
   <div class="hero-content">
     <h1 class="name" aria-label="Safal Parajuli">
       <span class="name-row" aria-hidden="true"><span class="letter">S</span><span class="letter">A</span><span class="letter">F</span><span class="letter">A</span><span class="letter">L</span></span>
       <span class="name-row" aria-hidden="true"><span class="letter">P</span><span class="letter">A</span><span class="letter">R</span><span class="letter">A</span><span class="letter">J</span><span class="letter">U</span><span class="letter">L</span><span class="letter">I</span></span>
     </h1>
-
+ 
     <!-- Keep safal.jpg.png beside index.html -->
     <div class="photo-wrap">
       <div class="photo" id="photo"><img src="safal.jpg.png" alt="Portrait of Safal Parajuli" width="620" height="775" fetchpriority="high" decoding="async" onerror="this.remove()"></div>
       <div class="photo-meta">SAFAL PARAJULI / 2026</div>
     </div>
   </div>
-
+ 
   <div class="hero-info"><span><span id="iam">I AM A</span> <b class="role" id="role">LEADER</b></span><span>NEPAL / CHITWAN</span></div>
 </section>
-
+ 
 <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marqueeTrack"></div></div>
-
+ 
 <section class="section overview" id="overview">
   <div>
     <div class="section-number">01 / OVERVIEW</div>
     <div class="title-zone" id="titleZone" tabindex="0">
-    <h2 class="overview-title" aria-label="Hello, I’m Safal.">
-      <span class="ov-line" aria-hidden="true"><span class="ov-word">HELLO,</span></span>
+    <h2 class="overview-title" aria-label="Hello. I’m Safal.">
+      <span class="ov-line" aria-hidden="true"><span class="ov-word">HELLO.</span></span>
       <span class="ov-line" aria-hidden="true"><span class="ov-word">I’M</span></span>
       <span class="ov-line" aria-hidden="true"><span class="ov-word">SAFAL.</span></span>
     </h2>
@@ -367,7 +398,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     <span class="ov-copy-line">LEADER BY CHOICE.</span>
   </div>
 </section>
-
+ 
 <section class="gallery-section" id="interests">
   <div class="section-number">02 / GALLERY</div>
   <h2 class="horizontal-title">MY<br>GALLERY.</h2>
@@ -378,7 +409,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     <div class="gallery-card"><img src="ram.png.jpg" alt="Gallery photo 4" loading="lazy" decoding="async"><span class="gallery-index">04 / GALLERY</span></div>
   </div>
 </section>
-
+ 
 <section class="section education" id="education">
   <div class="section-number">03 / EDUCATION</div>
   <h2 class="education-title reveal">LEARN.<br>BUILD.<br>REPEAT.</h2>
@@ -395,7 +426,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     </div>
   </div>
 </section>
-
+ 
 <section class="section skills-section" id="skills">
   <div class="section-number">04 / SKILLS</div>
   <span class="skill-word reveal">LEADERSHIP</span>
@@ -405,11 +436,11 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   <span class="skill-word reveal">PROBLEM SOLVING</span>
   <span class="skill-word reveal">PUBLIC SPEAKING</span>
 </section>
-
+ 
 <section class="section playground" id="experiments">
   <div class="section-number">05 / EXPERIENCES</div>
   <h2 class="playground-title reveal">WHAT<br>I HAVE<br>DONE.</h2>
-
+ 
   <div class="experience-grid">
     <a class="experience-card reveal" href="external ncc link.html" target="_blank" rel="noopener noreferrer">
       <span class="experience-number">01</span>
@@ -445,16 +476,25 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     </a>
   </div>
 </section>
-
+ 
 <section class="section contact" id="contact">
   <div>
     <div class="section-number">06 / CONTACT</div>
     <h2 class="contact-title reveal">LET’S<br>GET<br>CONNECT.</h2>
   </div>
   <div class="contact-links">
-    <a class="contact-link" href="mailto:officeofsafalparajuli@gmail.com" aria-label="Email Safal Parajuli">
-      <span class="contact-icon" aria-hidden="true">✉</span><span class="contact-label">EMAIL</span><span class="contact-arrow" aria-hidden="true">↗</span>
-    </a>
+    <span class="mail-wrap" id="mailWrap">
+      <a class="contact-link" href="mailto:officeofsafalparajuli@gmail.com" aria-label="Email Safal Parajuli" aria-describedby="mailPop">
+        <span class="contact-icon" aria-hidden="true">✉</span><span class="contact-label">EMAIL</span><span class="contact-arrow" aria-hidden="true">↗</span>
+      </a>
+      <span class="mail-pop" id="mailPop">
+        <span class="mail-card">
+          <small id="mailHint">EMAIL ADDRESS</small>
+          <b>officeofsafalparajuli@gmail.com</b>
+          <span class="mail-actions"><button type="button" id="copyEmail">COPY EMAIL</button><a id="mailOpen" href="mailto:officeofsafalparajuli@gmail.com">OPEN MAIL ↗</a></span>
+        </span>
+      </span>
+    </span>
     <a class="contact-link" href="https://www.instagram.com/xxpshuffle/" target="_blank" rel="noopener noreferrer" aria-label="Safal Parajuli on Instagram">
       <span class="contact-icon" aria-hidden="true">◎</span><span class="contact-label">INSTAGRAM</span><span class="contact-arrow" aria-hidden="true">↗</span>
     </a>
@@ -467,13 +507,20 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   </div>
 </section>
 </main>
-
+ 
 <footer class="footer">
   <span>SAFAL PARAJULI®</span>
   <span>DESIGNED / DEVELOPED BY SAFAL</span>
   <span>© 2026</span>
 </footer>
-
+ 
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-close" type="button" aria-label="Close">×</button>
+  <button class="lb-nav lb-prev" type="button" aria-label="Previous photo">←</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+  <button class="lb-nav lb-next" type="button" aria-label="Next photo">→</button>
+</div>
+ 
 <script>
 (() => {
   const $ = (s, c = document) => c.querySelector(s);
@@ -481,14 +528,14 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   const fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
   const reduced = matchMedia("(prefers-reduced-motion:reduce)").matches;
   let lang = "en", gameRefresh = () => {};
-
+ 
   /* Marquee: build from one repeated phrase */
   const buildMarquee = () => {
     const ph = lang === "ne" ? "सफल पराजुली × " : "SAFAL PARAJULI × ";
     $("#marqueeTrack").innerHTML = `<span>${ph.repeat(24)}</span><span>${ph.repeat(24)}</span>`;
   };
   buildMarquee();
-
+ 
   /* Loader */
   const loader = $("#loader");
   const hideLoader = () => loader.classList.add("hide");
@@ -496,7 +543,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   const loaded = new Promise(res => document.readyState === "complete" ? res() : addEventListener("load", res, { once: true }));
   Promise.all([minTime, loaded]).then(hideLoader);
   setTimeout(hideLoader, 4000); // safety net
-
+ 
   /* Cursor + name counter + photo tilt (one mousemove listener) */
   const cursor = $("#cursor"), counter = $("#counter"), photo = $("#photo");
   const letters = $$(".letter");
@@ -514,7 +561,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
         queued = false;
         cursor.style.left = ev.clientX + "px";
         cursor.style.top = ev.clientY + "px";
-
+ 
         const near = letters.some(l => {
           const r = l.getBoundingClientRect();
           if (!r.width) return false;
@@ -528,7 +575,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
           counter.style.left = x + "px";
           counter.style.top = y + "px";
         }
-
+ 
         if (!reduced) {
           const r = photo.getBoundingClientRect();
           const px = (ev.clientX - r.left) / r.width - .5;
@@ -538,7 +585,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       });
     });
   }
-
+ 
   /* Time counter */
   const start = new Date("2007-07-30T00:00:00+05:45").getTime();
   const out = { d: $("#days"), h: $("#hours"), m: $("#minutes"), s: $("#seconds") };
@@ -552,7 +599,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   }
   updateCounter();
   setInterval(() => { if (!document.hidden) updateCounter(); }, 1000);
-
+ 
   /* Menu */
   const menu = $("#menu"), btn = $("#menuButton");
   const setMenu = open => {
@@ -564,13 +611,13 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   btn.addEventListener("click", () => setMenu(!menu.classList.contains("open")));
   $$(".menu a").forEach(a => a.addEventListener("click", () => setMenu(false)));
   document.addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
-
+ 
   /* Scroll reveal */
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
   }), { threshold: .12 });
   $$(".reveal").forEach(el => io.observe(el));
-
+ 
   /* Gallery drift on scroll */
   const track = $("#horizontalTrack"), gallery = $("#interests");
   let ticking = false;
@@ -585,11 +632,11 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   };
   addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, { passive: true });
   drift();
-
+ 
   /* Pause looping animations while their section is off-screen */
   const pauser = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("paused", !e.isIntersecting)));
   $$(".hero,.marquee,.overview").forEach(el => pauser.observe(el));
-
+ 
   /* Scroll progress bar */
   const prog = $("#progress");
   const toTop = $("#toTop");
@@ -601,7 +648,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   };
   addEventListener("scroll", setProg, { passive: true });
   setProg();
-
+ 
   /* Rotating role word in the hero */
   const role = $("#role");
   const roleWords = { en: ["LEADER", "CADET", "ORGANIZER", "SPEAKER", "BUILDER"], ne: ["नेता", "क्याडेट", "आयोजक", "वक्ता", "निर्माता"] };
@@ -610,7 +657,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     role.classList.add("swap");
     setTimeout(() => { wi = (wi + 1) % roleWords[lang].length; role.textContent = roleWords[lang][wi]; role.classList.remove("swap"); }, 300);
   }, 2200);
-
+ 
   /* Magnetic contact buttons (mouse only) */
   if (fine && !reduced) $$(".contact-link").forEach(el => {
     el.addEventListener("mousemove", e => {
@@ -619,7 +666,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     });
     el.addEventListener("mouseleave", () => el.style.transform = "");
   });
-
+ 
   /* Overview spotlight (mouse only) */
   const ov = $("#overview");
   if (fine && !reduced) {
@@ -634,7 +681,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     });
     ov.addEventListener("mouseleave", () => spot.style.opacity = "0");
   }
-
+ 
   /* English / नेपाली */
   const NE = [
     [".logo", ["सफल पराजुली®"]],
@@ -701,7 +748,69 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   let savedLang = null;
   try { savedLang = localStorage.getItem("lang"); } catch (e) {}
   if (savedLang === "ne") setLang("ne");
-
+ 
+  /* Gallery photo viewer */
+  (() => {
+    const cards = $$(".gallery-card"), lb = $("#lightbox"), img = $("img", lb), cap = $("figcaption", lb);
+    let idx = 0;
+    const show = i => {
+      idx = (i + cards.length) % cards.length;
+      const c = cards[idx], im = $("img", c);
+      img.src = im.currentSrc || im.src; img.alt = im.alt;
+      cap.textContent = c.dataset.caption || `${String(idx + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
+    };
+    const openLb = i => { show(i); lb.classList.add("open"); document.body.style.overflow = "hidden"; $(".lb-close", lb).focus(); };
+    const closeLb = () => { lb.classList.remove("open"); document.body.style.overflow = ""; cards[idx].focus(); };
+    cards.forEach((c, i) => {
+      c.tabIndex = 0; c.setAttribute("role", "button");
+      c.addEventListener("click", () => openLb(i));
+      c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLb(i); } });
+    });
+    $(".lb-close", lb).addEventListener("click", closeLb);
+    $(".lb-prev", lb).addEventListener("click", () => show(idx - 1));
+    $(".lb-next", lb).addEventListener("click", () => show(idx + 1));
+    lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
+    document.addEventListener("keydown", e => {
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") closeLb();
+      else if (e.key === "ArrowLeft") show(idx - 1);
+      else if (e.key === "ArrowRight") show(idx + 1);
+    });
+  })();
+ 
+  /* Email dropdown: copy the address or open the mail app */
+  (() => {
+    const wrap = $("#mailWrap"), link = $(".contact-link", wrap), copyBtn = $("#copyEmail"), hint = $("#mailHint"), openLink = $("#mailOpen");
+    const email = "officeofsafalparajuli@gmail.com";
+    let timer = 0;
+    const idle = () => {
+      wrap.classList.remove("copied");
+      hint.textContent = lang === "ne" ? "इमेल ठेगाना" : "EMAIL ADDRESS";
+      copyBtn.textContent = lang === "ne" ? "इमेल कपी" : "COPY EMAIL";
+      openLink.textContent = lang === "ne" ? "मेल खोल्नुहोस् ↗" : "OPEN MAIL ↗";
+    };
+    ["mouseenter", "focusin"].forEach(ev => wrap.addEventListener(ev, () => { if (!wrap.classList.contains("copied")) idle(); }));
+    // touch screens have no hover: first tap opens the dropdown instead of the mail app
+    link.addEventListener("click", e => {
+      if (matchMedia("(hover:none)").matches) { e.preventDefault(); wrap.classList.toggle("open"); idle(); }
+    });
+    document.addEventListener("pointerdown", e => { if (!wrap.contains(e.target)) wrap.classList.remove("open"); });
+    copyBtn.addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(email); }
+      catch (e) {
+        const t = document.createElement("textarea");
+        t.value = email; document.body.appendChild(t); t.select();
+        try { document.execCommand("copy"); } catch (e2) {}
+        t.remove();
+      }
+      wrap.classList.add("copied");
+      const done = lang === "ne" ? "कपी भयो ✓" : "COPIED ✓";
+      hint.textContent = done; copyBtn.textContent = done;
+      clearTimeout(timer);
+      timer = setTimeout(idle, 1800);
+    });
+  })();
+ 
   /* Three-point shootout: hover (or tap / press the button) on the Overview title */
   (() => {
     const zone = $("#titleZone");
@@ -715,7 +824,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       <p class="court-msg" id="cMsg" aria-live="polite"></p>
       <button class="court-again" id="cAgain" type="button" hidden>PLAY AGAIN</button>`;
     zone.appendChild(court);
-
+ 
     const cv = $("#cCanvas"), ctx = cv.getContext("2d");
     const mark = $("#cMark"), msgEl = $("#cMsg"), again = $("#cAgain"), closeBtn = $(".court-close", court);
     const W = 900, H = 450, FLOOR = 400, R = 22, G = .35, ANG = 52 * Math.PI / 180;
@@ -723,11 +832,11 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     const dpr = Math.min(2, devicePixelRatio || 1);
     cv.width = W * dpr; cv.height = H * dpr;
     ctx.scale(dpr, dpr);
-
+ 
     // speed that drops a shot dead-centre through the rim
     const dx = RIMX - X0, dy = Y0 - RIMY;
     const VP = Math.sqrt(G * dx * dx / (2 * Math.cos(ANG) ** 2 * (dx * Math.tan(ANG) - dy)));
-
+ 
     let open = false, raf = 0, last = 0, tStart = 0, timers = [];
     let state = "aim", shots = 3, score = 0, scored = false, crossed = false, bounces = 0, frames = 0, miss = "air";
     let ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
@@ -758,7 +867,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       if (Array.isArray(v)) return v[Math.floor(Math.random() * v.length)];
       return typeof v === "function" ? v(n) : v;
     };
-
+ 
     const say = (t, kind) => {
       msgEl.textContent = t; msgEl.dataset.kind = kind || "";
       msgEl.classList.remove("in"); void msgEl.offsetWidth; msgEl.classList.add("in");
@@ -771,7 +880,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     };
     const pop = id => { const b = $(id).parentElement; b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop"); };
     const meter = () => { const t = ((performance.now() - tStart) / 1600) % 2; return t < 1 ? t : 2 - t; };
-
+ 
     function reset() {
       timers.forEach(clearTimeout); timers = [];
       shots = 3; score = 0; results.length = 0; state = "aim";
@@ -779,7 +888,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       tStart = performance.now(); again.hidden = true; hud();
       say(T("start"));
     }
-
+ 
     function shoot() {
       if (!open || state !== "aim") return;
       const v = VP * (.9 + .2 * meter());
@@ -787,7 +896,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       state = "flight"; crossed = false; scored = false; bounces = 0; frames = 0; miss = "air";
       say("");
     }
-
+ 
     function finish() {
       state = "result";
       if (scored) score++;
@@ -797,7 +906,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       say(scored ? T("swish") : T(miss), scored ? "good" : "bad");
       timers.push(setTimeout(next, 1100));
     }
-
+ 
     function next() {
       if (!open) return;
       if (shots > 0) {
@@ -814,7 +923,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
         again.hidden = false;
       }
     }
-
+ 
     function step(dt) {
       mark.style.left = (meter() * 100) + "%";
       if (state === "aim") { ball.y = Y0 + Math.sin(performance.now() / 260) * 3; return; }
@@ -833,7 +942,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       if (ball.y + R >= FLOOR) { ball.y = FLOOR - R; ball.vy *= -.55; ball.vx *= .85; bounces++; }
       if (bounces >= 2 || ball.x > W + 40 || frames > 240) finish();
     }
-
+ 
     function drawBall(x, y, rot) {
       ctx.save(); ctx.translate(x, y); ctx.rotate(rot);
       ctx.fillStyle = "#111"; ctx.strokeStyle = "#F47B20"; ctx.lineWidth = 3;
@@ -845,7 +954,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       }
       ctx.stroke(); ctx.restore();
     }
-
+ 
     function draw() {
       ctx.clearRect(0, 0, W, H);
       ctx.strokeStyle = "#111"; ctx.fillStyle = "#111"; ctx.lineCap = "round";
@@ -858,11 +967,11 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       ctx.lineWidth = 8;
       ctx.beginPath(); ctx.moveTo(792, 95); ctx.lineTo(792, 235);
       ctx.moveTo(RIMX - HALF - 8, RIMY); ctx.lineTo(RIMX + HALF + 8, RIMY); ctx.stroke();
-
+ 
       ctx.fillStyle = "rgba(17,17,17,.18)"; ctx.beginPath();
       ctx.ellipse(ball.x, FLOOR + 14, R * (1 - Math.min(.5, (FLOOR - ball.y) / 700)), 6, 0, 0, 7); ctx.fill();
       drawBall(ball.x, ball.y, ball.rot);
-
+ 
       ctx.strokeStyle = "rgba(17,17,17,.75)"; ctx.lineWidth = 2; ctx.beginPath();
       for (let i = 0; i <= 4; i++) {
         const a = RIMX - HALF - 4 + i * (HALF * 2 + 8) / 4, b = RIMX - HALF + 8 + i * (HALF * 2 - 16) / 4;
@@ -874,14 +983,14 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       }
       ctx.stroke();
     }
-
+ 
     function loop(t) {
       if (!open) return;
       const dt = Math.min(2, (t - (last || t)) / 16.667); last = t;
       step(dt); draw();
       raf = requestAnimationFrame(loop);
     }
-
+ 
     function openGame() {
       if (open) return;
       open = true; zone.classList.add("playing");
@@ -892,7 +1001,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
       open = false; zone.classList.remove("playing");
       cancelAnimationFrame(raf); timers.forEach(clearTimeout);
     }
-
+ 
     if (fine) {
       zone.addEventListener("mouseenter", openGame);
       zone.addEventListener("mouseleave", closeGame);
