@@ -129,12 +129,31 @@ h1,h2,h3{font-weight:900}
 .title-zone.playing .overview-title{opacity:0;transform:translateY(-14px);pointer-events:none}
 .court{position:absolute;inset:0;display:flex;flex-direction:column;gap:10px;color:var(--ink);opacity:0;visibility:hidden;transform:translateY(14px);pointer-events:none;transition:opacity .35s,transform .45s var(--ease),visibility .35s;touch-action:manipulation;user-select:none;-webkit-user-select:none}
 .title-zone.playing .court{opacity:1;visibility:visible;transform:none;pointer-events:auto}
-.court-hud{display:flex;align-items:center;justify-content:space-between;gap:8px;font:700 11px var(--mono);letter-spacing:.1em}
+.court-hud{display:flex;align-items:center;gap:10px}
+.sb-pips{display:flex;gap:7px;margin-right:auto}
+.pip{width:20px;height:20px;border:2px solid var(--ink);border-radius:50%;display:grid;place-items:center;font:700 11px/1 var(--mono);font-style:normal}
+.pip.cur{animation:pipPulse 1s ease-in-out infinite}
+.pip.make,.pip.miss{animation:pipIn .45s var(--ease)}
+.pip.make{background:#16c060;border-color:#0a5f31;box-shadow:0 0 0 3px rgba(22,192,96,.3)}
+.pip.miss{background:#e11d2e;border-color:#6e0d17;box-shadow:0 0 0 3px rgba(225,29,46,.3)}
+@keyframes pipIn{from{transform:scale(.2)}60%{transform:scale(1.25)}to{transform:scale(1)}}
+@keyframes pipPulse{50%{box-shadow:0 0 0 4px rgba(17,17,17,.2)}}
+.sb-box{display:flex;flex-direction:column;align-items:center;min-width:62px;padding:3px 10px 4px;border:1.5px solid var(--ink)}
+.sb-box small{font:700 8px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.sb-box b{font:900 22px/1.05 Arial,Helvetica,sans-serif}
+.sb-box em{font-style:normal;font-size:12px;opacity:.6}
+.sb-box.pop{animation:sbPop .55s var(--ease)}
+@keyframes sbPop{40%{transform:scale(1.18);background:var(--ink);color:#fff7ea}}
 .court canvas{display:block;flex:1 1 0;min-height:0;width:100%;object-fit:contain;object-position:left center}
 .court-meter{position:relative;width:100%;max-width:420px;height:12px;border:1.5px solid var(--ink);background:rgba(17,17,17,.1)}
 .court-zone{position:absolute;left:40%;width:20%;top:0;bottom:0;background:var(--ink)}
 .court-mark{position:absolute;top:-6px;left:0;width:4px;height:22px;background:#fff7ea;border:1px solid var(--ink);transform:translateX(-50%)}
-.court-msg{min-height:1.5em;font:700 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.court-msg{min-height:2.7em;font:800 12px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.court-msg.in{animation:msgIn .4s var(--ease)}
+.court-msg[data-kind="good"]::before,.court-msg[data-kind="bad"]::before{content:"●";margin-right:6px;font-size:14px;vertical-align:-1px}
+.court-msg[data-kind="good"]::before{color:#0a8a43}
+.court-msg[data-kind="bad"]::before{color:#b3101f}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}}
 .court-close{display:none;width:26px;height:26px;place-items:center;border:1.5px solid var(--ink);font:700 14px var(--mono)}
 @media(hover:none),(pointer:coarse){.court-close{display:grid}}
 .court-again{align-self:flex-start;padding:8px 12px;background:var(--ink);color:#fff7ea;font:700 10px var(--mono);letter-spacing:.1em}
@@ -335,17 +354,17 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
   <div>
     <div class="section-number">01 / OVERVIEW</div>
     <div class="title-zone" id="titleZone" tabindex="0">
-    <h2 class="overview-title" aria-label="Hello. I’m Safal.">
-      <span class="ov-line" aria-hidden="true"><span class="ov-word">HELLO.</span></span>
+    <h2 class="overview-title" aria-label="Hello, I’m Safal.">
+      <span class="ov-line" aria-hidden="true"><span class="ov-word">HELLO,</span></span>
       <span class="ov-line" aria-hidden="true"><span class="ov-word">I’M</span></span>
       <span class="ov-line" aria-hidden="true"><span class="ov-word">SAFAL.</span></span>
     </h2>
     </div>
   </div>
   <div class="overview-copy">
-    <span class="ov-copy-line">A STUDENT LEADER FROM CHITWAN,</span>
-    <span class="ov-copy-line">NCC CADET AND SCIENCE ENTHUSIAST,</span>
-    <span class="ov-copy-line">TURNING IDEAS INTO ACTION.</span>
+    <span class="ov-copy-line">CADET BY DISCIPLINE.</span>
+    <span class="ov-copy-line">EXPLORER BY CURIOSITY.</span>
+    <span class="ov-copy-line">LEADER BY CHOICE.</span>
   </div>
 </section>
 
@@ -626,7 +645,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     ["#iam", ["म एक"]],
     [".hero-info > span:last-child", ["नेपाल / चितवन"]],
     [".ov-word", ["नमस्ते।", "म", "सफल हुँ।"]],
-    [".ov-copy-line", ["विद्यार्थी नेता, चितवनबाट,", "एनसीसी क्याडेट र विज्ञान प्रेमी,", "विचारलाई कार्यमा बदल्दै।"]],
+    [".ov-copy-line", ["अनुशासनले क्याडेट।", "जिज्ञासाले खोजकर्ता।", "रोजाइले नेता।"]],
     [".horizontal-title", ["मेरो<br>ग्यालरी।"]],
     [".education-title", ["सिक।<br>बनाऊ।<br>दोहोर्याऊ।"]],
     [".timeline-title", ["नारायणी इङ्ग्लिस पब्लिक स्कुल", "नारायणी पब्लिक कलेज"]],
@@ -690,7 +709,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     court.className = "court";
     court.setAttribute("role", "dialog");
     court.setAttribute("aria-label", "Three-point shootout");
-    court.innerHTML = `<div class="court-hud"><span id="cScore">SCORE 0 / 3</span><span id="cLeft">SHOTS LEFT 3</span><span id="cBest"></span><button class="court-close" type="button" aria-label="Close game">×</button></div>
+    court.innerHTML = `<div class="court-hud"><div class="sb-pips" id="cPips" role="img"></div><div class="sb-box"><small id="cScoreLbl">SCORE</small><b id="cScore">0<em>/3</em></b></div><div class="sb-box"><small id="cBestLbl">BEST</small><b id="cBest">0<em>/3</em></b></div><button class="court-close" type="button" aria-label="Close game">×</button></div>
       <canvas id="cCanvas"></canvas>
       <div class="court-meter"><div class="court-zone"></div><div class="court-mark" id="cMark"></div></div>
       <p class="court-msg" id="cMsg" aria-live="polite"></p>
@@ -715,24 +734,47 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     let best = 0;
     try { best = +localStorage.getItem("bestShots") || 0; } catch (e) {}
     const TXT = {
-      en: { score: "SCORE", left: "SHOTS LEFT", best: "BEST", again: "PLAY AGAIN", newbest: "NEW BEST!",
-        start: "Shot 1 of 3. Click or press Space when the marker is in the black zone",
-        shot: n => `Shot ${n} of 3`, swish: "SWISH! +1", rim: "RIM OUT!", short: "TOO SHORT", long: "TOO LONG", air: "AIRBALL",
-        final: n => `FINAL ${n} / 3. ${["Try again.", "Keep shooting.", "Sharp shooter.", "Perfect round!"][n]}` },
-      ne: { score: "अंक", left: "बाँकी शट", best: "उत्कृष्ट", again: "फेरि खेल्नुहोस्", newbest: "नयाँ उत्कृष्ट!",
-        start: "शट 1 / 3। मार्कर कालो भागमा हुँदा क्लिक गर्नुहोस् वा Space थिच्नुहोस्",
-        shot: n => `शट ${n} / 3`, swish: "गोल! +1", rim: "रिमबाट बाहिर!", short: "छोटो भयो", long: "लामो भयो", air: "चुक्यो",
-        final: n => `अन्तिम ${n} / 3। ${["फेरि प्रयास गर्नुहोस्।", "खेलिरहनुहोस्।", "राम्रो निशाना!", "पूर्ण राउन्ड!"][n]}` }
+      en: { score: "SCORE", best: "BEST", again: "PLAY AGAIN", newbest: "NEW BEST! 🔥",
+        start: "Three shots. Stop the marker in the black zone. Click or press Space",
+        shot: n => n === 3 ? "Last shot. Make it count!" : "Shot 2 of 3. Find your rhythm",
+        swish: ["SWISH! Nothing but net 🔥", "BUCKET! +1", "Cold-blooded three! +1", "From downtown. Good!", "Splash! +1"],
+        rim: ["Rattled out. So close!", "Kissed the rim. One more!", "In and out. Heartbreak!"],
+        short: ["Short! Put some legs in it", "Brick! Not enough power"],
+        long: ["Overcooked it. Ease off", "Long! Softer next time"],
+        air: ["Airball! The crowd gasps", "Missed everything. Next one!"],
+        final: n => `${n}/3. ${["Cold night. Shake it off!", "Rookie. A bucket is a bucket.", "Starter material. One short!", "MVP! Perfect round 🏆"][n]}` },
+      ne: { score: "अंक", best: "उत्कृष्ट", again: "फेरि खेल्नुहोस्", newbest: "नयाँ उत्कृष्ट! 🔥",
+        start: "३ शट। मार्कर कालो भागमा हुँदा क्लिक गर्नुहोस् वा Space थिच्नुहोस्",
+        shot: n => n === 3 ? "अन्तिम शट! गोल बनाउनुहोस्!" : "शट 2 / 3। लय समात्नुहोस्",
+        swish: ["वाह! जालमै! 🔥", "गोल! +1", "तीन अंक! शानदार! +1", "ठ्याक्कै निशाना! +1"],
+        rim: ["रिममा लागेर बाहिर! अलि नजिक!", "अलिकति मात्र चुक्यो!", "भित्र पसेर निस्कियो! फेरि!"],
+        short: ["छोटो भयो! अलि बल लगाउनुहोस्", "बल पुगेन! अलि जोडले हान्नुहोस्"],
+        long: ["धेरै जोडले! अलि सजिलो गर्नुहोस्", "लामो भयो! अलि कम बल लगाउनुहोस्"],
+        air: ["चुक्यो! दर्शकहरू छक्क परे", "केही लागेन! अर्को पटक!"],
+        final: n => `${n}/3। ${["आज ठिक भएन। फेरि प्रयास!", "नयाँ खेलाडी। एक गोल पनि गोल हो।", "स्टार्टर स्तर! अलिकति बाँकी!", "एमभिपी! पूर्ण राउन्ड 🏆"][n]}` }
     };
-    const T = (k, n) => { const v = TXT[lang][k]; return typeof v === "function" ? v(n) : v; };
+    const T = (k, n) => {
+      const v = TXT[lang][k];
+      if (Array.isArray(v)) return v[Math.floor(Math.random() * v.length)];
+      return typeof v === "function" ? v(n) : v;
+    };
 
-    const say = t => msgEl.textContent = t;
-    const hud = () => { $("#cScore").textContent = `${T("score")} ${score} / 3`; $("#cLeft").textContent = `${T("left")} ${shots}`; $("#cBest").textContent = `${T("best")} ${best} / 3`; };
+    const say = (t, kind) => {
+      msgEl.textContent = t; msgEl.dataset.kind = kind || "";
+      msgEl.classList.remove("in"); void msgEl.offsetWidth; msgEl.classList.add("in");
+    };
+    const results = [];
+    const hud = () => {
+      $("#cPips").innerHTML = [0, 1, 2].map(i => `<i class="pip ${results[i] === undefined ? (i === results.length ? "cur" : "") : results[i] ? "make" : "miss"}"></i>`).join("");
+      $("#cScoreLbl").textContent = T("score"); $("#cBestLbl").textContent = T("best");
+      $("#cScore").innerHTML = `${score}<em>/3</em>`; $("#cBest").innerHTML = `${best}<em>/3</em>`;
+    };
+    const pop = id => { const b = $(id).parentElement; b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop"); };
     const meter = () => { const t = ((performance.now() - tStart) / 1600) % 2; return t < 1 ? t : 2 - t; };
 
     function reset() {
       timers.forEach(clearTimeout); timers = [];
-      shots = 3; score = 0; state = "aim";
+      shots = 3; score = 0; results.length = 0; state = "aim";
       ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
       tStart = performance.now(); again.hidden = true; hud();
       say(T("start"));
@@ -749,8 +791,10 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
     function finish() {
       state = "result";
       if (scored) score++;
+      results.push(scored);
       shots--; hud();
-      say(scored ? T("swish") : T(miss));
+      if (scored) pop("#cScore");
+      say(scored ? T("swish") : T(miss), scored ? "good" : "bad");
       timers.push(setTimeout(next, 1100));
     }
 
@@ -765,6 +809,7 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
         const isBest = score > best;
         if (isBest) { best = score; try { localStorage.setItem("bestShots", String(best)); } catch (e) {} }
         hud();
+        if (isBest) pop("#cBest");
         say(T("final", score) + (isBest ? " " + T("newbest") : ""));
         again.hidden = false;
       }
