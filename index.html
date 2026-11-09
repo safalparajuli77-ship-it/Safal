@@ -395,6 +395,15 @@ html[data-theme="dark"] .cursor.big{background:#fff}
 .gb-rule{display:block;width:44px;height:3px;margin:8px 0;background:var(--accent)}
 .gb-theme{padding:9px 16px;border-radius:999px;background:var(--accent);color:var(--ink);font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase}
 
+/* Instagram hover preview (reuses the email dropdown) */
+.ig-head{display:flex;align-items:center;gap:12px}
+.ig-av{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid transparent;
+  background:linear-gradient(var(--ink),var(--ink)) padding-box,linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7) border-box}
+.ig-id{display:flex;flex-direction:column;gap:3px}
+.ig-id small{color:var(--lime)}
+.ig-card .mail-actions a{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+.ig-card .mail-actions a:hover{background:#fff;border-color:#fff}
+
 /* Reveal (only hidden when JS is running) */
 .js .reveal{opacity:0;transform:translateY(70px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .js .reveal.visible{opacity:1;transform:none}
@@ -628,9 +637,20 @@ html[data-theme="dark"] .cursor.big{background:#fff}
         </span>
       </span>
     </span>
-    <a class="contact-link" href="https://www.instagram.com/xxpshuffle/" target="_blank" rel="noopener noreferrer" aria-label="Safal Parajuli on Instagram">
-      <span class="contact-icon" aria-hidden="true">◎</span><span class="contact-label">INSTAGRAM</span><span class="contact-arrow" aria-hidden="true">↗</span>
-    </a>
+    <span class="mail-wrap ig-wrap" id="igWrap">
+      <a class="contact-link" href="https://www.instagram.com/xxpshuffle/" target="_blank" rel="noopener noreferrer" aria-label="Safal Parajuli on Instagram">
+        <span class="contact-icon" aria-hidden="true">◎</span><span class="contact-label">INSTAGRAM</span><span class="contact-arrow" aria-hidden="true">↗</span>
+      </a>
+      <span class="mail-pop">
+        <span class="mail-card ig-card">
+          <span class="ig-head">
+            <img class="ig-av" src="parajuli.png.jpg" alt="" width="52" height="52" onerror="this.remove()">
+            <span class="ig-id"><small>INSTAGRAM</small><b>@xxpshuffle</b></span>
+          </span>
+          <span class="mail-actions"><a href="https://www.instagram.com/xxpshuffle/" target="_blank" rel="noopener noreferrer">VISIT PROFILE ↗</a></span>
+        </span>
+      </span>
+    </span>
     <a class="contact-link" href="https://www.linkedin.com/in/safal-parajuli-054893283/" target="_blank" rel="noopener noreferrer" aria-label="Safal Parajuli on LinkedIn">
       <span class="contact-icon" aria-hidden="true">in</span><span class="contact-label">LINKEDIN</span><span class="contact-arrow" aria-hidden="true">↗</span>
     </a>
@@ -1279,6 +1299,17 @@ html[data-theme="dark"] .cursor.big{background:#fff}
       clearTimeout(timer);
       timer = setTimeout(idle, 1800);
     });
+  })();
+
+  /* Instagram preview: first tap opens the card on touch screens */
+  (() => {
+    const wrap = $("#igWrap"), link = $(".contact-link", wrap);
+    link.addEventListener("click", e => {
+      if (matchMedia("(hover:none)").matches && !wrap.classList.contains("open")) {
+        e.preventDefault(); wrap.classList.add("open");
+      }
+    });
+    document.addEventListener("pointerdown", e => { if (!wrap.contains(e.target)) wrap.classList.remove("open"); });
   })();
 
   /* Three-point shootout: hover (or tap / press the button) on the Overview title */
