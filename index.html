@@ -324,6 +324,31 @@ html[data-theme="dark"] .cursor.big{background:#fff}
 .court-opts button{padding:4px 8px;border:1.5px solid var(--ink);font:700 9px var(--mono);letter-spacing:.1em}
 .court-opts button[aria-pressed="true"]{background:var(--ink);color:#fff7ea}
 
+/* Game upgrade: red edge zones on the meter, fiery bonus pip, streak/accuracy boxes, MVP screen */
+.court-meter{background:linear-gradient(90deg,rgba(225,29,46,.5) 12%,rgba(17,17,17,.1) 12%,rgba(17,17,17,.1) 92%,rgba(225,29,46,.5) 92%)}
+.sb-pips .pip.bonus{border-style:dashed;font-size:12px;opacity:.55}
+.sb-pips .pip.bonus.on{opacity:1;border-style:solid;background:#ff7a1a;border-color:#7a2a00;box-shadow:0 0 0 3px rgba(255,122,26,.4),0 0 16px #ff4d16;animation:pipIn .5s var(--ease)}
+.sb-box.hot b{color:#d9340a}
+.sb-box.hot{animation:sbPop .55s var(--ease)}
+@media(max-width:700px){.sb-box{min-width:48px;padding:2px 6px}.sb-box b{font-size:17px}.court-hud{gap:6px}}
+.mvp-screen{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;gap:14px;color:var(--ink);opacity:0;visibility:hidden;transform:scale(.9);pointer-events:none;transition:opacity .5s,transform .7s var(--ease),visibility .5s}
+.title-zone.won .mvp-screen{opacity:1;visibility:visible;transform:none}
+.title-zone.won .court{opacity:0;visibility:hidden;pointer-events:none}
+.mvp-big{font-size:clamp(110px,17vw,250px);font-weight:900;line-height:.8;letter-spacing:-.09em;text-shadow:8px 8px 0 rgba(17,17,17,.08)}
+.title-zone.won .mvp-big{animation:mvpPop .9s var(--ease)}
+@keyframes mvpPop{from{transform:scale(.4) rotate(-6deg);opacity:0}60%{transform:scale(1.08)}}
+.mvp-sub{font:800 13px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.mvp-count{font:700 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.mvp-barwrap{width:100%;max-width:420px;height:6px;border:1.5px solid var(--ink)}
+.mvp-bar{height:100%;background:var(--ink);transform:scaleX(0);transform-origin:left}
+.mvp-bar.run{animation:mvpBar 10s linear forwards}
+@keyframes mvpBar{to{transform:scaleX(1)}}
+.sb-pips .pip[hidden]{display:none}
+.sb-pips .pip.bonus.miss{opacity:1;border-style:solid}
+.sb-box b .num,.sb-box b em{display:inline-block}
+.sb-box b .roll{animation:rollIn .65s var(--ease)}
+@keyframes rollIn{from{transform:translateY(-80%) scale(.5);opacity:0}}
+
 /* Gallery: flip card with photo location, and swipe-snap on phones */
 .gallery-card{perspective:1100px}
 .gc-inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .8s var(--ease)}
@@ -1312,25 +1337,31 @@ html[data-theme="dark"] .cursor.big{background:#fff}
     document.addEventListener("pointerdown", e => { if (!wrap.contains(e.target)) wrap.classList.remove("open"); });
   })();
 
-  /* Three-point shootout: hover (or tap / press the button) on the Overview title */
+  /* Three-point shootout v2: scoreboard, fiery-ball bonus, MVP screen, low-tap hop, power shot off-screen.
+     Hover (or tap / focus) the Overview title to play. */
   (() => {
     const zone = $("#titleZone");
     const court = document.createElement("div");
     court.className = "court";
     court.setAttribute("role", "dialog");
     court.setAttribute("aria-label", "Three-point shootout");
-    court.innerHTML = `<div class="court-hud"><div class="sb-pips" id="cPips" role="img"></div><div class="sb-box"><small id="cScoreLbl">SCORE</small><b id="cScore">0<em>/3</em></b></div><div class="sb-box"><small id="cBestLbl">BEST</small><b id="cBest">0<em>/3</em></b></div><button class="court-close" type="button" aria-label="Close game">×</button></div>
+    court.innerHTML = `<div class="court-hud"><div class="sb-pips" id="cPips" role="img"><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip bonus" hidden>★</i></div><div class="sb-box"><small id="cScoreLbl">SCORE</small><b id="cScore"><span class="num">0</span><em>/3</em></b></div><div class="sb-box"><small id="cBestLbl">BEST</small><b id="cBest"><span class="num">0</span><em>/3</em></b></div><div class="sb-box"><small id="cStreakLbl">STREAK</small><b id="cStreak">0</b></div><div class="sb-box"><small id="cAccLbl">ACC</small><b id="cAcc">0%</b></div><button class="court-close" type="button" aria-label="Close game">×</button></div>
       <canvas id="cCanvas"></canvas>
       <div class="court-meter"><div class="court-zone"></div><div class="court-mark" id="cMark"></div></div>
       <div class="court-opts"><div class="court-levels" role="group" aria-label="Difficulty"><button type="button" data-level="easy">EASY</button><button type="button" data-level="pro">PRO</button><button type="button" data-level="legend">LEGEND</button></div><button type="button" class="court-snd" id="cSnd">SOUND ON</button></div>
       <p class="court-msg" id="cMsg" aria-live="polite"></p>
       <button class="court-again" id="cAgain" type="button" hidden>PLAY AGAIN</button>`;
     zone.appendChild(court);
+    const mvpEl = document.createElement("div");
+    mvpEl.className = "mvp-screen"; mvpEl.setAttribute("role", "status");
+    mvpEl.innerHTML = '<div class="mvp-big">MVP</div><div class="mvp-sub" id="mvpSub"></div><div class="mvp-count" id="mvpCount"></div><div class="mvp-barwrap"><div class="mvp-bar" id="mvpBar"></div></div>';
+    zone.appendChild(mvpEl);
 
     const cv = $("#cCanvas"), ctx = cv.getContext("2d");
     const mark = $("#cMark"), msgEl = $("#cMsg"), again = $("#cAgain"), closeBtn = $(".court-close", court);
     const W = 900, H = 450, FLOOR = 400, R = 22, G = .35, ANG = 52 * Math.PI / 180;
     const X0 = 130, Y0 = 320, RIMX = 750, RIMY = 190, HALF = 30;
+    const LOW = .12, HIGH = .92; // meter edges: tap-low hop / power shot off-screen
     const dpr = Math.min(2, devicePixelRatio || 1);
     cv.width = W * dpr; cv.height = H * dpr;
     ctx.scale(dpr, dpr);
@@ -1340,8 +1371,12 @@ html[data-theme="dark"] .cursor.big{background:#fff}
     const VP = Math.sqrt(G * dx * dx / (2 * Math.cos(ANG) ** 2 * (dx * Math.tan(ANG) - dy)));
 
     let open = false, raf = 0, last = 0, tStart = 0, timers = [];
-    let state = "aim", shots = 3, score = 0, scored = false, crossed = false, bounces = 0, frames = 0, miss = "air";
+    let state = "aim", shots = 3, score = 0, scored = false, crossed = false, bounces = 0, frames = 0, miss = "air", kind = "mid", hopAt = 0;
+    let attempts = 0, makes = 0, streak = 0, bonusUnlocked = false, bonusShotActive = false;
+    let won = false, pendingClose = false, winBus = null, master = null, lastCount = 10;
+    let starVisible = false, appearAt = 0, hudReady = false, launch = null, ovCv = null, ovCtx = null;
     let ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
+    const sparks = [];
     const LEVELS = { easy: 2200, pro: 1600, legend: 1000 };
     let level = "pro";
     try { level = localStorage.getItem("shotLevel") || "pro"; } catch (e) {}
@@ -1351,24 +1386,34 @@ html[data-theme="dark"] .cursor.big{background:#fff}
     const loadBest = () => { try { best = +localStorage.getItem(bestKey()) || 0; } catch (e) { best = 0; } };
     loadBest();
     const TXT = {
-      en: { score: "SCORE", best: "BEST", again: "PLAY AGAIN", easy: "EASY", pro: "PRO", legend: "LEGEND", sndOn: "SOUND ON", sndOff: "SOUND OFF", newbest: "NEW BEST! 🔥",
-        start: "Three shots. Stop the marker in the black zone. Click or press Space",
+      en: { score: "SCORE", best: "BEST", streak: "STREAK", acc: "ACC", again: "PLAY AGAIN", easy: "EASY", pro: "PRO", legend: "LEGEND", sndOn: "SOUND ON", sndOff: "SOUND OFF", newbest: "NEW BEST! 🔥",
+        start: "3 shots. Stop the marker in the black zone. Red ends = tap hop / rocket. Go 3/3 to unlock a 4th fiery ball!",
         shot: n => n === 3 ? "Last shot. Make it count!" : "Shot 2 of 3. Find your rhythm",
         swish: ["SWISH! Nothing but net 🔥", "BUCKET! +1", "Cold-blooded three! +1", "From downtown. Good!", "Splash! +1"],
         rim: ["Rattled out. So close!", "Kissed the rim. One more!", "In and out. Heartbreak!"],
         short: ["Short! Put some legs in it", "Brick! Not enough power"],
         long: ["Overcooked it. Ease off", "Long! Softer next time"],
+        low: ["Weak tap! One hop and dead", "Barely left your hands. One bounce, done"],
+        gone: ["ROCKET! The ball left the building 🚀", "Way too hard! It's out of the arena"],
         air: ["Airball! The crowd gasps", "Missed everything. Next one!"],
-        final: n => `${n}/3. ${["Cold night. Shake it off!", "Rookie. A bucket is a bucket.", "Starter material. One short!", "MVP! Perfect round 🏆"][n]}` },
-      ne: { score: "अंक", best: "उत्कृष्ट", again: "फेरि खेल्नुहोस्", easy: "सजिलो", pro: "प्रो", legend: "लेजेन्ड", sndOn: "आवाज खुला", sndOff: "आवाज बन्द", newbest: "नयाँ उत्कृष्ट! 🔥",
-        start: "३ शट। मार्कर कालो भागमा हुँदा क्लिक गर्नुहोस् वा Space थिच्नुहोस्",
+        mvpSub: "PERFECT 4/4 · FIERY BALL", mvpCount: n => `RELOADING IN ${n}s`,
+        firePrompt: "🔥 3/3 UNLOCKED! Shoot the 4th FIERY BALL for the ultimate point!",
+        fireMake: "🔥 FIERY BALL BUCKET! MVP STATUS ACHIEVED 🏆",
+        final: n => `${n}/${bonusUnlocked ? 4 : 3}. ${["Cold night. Shake it off!", "Rookie. A bucket is a bucket.", "Starter material. One short!", "Perfect 3/3, but the fiery ball got away!", "MVP! Perfect 4/4 with the Fiery Ball 🏆"][n]}` },
+      ne: { score: "अंक", best: "उत्कृष्ट", streak: "लगातार", acc: "सटीक", again: "फेरि खेल्नुहोस्", easy: "सजिलो", pro: "प्रो", legend: "लेजेन्ड", sndOn: "आवाज खुला", sndOff: "आवाज बन्द", newbest: "नयाँ उत्कृष्ट! 🔥",
+        start: "३ शट। मार्कर कालो भागमा हुँदा क्लिक गर्नुहोस्। रातो छेउ = कमजोर/रकेट। ३/३ मा चौथो आगोको बल खुल्छ!",
         shot: n => n === 3 ? "अन्तिम शट! गोल बनाउनुहोस्!" : "शट 2 / 3। लय समात्नुहोस्",
         swish: ["वाह! जालमै! 🔥", "गोल! +1", "तीन अंक! शानदार! +1", "ठ्याक्कै निशाना! +1"],
         rim: ["रिममा लागेर बाहिर! अलि नजिक!", "अलिकति मात्र चुक्यो!", "भित्र पसेर निस्कियो! फेरि!"],
         short: ["छोटो भयो! अलि बल लगाउनुहोस्", "बल पुगेन! अलि जोडले हान्नुहोस्"],
         long: ["धेरै जोडले! अलि सजिलो गर्नुहोस्", "लामो भयो! अलि कम बल लगाउनुहोस्"],
+        low: ["धेरै कमजोर! एक पटक उछिएर रोकियो", "बल हातबाटै खस्यो। एक बाउन्स मात्र"],
+        gone: ["रकेट! बल मैदानबाहिर 🚀", "धेरै जोड! बल स्क्रिनबाट बाहिर"],
         air: ["चुक्यो! दर्शकहरू छक्क परे", "केही लागेन! अर्को पटक!"],
-        final: n => `${n}/3। ${["आज ठिक भएन। फेरि प्रयास!", "नयाँ खेलाडी। एक गोल पनि गोल हो।", "स्टार्टर स्तर! अलिकति बाँकी!", "एमभिपी! पूर्ण राउन्ड 🏆"][n]}` }
+        mvpSub: "पूर्ण ४/४ · आगोको बल", mvpCount: n => `${n} सेकेन्डमा फेरि सुरु`,
+        firePrompt: "🔥 ३/३ पूरा! चौथो आगोको बल हान्नुहोस्!",
+        fireMake: "🔥 आगोको बल गोल! एमभिपी विजेता 🏆",
+        final: n => `${n}/${bonusUnlocked ? 4 : 3}। ${["आज ठिक भएन। फेरि प्रयास!", "नयाँ खेलाडी। एक गोल पनि गोल हो।", "स्टार्टर स्तर! अलिकति बाँकी!", "पूर्णको नजिक!", "एमभिपी! ३/३ र आगोको बल 🏆"][n]}` }
     };
     const T = (k, n) => {
       const v = TXT[lang][k];
@@ -1380,7 +1425,13 @@ html[data-theme="dark"] .cursor.big{background:#fff}
     try { muted = localStorage.getItem("shotMuted") === "1"; } catch (e) {}
     let ac = null;
     const audio = () => {
-      if (!ac) { const AC = window.AudioContext || window.webkitAudioContext; if (AC) ac = new AC(); }
+      if (!ac) {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (AC) { // soft master chain: gain -> gentle compressor -> speakers
+          ac = new AC(); const comp = ac.createDynamicsCompressor(); comp.threshold.value = -20; comp.ratio.value = 4;
+          master = ac.createGain(); master.gain.value = .8; master.connect(comp); comp.connect(ac.destination);
+        }
+      }
       if (ac && ac.state === "suspended") ac.resume();
       return ac;
     };
@@ -1389,44 +1440,85 @@ html[data-theme="dark"] .cursor.big{background:#fff}
       for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
       const src = c.createBufferSource(); src.buffer = buf; return src;
     };
-    const tone = (c, f0, f1, dur, vol, type) => {
+    const tone = (c, f0, f1, dur, vol, type, out = master) => {
       const o = c.createOscillator(), g = c.createGain(), t = c.currentTime;
       o.type = type; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur);
-      g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
-      o.connect(g); g.connect(c.destination); o.start(); o.stop(t + dur);
+      g.gain.setValueAtTime(.0001, t); g.gain.linearRampToValueAtTime(vol, t + .015); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+      o.connect(g); g.connect(out); o.start(t); o.stop(t + dur + .05);
     };
-    const crowd = (c, vol, dur, freq, swell) => {
+    const crowd = (c, vol, dur, freq, swell, out = master) => {
       const n = noise(c, dur), f = c.createBiquadFilter(), g = c.createGain(), t = c.currentTime;
       f.type = "bandpass"; f.frequency.value = freq; f.Q.value = .7;
       g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + swell); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
-      n.connect(f); f.connect(g); g.connect(c.destination); n.start();
+      n.connect(f); f.connect(g); g.connect(out); n.start(t);
     };
-    const sfx = kind => {
+    const stopWin = () => { if (winBus && ac) { winBus.gain.setTargetAtTime(0, ac.currentTime, .08); } winBus = null; };
+    // victory: crowd cheer + whistles + a few hundred hand claps
+    const winSound = () => {
       if (muted) return;
       const c = audio(); if (!c) return;
-      if (kind === "swish") { crowd(c, .35, 1.6, 900, .25); crowd(c, .12, .25, 4000, .02); tone(c, 880, 1320, .18, .06, "sine"); }
-      else if (kind === "rim") { tone(c, 330, 180, .25, .18, "triangle"); crowd(c, .18, .8, 500, .1); }
-      else if (kind === "miss") { crowd(c, .2, 1.1, 350, .15); tone(c, 300, 140, .6, .06, "sine"); }
-      else if (kind === "bounce") tone(c, 140, 70, .12, .22, "sine");
-      else if (kind === "shoot") crowd(c, .06, .3, 2500, .05);
+      stopWin();
+      winBus = c.createGain(); winBus.gain.value = 1; winBus.connect(master);
+      const t0 = c.currentTime;
+      crowd(c, .5, 6.5, 750, 1, winBus); crowd(c, .32, 6.5, 1500, 1.6, winBus); crowd(c, .16, 5, 3200, .8, winBus);
+      tone(c, 1500, 2300, .5, .05, "sine", winBus);
+      const buf = noise(c, 2).buffer;
+      for (let i = 0; i < 230; i++) {
+        const at = t0 + .2 + Math.random() * 6.6, prog = (at - t0) / 7, dens = Math.sin(Math.PI * Math.min(1, prog));
+        if (Math.random() > .3 + .7 * dens) continue;
+        const s = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(), v = (.09 + Math.random() * .1) * (.4 + .6 * dens);
+        s.buffer = buf; f.type = "bandpass"; f.frequency.value = 1500 + Math.random() * 2600; f.Q.value = .9;
+        g.gain.setValueAtTime(.0001, at); g.gain.linearRampToValueAtTime(v, at + .004); g.gain.exponentialRampToValueAtTime(.0001, at + .06 + Math.random() * .04);
+        s.connect(f); f.connect(g); g.connect(winBus); s.start(at, Math.random() * 1.5); s.stop(at + .14);
+      }
+    };
+    const sfx = k => {
+      if (muted) return;
+      const c = audio(); if (!c) return;
+      if (k === "swish") { crowd(c, .32, 1.6, 900, .25); crowd(c, .1, .3, 4000, .04); tone(c, 880, 1320, .2, .05, "sine"); }
+      else if (k === "rim") { tone(c, 330, 180, .25, .15, "triangle"); crowd(c, .16, .8, 500, .1); }
+      else if (k === "miss") { crowd(c, .18, 1.1, 350, .15); tone(c, 300, 140, .6, .05, "sine"); }
+      else if (k === "bounce") tone(c, 140, 70, .14, .2, "sine");
+      else if (k === "shoot") crowd(c, .06, .3, 2500, .06);
+      else if (k === "rocket") { crowd(c, .22, .9, 3000, .08); tone(c, 200, 1500, .6, .06, "triangle"); }
+      else if (k === "ignite") { crowd(c, .24, 1.3, 1800, .25); tone(c, 260, 900, .7, .05, "triangle"); }
     };
 
-    const say = (t, kind) => {
-      msgEl.textContent = t; msgEl.dataset.kind = kind || "";
+    const say = (t, k) => {
+      msgEl.textContent = t; msgEl.dataset.kind = k || "";
       msgEl.classList.remove("in"); void msgEl.offsetWidth; msgEl.classList.add("in");
     };
     const results = [];
+    const pipEls = $$("#cPips .pip", court);
+    const setNum = (el, txt, anim) => {
+      if (el.textContent === txt) return;
+      el.textContent = txt;
+      if (!anim) return;
+      el.classList.remove("roll"); void el.offsetWidth; el.classList.add("roll");
+    };
     const hud = () => {
-      $("#cPips").innerHTML = [0, 1, 2].map(i => `<i class="pip ${results[i] === undefined ? (i === results.length ? "cur" : "") : results[i] ? "make" : "miss"}"></i>`).join("");
+      const anim = hudReady; hudReady = true;
+      [0, 1, 2].forEach(i => {
+        pipEls[i].className = "pip" + (results[i] === undefined ? (i === results.length && !bonusShotActive ? " cur" : "") : results[i] ? " make" : " miss");
+      });
+      const star = pipEls[3]; // the star only appears after three greens in a row
+      star.hidden = !starVisible;
+      star.className = "pip bonus" + (!starVisible ? "" : results[3] === undefined ? " on" + (bonusShotActive ? " cur" : "") : results[3] ? " on" : " miss");
       $("#cScoreLbl").textContent = T("score"); $("#cBestLbl").textContent = T("best");
-      $("#cScore").innerHTML = `${score}<em>/3</em>`; $("#cBest").innerHTML = `${best}<em>/3</em>`;
+      $("#cStreakLbl").textContent = T("streak"); $("#cAccLbl").textContent = T("acc");
+      const den = starVisible ? 4 : 3, bestDen = (starVisible || best > 3) ? 4 : 3;
+      setNum($("#cScore .num"), String(score), anim); setNum($("#cScore em"), "/" + den, anim);
+      setNum($("#cBest .num"), String(best), anim); setNum($("#cBest em"), "/" + bestDen, anim);
+      $("#cStreak").textContent = (streak >= 3 ? "🔥" : "") + streak;
+      $("#cAcc").textContent = (attempts ? Math.round(makes / attempts * 100) : 0) + "%";
     };
     const pop = id => { const b = $(id).parentElement; b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop"); };
     const meter = () => { const t = ((performance.now() - tStart) / LEVELS[level]) % 2; return t < 1 ? t : 2 - t; };
 
     function reset() {
       timers.forEach(clearTimeout); timers = [];
-      shots = 3; score = 0; results.length = 0; state = "aim";
+      shots = 3; score = 0; results.length = 0; state = "aim"; bonusUnlocked = false; bonusShotActive = false; starVisible = false; launch = null; hideOverlay(); sparks.length = 0;
+      won = false; pendingClose = false; zone.classList.remove("won"); stopWin();
       ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
       tStart = performance.now(); again.hidden = true; hud();
       say(T("start"));
@@ -1434,18 +1526,50 @@ html[data-theme="dark"] .cursor.big{background:#fff}
 
     function shoot() {
       if (!open || state !== "aim") return;
-      const v = VP * (.9 + .2 * meter());
+      const m = meter();
+      kind = m < LOW ? "low" : m > HIGH ? "high" : "mid";
+      const f = kind === "low" ? .42 : kind === "high" ? 1.9 : .9 + .2 * m;
+      const v = VP * f;
       ball.vx = v * Math.cos(ANG); ball.vy = -v * Math.sin(ANG);
-      sfx("shoot"); state = "flight"; crossed = false; scored = false; bounces = 0; frames = 0; miss = "air";
+      sfx(kind === "high" ? "rocket" : "shoot"); state = "flight"; crossed = false; scored = false; bounces = 0; frames = 0; hopAt = 0;
+      miss = kind === "low" ? "low" : kind === "high" ? "gone" : "air";
       say("");
+      if (kind === "high") startLaunch();
     }
 
     function finish() {
       state = "result";
-      if (scored) score++;
+      if (kind === "high") { ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 }; appearAt = performance.now(); }
+      if (miss === "air" && bounces > 0) miss = "short";
+      attempts++;
+      if (bonusShotActive) { // the 4th, fiery shot
+        results.push(scored);
+        if (scored) { score++; makes++; streak++; burst(RIMX, RIMY + 40, 40); pop("#cScore"); say(T("fireMake"), "good"); }
+        else { streak = 0; sfx("miss"); say(T(miss), "bad"); }
+        shots = 0; hud();
+        timers.push(setTimeout(next, 1300));
+        return;
+      }
+      if (scored) { score++; makes++; streak++; } else streak = 0;
       results.push(scored);
       shots--; hud();
       if (scored) pop("#cScore");
+      if (shots === 0 && score === 3) { // perfect round: unlock the fiery ball
+        bonusUnlocked = true; bonusShotActive = true;
+        hud();
+        timers.push(setTimeout(() => { // star + 4-point scoreboard arrive just after the third green
+          if (!open) return;
+          starVisible = true; hud(); pop("#cScore"); pop("#cBest");
+          say(T("firePrompt"), "good");
+        }, 450));
+        timers.push(setTimeout(() => {
+          if (!open) return;
+          appearAt = performance.now();
+          ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
+          state = "aim"; tStart = performance.now(); burst(X0, Y0, 30); sfx("ignite");
+        }, 1200));
+        return;
+      }
       say(scored ? T("swish") : T(miss), scored ? "good" : "bad");
       if (!scored && miss !== "rim") sfx("miss");
       timers.push(setTimeout(next, 1100));
@@ -1454,6 +1578,7 @@ html[data-theme="dark"] .cursor.big{background:#fff}
     function next() {
       if (!open) return;
       if (shots > 0) {
+        if (ball.x !== X0 || ball.y !== Y0) appearAt = performance.now();
         ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
         state = "aim"; tStart = performance.now();
         say(T("shot", 4 - shots));
@@ -1463,40 +1588,130 @@ html[data-theme="dark"] .cursor.big{background:#fff}
         if (isBest) { best = score; try { localStorage.setItem(bestKey(), String(best)); } catch (e) {} }
         hud();
         if (isBest) pop("#cBest");
+        if (bonusUnlocked && score === 4) { startMvp(); return; }
         say(T("final", score) + (isBest ? " " + T("newbest") : ""));
         again.hidden = false;
       }
     }
 
+    const burst = (x, y, n) => { for (let i = 0; i < n; i++) sparks.push({ x: x + (Math.random() - .5) * 18, y: y + (Math.random() - .5) * 18, vx: (Math.random() - .5) * 2.4, vy: -Math.random() * 2.6 - .4, life: 1, s: 4 + Math.random() * 9 }); };
+
+    function paintMvp(n) {
+      if (n != null) lastCount = n;
+      $("#mvpSub").textContent = T("mvpSub"); $("#mvpCount").textContent = T("mvpCount", lastCount);
+    }
+    // 4/4: the whole game area becomes MVP, crowd cheers, then the game reloads after 10 s
+    function startMvp() {
+      won = true; zone.classList.add("won"); again.hidden = true; paintMvp(10);
+      const bar = $("#mvpBar"); bar.classList.remove("run"); void bar.offsetWidth; bar.classList.add("run");
+      winSound();
+      let n = 10;
+      const tick = () => {
+        n--;
+        if (n > 0) { paintMvp(n); timers.push(setTimeout(tick, 1000)); return; }
+        won = false; zone.classList.remove("won");
+        if (pendingClose) { pendingClose = false; closeGame(true); } else reset();
+      };
+      timers.push(setTimeout(tick, 1000));
+    }
+
     function step(dt) {
       mark.style.left = (meter() * 100) + "%";
-      if (state === "aim") { ball.y = Y0 + Math.sin(performance.now() / 260) * 3; return; }
+      for (let i = sparks.length - 1; i >= 0; i--) { const p = sparks[i]; p.x += p.vx * dt; p.y += p.vy * dt; p.life -= .035 * dt; if (p.life <= 0) sparks.splice(i, 1); }
+      if (state === "aim") { ball.y = Y0 + Math.sin(performance.now() / 260) * 3; if (bonusShotActive && Math.random() < .6) burst(ball.x, ball.y + 6, 1); return; }
+      if (state === "launch") { stepLaunch(dt / 60); return; }
       if (state !== "flight") return;
       const py = ball.y, px = ball.x;
       ball.vy += G * dt; ball.x += ball.vx * dt; ball.y += ball.vy * dt;
       ball.rot += ball.vx * .03 * dt; frames += dt;
+      if (kind === "high" || bonusShotActive) burst(ball.x, ball.y, 1);
       if (!crossed && ball.vy > 0 && py < RIMY && ball.y >= RIMY) {
         crossed = true;
         const cx = px + (ball.x - px) * ((RIMY - py) / (ball.y - py));
         const off = cx - RIMX;
-        if (Math.abs(off) <= HALF) { scored = true; ball.vx *= .25; sfx("swish"); }
-        else { miss = Math.abs(off) < HALF + 22 ? "rim" : off < 0 ? "short" : "long"; if (miss === "rim") sfx("rim"); }
+        if (kind === "mid" && Math.abs(off) <= HALF) { scored = true; ball.vx *= .25; sfx("swish"); }
+        else if (kind === "mid") { miss = Math.abs(off) < HALF + 22 ? "rim" : off < 0 ? "short" : "long"; if (miss === "rim") sfx("rim"); }
       }
-      if (ball.x + R >= 788 && ball.y > 95 && ball.y < 235 && ball.vx > 0) { ball.x = 788 - R; ball.vx *= -.45; }
-      if (ball.y + R >= FLOOR) { ball.y = FLOOR - R; ball.vy *= -.55; ball.vx *= .85; bounces++; sfx("bounce"); }
-      if (bounces >= 2 || ball.x > W + 40 || frames > 240) finish();
+      if (kind !== "high" && ball.x + R >= 788 && ball.y > 95 && ball.y < 235 && ball.vx > 0) { ball.x = 788 - R; ball.vx *= -.45; }
+      if (ball.y + R >= FLOOR) {
+        ball.y = FLOOR - R; ball.vy *= -.55; ball.vx *= .85; bounces++; sfx("bounce");
+        if (kind === "low" && bounces === 1) { hopAt = frames; ball.vy = -4.2; ball.vx *= .5; } // exactly one hop
+      }
+      const gone = ball.x > W + 40 || ball.y < -320;
+      if (gone && kind === "high") miss = "gone";
+      if (gone || bounces >= 2 || frames > 260 || (kind === "low" && hopAt && frames - hopAt > 34)) finish();
     }
 
-    function drawBall(x, y, rot) {
-      ctx.save(); ctx.translate(x, y); ctx.rotate(rot);
-      ctx.fillStyle = "#111"; ctx.strokeStyle = "#F47B20"; ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.arc(0, 0, R, 0, 7); ctx.fill();
-      ctx.beginPath(); ctx.moveTo(0, -R); ctx.lineTo(0, R); ctx.moveTo(-R, 0); ctx.lineTo(R, 0);
-      for (const k of [-1, 1]) {
-        ctx.moveTo(k * .72 * R, -.72 * R);
-        ctx.bezierCurveTo(k * .3 * R, -.3 * R, k * .3 * R, .3 * R, k * .72 * R, .72 * R);
+    function drawBall(x, y, rot, fire, sc = 1, g = ctx, r = R) {
+      const k = r / R;
+      g.save(); g.translate(x, y); g.rotate(rot); g.scale(sc, sc);
+      if (fire) { g.shadowColor = "#ff4d16"; g.shadowBlur = 34 * k; }
+      g.fillStyle = fire ? "#ff7a1a" : "#111"; g.strokeStyle = fire ? "#111" : "#F47B20"; g.lineWidth = 3 * k;
+      g.beginPath(); g.arc(0, 0, r, 0, 7); g.fill();
+      g.shadowBlur = 0;
+      g.beginPath(); g.moveTo(0, -r); g.lineTo(0, r); g.moveTo(-r, 0); g.lineTo(r, 0);
+      for (const q of [-1, 1]) {
+        g.moveTo(q * .72 * r, -.72 * r);
+        g.bezierCurveTo(q * .3 * r, -.3 * r, q * .3 * r, .3 * r, q * .72 * r, .72 * r);
       }
-      ctx.stroke(); ctx.restore();
+      g.stroke(); g.restore();
+    }
+
+    // Max-power shot: the ball leaves the court box, arcs high over the page and lands far to the lower right.
+    // It is drawn on a page-wide canvas so it is not clipped by the game area.
+    function startLaunch() {
+      state = "launch";
+      const rect = cv.getBoundingClientRect(), sc = Math.min(rect.width / W, rect.height / H);
+      const x0 = rect.left + ball.x * sc, y0 = rect.top + (rect.height - H * sc) / 2 + ball.y * sc, rad = R * sc;
+      if (!ovCv) {
+        ovCv = document.createElement("canvas");
+        ovCv.setAttribute("aria-hidden", "true");
+        ovCv.style.cssText = "position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;z-index:99989";
+        document.body.appendChild(ovCv); ovCtx = ovCv.getContext("2d");
+      }
+      const d = Math.min(2, devicePixelRatio || 1);
+      ovCv.width = innerWidth * d; ovCv.height = innerHeight * d; ovCtx.setTransform(d, 0, 0, d, 0, 0);
+      ovCv.style.display = "block";
+      const lx = Math.min(innerWidth - rad * 1.5, Math.max(innerWidth * .84, x0 + 200));
+      const ground = Math.max(y0 + 70, innerHeight - 46);
+      const rise = Math.max(160, Math.min(innerHeight * .42, 420));
+      const g = 2300, vy0 = -Math.sqrt(2 * g * rise);
+      const t = (-vy0 + Math.sqrt(vy0 * vy0 + 2 * g * (ground - y0))) / g; // time to come back down to the landing spot
+      launch = { x: x0, y: y0, vx: (lx - x0) / t, vy: vy0, g, ground, rad, rot: 0, bounces: 0, fade: 0, age: 0, trail: [] };
+    }
+    function stepLaunch(dt) {
+      const L = launch;
+      if (!L) { finish(); return; }
+      L.age += dt;
+      const sub = Math.max(1, Math.ceil(dt / .008)), h = dt / sub;
+      for (let i = 0; i < sub && !L.fade; i++) {
+        L.vy += L.g * h; L.x += L.vx * h; L.y += L.vy * h; L.rot += L.vx * h / L.rad;
+        if (L.y >= L.ground && L.vy > 0) {
+          L.y = L.ground;
+          if (L.bounces === 0) { L.vy *= -.36; L.vx *= .5; L.bounces = 1; sfx("bounce"); }
+          else L.fade = .001;
+        }
+      }
+      if (!L.fade) { L.trail.push({ x: L.x, y: L.y }); if (L.trail.length > 16) L.trail.shift(); }
+      else { L.fade += dt / .4; L.x += L.vx * dt * .25; L.rot += L.vx * dt / L.rad * .25; if (L.trail.length) L.trail.shift(); }
+      if (L.fade >= 1 || L.age > 6) { launch = null; hideOverlay(); finish(); }
+    }
+    function hideOverlay() {
+      if (ovCtx) ovCtx.clearRect(0, 0, ovCv.width, ovCv.height);
+      if (ovCv) ovCv.style.display = "none";
+    }
+    function drawOverlay() {
+      if (!launch || !ovCtx) return;
+      const L = launch, g = ovCtx, f = Math.min(1, L.fade), n = L.trail.length;
+      g.clearRect(0, 0, innerWidth, innerHeight);
+      L.trail.forEach((p, i) => {
+        const q = (i + 1) / n;
+        g.globalAlpha = .45 * q * (1 - f); g.fillStyle = q > .6 ? "#ffd400" : "#ff7a1a";
+        g.beginPath(); g.arc(p.x, p.y, L.rad * (.25 + .6 * q), 0, 7); g.fill();
+      });
+      g.globalAlpha = 1 - f;
+      drawBall(L.x, L.y, L.rot, true, 1 - .3 * f, g, L.rad);
+      g.globalAlpha = 1;
     }
 
     function draw() {
@@ -1512,9 +1727,21 @@ html[data-theme="dark"] .cursor.big{background:#fff}
       ctx.beginPath(); ctx.moveTo(792, 95); ctx.lineTo(792, 235);
       ctx.moveTo(RIMX - HALF - 8, RIMY); ctx.lineTo(RIMX + HALF + 8, RIMY); ctx.stroke();
 
-      ctx.fillStyle = "rgba(17,17,17,.18)"; ctx.beginPath();
-      ctx.ellipse(ball.x, FLOOR + 14, R * (1 - Math.min(.5, (FLOOR - ball.y) / 700)), 6, 0, 0, 7); ctx.fill();
-      drawBall(ball.x, ball.y, ball.rot);
+      const fire = bonusShotActive;
+      if (!fire && state !== "launch") {
+        ctx.fillStyle = "rgba(17,17,17,.18)"; ctx.beginPath();
+        ctx.ellipse(ball.x, FLOOR + 14, R * (1 - Math.min(.5, (FLOOR - ball.y) / 700)), 6, 0, 0, 7); ctx.fill();
+      }
+      sparks.forEach(p => {
+        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.fillStyle = p.life > .6 ? "#ffd400" : p.life > .3 ? "#ff7a1a" : "#e0300a";
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.s * p.life, 0, 7); ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      if (state !== "launch") {
+        const ap = Math.min(1, (performance.now() - appearAt) / 380), e = ap < 1 ? 1 + 2.70158 * (ap - 1) ** 3 + 1.70158 * (ap - 1) ** 2 : 1;
+        drawBall(ball.x, ball.y, ball.rot, fire || (kind === "high" && state === "flight"), e);
+      }
 
       ctx.strokeStyle = "rgba(17,17,17,.75)"; ctx.lineWidth = 2; ctx.beginPath();
       for (let i = 0; i <= 4; i++) {
@@ -1526,6 +1753,7 @@ html[data-theme="dark"] .cursor.big{background:#fff}
         ctx.moveTo(RIMX - HALF - 4 + inset, yy); ctx.lineTo(RIMX + HALF + 4 - inset, yy);
       }
       ctx.stroke();
+      drawOverlay();
     }
 
     function loop(t) {
@@ -1536,30 +1764,31 @@ html[data-theme="dark"] .cursor.big{background:#fff}
     }
 
     function openGame() {
-      if (open) return;
+      if (open) { pendingClose = false; return; }
       open = true; zone.classList.add("playing");
       reset(); last = 0; raf = requestAnimationFrame(loop);
     }
-    function closeGame() {
+    function closeGame(force) {
       if (!open) return;
-      open = false; zone.classList.remove("playing");
-      cancelAnimationFrame(raf); timers.forEach(clearTimeout);
+      if (won && !force) { pendingClose = true; return; } // let the MVP screen finish its 10 s
+      open = false; won = false; pendingClose = false; zone.classList.remove("playing", "won");
+      cancelAnimationFrame(raf); timers.forEach(clearTimeout); stopWin(); launch = null; hideOverlay();
     }
 
     if (fine) {
       zone.addEventListener("mouseenter", openGame);
-      zone.addEventListener("mouseleave", closeGame);
+      zone.addEventListener("mouseleave", () => closeGame());
     }
     zone.addEventListener("click", openGame);                 // tap on touch screens
     zone.addEventListener("focusin", openGame);               // keyboard users
     zone.addEventListener("focusout", e => { if (!zone.contains(e.relatedTarget)) closeGame(); });
-    closeBtn.addEventListener("click", e => { e.stopPropagation(); closeGame(); });
+    closeBtn.addEventListener("click", e => { e.stopPropagation(); closeGame(true); });
     again.addEventListener("click", e => { e.stopPropagation(); reset(); });
     court.addEventListener("pointerdown", e => { if (!e.target.closest("button")) shoot(); });
     document.addEventListener("pointerdown", e => { if (open && !zone.contains(e.target)) closeGame(); });
     document.addEventListener("keydown", e => {
       if (!open) return;
-      if (e.key === "Escape") closeGame();
+      if (e.key === "Escape") closeGame(true);
       else if (e.code === "Space" && !e.target.closest("button")) { e.preventDefault(); shoot(); }
     });
     const lvBtns = $$(".court-levels button", court), zoneEl = $(".court-zone", court), sndBtn = $("#cSnd", court);
@@ -1578,7 +1807,7 @@ html[data-theme="dark"] .cursor.big{background:#fff}
       try { localStorage.setItem("shotMuted", muted ? "1" : "0"); } catch (x) {}
       paintOpts(); if (!muted) sfx("bounce");
     });
-    gameRefresh = () => { hud(); paintOpts(); again.textContent = T("again"); if (state === "aim" && shots === 3) say(T("start")); };
+    gameRefresh = () => { hud(); paintOpts(); paintMvp(); again.textContent = T("again"); if (state === "aim" && shots === 3) say(T("start")); };
     gameRefresh();
     draw();
   })();
