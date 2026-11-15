@@ -135,15 +135,6 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 .gcard::after{content:"";position:absolute;top:-13px;left:50%;width:42px;height:26px;border:2px solid #111;border-radius:5px 5px 8px 8px;background:#bcb8af;transform:translateX(-50%);z-index:3}
 .gcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.04);transition:transform .9s var(--ease)}
 .gcard:hover img{transform:scale(1.05)}
-.gcard{perspective:1100px}
-.gc-inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .8s var(--ease)}
-.gcard.flipped .gc-inner{transform:rotateY(180deg)}
-.gc-face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.gc-back{transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;background:#111;color:#eeeae2;text-align:center}
-.gc-back small{font:700 9px var(--mono);letter-spacing:.16em;color:var(--accent)}
-.gc-back b{font-size:clamp(22px,2.6vw,34px);line-height:1.05;letter-spacing:-.03em;text-transform:uppercase}
-.gb-rule{display:block;width:44px;height:3px;background:var(--accent)}
-.gb-theme{padding:9px 16px;border-radius:999px;background:var(--accent);color:#111;font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase}
 .gnm{position:absolute;inset:0;display:grid;place-items:center;font:900 clamp(60px,9vw,120px) Arial;letter-spacing:-.08em;color:rgba(17,17,17,.14)}
 .gi{position:absolute;left:14px;bottom:14px;z-index:4;padding:7px 9px;background:#111;color:#fff;font:9px var(--mono);letter-spacing:.08em;text-transform:uppercase}
 .gz{position:absolute;right:12px;bottom:12px;z-index:4;width:34px;height:34px;display:grid;place-items:center;background:#111;color:#fff;font:700 15px var(--mono)}
@@ -221,10 +212,10 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 <section class="gallery" id="gallery">
   <div class="head"><span class="tag">Gallery</span><h2>Gallery.</h2></div>
   <div class="gtrack" id="gtrack">
-    <div class="gw"><div class="gcard" tabindex="0" role="button" aria-pressed="false" aria-label="Show location of photo 101"><div class="gc-inner"><div class="gc-face gc-front"><span class="gnm">101</span><img src="101.jpg" data-name="101" data-fb="parajuli.png.jpg" alt="Gallery photo 101" data-club="Safal Parajuli" data-program="Jomsom, Mustang · 01 / 04"><span class="gi">01 / Gallery</span><button class="gz" type="button" aria-label="View photo 101 full screen">⤢</button></div><div class="gc-face gc-back"><small>LOCATION</small><b>Jomsom, Mustang</b><i class="gb-rule"></i><small>THEME</small><span class="gb-theme">Mountains</span></div></div></div></div>
-    <div class="gw"><div class="gcard" tabindex="0" role="button" aria-pressed="false" aria-label="Show location of photo 102"><div class="gc-inner"><div class="gc-face gc-front"><span class="gnm">102</span><img src="102.jpg" data-name="102" data-fb="prasad.png.jpg" alt="Gallery photo 102" data-club="Safal Parajuli" data-program="Saga, Bhaktapur · 02 / 04"><span class="gi">02 / Gallery</span><button class="gz" type="button" aria-label="View photo 102 full screen">⤢</button></div><div class="gc-face gc-back"><small>LOCATION</small><b>Saga, Bhaktapur</b><i class="gb-rule"></i><small>THEME</small><span class="gb-theme">Culture</span></div></div></div></div>
-    <div class="gw"><div class="gcard" tabindex="0" role="button" aria-pressed="false" aria-label="Show location of photo 103"><div class="gc-inner"><div class="gc-face gc-front"><span class="gnm">103</span><img src="103.jpg" data-name="103" data-fb="uppadhya.png.jpg" alt="Gallery photo 103" data-club="Safal Parajuli" data-program="Bhaktapur Durbar Square · 03 / 04"><span class="gi">03 / Gallery</span><button class="gz" type="button" aria-label="View photo 103 full screen">⤢</button></div><div class="gc-face gc-back"><small>LOCATION</small><b>Bhaktapur Durbar Square</b><i class="gb-rule"></i><small>THEME</small><span class="gb-theme">Heritage</span></div></div></div></div>
-    <div class="gw"><div class="gcard" tabindex="0" role="button" aria-pressed="false" aria-label="Show location of photo 104"><div class="gc-inner"><div class="gc-face gc-front"><span class="gnm">104</span><img src="104.jpg" data-name="104" data-fb="ram.png.jpg" alt="Gallery photo 104" data-club="Safal Parajuli" data-program="Muktinath Temple · 04 / 04"><span class="gi">04 / Gallery</span><button class="gz" type="button" aria-label="View photo 104 full screen">⤢</button></div><div class="gc-face gc-back"><small>LOCATION</small><b>Muktinath Temple</b><i class="gb-rule"></i><small>THEME</small><span class="gb-theme">Pilgrimage</span></div></div></div></div>
+    <div class="gw"><div class="gcard" tabindex="0" role="button" aria-label="Open photo 101 full screen"><span class="gnm">101</span><img src="101.jpg" onerror="this.style.display='none'" alt="Gallery photo 101" data-club="Safal Parajuli" data-program="Gallery · 01 / 04"><span class="gi">01 / Gallery</span><span class="gz" aria-hidden="true">⤢</span></div></div>
+    <div class="gw"><div class="gcard" tabindex="0" role="button" aria-label="Open photo 102 full screen"><span class="gnm">102</span><img src="102.jpg" onerror="this.style.display='none'" alt="Gallery photo 102" data-club="Safal Parajuli" data-program="Gallery · 02 / 04"><span class="gi">02 / Gallery</span><span class="gz" aria-hidden="true">⤢</span></div></div>
+    <div class="gw"><div class="gcard" tabindex="0" role="button" aria-label="Open photo 103 full screen"><span class="gnm">103</span><img src="103.jpg" onerror="this.style.display='none'" alt="Gallery photo 103" data-club="Safal Parajuli" data-program="Gallery · 03 / 04"><span class="gi">03 / Gallery</span><span class="gz" aria-hidden="true">⤢</span></div></div>
+    <div class="gw"><div class="gcard" tabindex="0" role="button" aria-label="Open photo 104 full screen"><span class="gnm">104</span><img src="104.jpg" onerror="this.style.display='none'" alt="Gallery photo 104" data-club="Safal Parajuli" data-program="Gallery · 04 / 04"><span class="gi">04 / Gallery</span><span class="gz" aria-hidden="true">⤢</span></div></div>
   </div>
 </section>
 
@@ -321,30 +312,15 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 
   /* Gallery: images 101-104 (any of .jpg .jpeg .png .webp), scroll drift, full-screen viewer with prev/next */
   const gcards = $$(".gcard"), gimgs = gcards.map(c => $("img", c));
-  /* Each photo tries 101.jpg first, then other common names/extensions, then your original gallery photo */
-  gimgs.forEach(im => {
-    const n = im.dataset.name;
-    const tries = [n + ".jpg", n + ".jpeg", n + ".png", n + ".webp", n + ".JPG", n + ".jpg.png", n + ".png.jpg", im.dataset.fb];
-    let k = 0;
-    const next = () => {
-      if (++k < tries.length) im.src = tries[k];
-      else { im.style.display = "none"; }
-    };
-    im.addEventListener("error", next);
-    if (im.complete && im.naturalWidth === 0) next();
-  });
   const showG = i => {
     gi = (i + gimgs.length) % gimgs.length; const im = gimgs[gi];
     if (im.style.display === "none") { return; }
     lbImg.src = im.currentSrc || im.src; lbImg.alt = im.alt; $("#lc").textContent = im.dataset.club; $("#lp").textContent = im.dataset.program;
   };
   gcards.forEach((c, i) => {
-    const flip = () => { const on = c.classList.toggle("flipped"); c.setAttribute("aria-pressed", on); };
     const open = () => { if (gimgs[i].style.display === "none") return; lb.classList.add("multi"); openLb(gimgs[i], c); gi = i; };
-    c.addEventListener("click", flip);
-    c.addEventListener("mouseleave", () => { c.classList.remove("flipped"); c.setAttribute("aria-pressed", "false"); });
-    c.addEventListener("keydown", e => { if (e.target === c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); flip(); } });
-    $(".gz", c).addEventListener("click", e => { e.stopPropagation(); open(); });
+    c.addEventListener("click", open);
+    c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
   });
   $(".pv", lb).addEventListener("click", () => showG(gi - 1));
   $(".ne", lb).addEventListener("click", () => showG(gi + 1));
