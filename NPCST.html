@@ -136,6 +136,8 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 .gcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.04);transition:transform .9s var(--ease)}
 .gcard:hover img{transform:scale(1.05)}
 .gnm{position:absolute;inset:0;display:grid;place-items:center;font:900 clamp(60px,9vw,120px) Arial;letter-spacing:-.08em;color:rgba(17,17,17,.14)}
+.gnm span{text-align:center}
+.gnm small{display:block;margin:12px auto 0;max-width:80%;font:700 10px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#111;opacity:.55}
 .gi{position:absolute;left:14px;bottom:14px;z-index:4;padding:7px 9px;background:#111;color:#fff;font:9px var(--mono);letter-spacing:.08em;text-transform:uppercase}
 .gz{position:absolute;right:12px;bottom:12px;z-index:4;width:34px;height:34px;display:grid;place-items:center;background:#111;color:#fff;font:700 15px var(--mono)}
 @media(max-width:760px){.gtrack{width:100%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 14vw;transform:none!important;scrollbar-width:none}.gtrack::-webkit-scrollbar{display:none}.gw{scroll-snap-align:center;flex-basis:72vw;width:72vw}.gcard{height:105vw;max-height:480px}}
@@ -312,6 +314,20 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 
   /* Gallery: images 101-104 (any of .jpg .jpeg .png .webp), scroll drift, full-screen viewer with prev/next */
   const gcards = $$(".gcard"), gimgs = gcards.map(c => $("img", c));
+  /* Find 101-104 wherever they were saved: same folder or common folders, any letter case / extension (GitHub Pages is case-sensitive) */
+  const dirs = ["", "images/", "image/", "img/", "assets/", "photos/", "gallery/", "Images/"];
+  const exts = ["jpg", "JPG", "jpeg", "JPEG", "png", "PNG", "webp", "jpg.png", "png.jpg", "jpg.jpg"];
+  gimgs.forEach((im, i) => {
+    const n = String(101 + i), tries = [];
+    dirs.forEach(d => exts.forEach(x => tries.push(d + n + "." + x)));
+    let k = 0;
+    const miss = () => { const g = im.parentNode.querySelector(".gnm"); if (g) g.innerHTML = "<span>" + n + ".jpg<small>photo not found · save as " + n + ".jpg next to this page</small></span>"; };
+    const next = () => { if (++k < tries.length) im.src = tries[k]; else { im.style.display = "none"; miss(); } };
+    im.removeAttribute("onerror");
+    im.style.display = "";
+    im.addEventListener("error", next);
+    if (im.complete && im.naturalWidth === 0) next();
+  });
   const showG = i => {
     gi = (i + gimgs.length) % gimgs.length; const im = gimgs[gi];
     if (im.style.display === "none") { return; }
