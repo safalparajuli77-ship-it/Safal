@@ -285,8 +285,6 @@ html[lang="ne"] .name{letter-spacing:0!important;line-height:1.12!important;font
 .contact{padding-bottom:calc(7vh + 120px)}
 @media(max-width:700px){.mail-wrap{display:block}.mail-card{width:auto}}
 
-/* About text, numbers strip, awards */
-
 /* Menu tools: accent swatches + dark mode */
 .menu-tools{position:absolute;left:50%;bottom:6vh;transform:translateX(-50%);width:90%;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;font:700 11px var(--mono);letter-spacing:.12em}
 .swatch{width:28px;height:28px;border-radius:50%;background:var(--c);border:2px solid var(--ink);transition:transform .3s var(--ease)}
@@ -1813,5 +1811,321 @@ html[data-theme="dark"] .cursor.big{background:#fff}
   })();
 })();
 </script>
+
+<!-- ============================================================
+  ASK ABOUT SAFAL — floating chat widget
+  Paste this whole block just BEFORE </body> in index.html.
+  • Round chat button at the bottom-right + an "ASK ME" button in the top bar
+  • Flow: greeting → Yes / No → asks the visitor's name → answers questions
+  • Matches the site: accent colours, dark mode, EN/नेपाली, cursor
+  • Keep parajuli.png.jpg beside index.html (Jomsom photo in the header)
+  • Edit the KB list below to change/add answers
+============================================================ -->
+<script>
+(() => {
+  "use strict";
+  const SERVER_URL = ""; // optional: your own answer server (POST {q, lang} -> {answer}). Empty = built-in answers.
+  const JOMSOM_PHOTO = "parajuli.png.jpg"; // Jomsom, Mustang photo from the gallery
+  const EMAIL = "officeofsafalparajuli@gmail.com", IG = "https://www.instagram.com/xxpshuffle/";
+  const $ = (s, c = document) => c.querySelector(s);
+  const isNe = () => document.documentElement.lang === "ne";
+  const age = () => { const n = new Date(), b = new Date(2007, 6, 30); let a = n.getFullYear() - 2007; if (n < new Date(n.getFullYear(), 6, 30)) a--; return a; };
+
+  /* ---------- Knowledge base (only facts that are on the website) ---------- */
+  const KB = {
+    hi: { k: ["hello", "hi", "hey", "namaste", "नमस्ते", "हेलो", "सुप्रभात"], en: "Hello! 👋 Ask me about my school, NCC, the science club, skills or how to reach me.", ne: "नमस्ते! 👋 मेरो पढाइ, एनसीसी, विज्ञान क्लब, सीप वा सम्पर्कबारे सोध्नुहोस्।", chips: ["who", "edu", "contact"] },
+    who: { k: ["who are you", "who is safal", "about you", "about safal", "introduce", "yourself", "को हुनुहुन्छ", "परिचय", "तिम्रो बारे", "तपाईंको बारे"], en: "I'm Safal Parajuli — a student leader and cadet from Chitwan, Nepal. Cadet by discipline, explorer by curiosity, leader by choice.", ne: "म सफल पराजुली — चितवन, नेपालको विद्यार्थी नेता र क्याडेट हुँ। अनुशासनले क्याडेट, जिज्ञासाले खोजकर्ता, रोजाइले नेता।", chips: ["edu", "ncc", "club"] },
+    where: { k: ["where", "live", "from", "location", "city", "country", "chitwan", "कहाँ", "चितवन", "ठेगाना"], en: "I'm from Chitwan, Nepal.", ne: "म चितवन, नेपालबाट हुँ।", chips: ["gallery", "edu"] },
+    age: { k: ["age", "old", "birthday", "born", "birth", "date of birth", "उमेर", "जन्म"], en: () => `I was born on 30 July 2007, so I'm ${age()} years old.`, ne: () => `मेरो जन्म ३० जुलाई २००७ मा भएको हो, अहिले ${age()} वर्ष।`, chips: ["who", "edu"] },
+    edu: { k: ["education", "school", "college", "study", "studying", "learn", "see", "+2", "grade", "class", "पढाइ", "स्कुल", "कलेज", "शिक्षा", "पढ्"], en: "School: Narayani English Public School, 2067–2080 B.S. (SEE).\nCollege: Narayani Public College, 2080–2082 B.S. (+2).", ne: "स्कुल: नारायणी इङ्ग्लिस पब्लिक स्कुल, २०६७–२०८० साल (एसईई)।\nकलेज: नारायणी पब्लिक कलेज, २०८०–२०८२ साल (+२)।", chips: ["club", "skills"] },
+    ncc: { k: ["ncc", "cadet", "national cadet", "military", "discipline", "एनसीसी", "क्याडेट", "अनुशासन"], en: "I took part in the National Cadet Corps (NCC), building discipline, teamwork, responsibility and leadership through training and activities.", ne: "मैले राष्ट्रिय क्याडेट कोर (एनसीसी) मा सहभागी भई तालिम र गतिविधिमार्फत अनुशासन, टोली भावना, जिम्मेवारी र नेतृत्व सिकेँ।", chips: ["lead", "club"] },
+    lead: { k: ["leadership", "leader", "student leader", "representing", "secretary", "president", "नेतृत्व", "नेता"], en: "I've served in student leadership roles, taking responsibility for representing and supporting fellow students. I was also Founding Secretary of the NPC Science & Technology Club (2080–2081).", ne: "मैले विद्यार्थी नेतृत्वका भूमिकामा रहेर सहपाठीहरूको प्रतिनिधित्व र सहयोगको जिम्मेवारी लिएँ। साथै एनपीसी विज्ञान तथा प्रविधि क्लबको संस्थापक सचिव (२०८०–२०८१) थिएँ।", chips: ["club", "skills"] },
+    club: { k: ["club", "science", "technology", "npc", "npcst", "founding", "founder", "research", "क्लब", "विज्ञान", "प्रविधि", "संस्थापक"], en: "The NPC Science & Technology Club at Narayani Public College was established in 2080 B.S. to encourage students to explore science and technology through research, creativity, practical activities and student-led programs. I'm its Founding Secretary (2080–2081). Open the “Science & Technology” card in Experience to see more.", ne: "नारायणी पब्लिक कलेजको एनपीसी विज्ञान तथा प्रविधि क्लब २०८० सालमा विद्यार्थीलाई अनुसन्धान, सिर्जनशीलता, व्यावहारिक गतिविधि र विद्यार्थी-नेतृत्वका कार्यक्रममार्फत विज्ञान र प्रविधि अन्वेषण गर्न प्रेरित गर्न स्थापना भएको हो। म यसको संस्थापक सचिव (२०८०–२०८१) हुँ।", chips: ["lead", "env"] },
+    env: { k: ["environment", "community", "wildlife", "flood", "flooding", "conservation", "nature", "infrastructure", "initiative", "वातावरण", "समुदाय", "वन्यजन्तु", "बाढी"], en: "I'm interested in wildlife conservation, human–wildlife conflict, flooding and local resilience, and noticing public concerns like infrastructure problems. My approach: notice a problem, then choose to act.", ne: "मलाई वन्यजन्तु संरक्षण, मानव–वन्यजन्तु द्वन्द्व, बाढी र स्थानीय उत्थानशीलता, तथा पूर्वाधारका सार्वजनिक समस्याहरूमा रुचि छ। समस्या देख्नुहोस्, अनि काम गर्ने निर्णय लिनुहोस्।", chips: ["club", "ncc"] },
+    skills: { k: ["skill", "skills", "good at", "strength", "talent", "ability", "सीप", "क्षमता"], en: "Leadership, communication, teamwork, event coordination, problem solving and public speaking.", ne: "नेतृत्व, सञ्चार, टोली कार्य, कार्यक्रम समन्वय, समस्या समाधान र सार्वजनिक वक्तृत्व।", chips: ["lead", "contact"] },
+    contact: { k: ["contact", "email", "mail", "reach", "connect", "hire", "message", "सम्पर्क", "इमेल"], en: `You can email me at <a href="mailto:${EMAIL}">${EMAIL}</a> — or use the Contact section at the bottom of this page.`, ne: `तपाईं मलाई <a href="mailto:${EMAIL}">${EMAIL}</a> मा इमेल गर्न सक्नुहुन्छ — वा पेजको तलको सम्पर्क भाग प्रयोग गर्नुहोस्।`, chips: ["insta", "cv"] },
+    insta: { k: ["instagram", "insta", "social", "follow", "xxpshuffle", "इन्स्टाग्राम"], en: `I'm <a href="${IG}" target="_blank" rel="noopener noreferrer">@xxpshuffle</a> on Instagram.`, ne: `म इन्स्टाग्राममा <a href="${IG}" target="_blank" rel="noopener noreferrer">@xxpshuffle</a> हुँ।`, chips: ["contact", "cv"] },
+    cv: { k: ["cv", "resume", "résumé", "portfolio", "download", "सीभी"], en: `My CV is here: <a href="cv.html" target="_blank" rel="noopener">View CV ↗</a>`, ne: `मेरो सीभी यहाँ छ: <a href="cv.html" target="_blank" rel="noopener">सीभी हेर्नुहोस् ↗</a>`, chips: ["contact", "skills"] },
+    gallery: { k: ["gallery", "photo", "photos", "picture", "travel", "trip", "jomsom", "mustang", "bhaktapur", "muktinath", "saga", "ग्यालरी", "फोटो", "जोमसोम", "भक्तपुर", "मुक्तिनाथ"], en: "My gallery has photos from Jomsom (Mustang), Saga (Bhaktapur), Bhaktapur Durbar Square and Muktinath Temple. Flip a photo card to see its location.", ne: "मेरो ग्यालरीमा जोमसोम (मुस्ताङ), सागा (भक्तपुर), भक्तपुर दरबार स्क्वायर र मुक्तिनाथ मन्दिरका फोटोहरू छन्। फोटो कार्ड पल्टाएर स्थान हेर्नुहोस्।", chips: ["where", "who"] },
+    game: { k: ["basketball", "47", "game", "play", "shoot", "shootout", "बास्केटबल", "खेल"], en: "There's a #47 and a three-point shootout on this site 🏀 — hover (or tap) the “Hello. I'm Safal.” title in the Overview to play. Can you go 4/4?", ne: "यो साइटमा #४७ र तीन-अंक शुटआउट खेल छ 🏀 — परिचय भागको “नमस्ते। म सफल हुँ।” शीर्षकमाथि होभर (वा ट्याप) गरेर खेल्नुहोस्।", chips: ["who", "skills"] },
+    site: { k: ["website", "site", "built", "designed", "developed", "made this", "वेबसाइट", "साइट"], en: "I designed and developed this portfolio myself. Try the clock in the top bar, the EN/नेपाली switch, dark mode and the colour themes in the menu.", ne: "यो पोर्टफोलियो मैले आफैँ डिजाइन र विकास गरेको हो। माथिको घडी, EN/नेपाली स्विच, डार्क मोड र मेनुको रङ थिम प्रयोग गरेर हेर्नुहोस्।", chips: ["gallery", "game"] },
+    thanks: { k: ["thanks", "thank you", "thx", "great", "awesome", "धन्यवाद"], en: "You're welcome! 😊 Ask me anything else.", ne: "स्वागत छ! 😊 अरू केही सोध्न मन लाग्यो भने सोध्नुहोस्।", chips: ["contact", "skills"] }
+  };
+  const CHIP = { who: ["Who are you?", "तपाईं को हुनुहुन्छ?"], edu: ["Education", "शिक्षा"], ncc: ["NCC", "एनसीसी"], club: ["Science & Technology Club", "विज्ञान क्लब"], lead: ["Leadership", "नेतृत्व"], env: ["Community & environment", "समुदाय र वातावरण"], skills: ["Skills", "सीप"], contact: ["Contact", "सम्पर्क"], insta: ["Instagram", "इन्स्टाग्राम"], cv: ["CV", "सीभी"], where: ["Where are you from?", "कहाँबाट?"], gallery: ["Gallery", "ग्यालरी"], game: ["Play the game", "खेल"], age: ["Age", "उमेर"], site: ["This website", "यो वेबसाइट"] };
+  const UI = {
+    en: { btn: "ASK ME", title: "Ask about Safal", sub: "Type a question — I answer right here.", online: "online", ph: "Ask about me…", send: "Send", close: "Close", hello: "Hi, I'm Safal! 👋 Ask me anything about me — school, NCC, the science club, skills or how to reach me.", fallback: "I don't have that on this site yet. Try asking about my education, NCC, leadership, the science club, skills or contact — or email me directly.", more: "Try asking:" },
+    ne: { btn: "सोध्नुहोस्", title: "सफललाई सोध्नुहोस्", sub: "प्रश्न लेख्नुहोस् — म यहीँ जवाफ दिन्छु।", online: "अनलाइन", ph: "मेरो बारे सोध्नुहोस्…", send: "पठाउ", close: "बन्द", hello: "नमस्ते, म सफल! 👋 मेरो पढाइ, एनसीसी, विज्ञान क्लब, सीप वा सम्पर्कबारे जे पनि सोध्नुहोस्।", fallback: "यो जानकारी अहिले यो साइटमा छैन। मेरो शिक्षा, एनसीसी, नेतृत्व, विज्ञान क्लब, सीप वा सम्पर्कबारे सोध्नुहोस् — वा सिधै इमेल गर्नुहोस्।", more: "यी सोधेर हेर्नुहोस्:" }
+  };
+  const L = () => UI[isNe() ? "ne" : "en"];
+
+  /* ---------- Answer engine ("server") ---------- */
+  const norm = s => s.toLowerCase().replace(/[^\p{L}\p{N}+#\s]/gu, " ").replace(/\s+/g, " ").trim();
+  const localAnswer = q => {
+    const n = " " + norm(q) + " ";
+    let best = null, bs = 0;
+    for (const key in KB) {
+      let s = 0;
+      KB[key].k.forEach(w => { const t = norm(w); if (t && (/[^\x00-\x7f]/.test(t) ? n.includes(t) : n.includes(" " + t + " ") || (t.length > 3 && n.includes(" " + t)))) s += t.length + (t.includes(" ") ? 6 : 0); });
+      if (s > bs) { bs = s; best = key; }
+    }
+    if (!best) return { text: L().fallback, chips: ["who", "edu", "contact"] };
+    const e = KB[best], v = e[isNe() ? "ne" : "en"];
+    return { text: typeof v === "function" ? v() : v, chips: e.chips };
+  };
+  const answer = async q => {
+    if (SERVER_URL) {
+      try {
+        const r = await fetch(SERVER_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ q, lang: isNe() ? "ne" : "en" }) });
+        const j = await r.json(); if (j && j.answer) return { text: String(j.answer).replace(/</g, "&lt;"), chips: ["who", "edu", "contact"] };
+      } catch (e) { /* fall back to the built-in answers */ }
+    }
+    return localAnswer(q);
+  };
+
+  /* ---------- Widget text (EN / नेपाली) ---------- */
+  const W = {
+    en: { btn: "ASK ME", title: "Safal Parajuli", loc: "Chitwan, Nepal", online: "Online", hello: "Hello! 👋 I'm Safal's chat assistant.", q: "Would you like to ask something about Safal?", yes: "Yes", no: "No", askName: "Before we get started, what's your name?", nice: n => `Nice to meet you, ${n}! 😊 What would you like to know about Safal?`, noOk: "No problem! You can tap the chat button anytime to ask.", again: "Ask something now", phName: "Type your name here…", phAsk: "Ask about Safal…", foot: "Personal Assistant Chatbot", tip: "Ask about Safal 👋", refresh: "Restart chat", close: "Close", send: "Send" },
+    ne: { btn: "सोध्नुहोस्", title: "सफल पराजुली", loc: "चितवन, नेपाल", online: "अनलाइन", hello: "नमस्ते! 👋 म सफलको च्याट सहायक हुँ।", q: "के तपाईं सफलको बारेमा केही सोध्न चाहनुहुन्छ?", yes: "हो", no: "होइन", askName: "सुरु गर्नुअघि, तपाईंको नाम के हो?", nice: n => `तपाईंलाई भेटेर खुसी लाग्यो, ${n}! 😊 सफलको बारेमा के जान्न चाहनुहुन्छ?`, noOk: "ठीक छ! जुनसुकै बेला च्याट बटन थिचेर सोध्न सक्नुहुन्छ।", again: "अहिले सोध्नुहोस्", phName: "यहाँ आफ्नो नाम लेख्नुहोस्…", phAsk: "सफलको बारेमा सोध्नुहोस्…", foot: "व्यक्तिगत सहायक च्याटबट", tip: "सफलको बारेमा सोध्नुहोस् 👋", refresh: "फेरि सुरु गर्नुहोस्", close: "बन्द", send: "पठाउ" }
+  };
+  const X = () => W[isNe() ? "ne" : "en"];
+
+  /* ---------- Styles ---------- */
+  const css = `
+.ask-btn{display:inline-flex;align-items:center;gap:8px;padding:4px 9px;border:1px solid rgba(255,255,255,.7);font:11px var(--mono,ui-monospace,monospace);letter-spacing:.08em;color:#fff;background:none;cursor:pointer;transition:background .3s,color .3s}
+.ask-btn:hover{background:#fff;color:#111}
+.ask-btn i{width:7px;height:7px;border-radius:50%;background:#16c060;animation:saPulse 1.8s infinite}
+@keyframes saPulse{0%{box-shadow:0 0 0 0 rgba(22,192,96,.6)}70%,100%{box-shadow:0 0 0 7px rgba(22,192,96,0)}}
+.to-top{bottom:100px!important}
+.sa-fab{position:fixed;right:24px;bottom:24px;z-index:99991;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#111 35%,var(--accent,#F47B20));border:2px solid rgba(255,255,255,.85);box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 0 var(--accent,#F47B20);cursor:pointer;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.sa-fab:hover{transform:scale(1.08) rotate(-4deg)}
+.sa-fab svg{grid-area:1/1;width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:opacity .3s,transform .4s cubic-bezier(.16,1,.3,1)}
+.sa-fab .x{opacity:0;transform:rotate(-90deg) scale(.6)}
+.sa-fab.open .x{opacity:1;transform:none}.sa-fab.open .c{opacity:0;transform:rotate(90deg) scale(.6)}
+.sa-fab:not(.open){animation:saRing 2.6s infinite}
+@keyframes saRing{0%{box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 0 color-mix(in srgb,var(--accent,#F47B20) 60%,transparent)}70%,100%{box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 16px rgba(0,0,0,0)}}
+.sa-tip{position:fixed;right:100px;bottom:38px;z-index:99991;padding:10px 14px;background:#fff;color:#111;border-radius:14px 14px 2px 14px;font:700 12px Arial,Helvetica,"Noto Sans Devanagari",sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.22);opacity:0;transform:translateX(10px);pointer-events:none;transition:opacity .4s,transform .5s cubic-bezier(.16,1,.3,1)}
+.sa-tip.on{opacity:1;transform:none}
+.sa{position:fixed;right:24px;bottom:100px;z-index:99992;width:min(390px,calc(100vw - 32px));height:min(600px,calc(100vh - 180px));display:flex;flex-direction:column;overflow:hidden;border-radius:20px;background:#f3f1ec;color:#111;box-shadow:0 24px 70px rgba(0,0,0,.4),0 0 0 1px rgba(17,17,17,.12);font-family:Arial,Helvetica,"Noto Sans Devanagari","Nirmala UI",sans-serif;transform-origin:bottom right;transform:translateY(18px) scale(.92);opacity:0;visibility:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .35s,visibility .5s}
+.sa.open{transform:none;opacity:1;visibility:visible}
+.sa-strip{flex:0 0 5px;display:flex}.sa-strip i{flex:1}.sa-strip i:nth-child(1){background:#ff4d16}.sa-strip i:nth-child(2){background:#d7ff00}.sa-strip i:nth-child(3){background:#8e70ff}
+.sa-head{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:14px 16px;color:#fff;background:#111;overflow:hidden}
+.sa-head::before{content:"";position:absolute;inset:0;background-image:var(--sa-photo,none);background-size:cover;background-position:center;opacity:.28}
+.sa-head>*{position:relative}
+.sa-av{position:relative;flex:0 0 48px;width:48px;height:48px}
+.sa-av .pic{width:100%;height:100%;border-radius:50%;overflow:hidden;background:#fff;border:2px solid #fff}
+.sa-av svg{display:block;width:100%;height:100%}
+.sa-av .dot{position:absolute;right:-1px;bottom:-1px;width:13px;height:13px;border-radius:50%;background:#16c060;border:2px solid #111}
+.sa-eye{transform-origin:center;transform-box:fill-box;animation:saBlink 4.2s infinite}
+@keyframes saBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+.sa-mouth{transform-origin:center;transform-box:fill-box}
+.sa-av.talk .sa-mouth{animation:saTalk .28s ease-in-out infinite alternate}
+@keyframes saTalk{from{transform:scaleY(.45)}to{transform:scaleY(1.35)}}
+.sa-arm{transform-origin:88px 96px;animation:saWave 2.8s ease-in-out infinite}
+@keyframes saWave{0%,60%,100%{transform:rotate(0)}72%{transform:rotate(-18deg)}84%{transform:rotate(8deg)}}
+.sa-hd{flex:1;min-width:0}.sa-hd b{display:block;font-size:16px;font-weight:700;letter-spacing:-.01em}.sa-hd small{display:block;margin-top:3px;font-size:12px;opacity:.85}
+.sa-ib{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;transition:background .25s,transform .4s}
+.sa-ib:hover{background:rgba(255,255,255,.18)}.sa-ib.spin{transform:rotate(360deg)}
+.sa-ib svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.sa-body{flex:1;overflow-y:auto;padding:16px 14px 6px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+.sa-row{display:flex;gap:9px;align-items:flex-end;animation:saIn .45s cubic-bezier(.16,1,.3,1)}
+@keyframes saIn{from{opacity:0;transform:translateY(12px)}}
+.sa-row.me{justify-content:flex-end}
+.sa-ico{flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:#111;color:var(--accent,#F47B20);display:grid;place-items:center;font:900 10px Arial;font-style:normal;letter-spacing:.02em}
+.sa-b{max-width:78%;padding:12px 14px 8px;font-size:14.5px;line-height:1.5;border-radius:4px 16px 16px 16px;background:#fff;box-shadow:0 2px 8px rgba(17,17,17,.08);white-space:pre-line}
+.sa-row.me .sa-b{border-radius:16px 16px 4px 16px;color:var(--sa-on,#fff);background:linear-gradient(135deg,var(--accent,#F47B20),color-mix(in srgb,var(--accent,#F47B20) 68%,#000));box-shadow:0 4px 14px color-mix(in srgb,var(--accent,#F47B20) 40%,transparent)}
+.sa-b a{color:inherit;font-weight:700;text-decoration:underline;text-decoration-color:var(--accent,#F47B20);text-decoration-thickness:3px;text-underline-offset:3px}
+.sa-b time{display:block;margin-top:6px;text-align:right;font-size:11px;opacity:.6;white-space:normal}
+.sa-opts{display:flex;flex-direction:column;gap:9px;padding:0 4px 0 41px}
+.sa-opt{padding:13px 20px;border:1.5px solid color-mix(in srgb,#111 45%,transparent);border-radius:999px;background:transparent;color:#111;font:700 14px Arial,Helvetica,"Noto Sans Devanagari",sans-serif;text-align:left;cursor:pointer;transition:background .25s,color .25s,transform .25s,border-color .25s;animation:saIn .5s cubic-bezier(.16,1,.3,1) backwards}
+.sa-opt:hover{background:var(--accent,#F47B20);color:var(--sa-on,#fff);border-color:var(--accent,#F47B20);transform:translateX(4px)}
+.sa-typing .sa-b{display:flex;gap:5px;padding:15px 16px}
+.sa-typing i{width:7px;height:7px;border-radius:50%;background:#111;opacity:.5;animation:saDot 1s infinite}
+.sa-typing i:nth-child(2){animation-delay:.15s}.sa-typing i:nth-child(3){animation-delay:.3s}
+@keyframes saDot{50%{transform:translateY(-5px);opacity:1}}
+.sa-form{flex:0 0 auto;display:flex;gap:10px;padding:12px 14px 6px;border-top:1px solid rgba(17,17,17,.12);background:#f9f8f5}
+.sa-form input{flex:1;min-width:0;padding:14px 18px;border:1px solid rgba(17,17,17,.18);border-radius:999px;background:#fff;color:#111;font:15px Arial,Helvetica,"Noto Sans Devanagari",sans-serif;outline:0;transition:border-color .25s,box-shadow .25s}
+.sa-form input:focus{border-color:var(--accent,#F47B20);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent,#F47B20) 28%,transparent)}
+.sa-send{flex:0 0 48px;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#cbd2da;color:#fff;transition:background .25s,transform .25s}
+.sa-send.on{background:#111;color:var(--accent,#F47B20)}.sa-send.on:hover{transform:scale(1.08)}
+.sa-send svg{width:20px;height:20px;fill:currentColor}
+.sa-foot{flex:0 0 auto;padding:4px 14px 12px;text-align:center;font-size:11.5px;color:#6b6f76;background:#f9f8f5}.sa-foot b{color:#111}
+html[data-theme="dark"] .sa{background:#161616;color:#eeeae2;box-shadow:0 24px 70px rgba(0,0,0,.7),0 0 0 1px rgba(238,234,226,.18)}
+html[data-theme="dark"] .sa-b{background:#262626;color:#eeeae2}
+html[data-theme="dark"] .sa-row.me .sa-b{color:var(--sa-on,#fff)}
+html[data-theme="dark"] .sa-opt{color:#eeeae2;border-color:rgba(238,234,226,.45)}
+html[data-theme="dark"] .sa-opt:hover{color:var(--sa-on,#fff)}
+html[data-theme="dark"] .sa-form,html[data-theme="dark"] .sa-foot{background:#1c1c1c;border-top-color:rgba(238,234,226,.14)}
+html[data-theme="dark"] .sa-form input{background:#262626;color:#eeeae2;border-color:rgba(238,234,226,.2)}
+html[data-theme="dark"] .sa-send.on{background:var(--accent,#F47B20);color:var(--sa-on,#fff)}
+html[data-theme="dark"] .sa-foot b{color:#eeeae2}
+html[data-theme="dark"] .sa-typing i{background:#eeeae2}
+@media(max-width:600px){.sa{inset:0;right:0;bottom:0;width:100%;height:100%;border-radius:0}.sa-fab.open{display:none}.sa-tip{display:none}.to-top{bottom:92px!important}.ask-btn span{display:none}.ask-btn{padding:6px 9px}.ask-btn::after{content:"?";font-weight:900}}
+@media(prefers-reduced-motion:reduce){.sa-fab,.sa-eye,.sa-arm,.ask-btn i,.sa-row,.sa-opt,.sa-typing i{animation:none!important}.sa{transition-duration:.01ms}}
+`;
+  const st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
+
+  /* ---------- Markup ---------- */
+  const AVATAR = `<svg viewBox="0 0 120 120" aria-hidden="true">
+  <rect width="120" height="120" fill="#f1efe9"/>
+  <path d="M14 122c0-30 20-38 46-38s46 8 46 38z" fill="#2b4a8c"/>
+  <path d="M52 84l8 12 8-12" fill="#f4a58a"/>
+  <g class="sa-arm"><path d="M92 100c6-8 12-8 14-2 2 6-4 10-10 12z" fill="#f4a58a"/></g>
+  <ellipse cx="60" cy="58" rx="26" ry="28" fill="#f7b29a"/>
+  <ellipse cx="33.5" cy="62" rx="4" ry="6" fill="#f4a58a"/><ellipse cx="86.5" cy="62" rx="4" ry="6" fill="#f4a58a"/>
+  <path d="M33 54c-2-22 12-34 27-34s30 10 27 34c-5-12-14-16-27-16s-22 4-27 16z" fill="#1b1b26"/>
+  <path d="M44 28c6-6 18-8 30-2-10-1-20 0-30 2z" fill="#2c2c3a"/>
+  <g fill="#1b1b26"><ellipse class="sa-eye" cx="49" cy="60" rx="3.2" ry="4.2"/><ellipse class="sa-eye" cx="71" cy="60" rx="3.2" ry="4.2"/></g>
+  <path d="M43 52q6-4 12-1M65 51q6-3 12 1" stroke="#1b1b26" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="42" cy="70" rx="5" ry="3" fill="#ff8a7a" opacity=".45"/><ellipse cx="78" cy="70" rx="5" ry="3" fill="#ff8a7a" opacity=".45"/>
+  <ellipse class="sa-mouth" cx="60" cy="74" rx="8" ry="5.5" fill="#8a1f2b"/><path d="M53 72q7 4 14 0" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M30 58c-4-34 56-44 60 0" stroke="#222" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <rect x="24" y="54" width="9" height="16" rx="4" fill="#222"/><rect x="87" y="54" width="9" height="16" rx="4" fill="#222"/>
+  <path d="M91 68q2 14-18 12" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="71" cy="80" r="3.5" fill="#111"/>
+</svg>`;
+  const ICON = { chat: '<svg class="c" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4"/></svg>', x: '<svg class="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>' };
+
+  const nb = document.createElement("button");
+  nb.type = "button"; nb.className = "ask-btn"; nb.id = "askBtn"; nb.setAttribute("aria-haspopup", "dialog"); nb.setAttribute("aria-expanded", "false");
+  nb.innerHTML = "<i></i><span></span>";
+  const lang = $("#langBtn");
+  if (lang && lang.parentNode) lang.parentNode.insertBefore(nb, lang);
+  else { const nr = $(".nav-right") || $("nav"); (nr || document.body).appendChild(nb); }
+
+  const fab = document.createElement("button");
+  fab.type = "button"; fab.className = "sa-fab"; fab.id = "saFab"; fab.setAttribute("aria-expanded", "false"); fab.innerHTML = ICON.chat + ICON.x;
+  const tip = document.createElement("div"); tip.className = "sa-tip"; tip.setAttribute("aria-hidden", "true");
+  const box = document.createElement("section");
+  box.className = "sa"; box.setAttribute("role", "dialog"); box.setAttribute("aria-label", "Ask about Safal");
+  box.innerHTML = `<div class="sa-strip"><i></i><i></i><i></i></div>
+    <div class="sa-head"><div class="sa-av" id="saAv"><div class="pic">${AVATAR}</div><span class="dot"></span></div>
+      <div class="sa-hd"><b></b><small></small></div>
+      <button class="sa-ib" id="saRe" type="button"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.5-5.8"/><path d="M20 4v5h-5"/></svg></button>
+      <button class="sa-ib" id="saX" type="button"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="sa-body" id="saBody" role="log" aria-live="polite"></div>
+    <div class="sa-form"><input id="saIn" type="text" autocomplete="off" maxlength="120"><button class="sa-send" id="saSend" type="button"><svg viewBox="0 0 24 24"><path d="M3 20.5v-6.8l11-1.7-11-1.7V3.5L22 12z"/></svg></button></div>
+    <div class="sa-foot"></div>`;
+  document.body.append(tip, box, fab);
+  const photo = new Image(); photo.onload = () => $(".sa-head", box).style.setProperty("--sa-photo", `url("${JOMSOM_PHOTO}")`); photo.src = JOMSOM_PHOTO;
+
+  const bodyEl = $("#saBody"), input = $("#saIn"), send = $("#saSend"), av = $("#saAv");
+  let step = "welcome", busy = false, started = false, visitor = "", lastChips = ["who", "edu", "ncc", "club", "skills", "contact"], runId = 0;
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const now = () => new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  const scroll = () => { bodyEl.scrollTop = bodyEl.scrollHeight; };
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  const paintUi = () => {
+    const t = X();
+    $("span", nb).textContent = t.btn; nb.setAttribute("aria-label", t.title);
+    fab.setAttribute("aria-label", t.title); tip.textContent = t.tip;
+    $(".sa-hd b", box).textContent = t.title; $(".sa-hd small", box).textContent = t.loc + " • " + t.online;
+    $("#saRe", box).setAttribute("aria-label", t.refresh); $("#saX", box).setAttribute("aria-label", t.close); send.setAttribute("aria-label", t.send);
+    $(".sa-foot", box).innerHTML = esc(t.foot) + " • <b>Safal Parajuli</b>";
+    input.placeholder = step === "name" ? t.phName : t.phAsk;
+  };
+  /* user bubbles use dark text on a light accent (lime) and white text on orange / violet */
+  const paintTheme = () => {
+    const c = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim().replace("#", "");
+    if (c.length === 6) {
+      const l = [0, 2, 4].map(i => { const v = parseInt(c.substr(i, 2), 16) / 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); });
+      box.style.setProperty("--sa-on", (.2126 * l[0] + .7152 * l[1] + .0722 * l[2]) > .5 ? "#111" : "#fff");
+    }
+  };
+  const botRow = html => {
+    const r = document.createElement("div"); r.className = "sa-row bot";
+    r.innerHTML = `<i class="sa-ico">SP</i><div class="sa-b"><div class="sa-t"></div><time>${now()}</time></div>`;
+    $(".sa-t", r).innerHTML = html; bodyEl.appendChild(r); scroll(); return r;
+  };
+  const userRow = text => {
+    const r = document.createElement("div"); r.className = "sa-row me";
+    r.innerHTML = `<div class="sa-b"><div class="sa-t"></div><time>${now()}</time></div>`;
+    $(".sa-t", r).textContent = text; bodyEl.appendChild(r); scroll(); return r;
+  };
+  const say = async (html, id) => {
+    av.classList.add("talk");
+    const t = document.createElement("div"); t.className = "sa-row bot sa-typing"; t.innerHTML = '<i class="sa-ico">SP</i><div class="sa-b"><i></i><i></i><i></i></div>';
+    bodyEl.appendChild(t); scroll();
+    await sleep(450 + Math.min(900, html.length * 6));
+    t.remove();
+    if (id !== runId) return;
+    botRow(html);
+    setTimeout(() => av.classList.remove("talk"), Math.min(2400, 300 + html.length * 14));
+  };
+  const options = (list, id) => {
+    if (id !== runId) return;
+    const wrap = document.createElement("div"); wrap.className = "sa-opts";
+    list.forEach((o, i) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "sa-opt"; b.textContent = o.label; b.style.animationDelay = i * 70 + "ms";
+      b.addEventListener("click", () => { if (busy) return; wrap.remove(); o.fn(o.label); });
+      wrap.appendChild(b);
+    });
+    bodyEl.appendChild(wrap); scroll();
+  };
+  const topicOptions = keys => keys.map(k => ({ label: CHIP[k][isNe() ? 1 : 0], fn: l => ask(l) }));
+
+  const welcome = async () => {
+    const id = ++runId; step = "welcome"; busy = true; paintUi();
+    await say(esc(X().hello), id); await say(esc(X().q), id);
+    busy = false; options([{ label: X().yes, fn: yes }, { label: X().no, fn: no }], id);
+  };
+  const yes = async label => {
+    const id = runId; userRow(label); busy = true; step = "name"; paintUi();
+    await say(esc(X().askName), id); busy = false; input.focus();
+  };
+  const no = async label => {
+    const id = runId; userRow(label); busy = true;
+    await say(esc(X().noOk), id); busy = false;
+    options([{ label: X().again, fn: yes }], id);
+  };
+  const ask = async q => {
+    q = String(q || "").trim(); if (!q || busy) return;
+    const id = runId; userRow(q); busy = true; av.classList.add("talk");
+    const r = await answer(q);
+    await say(r.text, id); busy = false;
+    lastChips = r.chips && r.chips.length ? r.chips : lastChips;
+    options(topicOptions(lastChips), id);
+  };
+  const submit = async () => {
+    const v = input.value.trim(); if (!v || busy) return;
+    input.value = ""; send.classList.remove("on");
+    if (step === "name") {
+      const id = runId; visitor = v.slice(0, 30); userRow(visitor); busy = true; step = "chat"; paintUi();
+      await say(esc(X().nice(visitor)), id); busy = false;
+      options(topicOptions(["who", "edu", "ncc", "club", "skills", "contact"]), id);
+    } else if (step === "chat") ask(v);
+  };
+  const reset = () => { runId++; bodyEl.innerHTML = ""; visitor = ""; busy = false; started = true; welcome(); };
+  const open = () => {
+    box.classList.add("open"); fab.classList.add("open"); fab.setAttribute("aria-expanded", "true"); nb.setAttribute("aria-expanded", "true"); tip.classList.remove("on");
+    if (!started) { started = true; welcome(); }
+    setTimeout(() => input.focus(), 450);
+  };
+  const close = () => { box.classList.remove("open"); fab.classList.remove("open"); fab.setAttribute("aria-expanded", "false"); nb.setAttribute("aria-expanded", "false"); };
+  const toggle = () => (box.classList.contains("open") ? close() : open());
+
+  fab.addEventListener("click", toggle); nb.addEventListener("click", toggle);
+  $("#saX", box).addEventListener("click", close);
+  $("#saRe", box).addEventListener("click", e => { const b = e.currentTarget; b.classList.add("spin"); setTimeout(() => b.classList.remove("spin"), 450); reset(); });
+  send.addEventListener("click", submit);
+  input.addEventListener("input", () => send.classList.toggle("on", !!input.value.trim()));
+  input.addEventListener("keydown", e => { e.stopPropagation(); if (e.key === "Enter") { e.preventDefault(); submit(); } else if (e.key === "Escape") close(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && box.classList.contains("open")) close(); });
+  const ring = document.getElementById("cursor");
+  if (ring) {
+    const grow = on => ring.classList.toggle("big", on);
+    box.addEventListener("mouseover", e => grow(!!e.target.closest("button,input,a")));
+    box.addEventListener("mouseleave", () => grow(false));
+    [fab, nb].forEach(b => { b.addEventListener("mouseenter", () => grow(true)); b.addEventListener("mouseleave", () => grow(false)); });
+  }
+  new MutationObserver(() => { paintUi(); paintTheme(); }).observe(document.documentElement, { attributes: true, attributeFilter: ["lang", "style", "data-theme"] });
+  paintUi(); paintTheme();
+  /* a small hint bubble once per visit */
+  try { if (!sessionStorage.getItem("saTip")) { setTimeout(() => { if (!box.classList.contains("open")) { tip.classList.add("on"); sessionStorage.setItem("saTip", "1"); setTimeout(() => tip.classList.remove("on"), 5000); } }, 4000); } } catch (e) {}
+  window.AskSafal = { open, close, ask };
+})();
+</script>
+<!-- ============ END: ASK ABOUT SAFAL ============ -->
+
+
 </body>
 </html>
