@@ -464,6 +464,350 @@ html[data-theme="dark"] .cursor.big{background:#fff}
   .js .reveal{opacity:1;transform:none}
 }
 </style>
+<style id="sp-upgrade">
+/* ---------- Foundations ---------- */
+:root{
+  --sp-radius:14px;
+  --sp-lift:0 18px 40px -18px rgba(17,17,17,.45);
+  --sp-ease:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-padding-top:84px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--accent);color:#111}
+:focus-visible{outline:3px solid var(--accent);outline-offset:4px;border-radius:2px}
+html[data-theme="dark"] :focus-visible{outline-color:#fff}
+.section,.gallery-section,.education,.skills-section,.playground,.contact{scroll-margin-top:0}
+
+/* Slim, on-brand scrollbar */
+html{scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-thumb{background:var(--accent);border:2px solid var(--paper);border-radius:10px}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb{border-color:#121212}
+
+/* ---------- Navigation: bigger touch targets, calmer hover ---------- */
+.nav{padding-top:max(20px,env(safe-area-inset-top));padding-left:max(28px,env(safe-area-inset-left));padding-right:max(28px,env(safe-area-inset-right))}
+.lang-btn,.menu-button,.ask-btn{min-height:34px;transition:background .3s var(--sp-ease),color .3s var(--sp-ease),transform .3s var(--sp-ease)}
+.lang-btn:hover,.menu-button:hover{background:#fff;color:#111}
+.menu-button{padding:4px 10px;border:1px solid rgba(255,255,255,.7)}
+.clock{transition:transform .4s var(--sp-ease)}
+.clock:hover{transform:rotate(-6deg) scale(1.06)}
+.menu-links a{transition:transform .5s var(--sp-ease)}
+.menu-links li{border-bottom:1px solid rgba(17,17,17,.12)}
+.menu-links li:last-child{border-bottom:0}
+
+/* ---------- Hero ---------- */
+.hero{min-height:100vh;min-height:100svh}
+.name{text-wrap:balance}
+.letter{transition:transform .35s var(--sp-ease),color .25s}
+.letter:hover{color:var(--accent)}
+.photo{transition:transform .25s var(--sp-ease),box-shadow .4s var(--sp-ease)}
+.photo:hover{box-shadow:24px 24px 0 var(--lime)}
+.role{color:var(--orange)}
+html[data-theme="dark"] .role{color:var(--lime)}
+
+/* ---------- Overview ---------- */
+.overview-copy{text-wrap:balance}
+.overview-copy .ov-copy-line{padding:.18em 0;border-bottom:1px solid rgba(17,17,17,.18)}
+.overview-copy .ov-copy-line:last-child{border-bottom:0}
+.title-zone{border-radius:var(--sp-radius)}
+.title-zone:focus-visible{outline:3px dashed var(--ink);outline-offset:10px}
+
+/* ---------- Gallery ---------- */
+.gallery-card{transition:box-shadow .6s var(--sp-ease),filter .4s}
+.gallery-card:hover{box-shadow:16px 26px 0 rgba(0,0,0,.35)}
+.gallery-card:focus-visible{outline:3px solid var(--lime);outline-offset:8px}
+.gallery-index{background:rgba(17,17,17,.88)}
+.gc-zoom{transition:transform .3s var(--sp-ease),background .3s,color .3s}
+.gc-zoom:hover{transform:scale(1.12)}
+.lightbox img{border-radius:4px}
+.lb-close,.lb-nav{border-radius:50%;transition:background .3s,color .3s,transform .3s var(--sp-ease)}
+.lb-close:hover,.lb-nav:hover{transform:scale(1.08)}
+
+/* ---------- Education ---------- */
+.timeline-item{position:relative;transition:padding .45s var(--sp-ease),background .45s}
+.timeline-item::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:var(--ink);transition:width .45s var(--sp-ease);z-index:-1}
+.timeline-item:hover{background:rgba(17,17,17,.05)}
+.timeline-title{text-wrap:balance}
+
+/* ---------- Skills ---------- */
+.skill-word{transition:transform .6s var(--sp-ease),color .4s}
+.skill-word:hover{color:var(--accent)}
+html[data-theme="dark"] .skill-word:hover{color:var(--lime)}
+
+/* ---------- Experience cards: spotlight that follows the pointer ---------- */
+.experience-card{overflow:hidden;--mx:50%;--my:50%;transition:transform .5s var(--sp-ease),box-shadow .5s var(--sp-ease)}
+.experience-card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(260px circle at var(--mx) var(--my),rgba(255,255,255,.38),transparent 70%)}
+.experience-card:hover::after,.experience-card:focus-visible::after{opacity:1}
+.experience-card:focus-visible{outline:3px solid #fff;outline-offset:5px}
+.experience-card p{max-width:46ch}
+.experience-open{transition:gap .4s var(--sp-ease)}
+
+/* ---------- Contact ---------- */
+.contact-link{min-height:60px}
+.contact-link:focus-visible{outline:3px solid var(--ink);outline-offset:5px}
+.mail-card{border-radius:10px}
+.mail-actions button,.mail-actions a{min-height:36px;border-radius:999px}
+.ig-av{box-shadow:0 0 0 2px rgba(255,255,255,.12)}
+
+/* ---------- Footer + back-to-top ---------- */
+.footer{padding-bottom:max(25px,env(safe-area-inset-bottom));letter-spacing:.06em}
+.to-top{border-radius:999px;padding:12px 16px;transition:opacity .3s,transform .4s var(--sp-ease),box-shadow .3s}
+.to-top:hover{box-shadow:7px 7px 0 var(--ink)}
+
+/* ---------- Scroll reveal: gentle stagger using your existing .reveal classes ---------- */
+.js .reveal{transform:translateY(48px);transition:opacity .9s var(--sp-ease),transform .9s var(--sp-ease)}
+.timeline-item.reveal:nth-child(2),.experience-card.reveal:nth-child(2){transition-delay:.08s}
+.experience-card.reveal:nth-child(3){transition-delay:.16s}
+.experience-card.reveal:nth-child(4){transition-delay:.24s}
+.skill-word.reveal:nth-of-type(even){transition-delay:.06s}
+
+/* ---------- Tablet (701px to 1024px) ---------- */
+@media(min-width:701px) and (max-width:1024px){
+  .hero{padding:140px 5vw 130px}
+  .hero-content{gap:3vw}
+  .photo-wrap{flex-basis:min(260px,30vw)}
+  .overview{gap:6vw}
+  .overview-copy{font-size:21px}
+  .timeline-item{grid-template-columns:120px 1fr 100px;gap:20px}
+  .timeline-title{font-size:24px}
+  .experience-grid{width:92vw}
+  .contact-links{gap:12px}
+}
+
+/* ---------- Phones ---------- */
+@media(max-width:700px){
+  .nav{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+  .lang-btn,.menu-button,.ask-btn{min-height:40px}
+  .hero{min-height:100svh}
+  .hero-info{font-size:10px}
+  .overview-copy .ov-copy-line{padding:.22em 0}
+  .timeline{margin-top:70px}
+  .timeline-item{padding:26px 0}
+  .timeline-item:hover{padding-left:0;padding-right:0}
+  .experience-card{min-height:200px;padding:22px}
+  .experience-card:hover{transform:none}
+  .skill-word:hover{transform:none}
+  .contact-link{min-height:64px}
+  .menu-links a{font-size:clamp(44px,13vw,90px)}
+  .menu-tools{bottom:max(4vh,env(safe-area-inset-bottom))}
+  .to-top{bottom:92px}
+}
+
+/* ---------- Large screens ---------- */
+@media(min-width:1600px){
+  .section{padding-left:8vw;padding-right:8vw}
+  .experience-grid{width:min(1280px,80vw)}
+  .overview-copy{font-size:28px;max-width:720px}
+}
+
+/* ---------- Touch devices: no sticky hover states ---------- */
+@media(hover:none){
+  .letter:hover,.photo:hover img,.gallery-card:hover img{transform:none}
+  .experience-card::after{display:none}
+}
+
+/* ---------- Respect reduced motion for the additions too ---------- */
+@media(prefers-reduced-motion:reduce){
+  .clock:hover,.letter:hover{transform:none}
+  .js .reveal{transition-delay:0s!important}
+}
+
+/* ---------- Print: clean CV-style output ---------- */
+@media print{
+  .loader,.cursor,.progress,.wipe,.to-top,.nav,.menu,.counter,.marquee,.hero-grid,.blob,.sa,.sa-fab,.sa-tip,.clock-full,.lightbox{display:none!important}
+  .section,.hero,.gallery-section,.education,.skills-section,.playground,.contact{min-height:0!important;padding:24px!important;background:#fff!important;color:#000!important;content-visibility:visible!important}
+  .js .reveal{opacity:1!important;transform:none!important}
+}
+</style>
+<style id="sp-chat-css">
+/* Chat upgrade: copy, voice, live suggestions, keyboard-safe mobile */
+.sa-b{position:relative}
+.sp-copy{position:absolute;left:10px;bottom:6px;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;color:inherit;opacity:.45;transition:opacity .25s,background .25s,transform .3s cubic-bezier(.16,1,.3,1)}
+.sp-copy:hover,.sp-copy:focus-visible{opacity:1;background:rgba(17,17,17,.08);transform:scale(1.1)}
+.sp-copy svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sp-copy.done{opacity:1;color:#0a8a43}
+.sp-actions{display:flex;gap:8px;margin:10px 0 24px;flex-wrap:wrap}
+.sp-actions button{padding:7px 12px;border:1.5px solid currentColor;border-radius:999px;font:700 12px Arial,Helvetica,"Noto Sans Devanagari",sans-serif;transition:background .25s,color .25s}
+.sp-actions button:hover{background:var(--accent,#F47B20);border-color:var(--accent,#F47B20);color:var(--sa-on,#fff)}
+.sa-row.bot .sa-b:has(.sp-actions){padding-bottom:8px}
+#spSpeak[aria-pressed="true"]{background:rgba(255,255,255,.22)}
+#spSpeak.off line{display:block}
+.sp-mic{flex:0 0 48px;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:1.5px solid rgba(17,17,17,.25);color:inherit;transition:background .25s,color .25s}
+.sp-mic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sp-mic:hover{border-color:var(--accent,#F47B20)}
+.sp-mic.rec{background:#e11d2e;border-color:#e11d2e;color:#fff;animation:spRec 1.1s infinite}
+@keyframes spRec{50%{box-shadow:0 0 0 8px rgba(225,29,46,.18)}}
+.sp-sug{display:flex;gap:8px;overflow-x:auto;padding:8px 14px 0;background:#f9f8f5;scrollbar-width:none}
+.sp-sug::-webkit-scrollbar{display:none}
+.sp-sug[hidden]{display:none}
+.sp-sug button{flex:0 0 auto;padding:8px 14px;border:1.5px solid color-mix(in srgb,#111 35%,transparent);border-radius:999px;font:700 13px Arial,Helvetica,"Noto Sans Devanagari",sans-serif;color:#111;white-space:nowrap;transition:background .25s,color .25s}
+.sp-sug button:hover,.sp-sug button:focus-visible{background:var(--accent,#F47B20);border-color:var(--accent,#F47B20);color:var(--sa-on,#fff)}
+html[data-theme="dark"] .sp-sug{background:#1c1c1c}
+html[data-theme="dark"] .sp-sug button{color:#eeeae2;border-color:rgba(238,234,226,.4)}
+html[data-theme="dark"] .sp-mic{border-color:rgba(238,234,226,.3)}
+html[data-theme="dark"] .sp-copy:hover{background:rgba(238,234,226,.12)}
+@media(max-width:600px){.sa.sa{height:var(--sp-vh,100%)}}
+@media(prefers-reduced-motion:reduce){.sp-mic.rec{animation:none}}
+</style>
+<style id="sp-motion">
+/* Motion upgrade: entrances, scroll-linked depth, hover sheen (all skipped for reduced motion) */
+@media(prefers-reduced-motion:no-preference){
+@keyframes spRise{from{opacity:0;translate:0 48px}}
+@keyframes spLetter{from{opacity:0;translate:0 70%;rotate:9deg}}
+@keyframes spSlide{from{translate:0 112%}}
+@keyframes spFloat{50%{translate:0 -12px}}
+@keyframes spBob{50%{translate:0 -3px}}
+
+/* Hero: letters drop in one by one after the loader lifts, then photo + info follow */
+.letter{--i:0;animation:spLetter .9s calc(.95s + var(--i)*.06s) var(--ease) backwards}
+.name-row:nth-child(2) .letter{animation-delay:calc(1.25s + var(--i)*.06s)}
+.letter:nth-child(2){--i:1}.letter:nth-child(3){--i:2}.letter:nth-child(4){--i:3}.letter:nth-child(5){--i:4}.letter:nth-child(6){--i:5}.letter:nth-child(7){--i:6}.letter:nth-child(8){--i:7}
+.hero-label{animation:spRise .9s 1s var(--ease) backwards}
+.photo-wrap{animation:spRise 1s 1.3s var(--ease) backwards,spFloat 7s 2.4s ease-in-out infinite}
+.hero-info{animation:spRise .9s 1.7s var(--ease) backwards}
+.blob.one{translate:0 calc(var(--sp-s,0)*-90px)}
+.blob.two{translate:0 calc(var(--sp-s,0)*-150px)}
+.blob.three{translate:0 calc(var(--sp-s,0)*-50px)}
+
+/* Section labels draw a short rule when their section scrolls in */
+.section-number::after{content:"";display:block;height:1px;width:0;margin-top:10px;background:currentColor;transition:width 1.1s var(--ease)}
+.sp-in .section-number::after{width:64px}
+.overview .section-number::after{display:none}
+
+/* Gallery: title rises, photos rise one after another */
+.gallery-section.sp-in .horizontal-title{animation:spRise 1s var(--ease) backwards}
+.gallery-section.sp-in .gc-inner{animation:spRise 1s var(--ease) backwards}
+.gallery-section.sp-in .gallery-card:nth-child(2) .gc-inner{animation-delay:.14s}
+.gallery-section.sp-in .gallery-card:nth-child(3) .gc-inner{animation-delay:.28s}
+.gallery-section.sp-in .gallery-card:nth-child(4) .gc-inner{animation-delay:.42s}
+
+/* Education: the timeline rule draws itself */
+.timeline{position:relative;border-top-color:transparent}
+.timeline::before{content:"";position:absolute;top:-1px;left:0;width:0;height:1px;background:var(--ink);transition:width 1.5s var(--ease)}
+.education.sp-in .timeline::before{width:100%}
+
+/* Skills: underline sweeps in on hover */
+.skill-word{width:fit-content;background:linear-gradient(currentColor,currentColor) 0 100%/0 .06em no-repeat;transition:transform .6s var(--sp-ease),color .4s,background-size .7s var(--sp-ease)}
+.skill-word:hover{background-size:100% .06em}
+
+/* Experience cards: light sheen sweeps across on hover */
+.experience-card::before{content:"";position:absolute;top:0;left:-70%;width:40%;height:100%;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);transition:left 1s var(--ease)}
+.experience-card:hover::before,.experience-card:focus-visible::before{left:140%}
+
+/* Contact: buttons rise in turn, icons bob gently */
+.contact.sp-in .contact-links>*{animation:spRise .9s var(--ease) backwards}
+.contact.sp-in .contact-links>*:nth-child(2){animation-delay:.1s}
+.contact.sp-in .contact-links>*:nth-child(3){animation-delay:.2s}
+.contact.sp-in .contact-links>*:nth-child(4){animation-delay:.3s}
+.contact-icon{animation:spBob 3.4s ease-in-out infinite}
+.contact-links>*:nth-child(2) .contact-icon{animation-delay:-.8s}
+.contact-links>*:nth-child(3) .contact-icon{animation-delay:-1.6s}
+.contact-links>*:nth-child(4) .contact-icon{animation-delay:-2.4s}
+.footer.sp-in span{animation:spRise .8s var(--ease) backwards}
+.footer.sp-in span:nth-child(2){animation-delay:.1s}
+.footer.sp-in span:nth-child(3){animation-delay:.2s}
+
+/* Menu: links slide up in sequence each time it opens */
+.menu.open .menu-links a{animation:spSlide .9s var(--ease) backwards}
+.menu.open .menu-links li:nth-child(1) a{animation-delay:.25s}
+.menu.open .menu-links li:nth-child(2) a{animation-delay:.31s}
+.menu.open .menu-links li:nth-child(3) a{animation-delay:.37s}
+.menu.open .menu-links li:nth-child(4) a{animation-delay:.43s}
+.menu.open .menu-links li:nth-child(5) a{animation-delay:.49s}
+.menu.open .menu-links li:nth-child(6) a{animation-delay:.55s}
+.menu.open .menu-tools{animation:spRise .8s .7s var(--ease) backwards}
+}
+</style>
+<style id="sp-theme">
+/* ===== Chat theme: soft paper glass, accent glow, calmer bubbles ===== */
+body .sa{border-radius:28px;background:radial-gradient(120% 60% at 100% 0,color-mix(in srgb,var(--accent,#F47B20) 14%,transparent),transparent 60%),#f6f3ec;box-shadow:0 30px 80px -20px rgba(17,17,17,.5),0 0 0 1px rgba(17,17,17,.08)}
+body .sa-strip{flex-basis:3px}
+body .sa-head{padding:16px 18px;background:linear-gradient(120deg,#111 35%,color-mix(in srgb,var(--accent,#F47B20) 45%,#111))}
+body .sa-head::before{opacity:.22;mix-blend-mode:luminosity}
+body .sa-av .pic{border-color:rgba(255,255,255,.9);box-shadow:0 0 0 4px rgba(255,255,255,.12)}
+body .sa-av .dot{animation:spOnline 2.4s infinite}
+@keyframes spOnline{50%{box-shadow:0 0 0 5px rgba(22,192,96,.25)}}
+body .sa-hd b{font-size:17px;letter-spacing:-.02em}
+body .sa-body{padding:18px 16px 8px;gap:14px;background-image:radial-gradient(rgba(17,17,17,.07) 1px,transparent 1px);background-size:20px 20px;scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--accent,#F47B20) 60%,transparent) transparent}
+body .sa-ico{background:linear-gradient(135deg,#111,#2a2a2a);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent,#F47B20) 55%,transparent)}
+body .sa-b{border-radius:6px 20px 20px 20px;background:rgba(255,255,255,.88);border:1px solid rgba(17,17,17,.06);box-shadow:0 8px 20px -10px rgba(17,17,17,.25);line-height:1.55}
+body .sa-row.me .sa-b{border-radius:20px 20px 6px 20px;border:0;box-shadow:0 10px 22px -10px color-mix(in srgb,var(--accent,#F47B20) 70%,transparent)}
+body .sa-row.bot{animation:spBotIn .55s cubic-bezier(.16,1,.3,1)}
+body .sa-row.me{animation:spMeIn .55s cubic-bezier(.16,1,.3,1)}
+@keyframes spBotIn{from{opacity:0;transform:translate(-14px,8px) scale(.97)}}
+@keyframes spMeIn{from{opacity:0;transform:translate(14px,8px) scale(.97)}}
+body .sa-opt{display:flex;align-items:center;gap:10px;padding:12px 18px;border-width:1px;background:rgba(255,255,255,.6);backdrop-filter:blur(6px)}
+body .sa-opt::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent,#F47B20);transition:transform .3s,background .3s}
+body .sa-opt:hover{transform:translateX(6px)}
+body .sa-opt:hover::before{background:currentColor;transform:scale(1.4)}
+body .sa-typing i{background:var(--accent,#F47B20)}
+body .sa-form{gap:10px;padding:14px 14px 8px;background:rgba(249,248,245,.92);backdrop-filter:blur(10px)}
+body .sa-form input{padding:14px 20px;border-radius:999px;box-shadow:inset 0 1px 2px rgba(17,17,17,.06)}
+body .sa-send{background:#d5d9de}
+body .sa-send.on{background:linear-gradient(135deg,#111,color-mix(in srgb,var(--accent,#F47B20) 55%,#111));box-shadow:0 8px 18px -8px var(--accent,#F47B20)}
+body .sa-foot{padding:2px 14px 14px;letter-spacing:.02em}
+body .sa-fab{background:linear-gradient(135deg,#111 30%,color-mix(in srgb,var(--accent,#F47B20) 70%,#111));border-width:1.5px}
+body .sa-tip{border-radius:16px 16px 4px 16px;box-shadow:0 14px 30px -10px rgba(0,0,0,.35)}
+html[data-theme="dark"] body .sa,html[data-theme="dark"] .sa{background:radial-gradient(120% 60% at 100% 0,color-mix(in srgb,var(--accent,#F47B20) 16%,transparent),transparent 60%),#151515}
+html[data-theme="dark"] body .sa-b{background:rgba(38,38,38,.9);border-color:rgba(238,234,226,.08)}
+html[data-theme="dark"] body .sa-body{background-image:radial-gradient(rgba(238,234,226,.07) 1px,transparent 1px)}
+html[data-theme="dark"] body .sa-opt{background:rgba(38,38,38,.7)}
+html[data-theme="dark"] body .sa-form{background:rgba(28,28,28,.92)}
+html[data-theme="dark"] body .sa-send{background:#3a3a3a}
+
+/* ===== Game: grit box glows when the wider-rim bonus is armed ===== */
+.sb-box.hot b{color:#d9340a}
+
+/* ===== Text: minimal blur-and-settle added to the existing text animations ===== */
+@keyframes ovIn{from{filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes ovCopy{from{filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.role{transition:opacity .3s,transform .3s,filter .3s}
+.role.swap{filter:blur(4px)}
+.timeline-title{transition:letter-spacing .5s var(--sp-ease)}
+.timeline-item:hover .timeline-title{letter-spacing:.015em}
+html[lang="ne"] .timeline-item:hover .timeline-title{letter-spacing:0}
+.menu-links a{transition:transform .5s var(--sp-ease),letter-spacing .5s var(--sp-ease)}
+@media(prefers-reduced-motion:no-preference){
+  .overview-copy .ov-copy-line{transition:letter-spacing .5s var(--sp-ease),padding-left .5s var(--sp-ease)}
+  .overview-copy .ov-copy-line:hover{padding-left:10px}
+}
+</style>
+<style id="sp-game2">
+/* Game: shot clock, tools row, badge shelf */
+.court-clock{width:100%;max-width:420px;height:4px;margin-top:-4px;background:rgba(17,17,17,.12)}
+.court-clock i{display:block;height:100%;background:var(--ink);transform-origin:left;transform:scaleX(0)}
+.court-clock i.low{background:#e11d2e}
+.court-tools{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+</style>
+<style id="sp-cabinet">
+/* Game layout kept stable: compact tools, wrapping scoreboard, reserved clock space */
+.title-zone{min-height:clamp(390px,36vw,480px)}
+.court-hud{flex-wrap:wrap;row-gap:6px}
+.court canvas{min-height:140px}
+.court-clock{visibility:hidden}
+.court-opts{gap:6px}
+.court-opts button{white-space:nowrap}
+.court-tools button{min-width:30px;padding:4px 7px}
+@media(max-width:700px){.sb-box:has(#cAcc){display:none}.court-opts button{font-size:8px;padding:4px 6px}}
+/* Trophy cabinet */
+.court-badges{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;padding:14px 14px 16px;color:#eeeae2;overflow:auto;border-radius:6px;
+  background:linear-gradient(165deg,#1b1b1b,#0c0c0c);border:3px solid #111;
+  box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--accent,#F47B20) 75%,#000),0 16px 34px -14px rgba(0,0,0,.65)}
+.court-badges[hidden]{display:none}
+.court-badges::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.11) 0,rgba(255,255,255,0) 28%,rgba(255,255,255,0) 62%,rgba(255,255,255,.06) 74%,transparent 80%)}
+.court-badges b{display:block;margin:0 34px 12px;text-align:center;font:900 11px var(--mono);letter-spacing:.2em;color:var(--lime)}
+.court-badges ul{list-style:none;display:flex;flex-direction:column;gap:14px;margin:0;padding:0}
+.court-badges .shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-items:end;padding:8px 6px 12px;border-bottom:7px solid color-mix(in srgb,var(--accent,#F47B20) 78%,#000);box-shadow:0 9px 8px -7px rgba(0,0,0,.8)}
+.bd{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
+.bd-plate{position:relative;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fff7ea,var(--accent,#F47B20) 72%);box-shadow:0 7px 10px -5px rgba(0,0,0,.8),inset 0 -3px 0 rgba(0,0,0,.22)}
+.bd-plate i{font-style:normal;font-size:25px;line-height:1}
+.bd.off .bd-plate{background:#262626;filter:grayscale(1);opacity:.5;box-shadow:none}
+.bd small{max-width:100px;font:700 9px/1.35 var(--mono);letter-spacing:.05em}
+.bd.off small{opacity:.45}
+.bd-n{position:absolute;right:-9px;top:-7px;min-width:26px;padding:2px 6px;border-radius:999px;background:var(--lime);color:#111;border:1.5px solid #111;font:900 10px/1.2 var(--mono);font-style:normal;text-align:center}
+.court-badges button{position:absolute;top:8px;right:8px;z-index:5;width:28px;height:28px;border:1.5px solid rgba(238,234,226,.55);color:#eeeae2;font:700 14px var(--mono);transition:background .25s,color .25s}
+.court-badges button:hover,.court-badges button:focus-visible{background:var(--lime);color:#111;border-color:var(--lime)}
+</style>
 </head>
 <body>
 <a class="skip" href="#overview">Skip to content</a>
@@ -1344,12 +1688,14 @@ html[data-theme="dark"] .cursor.big{background:#fff}
     court.className = "court";
     court.setAttribute("role", "dialog");
     court.setAttribute("aria-label", "Three-point shootout");
-    court.innerHTML = `<div class="court-hud"><div class="sb-pips" id="cPips" role="img"><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip bonus" hidden>★</i></div><div class="sb-box"><small id="cScoreLbl">SCORE</small><b id="cScore"><span class="num">0</span><em>/3</em></b></div><div class="sb-box"><small id="cBestLbl">BEST</small><b id="cBest"><span class="num">0</span><em>/3</em></b></div><div class="sb-box"><small id="cStreakLbl">STREAK</small><b id="cStreak">0</b></div><div class="sb-box"><small id="cAccLbl">ACC</small><b id="cAcc">0%</b></div><button class="court-close" type="button" aria-label="Close game">×</button></div>
+    court.innerHTML = `<div class="court-hud"><div class="sb-pips" id="cPips" role="img"><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip bonus" hidden>★</i></div><div class="sb-box"><small id="cScoreLbl">SCORE</small><b id="cScore"><span class="num">0</span><em>/3</em></b></div><div class="sb-box"><small id="cBestLbl">BEST</small><b id="cBest"><span class="num">0</span><em>/3</em></b></div><div class="sb-box"><small id="cStreakLbl">STREAK</small><b id="cStreak">0</b></div><div class="sb-box"><small id="cAccLbl">ACC</small><b id="cAcc">0%</b></div><div class="sb-box" id="cGritBox"><small id="cGritLbl">GRIT</small><b id="cGrit">0/4</b></div><button class="court-close" type="button" aria-label="Close game">×</button></div>
       <canvas id="cCanvas"></canvas>
       <div class="court-meter"><div class="court-zone"></div><div class="court-mark" id="cMark"></div></div>
-      <div class="court-opts"><div class="court-levels" role="group" aria-label="Difficulty"><button type="button" data-level="easy">EASY</button><button type="button" data-level="pro">PRO</button><button type="button" data-level="legend">LEGEND</button></div><button type="button" class="court-snd" id="cSnd">SOUND ON</button></div>
+      <div class="court-clock" aria-hidden="true"><i id="cClockBar"></i></div>
+      <div class="court-opts"><div class="court-levels" role="group" aria-label="Difficulty"><button type="button" data-level="easy">EASY</button><button type="button" data-level="pro">PRO</button><button type="button" data-level="legend">LEGEND</button></div><div class="court-tools"><button type="button" id="cDaily" aria-pressed="false">DAILY</button><button type="button" id="cBadgeBtn">BADGES</button><button type="button" id="cShare">SHARE</button><button type="button" class="court-snd" id="cSnd">SOUND ON</button></div></div>
       <p class="court-msg" id="cMsg" aria-live="polite"></p>
-      <button class="court-again" id="cAgain" type="button" hidden>PLAY AGAIN</button>`;
+      <button class="court-again" id="cAgain" type="button" hidden>PLAY AGAIN</button>
+      <div class="court-badges" id="cBadges" hidden><b id="cBadgesT"></b><ul id="cBadgeList"></ul><button type="button" id="cBadgeX" aria-label="Close badges">×</button></div>`;
     zone.appendChild(court);
     const mvpEl = document.createElement("div");
     mvpEl.className = "mvp-screen"; mvpEl.setAttribute("role", "status");
@@ -1357,9 +1703,9 @@ html[data-theme="dark"] .cursor.big{background:#fff}
     zone.appendChild(mvpEl);
 
     const cv = $("#cCanvas"), ctx = cv.getContext("2d");
-    const mark = $("#cMark"), msgEl = $("#cMsg"), again = $("#cAgain"), closeBtn = $(".court-close", court);
+    const clockBar = $("#cClockBar"), mark = $("#cMark"), msgEl = $("#cMsg"), again = $("#cAgain"), closeBtn = $(".court-close", court);
     const W = 900, H = 450, FLOOR = 400, R = 22, G = .35, ANG = 52 * Math.PI / 180;
-    const X0 = 130, Y0 = 320, RIMX = 750, RIMY = 190, HALF = 30;
+    const X0 = 130, Y0 = 320, RIMX = 750, RIMY0 = 190; let RIMY = RIMY0, HALF0 = 30, hoopDy = 0; let HALF = HALF0;
     const LOW = .12, HIGH = .92; // meter edges: tap-low hop / power shot off-screen
     const dpr = Math.min(2, devicePixelRatio || 1);
     cv.width = W * dpr; cv.height = H * dpr;
@@ -1371,11 +1717,75 @@ html[data-theme="dark"] .cursor.big{background:#fff}
 
     let open = false, raf = 0, last = 0, tStart = 0, timers = [];
     let state = "aim", shots = 3, score = 0, scored = false, crossed = false, bounces = 0, frames = 0, miss = "air", kind = "mid", hopAt = 0;
-    let attempts = 0, makes = 0, streak = 0, bonusUnlocked = false, bonusShotActive = false;
+    let attempts = 0, makes = 0, streak = 0, bonusUnlocked = false, bonusShotActive = false, grit = 0, hotShot = false, combo = 0, pts = 0, shotType = "", wind = 0, prevState = "", lastArc = [], curArc = [], arcN = 0, aimMs = 0, lastLeft = 5000, swishRun = 0, gritTotal = 0, arcOn = false, arcNextRound = false, missRun = 0;
     let won = false, pendingClose = false, winBus = null, master = null, lastCount = 10;
     let starVisible = false, appearAt = 0, hudReady = false, launch = null, ovCv = null, ovCtx = null;
     let ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
-    const sparks = [];
+    const sparks = [], popups = [];
+    const popup = (t, c) => popups.push({ t, c, x: RIMX - 30, y: RIMY - 36, life: 1 });
+    try { gritTotal = +localStorage.getItem("shotGrit") || 0; } catch (e) {}
+    let clockShown = false, lastClock = "";
+    const setClock = (f, low) => { // touch the DOM only when something changed
+      const box = clockBar.parentNode;
+      if (f === null) { if (clockShown) { box.style.visibility = "hidden"; clockShown = false; lastClock = ""; } return; }
+      if (!clockShown) { box.style.visibility = "visible"; clockShown = true; }
+      const k = f.toFixed(3) + (low ? "L" : ""); if (k === lastClock) return; lastClock = k;
+      clockBar.style.transform = `scaleX(${f})`; clockBar.classList.toggle("low", !!low);
+    };
+    /* Daily challenge: one rule per day (same for everyone), switch it on with the DAILY button */
+    const RULES = [
+      { en: "FAST METER", ne: "छिटो मिटर", speed: 2 },
+      { en: "NO GRIT BONUS", ne: "प्रयास बोनस छैन", noGrit: true },
+      { en: "GALE WINDS", ne: "आँधी हावा", wind: 1.8 },
+      { en: "3-SEC CLOCK", ne: "३ सेकेन्ड घडी", clock: 3000 },
+      { en: "TINY RIM", ne: "सानो रिम", half: 23 },
+      { en: "MOVING HOOP", ne: "चल्ने घेरा", hoop: true }
+    ];
+    let dailyOn = false; try { dailyOn = localStorage.getItem("shotDaily") === "1"; } catch (e) {}
+    const rule = () => dailyOn ? RULES[Math.floor(Date.now() / 864e5) % RULES.length] : null;
+    const ruleName = () => { const r = rule(); return r ? r[lang === "ne" ? "ne" : "en"] : ""; };
+    const applyRule = () => { const r = rule(); HALF0 = (r && r.half) || 30; HALF = HALF0; };
+    const meterMs = () => LEVELS[level] / ((rule() && rule().speed) || 1);
+    const clockMs = () => (rule() && rule().clock) || (level === "easy" ? 8000 : 5000);
+    const windStrength = () => { const r = rule(); let w = level === "legend" ? .009 : level === "pro" ? .0045 : 0; if (r && r.wind) w = Math.max(w, .005) * r.wind; return w; };
+    const hoopMoves = () => level === "legend" || !!(rule() && rule().hoop);
+    const newWind = () => { const w = windStrength(); wind = w ? (Math.random() < .5 ? -1 : 1) * (.35 + .65 * Math.random()) * w : 0; };
+    const dayKey = () => "dailyBest_" + new Date().toISOString().slice(0, 10);
+    const saveDaily = () => {
+      if (!dailyOn) return "";
+      let b = { s: 0, p: 0 }; try { b = JSON.parse(localStorage.getItem(dayKey())) || b; } catch (e) {}
+      if (score > b.s || (score === b.s && pts > b.p)) { b = { s: score, p: pts }; try { localStorage.setItem(dayKey(), JSON.stringify(b)); } catch (e) {} }
+      return " · " + (lang === "ne" ? "आजको उत्कृष्ट " : "DAILY BEST ") + b.s + " / " + b.p + (lang === "ne" ? " अंक" : " PTS");
+    };
+    /* Badges (saved on this device) */
+    const BADGES = {
+      first3: { en: "Perfect 3/3", ne: "पूर्ण ३/३" }, swish5: { en: "5 swishes in a row", ne: "लगातार ५ स्विश" },
+      grit20: { en: "Never Give Up (20 grit)", ne: "हार नमान्ने (२० प्रयास)" }, mvp: { en: "MVP 4/4", ne: "एमभिपी ४/४" },
+      legend3: { en: "Legend 3/3", ne: "लेजेन्ड ३/३" }, clutch: { en: "Clutch: scored under 1s", ne: "अन्तिम क्षणको गोल" }, daily: { en: "Daily finisher", ne: "दैनिक पूरा" }
+    };
+    let badges = {}; try { badges = JSON.parse(localStorage.getItem("shotBadges")) || {}; } catch (e) {}
+    const BICON = { first3: "🎯", swish5: "💦", grit20: "💪", mvp: "🏆", legend3: "👑", clutch: "⏱️", daily: "📅" };
+    const fmtN = n => n > 999 ? "999+" : "×" + n;
+    const paintBadges = () => {
+      const ul = court.querySelector("#cBadgeList"); if (!ul) return;
+      const keys = Object.keys(BADGES), ne = lang === "ne";
+      court.querySelector("#cBadgesT").textContent = (ne ? "ट्रफी दराज · " : "TROPHY CABINET · ") + keys.filter(k => badges[k]).length + "/" + keys.length;
+      let html = "";
+      for (let i = 0; i < keys.length; i += 3) {
+        html += '<li class="shelf">' + keys.slice(i, i + 3).map(k => {
+          const n = badges[k] | 0, nm = BADGES[k][ne ? "ne" : "en"];
+          return n ? `<span class="bd on" title="${nm} ${fmtN(n)}"><span class="bd-plate"><i>${BICON[k]}</i>${n > 1 ? `<em class="bd-n">${fmtN(n)}</em>` : ""}</span><small>${nm}</small></span>`
+                   : `<span class="bd off" title="${nm}"><span class="bd-plate"><i>🔒</i></span><small>${nm}</small></span>`;
+        }).join("") + "</li>";
+      }
+      ul.innerHTML = html;
+    };
+    const unlock = id => {
+      badges[id] = (badges[id] | 0) + 1; const n = badges[id];
+      try { localStorage.setItem("shotBadges", JSON.stringify(badges)); } catch (e) {}
+      popups.push({ t: "🏅 " + BADGES[id][lang === "ne" ? "ne" : "en"] + (n > 1 ? " " + fmtN(n) : ""), c: "#0a8a43", x: W / 2, y: 150, life: 2 });
+      paintBadges();
+    };
     const LEVELS = { easy: 2200, pro: 1600, legend: 1000 };
     let level = "pro";
     try { level = localStorage.getItem("shotLevel") || "pro"; } catch (e) {}
@@ -1395,6 +1805,8 @@ html[data-theme="dark"] .cursor.big{background:#fff}
         low: ["Weak tap! One hop and dead", "Barely left your hands. One bounce, done"],
         gone: ["ROCKET! The ball left the building 🚀", "Way too hard! It's out of the arena"],
         air: ["Airball! The crowd gasps", "Missed everything. Next one!"],
+        daily: "DAILY", badges: "BADGES", share: "SHARE", copied: "Score copied! Paste it to a friend 🏀",
+        perfect: ["PURE SWISH! Not a drop of rim 🔥", "Textbook form. Nothing but net!", "Silky. Right through the middle!"], rattle: ["Rattled in! Ugly, but it counts 😅", "Off the iron and in. Take it!"], combo: n => `×${n} COMBO! The crowd is on its feet 🔊`,
         mvpSub: "PERFECT 4/4 · FIERY BALL", mvpCount: n => `RELOADING IN ${n}s`,
         firePrompt: "🔥 3/3 UNLOCKED! Shoot the 4th FIERY BALL for the ultimate point!",
         fireMake: "🔥 FIERY BALL BUCKET! MVP STATUS ACHIEVED 🏆",
@@ -1409,6 +1821,8 @@ html[data-theme="dark"] .cursor.big{background:#fff}
         low: ["धेरै कमजोर! एक पटक उछिएर रोकियो", "बल हातबाटै खस्यो। एक बाउन्स मात्र"],
         gone: ["रकेट! बल मैदानबाहिर 🚀", "धेरै जोड! बल स्क्रिनबाट बाहिर"],
         air: ["चुक्यो! दर्शकहरू छक्क परे", "केही लागेन! अर्को पटक!"],
+        daily: "दैनिक", badges: "ब्याज", share: "सेयर", copied: "स्कोर कपी भयो! साथीलाई पठाउनुहोस् 🏀",
+        perfect: ["शुद्ध स्विश! रिम छोएन 🔥", "आदर्श शट! जालमै!", "बीचैबाट सुमधुर गोल!"], rattle: ["रिममा लागेर भित्र! गोल त गोल नै 😅", "रिम छोएर भित्र पस्यो!"], combo: n => `×${n} कम्बो! दर्शक उठेर ताली 🔊`,
         mvpSub: "पूर्ण ४/४ · आगोको बल", mvpCount: n => `${n} सेकेन्डमा फेरि सुरु`,
         firePrompt: "🔥 ३/३ पूरा! चौथो आगोको बल हान्नुहोस्!",
         fireMake: "🔥 आगोको बल गोल! एमभिपी विजेता 🏆",
@@ -1474,11 +1888,12 @@ html[data-theme="dark"] .cursor.big{background:#fff}
     const sfx = k => {
       if (muted) return;
       const c = audio(); if (!c) return;
-      if (k === "swish") { crowd(c, .32, 1.6, 900, .25); crowd(c, .1, .3, 4000, .04); tone(c, 880, 1320, .2, .05, "sine"); }
+      if (k === "swish") { crowd(c, .32 + Math.min(.35, streak * .08), 1.6, 900, .25); crowd(c, .1, .3, 4000, .04); tone(c, 880, 1320, .2, .05, "sine"); }
       else if (k === "rim") { tone(c, 330, 180, .25, .15, "triangle"); crowd(c, .16, .8, 500, .1); }
       else if (k === "miss") { crowd(c, .18, 1.1, 350, .15); tone(c, 300, 140, .6, .05, "sine"); }
       else if (k === "bounce") tone(c, 140, 70, .14, .2, "sine");
       else if (k === "shoot") crowd(c, .06, .3, 2500, .06);
+      else if (k === "combo") { tone(c, 660, 990, .18, .08, "triangle"); setTimeout(() => tone(c, 990, 1480, .22, .08, "triangle"), 120); }
       else if (k === "rocket") { crowd(c, .22, .9, 3000, .08); tone(c, 200, 1500, .6, .06, "triangle"); }
       else if (k === "ignite") { crowd(c, .24, 1.3, 1800, .25); tone(c, 260, 900, .7, .05, "triangle"); }
     };
@@ -1508,23 +1923,25 @@ html[data-theme="dark"] .cursor.big{background:#fff}
       const den = starVisible ? 4 : 3, bestDen = (starVisible || best > 3) ? 4 : 3;
       setNum($("#cScore .num"), String(score), anim); setNum($("#cScore em"), "/" + den, anim);
       setNum($("#cBest .num"), String(best), anim); setNum($("#cBest em"), "/" + bestDen, anim);
-      $("#cStreak").textContent = (streak >= 3 ? "🔥" : "") + streak;
+      $("#cStreak").textContent = (streak >= 3 ? "🔥" : "") + streak + (combo >= 2 ? " ×" + combo : "");
       $("#cAcc").textContent = (attempts ? Math.round(makes / attempts * 100) : 0) + "%";
+      $("#cGritLbl").textContent = lang === "ne" ? "प्रयास" : "GRIT"; $("#cGrit").textContent = (hotShot ? "🔥" : "") + grit + "/4"; $("#cGritBox").classList.toggle("hot", hotShot);
     };
     const pop = id => { const b = $(id).parentElement; b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop"); };
-    const meter = () => { const t = ((performance.now() - tStart) / LEVELS[level]) % 2; return t < 1 ? t : 2 - t; };
+    const meter = () => { const t = ((performance.now() - tStart) / meterMs()) % 2; return t < 1 ? t : 2 - t; };
 
     function reset() {
       timers.forEach(clearTimeout); timers = [];
-      shots = 3; score = 0; results.length = 0; state = "aim"; bonusUnlocked = false; bonusShotActive = false; starVisible = false; launch = null; hideOverlay(); sparks.length = 0;
+      shots = 3; score = 0; results.length = 0; applyRule(); grit = 0; hotShot = false; combo = 0; pts = 0; popups.length = 0; arcOn = arcNextRound; arcNextRound = false; if (!arcOn) lastArc = []; prevState = ""; state = "aim"; bonusUnlocked = false; bonusShotActive = false; starVisible = false; launch = null; hideOverlay(); sparks.length = 0;
       won = false; pendingClose = false; zone.classList.remove("won"); stopWin();
       ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
       tStart = performance.now(); again.hidden = true; hud();
-      say(T("start"));
+      say(T("start") + (dailyOn ? " · " + T("daily") + ": " + ruleName() : "") + (arcOn ? (lang === "ne" ? " · दोस्रो मौका: गाइड आर्क खुला" : " · 2ND CHANCE: guide arc on") : ""));
     }
 
     function shoot() {
       if (!open || state !== "aim") return;
+      lastLeft = makes >= 3 ? clockMs() - aimMs : 99999; curArc = []; arcN = 0;
       const m = meter();
       kind = m < LOW ? "low" : m > HIGH ? "high" : "mid";
       const f = kind === "low" ? .42 : kind === "high" ? 1.9 : .9 + .2 * m;
@@ -1538,20 +1955,37 @@ html[data-theme="dark"] .cursor.big{background:#fff}
 
     function finish() {
       state = "result";
+      if (hotShot) { hotShot = false; HALF = HALF0; }
+      lastArc = curArc;
       if (kind === "high") { ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 }; appearAt = performance.now(); }
       if (miss === "air" && bounces > 0) miss = "short";
       attempts++;
       if (bonusShotActive) { // the 4th, fiery shot
         results.push(scored);
-        if (scored) { score++; makes++; streak++; burst(RIMX, RIMY + 40, 40); pop("#cScore"); say(T("fireMake"), "good"); }
+        if (scored) { score++; makes++; streak++; pts += 5 * Math.max(1, combo); popup("FIERY +" + 5 * Math.max(1, combo), "#ff4d16"); burst(RIMX, RIMY + 40, 40); pop("#cScore"); say(T("fireMake"), "good"); }
         else { streak = 0; sfx("miss"); say(T(miss), "bad"); }
         shots = 0; hud();
         timers.push(setTimeout(next, 1300));
         return;
       }
-      if (scored) { score++; makes++; streak++; } else streak = 0;
+      if (scored) {
+        score++; makes++; streak++; missRun = 0;
+        if (makes === 3) popups.push({ t: lang === "ne" ? "⏱ शट घडी सुरु" : "⏱ SHOT CLOCK ON", c: "#e11d2e", x: W / 2, y: 190, life: 1.8 });
+        if (shotType === "swish") { combo = Math.min(4, combo + 1); swishRun++; if (swishRun >= 5) { unlock("swish5"); swishRun = 0; } } else { combo = 0; swishRun = 0; }
+        const gain = shotType === "swish" ? 3 * combo : 2; pts += gain;
+        popup((shotType === "swish" ? "SWISH" : "RATTLE") + " +" + gain + (combo >= 2 ? "  ×" + combo : ""), combo >= 2 ? "#ff4d16" : "#111");
+        if (combo >= 2) sfx("combo");
+        if (combo === 3) popups.push({ t: "🔥 ON FIRE!", c: "#ff4d16", x: W / 2, y: 110, life: 1.7 });
+        if (lastLeft < 1000) unlock("clutch");
+        if (navigator.vibrate) navigator.vibrate(25);
+      } else { streak = 0; combo = 0; swishRun = 0; missRun++; }
       results.push(scored);
-      shots--; hud();
+      shots--;
+      const gg = scored ? 1 : (miss === "rim" ? 2 : 1); grit += gg; gritTotal += gg; // every attempt counts; near-misses count double
+      try { localStorage.setItem("shotGrit", String(gritTotal)); } catch (e) {}
+      if (Math.floor(gritTotal / 20) > Math.floor((gritTotal - gg) / 20)) unlock("grit20");
+      if (grit >= 4 && shots > 0 && !(rule() && rule().noGrit)) { grit -= 4; hotShot = true; HALF = HALF0 + 14; sfx("ignite"); }
+      hud();
       if (scored) pop("#cScore");
       if (shots === 0 && score === 3) { // perfect round: unlock the fiery ball
         bonusUnlocked = true; bonusShotActive = true;
@@ -1569,7 +2003,7 @@ html[data-theme="dark"] .cursor.big{background:#fff}
         }, 1200));
         return;
       }
-      say(scored ? T("swish") : T(miss), scored ? "good" : "bad");
+      say(scored ? (shotType === "swish" ? (combo >= 2 ? T("combo", combo) : T("perfect")) : T("rattle")) : T(miss), scored ? "good" : "bad");
       if (!scored && miss !== "rim") sfx("miss");
       timers.push(setTimeout(next, 1100));
     }
@@ -1580,15 +2014,20 @@ html[data-theme="dark"] .cursor.big{background:#fff}
         if (ball.x !== X0 || ball.y !== Y0) appearAt = performance.now();
         ball = { x: X0, y: Y0, vx: 0, vy: 0, rot: 0 };
         state = "aim"; tStart = performance.now();
-        say(T("shot", 4 - shots));
+        say(T("shot", 4 - shots) + (hotShot ? (lang === "ne" ? " · 🔥 प्रयास बोनस: रिम फराकिलो!" : " · 🔥 GRIT BONUS: wider rim!") : ""));
       } else {
         state = "done";
         const isBest = score > best;
+        let bp = 0; try { bp = +localStorage.getItem("bestPts_" + level) || 0; } catch (e) {}
+        const newPts = pts > bp; if (newPts) { try { localStorage.setItem("bestPts_" + level, String(pts)); } catch (e) {} }
+        if (score >= 3) unlock("first3"); if (score === 4) unlock("mvp"); if (level === "legend" && score >= 3) unlock("legend3"); if (dailyOn) unlock("daily");
+        const dailyTxt = saveDaily();
+        let chanceTxt = ""; if (missRun >= 3) { arcNextRound = true; missRun = 0; chanceTxt = lang === "ne" ? " · अर्को राउन्डमा गाइड आर्क" : " · guide arc unlocked for next round"; }
         if (isBest) { best = score; try { localStorage.setItem(bestKey(), String(best)); } catch (e) {} }
         hud();
         if (isBest) pop("#cBest");
         if (bonusUnlocked && score === 4) { startMvp(); return; }
-        say(T("final", score) + (isBest ? " " + T("newbest") : ""));
+        say(T("final", score) + " · " + pts + (lang === "ne" ? " अंक" : " PTS") + (newPts && pts > 0 ? (lang === "ne" ? " (नयाँ उत्कृष्ट!)" : " (best points!)") : "") + dailyTxt + chanceTxt + (isBest ? " " + T("newbest") : ""));
         again.hidden = false;
       }
     }
@@ -1615,23 +2054,37 @@ html[data-theme="dark"] .cursor.big{background:#fff}
     }
 
     function step(dt) {
+      const entering = state === "aim" && prevState !== "aim"; prevState = state;
+      if (entering) { newWind(); aimMs = 0; }
+      hoopDy = hoopMoves() ? Math.sin(performance.now() / 900) * 34 : 0; RIMY = RIMY0 + hoopDy;
+      if (state !== "aim" && clockShown) setClock(0, false);
       mark.style.left = (meter() * 100) + "%";
       for (let i = sparks.length - 1; i >= 0; i--) { const p = sparks[i]; p.x += p.vx * dt; p.y += p.vy * dt; p.life -= .035 * dt; if (p.life <= 0) sparks.splice(i, 1); }
-      if (state === "aim") { ball.y = Y0 + Math.sin(performance.now() / 260) * 3; if (bonusShotActive && Math.random() < .6) burst(ball.x, ball.y + 6, 1); return; }
+      for (let i = popups.length - 1; i >= 0; i--) { const q = popups[i]; q.y -= 1.1 * dt; q.life -= .012 * dt; if (q.life <= 0) popups.splice(i, 1); }
+      if (state === "aim") {
+        ball.y = Y0 + Math.sin(performance.now() / 260) * 3; if (bonusShotActive && Math.random() < .6) burst(ball.x, ball.y + 6, 1);
+        if (makes >= 3) { // the clock only switches on after 3 baskets
+          aimMs += dt * 16.667; const ms = clockMs(), left = ms - aimMs;
+          setClock(Math.max(0, left / ms), left < 1500);
+          if (left <= 0) { popup(lang === "ne" ? "घडी!" : "CLOCK!", "#e11d2e"); shoot(); }
+        } else setClock(null);
+        return;
+      }
       if (state === "launch") { stepLaunch(dt / 60); return; }
       if (state !== "flight") return;
       const py = ball.y, px = ball.x;
-      ball.vy += G * dt; ball.x += ball.vx * dt; ball.y += ball.vy * dt;
+      ball.vy += G * dt; if (kind === "mid") ball.vx += wind * dt; ball.x += ball.vx * dt; ball.y += ball.vy * dt;
       ball.rot += ball.vx * .03 * dt; frames += dt;
+      if ((arcN++ & 1) === 0 && kind !== "high") curArc.push({ x: ball.x, y: ball.y });
       if (kind === "high" || bonusShotActive) burst(ball.x, ball.y, 1);
       if (!crossed && ball.vy > 0 && py < RIMY && ball.y >= RIMY) {
         crossed = true;
         const cx = px + (ball.x - px) * ((RIMY - py) / (ball.y - py));
         const off = cx - RIMX;
-        if (kind === "mid" && Math.abs(off) <= HALF) { scored = true; ball.vx *= .25; sfx("swish"); }
+        if (kind === "mid" && Math.abs(off) <= HALF) { scored = true; shotType = Math.abs(off) <= HALF * .45 ? "swish" : "rattle"; ball.vx *= .25; if (shotType === "rattle") sfx("rim"); sfx("swish"); burst(RIMX, RIMY + 30, shotType === "swish" ? 18 : 6); }
         else if (kind === "mid") { miss = Math.abs(off) < HALF + 22 ? "rim" : off < 0 ? "short" : "long"; if (miss === "rim") sfx("rim"); }
       }
-      if (kind !== "high" && ball.x + R >= 788 && ball.y > 95 && ball.y < 235 && ball.vx > 0) { ball.x = 788 - R; ball.vx *= -.45; }
+      if (kind !== "high" && ball.x + R >= 788 && ball.y > 95 + hoopDy && ball.y < 235 + hoopDy && ball.vx > 0) { ball.x = 788 - R; ball.vx *= -.45; }
       if (ball.y + R >= FLOOR) {
         ball.y = FLOOR - R; ball.vy *= -.55; ball.vx *= .85; bounces++; sfx("bounce");
         if (kind === "low" && bounces === 1) { hopAt = frames; ball.vy = -4.2; ball.vx *= .5; } // exactly one hop
@@ -1721,9 +2174,9 @@ html[data-theme="dark"] .cursor.big{background:#fff}
       ctx.font = "700 24px ui-monospace,Menlo,monospace"; ctx.textAlign = "left";
       ctx.fillText("3PT", X0 + 14, FLOOR + 32);
       ctx.lineWidth = 4;
-      ctx.beginPath(); ctx.moveTo(792, 235); ctx.lineTo(792, FLOOR); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(792, 235 + hoopDy); ctx.lineTo(792, FLOOR); ctx.stroke();
       ctx.lineWidth = 8;
-      ctx.beginPath(); ctx.moveTo(792, 95); ctx.lineTo(792, 235);
+      ctx.beginPath(); ctx.moveTo(792, 95 + hoopDy); ctx.lineTo(792, 235 + hoopDy);
       ctx.moveTo(RIMX - HALF - 8, RIMY); ctx.lineTo(RIMX + HALF + 8, RIMY); ctx.stroke();
 
       const fire = bonusShotActive;
@@ -1737,6 +2190,17 @@ html[data-theme="dark"] .cursor.big{background:#fff}
         ctx.beginPath(); ctx.arc(p.x, p.y, p.s * p.life, 0, 7); ctx.fill();
       });
       ctx.globalAlpha = 1;
+      popups.forEach(q => { ctx.globalAlpha = Math.max(0, Math.min(1, q.life * 1.4)); ctx.fillStyle = q.c; ctx.font = "900 30px Arial,Helvetica,sans-serif"; ctx.textAlign = "center"; ctx.fillText(q.t, Math.min(W - 120, q.x), q.y); });
+      ctx.globalAlpha = 1; ctx.textAlign = "left";
+      if (arcOn && state === "aim" && lastArc.length) { ctx.fillStyle = "rgba(17,17,17,.3)"; lastArc.forEach(a => { if (a.y > -30) { ctx.beginPath(); ctx.arc(a.x, a.y, 3, 0, 7); ctx.fill(); } }); }
+      const ws = windStrength();
+      if (ws && (state === "aim" || state === "flight")) {
+        const f = wind / ws, d = f < 0 ? -1 : 1, x0 = 120, len = f * 60;
+        ctx.save(); ctx.fillStyle = ctx.strokeStyle = "#111"; ctx.lineWidth = 4; ctx.lineCap = "round"; ctx.font = "700 20px ui-monospace,Menlo,monospace";
+        ctx.fillText(lang === "ne" ? "हावा" : "WIND", 30, 52);
+        ctx.beginPath(); ctx.moveTo(x0, 46); ctx.lineTo(x0 + len, 46); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(x0 + len + d * 6, 46); ctx.lineTo(x0 + len - d * 8, 37); ctx.lineTo(x0 + len - d * 8, 55); ctx.closePath(); ctx.fill(); ctx.restore();
+      }
       if (state !== "launch") {
         const ap = Math.min(1, (performance.now() - appearAt) / 380), e = ap < 1 ? 1 + 2.70158 * (ap - 1) ** 3 + 1.70158 * (ap - 1) ** 2 : 1;
         drawBall(ball.x, ball.y, ball.rot, fire || (kind === "high" && state === "flight"), e);
@@ -1788,13 +2252,18 @@ html[data-theme="dark"] .cursor.big{background:#fff}
     document.addEventListener("keydown", e => {
       if (!open) return;
       if (e.key === "Escape") closeGame(true);
-      else if (e.code === "Space" && !e.target.closest("button")) { e.preventDefault(); shoot(); }
+      else if (e.code === "Space" && !e.target.closest("button") && badgePanel.hidden) { e.preventDefault(); shoot(); }
     });
     const lvBtns = $$(".court-levels button", court), zoneEl = $(".court-zone", court), sndBtn = $("#cSnd", court);
+    const dailyBtn = $("#cDaily", court), badgeBtn = $("#cBadgeBtn", court), shareBtn = $("#cShare", court), badgePanel = $("#cBadges", court);
     const paintOpts = () => {
       lvBtns.forEach(b => { b.setAttribute("aria-pressed", b.dataset.level === level); b.textContent = T(b.dataset.level); });
       zoneEl.style.visibility = level === "legend" ? "hidden" : "visible";
       sndBtn.textContent = T(muted ? "sndOff" : "sndOn"); sndBtn.setAttribute("aria-pressed", !muted);
+      const dl = T("daily") + (dailyOn ? ": " + ruleName() : "");
+      dailyBtn.textContent = "📅" + (dailyOn ? " ✓" : ""); dailyBtn.title = dl; dailyBtn.setAttribute("aria-label", dl); dailyBtn.setAttribute("aria-pressed", dailyOn);
+      badgeBtn.textContent = "🏆 " + Object.keys(badges).length + "/" + Object.keys(BADGES).length; badgeBtn.title = badgeBtn.ariaLabel = T("badges");
+      shareBtn.textContent = "↗"; shareBtn.title = T("share"); shareBtn.setAttribute("aria-label", T("share")); paintBadges();
     };
     lvBtns.forEach(b => b.addEventListener("click", e => {
       e.stopPropagation(); level = b.dataset.level;
@@ -1805,6 +2274,18 @@ html[data-theme="dark"] .cursor.big{background:#fff}
       e.stopPropagation(); muted = !muted;
       try { localStorage.setItem("shotMuted", muted ? "1" : "0"); } catch (x) {}
       paintOpts(); if (!muted) sfx("bounce");
+    });
+    badgePanel.addEventListener("pointerdown", e => e.stopPropagation());
+    dailyBtn.addEventListener("click", e => { e.stopPropagation(); dailyOn = !dailyOn; try { localStorage.setItem("shotDaily", dailyOn ? "1" : "0"); } catch (x) {} reset(); paintOpts(); });
+    badgeBtn.addEventListener("click", e => { e.stopPropagation(); badgePanel.hidden = !badgePanel.hidden; paintBadges(); });
+    $("#cBadgeX", court).addEventListener("click", e => { e.stopPropagation(); badgePanel.hidden = true; });
+    shareBtn.addEventListener("click", async e => {
+      e.stopPropagation();
+      const den = bonusUnlocked ? 4 : 3, lv = T(level), url = location.href.split("#")[0];
+      const txt = lang === "ne" ? `मैले ${lv} मा ${score}/${den} (${pts} अंक) गरेँ 🏀 के तपाईं हराउन सक्नुहुन्छ? ${url}` : `I went ${score}/${den} on ${lv.toLowerCase()} (${pts} pts) 🏀 Can you beat it? ${url}`;
+      try { await navigator.clipboard.writeText(txt); }
+      catch (x) { const t = document.createElement("textarea"); t.value = txt; document.body.appendChild(t); t.select(); try { document.execCommand("copy"); } catch (y) {} t.remove(); }
+      say(T("copied"), "good");
     });
     gameRefresh = () => { hud(); paintOpts(); paintMvp(); again.textContent = T("again"); if (state === "aim" && shots === 3) say(T("start")); };
     gameRefresh();
@@ -1861,7 +2342,7 @@ html[data-theme="dark"] .cursor.big{background:#fff}
 
   /* ---------- Answer engine ("server") ---------- */
   const norm = s => s.toLowerCase().replace(/[^\p{L}\p{N}+#\s]/gu, " ").replace(/\s+/g, " ").trim();
-  const localAnswer = q => {
+  const localAnswerBase = q => {
     const n = " " + norm(q) + " ";
     let best = null, bs = 0;
     for (const key in KB) {
@@ -1872,6 +2353,29 @@ html[data-theme="dark"] .cursor.big{background:#fff}
     if (!best) return { text: L().fallback, chips: ["who", "edu", "contact"] };
     const e = KB[best], v = e[isNe() ? "ne" : "en"];
     return { text: typeof v === "function" ? v() : v, chips: e.chips };
+  };
+  /* SP upgrade: typo tolerance, synonyms, "more" follow-ups */
+  const SP_SYN = {hobby:"gallery travel",hobbies:"gallery travel",job:"skills",jobs:"skills",work:"ncc leadership club",experience:"ncc leadership club",achievement:"leadership club",achievements:"leadership club",award:"leadership club",projects:"club environment",project:"club environment",phone:"contact email",number:"contact email",whatsapp:"contact",linkedin:"cv",resume:"cv",name:"who",student:"who",qualification:"education",qualifications:"education",university:"education",studies:"education",birthday:"age",birthdate:"age",hometown:"where",address:"where",nature:"environment",climate:"environment",coding:"science technology",programming:"science technology",tech:"science technology",sports:"basketball game",sport:"basketball game",pictures:"gallery",images:"gallery",tour:"gallery travel"};
+  const spVocab = (() => { const v = new Set(Object.keys(SP_SYN)); for (const k in KB) KB[k].k.forEach(w => norm(w).split(" ").forEach(t => { if (t.length >= 4 && /^[a-z]+$/.test(t)) v.add(t); })); return [...v]; })();
+  const spLev = (a, b) => { const m = a.length, n = b.length; if (Math.abs(m - n) > 2) return 9; let p = Array.from({ length: n + 1 }, (_, i) => i); for (let i = 1; i <= m; i++) { const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; };
+  const spFix = q => norm(q).split(" ").map(t => { if (t.length < 4 || !/^[a-z]+$/.test(t) || spVocab.includes(t)) return t; let bw = t, bd = (t.length >= 7 ? 2 : 1) + 1; spVocab.forEach(w => { const d = spLev(t, w); if (d < bd) { bd = d; bw = w; } }); return bw; }).join(" ");
+  let spLast = null, spShown = new Set();
+  const localAnswer = q => {
+    const n = " " + norm(q) + " ";
+    if (spLast && /^ (more|more please|tell me more|and|what else|else|anything else|next|और|अरू|अझै) $/.test(n)) {
+      const nxt = (KB[spLast].chips || []).find(k => !spShown.has(k)) || "who";
+      spShown.add(nxt); spLast = nxt;
+      const e = KB[nxt], v = e[isNe() ? "ne" : "en"];
+      return { text: typeof v === "function" ? v() : v, chips: e.chips };
+    }
+    const fixed = spFix(q), extra = fixed.split(" ").map(t => SP_SYN[t] || "").join(" ");
+    let r = localAnswerBase(q + " " + fixed + " " + extra);
+    const key = Object.keys(KB).find(k => KB[k].chips === r.chips);
+    if (key) {
+      spLast = key; spShown = new Set([key]);
+      if (key === "hi" && visitor) r = { text: (isNe() ? "नमस्ते " : "Hello ") + visitor + "! " + r.text.replace(/^[^!]*!\s?/, ""), chips: r.chips };
+    }
+    return r;
   };
   const answer = async q => {
     if (SERVER_URL) {
@@ -2066,6 +2570,12 @@ html[data-theme="dark"] .sa-typing i{background:#eeeae2}
 
   const welcome = async () => {
     const id = ++runId; step = "welcome"; busy = true; paintUi();
+    let saved = ""; try { saved = localStorage.getItem("spName") || ""; } catch (e) {}
+    if (saved) {
+      visitor = saved; step = "chat"; paintUi();
+      await say(esc(isNe() ? `फेरि स्वागत छ, ${saved}! 👋 आज के जान्न चाहनुहुन्छ?` : `Welcome back, ${saved}! 👋 What would you like to know today?`), id);
+      busy = false; options(topicOptions(["who", "edu", "ncc", "club", "skills", "contact"]), id); return;
+    }
     await say(esc(X().hello), id); await say(esc(X().q), id);
     busy = false; options([{ label: X().yes, fn: yes }, { label: X().no, fn: no }], id);
   };
@@ -2090,12 +2600,12 @@ html[data-theme="dark"] .sa-typing i{background:#eeeae2}
     const v = input.value.trim(); if (!v || busy) return;
     input.value = ""; send.classList.remove("on");
     if (step === "name") {
-      const id = runId; visitor = v.slice(0, 30); userRow(visitor); busy = true; step = "chat"; paintUi();
+      const id = runId; visitor = v.slice(0, 30); try { localStorage.setItem("spName", visitor); } catch (e) {} userRow(visitor); busy = true; step = "chat"; paintUi();
       await say(esc(X().nice(visitor)), id); busy = false;
       options(topicOptions(["who", "edu", "ncc", "club", "skills", "contact"]), id);
     } else if (step === "chat") ask(v);
   };
-  const reset = () => { runId++; bodyEl.innerHTML = ""; visitor = ""; busy = false; started = true; welcome(); };
+  const reset = () => { runId++; bodyEl.innerHTML = ""; visitor = ""; try { localStorage.removeItem("spName"); } catch (e) {} busy = false; started = true; welcome(); };
   const open = () => {
     box.classList.add("open"); fab.classList.add("open"); fab.setAttribute("aria-expanded", "true"); nb.setAttribute("aria-expanded", "true"); tip.classList.remove("on");
     if (!started) { started = true; welcome(); }
@@ -2122,11 +2632,142 @@ html[data-theme="dark"] .sa-typing i{background:#eeeae2}
   paintUi(); paintTheme();
   /* a small hint bubble once per visit */
   try { if (!sessionStorage.getItem("saTip")) { setTimeout(() => { if (!box.classList.contains("open")) { tip.classList.add("on"); sessionStorage.setItem("saTip", "1"); setTimeout(() => tip.classList.remove("on"), 5000); } }, 4000); } } catch (e) {}
-  window.AskSafal = { open, close, ask };
+  window.AskSafal = { open, close, ask, get step() { return step; }, get visitor() { return visitor; } };
 })();
 </script>
 <!-- ============ END: ASK ABOUT SAFAL ============ -->
 
 
+<script id="sp-upgrade-js">
+/* Pointer-follow spotlight on experience cards (mouse only, skipped for reduced motion) */
+(() => {
+  if (!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+  if (matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+  document.querySelectorAll(".experience-card").forEach(card => {
+    card.addEventListener("pointermove", e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      card.style.setProperty("--my", (e.clientY - r.top) + "px");
+    }, { passive: true });
+  });
+})();
+</script>
+<script id="sp-chat-js">
+(() => {
+  const box = document.querySelector(".sa"), body = document.getElementById("saBody"), input = document.getElementById("saIn"), send = document.getElementById("saSend");
+  if (!box || !body || !input || !send) return;
+  const ne = () => document.documentElement.lang === "ne";
+  const get = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const set = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+  const mk = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; };
+  const svg = d => `<svg viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+  const copy = async (text, btn) => {
+    try { await navigator.clipboard.writeText(text); }
+    catch (e) { const t = mk("textarea"); t.value = text; document.body.appendChild(t); t.select(); try { document.execCommand("copy"); } catch (x) {} t.remove(); }
+    btn.classList.add("done"); const old = btn.dataset.label;
+    btn.setAttribute("aria-label", ne() ? "कपी भयो" : "Copied");
+    setTimeout(() => { btn.classList.remove("done"); btn.setAttribute("aria-label", old); }, 1500);
+  };
+
+  /* spoken answers (optional, off by default) */
+  const synth = window.speechSynthesis;
+  let speak = get("spSpeak") === "1";
+  const re = document.getElementById("saRe");
+  const spk = mk("button", "sa-ib", svg('<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>'));
+  spk.id = "spSpeak"; spk.type = "button";
+  const paintSpk = () => { spk.setAttribute("aria-pressed", speak); const l = ne() ? (speak ? "आवाज बन्द गर्नुहोस्" : "उत्तर सुन्नुहोस्") : (speak ? "Turn off spoken answers" : "Read answers aloud"); spk.setAttribute("aria-label", l); spk.title = l; spk.style.opacity = speak ? 1 : .6; };
+  if (synth && re) {
+    re.parentNode.insertBefore(spk, re); paintSpk();
+    spk.addEventListener("click", () => { speak = !speak; set("spSpeak", speak ? "1" : "0"); if (!speak) synth.cancel(); paintSpk(); });
+  }
+  const say = t => {
+    if (!speak || !synth) return;
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(t.replace(/[\u{1F300}-\u{1FAFF}\u2600-\u27BF]/gu, ""));
+    u.lang = ne() ? "ne-NP" : "en-US"; synth.speak(u);
+  };
+
+  /* copy buttons + email action on every bot reply */
+  const enhance = row => {
+    const bubble = row.querySelector(".sa-b"), t = row.querySelector(".sa-t");
+    if (!bubble || !t || row.dataset.sp) return;
+    row.dataset.sp = "1";
+    const btn = mk("button", "sp-copy", svg('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/>'));
+    btn.type = "button"; btn.dataset.label = ne() ? "उत्तर कपी गर्नुहोस्" : "Copy reply"; btn.setAttribute("aria-label", btn.dataset.label); btn.title = btn.dataset.label;
+    btn.addEventListener("click", () => copy(t.innerText, btn));
+    bubble.appendChild(btn);
+    const mail = t.querySelector('a[href^="mailto:"]');
+    if (mail) {
+      const wrap = mk("div", "sp-actions"), b = mk("button"); b.type = "button"; b.textContent = ne() ? "इमेल कपी" : "Copy email";
+      b.addEventListener("click", () => { copy(mail.getAttribute("href").slice(7), b).then(() => { b.textContent = ne() ? "कपी भयो ✓" : "Copied ✓"; setTimeout(() => { b.textContent = ne() ? "इमेल कपी" : "Copy email"; }, 1500); }); });
+      wrap.appendChild(b); t.appendChild(wrap);
+    }
+    say(t.innerText);
+  };
+  new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(n => { if (n.nodeType === 1 && n.matches(".sa-row.bot:not(.sa-typing)")) enhance(n); }))).observe(body, { childList: true });
+
+  /* voice input */
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SR) {
+    const mic = mk("button", "sp-mic", svg('<rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>'));
+    mic.type = "button"; mic.id = "spMic";
+    const paintMic = () => { const l = ne() ? "बोलेर सोध्नुहोस्" : "Ask by voice"; mic.setAttribute("aria-label", l); mic.title = l; };
+    paintMic(); send.parentNode.insertBefore(mic, send);
+    let rec = null;
+    mic.addEventListener("click", () => {
+      if (rec) { rec.stop(); return; }
+      rec = new Srule(); rec.lang = ne() ? "ne-NP" : "en-US"; rec.interimResults = false;
+      rec.onresult = e => { input.value = e.results[0][0].transcript; input.dispatchEvent(new Event("input")); send.click(); };
+      rec.onend = rec.onerror = () => { mic.classList.remove("rec"); rec = null; };
+      mic.classList.add("rec"); try { rec.start(); } catch (e) { mic.classList.remove("rec"); rec = null; }
+    });
+    new MutationObserver(paintMic).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
+  }
+
+  /* live suggestions while typing */
+  const Q = [
+    ["Who are you?", "तपाईं को हुनुहुन्छ?", "who you about"], ["What do you study?", "तपाईं के पढ्दै हुनुहुन्छ?", "study school college education"],
+    ["Tell me about NCC", "एनसीसीबारे भन्नुहोस्", "ncc cadet"], ["What is the Science & Technology Club?", "विज्ञान क्लब के हो?", "science technology club npc"],
+    ["What are your skills?", "तपाईंका सीपहरू के हुन्?", "skills strength"], ["How can I contact you?", "तपाईंलाई कसरी सम्पर्क गर्ने?", "contact email reach hire"],
+    ["Where are you from?", "तपाईं कहाँबाट?", "where from live chitwan"], ["Show me your CV", "सीभी देखाउनुहोस्", "cv resume"],
+    ["What is your Instagram?", "इन्स्टाग्राम के हो?", "instagram social follow"], ["Tell me about community work", "सामुदायिक काम", "environment community wildlife flood"],
+    ["Can I play a game?", "खेल खेल्न सकिन्छ?", "game basketball play"], ["Tell me about the gallery", "ग्यालरीबारे", "gallery photos travel"]
+  ];
+  const sug = mk("div", "sp-sug"); sug.id = "spSug"; sug.hidden = true; sug.setAttribute("role", "group");
+  box.insertBefore(sug, box.querySelector(".sa-form"));
+  const showSug = () => {
+    const v = input.value.trim().toLowerCase(), api = window.AskSafal;
+    input.setAttribute("aria-label", input.placeholder);
+    if (!api || api.step !== "chat" || v.length < 2) { sug.hidden = true; return; }
+    const words = v.split(/\s+/).filter(w => w.length > 1), n = ne() ? 1 : 0;
+    const hits = Q.filter(q => q[n].toLowerCase().includes(v) || words.some(w => q[2].split(" ").some(k => k.startsWith(w) || w.startsWith(k)))).slice(0, 4);
+    sug.innerHTML = ""; sug.hidden = !hits.length;
+    sug.setAttribute("aria-label", ne() ? "सुझाव गरिएका प्रश्नहरू" : "Suggested questions");
+    hits.forEach(h => { const b = mk("button"); b.type = "button"; b.textContent = h[n]; b.addEventListener("click", () => { input.value = h[n]; input.dispatchEvent(new Event("input")); send.click(); sug.hidden = true; }); sug.appendChild(b); });
+  };
+  input.addEventListener("input", showSug); input.addEventListener("focus", () => input.setAttribute("aria-label", input.placeholder));
+  send.addEventListener("click", () => { sug.hidden = true; });
+  input.addEventListener("keydown", e => { if (e.key === "Enter") sug.hidden = true; });
+
+  /* phone keyboard: keep the chat above it */
+  if (window.visualViewport) {
+    const f = () => box.style.setProperty("--sp-vh", visualViewport.height + "px");
+    visualViewport.addEventListener("resize", f); f();
+  }
+})();
+</script>
+<script id="sp-motion-js">
+(() => {
+  /* Adds .sp-in to each section the first time it scrolls into view, and a light scroll-depth value for the hero blobs */
+  const secs = [...document.querySelectorAll(".hero,.section,.gallery-section,.footer")];
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("sp-in"); io.unobserve(e.target); } }), { threshold: .12 });
+  secs.forEach(s => io.observe(s));
+  if (matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+  const root = document.querySelector(".hero") || document.documentElement; let q = false; // set on the hero only, so scrolling never restyles the whole page
+  const upd = () => { q = false; if (scrollY > innerHeight * 2) return; root.style.setProperty("--sp-s", Math.min(1.5, scrollY / Math.max(1, innerHeight)).toFixed(3)); };
+  addEventListener("scroll", () => { if (!q) { q = true; requestAnimationFrame(upd); } }, { passive: true });
+  upd();
+})();
+</script>
 </body>
 </html>
